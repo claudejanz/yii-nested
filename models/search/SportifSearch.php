@@ -157,38 +157,38 @@ class SportifSearch extends User
 //            ['attribute'=>'created_at','format'=>['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A']], 
 //            'updated_by', 
 //            ['attribute'=>'updated_at','format'=>['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A']], 
-                $cols[] = [
-                    'class' => 'yii\grid\ActionColumn',
-//                    'template'=>'{view} {update} {planning} {delete}',
-                    'template' => '{planning}',
-                    'buttons' => [
-//                        'view' => function ($url, $model) {
-//                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->urlManager->createUrl(['users/view', 'id' => $model->id]), [
-//                                        'title' => Yii::t('yii', 'Edit'),
-//                            ]);
-//                        },
-//                                'update' => function ($url, $model) {
-//                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['users/update', 'id' => $model->id]), [
-//                                        'title' => Yii::t('yii', 'Edit'),
-//                            ]);
-//                        },
-                        'planning' => function ($url, $model) {
-                            return Html::a(Icon::show('list'), Yii::$app->urlManager->createUrl(['users/planning', 'id' => $model->id]), [
-                                        'title' => Yii::t('yii', 'Planning'),
-                                        'data-pjax' => '0',
-                            ]);
-                        },
-//                                'delete' => function ($url, $model) {
-//                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', Yii::$app->urlManager->createUrl(['users/delete', 'id' => $model->id]), [
-//                                        'title' => Yii::t('yii', 'Delete'),
-//                                        'aria-label' => Yii::t('yii', 'Delete'),
-//                                        'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-//                                        'data-method' => 'post',
+//                $cols[] = [
+//                    'class' => 'yii\grid\ActionColumn',
+////                    'template'=>'{view} {update} {planning} {delete}',
+//                    'template' => '{planning}',
+//                    'buttons' => [
+////                        'view' => function ($url, $model) {
+////                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->urlManager->createUrl(['users/view', 'id' => $model->id]), [
+////                                        'title' => Yii::t('yii', 'Edit'),
+////                            ]);
+////                        },
+////                                'update' => function ($url, $model) {
+////                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['users/update', 'id' => $model->id]), [
+////                                        'title' => Yii::t('yii', 'Edit'),
+////                            ]);
+////                        },
+//                        'planning' => function ($url, $model) {
+//                            return Html::a(Icon::show('list'), Yii::$app->urlManager->createUrl(['users/planning', 'id' => $model->id]), [
+//                                        'title' => Yii::t('yii', 'Planning'),
 //                                        'data-pjax' => '0',
 //                            ]);
 //                        },
-                            ],
-                        ];
+////                                'delete' => function ($url, $model) {
+////                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', Yii::$app->urlManager->createUrl(['users/delete', 'id' => $model->id]), [
+////                                        'title' => Yii::t('yii', 'Delete'),
+////                                        'aria-label' => Yii::t('yii', 'Delete'),
+////                                        'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+////                                        'data-method' => 'post',
+////                                        'data-pjax' => '0',
+////                            ]);
+////                        },
+//                            ],
+//                        ];
                         return $cols;
                     }
 

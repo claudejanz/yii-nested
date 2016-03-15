@@ -1,1 +1,1 @@
-{"version":3,"sources":["../less/SplitText.less"],"names":[],"mappings":"AAYA,WACI,aAAA,CACA,gBAAA,CACA,kBAHJ,UAII,SAJJ,UAqBA,CAjBY,MACJ,oBAAA,CACA,kBANR,UAQI,OACI,aAAA,CACA,kBAVR,UAYI,QACI,oBAAA,CACA,cAAA,YACA,eAAA","file":"SplitText.css"}
+{"version":3,"sources":["../less/SplitText.less"],"names":[],"mappings":";;;;;;;;;AAYA;EACI,cAAA;EACA,iBAAA;EACA,kBAAA;;AAHJ,UAII;AAJJ,UAoBA,CAhBY;EACJ,qBAAA;EACA,kBAAA;;AANR,UAQI;EACI,cAAA;EACA,kBAAA;;AAVR,UAYI;EACI,qBAAA;EACA,4BAAA;EACA,2BAAA","file":"SplitText.css"}

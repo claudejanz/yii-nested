@@ -1,1 +1,29 @@
-.splitText{display:block;text-align:start;position:relative}.splitText .letter,.splitText .word{display:inline-block;position:relative}.splitText .line{display:block;position:relative}.splitText .blank{display:inline-block;margin-right:0 !important;white-space:pre !important}/*# sourceMappingURL=SplitText.css.map */
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19 janv. 2016, 11:30:34
+    Author     : Claude
+*/
+.splitText {
+  display: block;
+  text-align: start;
+  position: relative;
+}
+.splitText .letter,
+.splitText .word {
+  display: inline-block;
+  position: relative;
+}
+.splitText .line {
+  display: block;
+  position: relative;
+}
+.splitText .blank {
+  display: inline-block;
+  margin-right: 0px !important;
+  white-space: pre !important;
+}
+/*# sourceMappingURL=SplitText.css.map */
