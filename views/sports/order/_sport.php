@@ -70,16 +70,16 @@ $delete = AjaxButton::widget([
         ]);
 echo Html::beginTag('li');
 echo $model->title . ' ' . $update . ' ' . $delete . ' ';
+echo Html2::endTag('li');
+echo Html::beginTag('ul', ['class' => 'cat']);
 if ($model->categories) {
-    echo Html::beginTag('ul',['class'=>'cat']);
     foreach ($model->categories as $m) {
         echo $this->render('_cat', [
             'model' => $m,
         ]);
     }
-    echo Html::endTag('ul');
 }
 echo $add;
-echo Html2::endTag('li');
+echo Html::endTag('ul');
 MyPjax::end();
 

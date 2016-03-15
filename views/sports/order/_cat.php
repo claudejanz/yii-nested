@@ -24,35 +24,35 @@ use yii\helpers\Html;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /* @var $model Category */
-MyPjax::begin(['id'=>'cat'.$model->id]);
+MyPjax::begin(['id' => 'cat' . $model->id]);
 $add = AjaxModalButton::widget([
-    'label' => Icon::show('plus'),
-    'encodeLabel' => false,
-    'url' => [
-        'item-add',
-        'parent_id' => $model->id,
-        'type'=> 'subcat',
-    ],
-    'title' => Yii::t('app', 'Add Sub-Category to {name}', ['name' => $model->title]),
-    'success' => '#cat' . $model->id,
-    'options' => [
-        'title' => Yii::t('app', 'Add'),
-    ],
-]);
+            'label' => Icon::show('plus'),
+            'encodeLabel' => false,
+            'url' => [
+                'item-add',
+                'parent_id' => $model->id,
+                'type' => 'subcat',
+            ],
+            'title' => Yii::t('app', 'Add Sub-Category to {name}', ['name' => $model->title]),
+            'success' => '#cat' . $model->id,
+            'options' => [
+                'title' => Yii::t('app', 'Add'),
+            ],
+        ]);
 $update = AjaxModalButton::widget([
-    'label' => Icon::show('pencil'),
-    'encodeLabel' => false,
-    'url' => [
-        'item-update',
-        'id' => $model->id,
-        'type'=> 'cat',
-    ],
-    'title' => Yii::t('app', 'Update Category {name}', ['name' => $model->title]),
-    'success' => '#cat' . $model->id,
-    'options' => [
-        'title' => Yii::t('app', 'Update'),
-    ],
-]);
+            'label' => Icon::show('pencil'),
+            'encodeLabel' => false,
+            'url' => [
+                'item-update',
+                'id' => $model->id,
+                'type' => 'cat',
+            ],
+            'title' => Yii::t('app', 'Update Category {name}', ['name' => $model->title]),
+            'success' => '#cat' . $model->id,
+            'options' => [
+                'title' => Yii::t('app', 'Update'),
+            ],
+        ]);
 $delete = AjaxButton::widget([
             'label' => Icon::show('trash'),
             'encodeLabel' => false,
@@ -61,7 +61,7 @@ $delete = AjaxButton::widget([
                 'id' => $model->id,
                 'type' => 'cat',
             ],
-            'success' => '#sport'.$model->sport_id,
+            'success' => '#sport' . $model->sport_id,
             'options' => [
                 'title' => Yii::t('app', 'Delete'),
             ],
@@ -71,15 +71,16 @@ $delete = AjaxButton::widget([
         ]);
 
 echo Html::beginTag('li');
-echo $model->title.' '.$update.' '.$delete.' ';
+echo $model->title . ' ' . $update . ' ' . $delete . ' ';
+echo Html::endTag('li');
+echo Html::beginTag('ul', ['class' => 'subcat']);
 if ($model->subCategories) {
-    echo Html::beginTag('ul',['class'=>'subcat']);
     foreach ($model->subCategories as $m) {
         echo $this->render('_subcat', [
             'model' => $m,
         ]);
     }
-    echo Html::endTag('ul');
 }
 echo $add;
+echo Html::endTag('ul');
 MyPjax::end();
