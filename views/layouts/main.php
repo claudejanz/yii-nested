@@ -33,7 +33,6 @@ AssetBundle::register($this);
         <?php $this->head() ?>
     </head>
     <body>
-
         <?php $this->beginBody() ?>
         <div class="wrap">    
             <?php
@@ -81,7 +80,6 @@ AssetBundle::register($this);
             ?>
             <?= $content ?>
         </div>
-
         <footer class="footer">
             <div class="container-fluid">
                 <address class="pull-left">&copy; <?php

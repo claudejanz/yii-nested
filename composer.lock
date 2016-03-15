@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fb8824c40297c7b83ff8c5f98d1242f1",
+    "hash": "d49e7f59c7d33cf038494e12c0e00f87",
     "content-hash": "710b127f4f39e4a17d4ca02404c8e91d",
     "packages": [
         {
@@ -301,29 +301,29 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueimp/JavaScript-Canvas-to-Blob.git",
-                "reference": "28258354628fe0aca67e9d13ba60fe75a6dd13c0"
+                "reference": "cb5add6fd18abba567c4824a601f57b9a9e30e04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/JavaScript-Canvas-to-Blob/zipball/28258354628fe0aca67e9d13ba60fe75a6dd13c0",
-                "reference": "28258354628fe0aca67e9d13ba60fe75a6dd13c0",
+                "url": "https://api.github.com/repos/blueimp/JavaScript-Canvas-to-Blob/zipball/cb5add6fd18abba567c4824a601f57b9a9e30e04",
+                "reference": "cb5add6fd18abba567c4824a601f57b9a9e30e04",
                 "shasum": ""
             },
             "type": "bower-asset-library",
-            "time": "2015-12-27 23:23:58"
+            "time": "2016-02-24 20:22:57"
         },
         {
             "name": "bower-asset/blueimp-file-upload",
-            "version": "9.9.4",
+            "version": "9.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueimp/jQuery-File-Upload.git",
-                "reference": "ce33e8915c4e4b3e7930c9ed0ae45cf132944a88"
+                "reference": "098b507770581d2c8b037fa0a747ff02eb45a329"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/ce33e8915c4e4b3e7930c9ed0ae45cf132944a88",
-                "reference": "ce33e8915c4e4b3e7930c9ed0ae45cf132944a88",
+                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/098b507770581d2c8b037fa0a747ff02eb45a329",
+                "reference": "098b507770581d2c8b037fa0a747ff02eb45a329",
                 "shasum": ""
             },
             "require": {
@@ -335,23 +335,7 @@
             "type": "bower-asset-library",
             "extra": {
                 "bower-asset-main": [
-                    "css/jquery.fileupload.css",
-                    "css/jquery.fileupload-ui.css",
-                    "css/jquery.fileupload-noscript.css",
-                    "css/jquery.fileupload-ui-noscript.css",
-                    "js/cors/jquery.postmessage-transport.js",
-                    "js/cors/jquery.xdr-transport.js",
-                    "js/vendor/jquery.ui.widget.js",
-                    "js/jquery.fileupload.js",
-                    "js/jquery.fileupload-process.js",
-                    "js/jquery.fileupload-validate.js",
-                    "js/jquery.fileupload-image.js",
-                    "js/jquery.fileupload-audio.js",
-                    "js/jquery.fileupload-video.js",
-                    "js/jquery.fileupload-ui.js",
-                    "js/jquery.fileupload-jquery-ui.js",
-                    "js/jquery.fileupload-angular.js",
-                    "js/jquery.iframe-transport.js"
+                    "js/jquery.fileupload.js"
                 ],
                 "bower-asset-ignore": [
                     "/*.*",
@@ -365,7 +349,10 @@
                     "test"
                 ]
             },
-            "description": "File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads. Works with any server-side platform (Google App Engine, PHP, Python, Ruby on Rails, Java, etc.) that supports standard HTML form file uploads.",
+            "license": [
+                "MIT"
+            ],
+            "description": "File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images.",
             "keywords": [
                 "bootstrap",
                 "chunk",
@@ -410,16 +397,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueimp/JavaScript-Load-Image.git",
-                "reference": "dfadfa3b9a471b941040c33675a527f24a6db827"
+                "reference": "eca5709e8d8ee037800e924b6ccb828bcfa82a6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/JavaScript-Load-Image/zipball/dfadfa3b9a471b941040c33675a527f24a6db827",
-                "reference": "dfadfa3b9a471b941040c33675a527f24a6db827",
+                "url": "https://api.github.com/repos/blueimp/JavaScript-Load-Image/zipball/eca5709e8d8ee037800e924b6ccb828bcfa82a6d",
+                "reference": "eca5709e8d8ee037800e924b6ccb828bcfa82a6d",
                 "shasum": ""
             },
             "type": "bower-asset-library",
-            "time": "2015-12-27 23:13:47"
+            "time": "2016-02-24 20:23:08"
         },
         {
             "name": "bower-asset/blueimp-tmpl",
@@ -427,16 +414,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueimp/JavaScript-Templates.git",
-                "reference": "42c8c31428d70d0f53ca1ab31b5c2b3a68af4c8a"
+                "reference": "14d8b68c1175033d4080600b907390cc89263380"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/JavaScript-Templates/zipball/42c8c31428d70d0f53ca1ab31b5c2b3a68af4c8a",
-                "reference": "42c8c31428d70d0f53ca1ab31b5c2b3a68af4c8a",
+                "url": "https://api.github.com/repos/blueimp/JavaScript-Templates/zipball/14d8b68c1175033d4080600b907390cc89263380",
+                "reference": "14d8b68c1175033d4080600b907390cc89263380",
                 "shasum": ""
             },
             "type": "bower-asset-library",
-            "time": "2015-12-27 23:29:38"
+            "time": "2016-02-24 20:23:22"
         },
         {
             "name": "bower-asset/bootstrap",
@@ -493,12 +480,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/greensock/GreenSock-JS.git",
-                "reference": "df55cb80d6f334875fcb5c3d43645b007df7f75d"
+                "reference": "b3d1ec5c50859a41a6574f098b698508e5304b55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/greensock/GreenSock-JS/zipball/df55cb80d6f334875fcb5c3d43645b007df7f75d",
-                "reference": "df55cb80d6f334875fcb5c3d43645b007df7f75d",
+                "url": "https://api.github.com/repos/greensock/GreenSock-JS/zipball/b3d1ec5c50859a41a6574f098b698508e5304b55",
+                "reference": "b3d1ec5c50859a41a6574f098b698508e5304b55",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -506,10 +493,14 @@
                 "bower-asset-main": "./src/uncompressed/TweenMax.js",
                 "bower-asset-ignore": [],
                 "branch-alias": {
-                    "dev-master": "1.18.0-dev"
+                    "dev-master": "1.18.2-dev"
                 }
             },
-            "description": "Think of GSAP as the Swiss Army Knife of animation...but better. It animates anything JavaScript can touch (CSS properties, canvas library objects, SVG, generic objects, whatever) and it solves lots of browser inconsistencies, all with blazing speed (up to 20x faster than jQuery). See http://greensock.com/why-gsap/ for details. Other libraries like jQuery, Velocity, Transit, and Zepto only tween CSS properties. Plus, their sequencing abilities and runtime controls pale by comparison. Simply put, GSAP is the most flexible high-performance animation library on the planet. And unlike monolithic frameworks like Famo.us or Angular that dictate how you structure your apps, GSAP simply owns the animation layer; sprinkle it wherever you want. GSAP stands for the GreenSock Animation Platform. There's a jQuery plugin that hijacks the native jQuery.animate() method so that animations perform much better and additional properties can be tweened, like colors, transforms (2D and 3D), boxShadow, borderRadius, clip, and lots more. GSAP has no dependencies on jQuery or other libraries. See http://greensock.com/gsap/ for details."
+            "license": [
+                "GreenSock's standard no-charge license can be viewed at http://greensock.com/standard-license. Club GreenSock members are granted additional rights; see http://greensock.com/club/ and http://greensock.com/licensing/ for details."
+            ],
+            "description": "Think of GSAP as the Swiss Army Knife of animation...but better. It animates anything JavaScript can touch (CSS properties, canvas library objects, SVG, generic objects, whatever) and it solves lots of browser inconsistencies, all with blazing speed (up to 20x faster than jQuery). See http://greensock.com/why-gsap/ for details. Other libraries like jQuery, Velocity, Transit, and Zepto only tween CSS properties. Plus, their sequencing abilities and runtime controls pale by comparison. Simply put, GSAP is the most flexible high-performance animation library on the planet. And unlike monolithic frameworks like Famo.us or Angular that dictate how you structure your apps, GSAP simply owns the animation layer; sprinkle it wherever you want. GSAP stands for the GreenSock Animation Platform. There's a jQuery plugin that hijacks the native jQuery.animate() method so that animations perform much better and additional properties can be tweened, like colors, transforms (2D and 3D), boxShadow, borderRadius, clip, and lots more. GSAP has no dependencies on jQuery or other libraries. See http://greensock.com/gsap/ for details.",
+            "time": "2015-12-22 19:05:21"
         },
         {
             "name": "bower-asset/jquery",
@@ -675,12 +666,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/janpaepke/ScrollMagic.git",
-                "reference": "a4cbf374ce22fb4e513b8820c426c92f4bd59504"
+                "reference": "b219000fbaf4dbc76e85a21e8f14e51f6586dd14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/janpaepke/ScrollMagic/zipball/a4cbf374ce22fb4e513b8820c426c92f4bd59504",
-                "reference": "a4cbf374ce22fb4e513b8820c426c92f4bd59504",
+                "url": "https://api.github.com/repos/janpaepke/ScrollMagic/zipball/b219000fbaf4dbc76e85a21e8f14e51f6586dd14",
+                "reference": "b219000fbaf4dbc76e85a21e8f14e51f6586dd14",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -727,20 +718,21 @@
                 "scrub",
                 "sticky",
                 "sync"
-            ]
+            ],
+            "time": "2016-02-07 15:51:11"
         },
         {
             "name": "bower-asset/yii2-pjax",
-            "version": "dev-master",
+            "version": "v2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/jquery-pjax.git",
-                "reference": "593b9d694b80e6832ca1fcbcd34627372b689329"
+                "reference": "60728da6ade5879e807a49ce59ef9a72039b8978"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/593b9d694b80e6832ca1fcbcd34627372b689329",
-                "reference": "593b9d694b80e6832ca1fcbcd34627372b689329",
+                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/60728da6ade5879e807a49ce59ef9a72039b8978",
+                "reference": "60728da6ade5879e807a49ce59ef9a72039b8978",
                 "shasum": ""
             },
             "require": {
@@ -757,10 +749,7 @@
                     "vendor/",
                     "script/",
                     "test/"
-                ],
-                "branch-alias": {
-                    "dev-master": "2.0.3-dev"
-                }
+                ]
             },
             "license": [
                 "MIT"
@@ -1028,12 +1017,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/claudejanz/yii2-toolbox.git",
-                "reference": "e6f67c66e681224ad84c4b773ae978547fdae2ac"
+                "reference": "18d655dda32cfba2c0b7a1991849397a4f3886f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/claudejanz/yii2-toolbox/zipball/e6f67c66e681224ad84c4b773ae978547fdae2ac",
-                "reference": "e6f67c66e681224ad84c4b773ae978547fdae2ac",
+                "url": "https://api.github.com/repos/claudejanz/yii2-toolbox/zipball/18d655dda32cfba2c0b7a1991849397a4f3886f2",
+                "reference": "18d655dda32cfba2c0b7a1991849397a4f3886f2",
                 "shasum": ""
             },
             "require": {
@@ -1062,7 +1051,7 @@
                 "extensions",
                 "yii2"
             ],
-            "time": "2016-03-11 08:09:11"
+            "time": "2016-03-13 10:00:57"
         },
         {
             "name": "components/flag-icon-css",
@@ -1070,12 +1059,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icon-css.git",
-                "reference": "e6d655235ec00fc16f7ca19de60ca793d19d6d73"
+                "reference": "0cdf2c0bef2824b36910888dfee2ce4a0da98155"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/e6d655235ec00fc16f7ca19de60ca793d19d6d73",
-                "reference": "e6d655235ec00fc16f7ca19de60ca793d19d6d73",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/0cdf2c0bef2824b36910888dfee2ce4a0da98155",
+                "reference": "0cdf2c0bef2824b36910888dfee2ce4a0da98155",
                 "shasum": ""
             },
             "type": "component",
@@ -1100,7 +1089,7 @@
                 }
             ],
             "description": "CSS for vector based country flags",
-            "time": "2016-03-07 11:30:24"
+            "time": "2016-03-13 02:12:04"
         },
         {
             "name": "demogorgorn/yii2-ajax-submit-button",
@@ -1193,30 +1182,36 @@
         },
         {
             "name": "facebook/php-sdk-v4",
-            "version": "4.0.23",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
-                "reference": "c82611e05596622c9bd7abfa1cea1512d885c95e"
+                "reference": "f950a24a569fcec956d915894110bb1ce43b7656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/c82611e05596622c9bd7abfa1cea1512d885c95e",
-                "reference": "c82611e05596622c9bd7abfa1cea1512d885c95e",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/f950a24a569fcec956d915894110bb1ce43b7656",
+                "reference": "f950a24a569fcec956d915894110bb1ce43b7656",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "guzzlehttp/guzzle": "~4.0",
-                "mockery/mockery": "dev-master",
-                "phpunit/phpunit": "3.7.*"
+                "guzzlehttp/guzzle": "~5.0",
+                "mockery/mockery": "~0.8",
+                "phpunit/phpunit": "~4.0"
             },
             "suggest": {
                 "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Facebook\\": "src/Facebook/"
@@ -1238,7 +1233,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2015-04-03 20:31:47"
+            "time": "2016-02-26 14:49:24"
         },
         {
             "name": "fortawesome/font-awesome",
@@ -1246,12 +1241,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "adcbe8eddad1b3423c38489708f7ff2707afa94c"
+                "reference": "03fd1951e930d4d4754204fdc532ca493e924a1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/adcbe8eddad1b3423c38489708f7ff2707afa94c",
-                "reference": "adcbe8eddad1b3423c38489708f7ff2707afa94c",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/03fd1951e930d4d4754204fdc532ca493e924a1b",
+                "reference": "03fd1951e930d4d4754204fdc532ca493e924a1b",
                 "shasum": ""
             },
             "require-dev": {
@@ -1286,7 +1281,7 @@
                 "font",
                 "icon"
             ],
-            "time": "2016-03-03 19:00:22"
+            "time": "2016-03-10 18:47:19"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1294,12 +1289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ec6cbc1d5482ea3b7a2c3c65ded0d8e749b19efb"
+                "reference": "6a173ddae1a8e58be871f6d010e88c029eaf5cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ec6cbc1d5482ea3b7a2c3c65ded0d8e749b19efb",
-                "reference": "ec6cbc1d5482ea3b7a2c3c65ded0d8e749b19efb",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/6a173ddae1a8e58be871f6d010e88c029eaf5cae",
+                "reference": "6a173ddae1a8e58be871f6d010e88c029eaf5cae",
                 "shasum": ""
             },
             "require": {
@@ -1348,7 +1343,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2016-03-09 22:09:58"
+            "time": "2016-03-11 16:36:56"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1768,20 +1763,21 @@
         },
         {
             "name": "kartik-v/yii2-builder",
-            "version": "v1.6.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-builder.git",
-                "reference": "cbeb09954b5c87ba85dbc2c6331589baa542da4c"
+                "reference": "22abcfb747df9261445da509cb6471111727f6d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/cbeb09954b5c87ba85dbc2c6331589baa542da4c",
-                "reference": "cbeb09954b5c87ba85dbc2c6331589baa542da4c",
+                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/22abcfb747df9261445da509cb6471111727f6d6",
+                "reference": "22abcfb747df9261445da509cb6471111727f6d6",
                 "shasum": ""
             },
             "require": {
                 "kartik-v/yii2-grid": "~3.0",
+                "kartik-v/yii2-helpers": "~1.3",
                 "kartik-v/yii2-krajee-base": "~1.7",
                 "kartik-v/yii2-widget-activeform": "~1.4"
             },
@@ -1811,7 +1807,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-06-17 17:58:21"
+            "time": "2015-10-22 12:05:25"
         },
         {
             "name": "kartik-v/yii2-datecontrol",
@@ -1862,23 +1858,28 @@
         },
         {
             "name": "kartik-v/yii2-detail-view",
-            "version": "v1.7.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "028414cc99fab4e640cb19d28ff97132fdbe79ed"
+                "reference": "134ab6c33b5815379cd8b5bc4380888d4d825b5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/028414cc99fab4e640cb19d28ff97132fdbe79ed",
-                "reference": "028414cc99fab4e640cb19d28ff97132fdbe79ed",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/134ab6c33b5815379cd8b5bc4380888d4d825b5d",
+                "reference": "134ab6c33b5815379cd8b5bc4380888d4d825b5d",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-helpers": "*",
-                "kartik-v/yii2-krajee-base": "*"
+                "kartik-v/yii2-helpers": "~1.3",
+                "kartik-v/yii2-krajee-base": "~1.7"
             },
             "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.7.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "kartik\\detail\\": ""
@@ -1895,7 +1896,7 @@
                     "homepage": "http://www.krajee.com/"
                 }
             ],
-            "description": "Various enhancements to the Yii 2 Detail View with ability to edit data and manage Bootstrap 3 styles.",
+            "description": "Various enhancements to the Yii 2 Detail View with multi models, ability to edit data, manage Bootstrap 3 styles and more.",
             "homepage": "https://github.com/kartik-v/yii2-detail-view",
             "keywords": [
                 "detail",
@@ -1906,7 +1907,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-05-22 18:11:59"
+            "time": "2016-02-05 03:10:08"
         },
         {
             "name": "kartik-v/yii2-editable",
@@ -2058,16 +2059,16 @@
         },
         {
             "name": "kartik-v/yii2-helpers",
-            "version": "dev-master",
+            "version": "v1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-helpers.git",
-                "reference": "e2ba2a2435b65e5ff808a2ccf46d9963f46a254f"
+                "reference": "f16003c8c9cfdaa50b4c9574cae9f0310946696c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-helpers/zipball/e2ba2a2435b65e5ff808a2ccf46d9963f46a254f",
-                "reference": "e2ba2a2435b65e5ff808a2ccf46d9963f46a254f",
+                "url": "https://api.github.com/repos/kartik-v/yii2-helpers/zipball/f16003c8c9cfdaa50b4c9574cae9f0310946696c",
+                "reference": "f16003c8c9cfdaa50b4c9574cae9f0310946696c",
                 "shasum": ""
             },
             "require": {
@@ -2100,7 +2101,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2016-03-11 01:33:21"
+            "time": "2015-12-12 18:47:11"
         },
         {
             "name": "kartik-v/yii2-icons",
@@ -2349,19 +2350,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-social.git",
-                "reference": "8d95480641cf03162828cb0dab5f7559a98196cc"
+                "reference": "244e9fadd712e653562355389081be3cd85b8e38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-social/zipball/8d95480641cf03162828cb0dab5f7559a98196cc",
-                "reference": "8d95480641cf03162828cb0dab5f7559a98196cc",
+                "url": "https://api.github.com/repos/kartik-v/yii2-social/zipball/244e9fadd712e653562355389081be3cd85b8e38",
+                "reference": "244e9fadd712e653562355389081be3cd85b8e38",
                 "shasum": ""
             },
             "require": {
-                "facebook/php-sdk-v4": "~4.0",
+                "facebook/php-sdk-v4": "~5.0",
                 "kartik-v/yii2-krajee-base": "~1.7"
             },
             "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "kartik\\social\\": ""
@@ -2389,7 +2395,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-01-10 14:40:08"
+            "time": "2016-03-14 21:33:56"
         },
         {
             "name": "kartik-v/yii2-widget-activeform",
@@ -3566,12 +3572,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "0603d7afa02797e68436ebb05d8f31b988d8ae76"
+                "reference": "614559b41ab71cba318b97c8e7e8277917d4fdde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0603d7afa02797e68436ebb05d8f31b988d8ae76",
-                "reference": "0603d7afa02797e68436ebb05d8f31b988d8ae76",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/614559b41ab71cba318b97c8e7e8277917d4fdde",
+                "reference": "614559b41ab71cba318b97c8e7e8277917d4fdde",
                 "shasum": ""
             },
             "replace": {
@@ -3609,7 +3615,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2016-03-04 06:21:11"
+            "time": "2016-03-11 09:09:21"
         },
         {
             "name": "warrence/yii2-kartikgii",
@@ -3701,12 +3707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "6798f7708b36c485cd45c78e22ab5126c10fbf28"
+                "reference": "9dbf8297d3fd677e0b4569f038273c641d9cc871"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/6798f7708b36c485cd45c78e22ab5126c10fbf28",
-                "reference": "6798f7708b36c485cd45c78e22ab5126c10fbf28",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/9dbf8297d3fd677e0b4569f038273c641d9cc871",
+                "reference": "9dbf8297d3fd677e0b4569f038273c641d9cc871",
                 "shasum": ""
             },
             "require": {
@@ -3787,7 +3793,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2016-03-10 19:27:53"
+            "time": "2016-03-14 22:53:10"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -4193,12 +4199,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "a29ed1039604a576329c8d33138d29065d9f98d5"
+                "reference": "b258732b10a706d3fa41829f13be727e49dabd09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/a29ed1039604a576329c8d33138d29065d9f98d5",
-                "reference": "a29ed1039604a576329c8d33138d29065d9f98d5",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/b258732b10a706d3fa41829f13be727e49dabd09",
+                "reference": "b258732b10a706d3fa41829f13be727e49dabd09",
                 "shasum": ""
             },
             "require": {
@@ -4232,7 +4238,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2016-03-06 21:22:38"
+            "time": "2016-03-14 21:47:38"
         },
         {
             "name": "yiisoft/yii2-faker",
@@ -4287,12 +4293,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "ce42838abcbef076ebaf46147671d518ae69d028"
+                "reference": "fed0f3b43b9dab333978e8394ee05cfd84d438b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/ce42838abcbef076ebaf46147671d518ae69d028",
-                "reference": "ce42838abcbef076ebaf46147671d518ae69d028",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/fed0f3b43b9dab333978e8394ee05cfd84d438b2",
+                "reference": "fed0f3b43b9dab333978e8394ee05cfd84d438b2",
                 "shasum": ""
             },
             "require": {
@@ -4332,7 +4338,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2016-02-21 20:39:29"
+            "time": "2016-03-15 09:53:13"
         }
     ],
     "aliases": [],

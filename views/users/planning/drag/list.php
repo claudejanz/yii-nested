@@ -28,8 +28,11 @@ echo ListView::widget([
 $js = '$(function() {
     $( ".draggable" ).draggable({
       stack: ".draggable",
+      activeClass: "ui-state-hover",
+      hoverClass: "ui-state-active",
       cursor: "move",
-      revert: true
+      helper: "clone",
+      revert: "invalid"
     })
     
   })';

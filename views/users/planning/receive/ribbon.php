@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 /* @var $week Week */
 
-$color = 'warning';
+$color = 'danger';
 $label = Yii::t('app', 'Draft');
 if ($week) {
     
