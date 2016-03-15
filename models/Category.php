@@ -11,10 +11,10 @@ use yii\db\Expression;
 
 class Category extends CategoryBase
 {
+
     public function behaviors()
     {
         return array(
-            
             'publish' => [
                 'class' => PublishBehavior::className(),
             ],
@@ -25,9 +25,17 @@ class Category extends CategoryBase
             'blameable' => [
                 'class' => BlameableBehavior::className(),
             ],
-            
         );
     }
+
+    public function rules()
+    {
+
+        return array_merge([
+            ['published', 'default', 'value' => PublishBehavior::PUBLISHED_ACTIF],
+                ], parent::rules());
+    }
+
     /**
      * Returns model display label
      * @param number $n
@@ -37,4 +45,5 @@ class Category extends CategoryBase
     {
         return Yii::t('app', '{n, plural, =1{Category} other{Categories}}', ['n' => $n]);
     }
+
 }

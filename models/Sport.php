@@ -30,6 +30,13 @@ class Sport extends SportBase
             
         );
     }
+    public function rules()
+    {
+
+        return array_merge([
+            ['published', 'default', 'value' => PublishBehavior::PUBLISHED_ACTIF],
+                ], parent::rules());
+    }
     
     /**
      * Returns model display label

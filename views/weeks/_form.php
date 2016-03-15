@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
 
 <div class="week-form">
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); echo Form::widget([
 
         'model' => $model,
         'form' => $form,

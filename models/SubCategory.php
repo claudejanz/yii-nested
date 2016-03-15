@@ -27,6 +27,15 @@ class SubCategory extends SubCategoryBase
             
         );
     }
+    
+    
+    public function rules()
+    {
+
+        return array_merge([
+            ['published', 'default', 'value' => PublishBehavior::PUBLISHED_ACTIF],
+                ], parent::rules());
+    }
     /**
      * Returns model display label
      * @param number $n
