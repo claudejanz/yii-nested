@@ -1,0 +1,113 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27 janv. 2016, 10:51:33
+    Author     : Claude
+*/
+
+/* mixins */
+@bgColor1: #0070A3;
+@fontColor1:#FFFFFF;
+@bgColor2: #97A635;
+@fontColor2:#FFFFFF;
+@bgColor3: #FE9F31;
+@fontColor3:#333333;
+@bgColor4: #7A2F62;
+@fontColor4:#FFFFFF;
+@bgColor5: #0E7787;
+@fontColor5:#FFFFFF;
+
+.color1() {
+    background-color:@bgColor1;
+    color: @fontColor1;
+}
+.color2() {
+    background-color:@bgColor2;
+    color: @fontColor2;
+}
+.color3() {
+    background-color:@bgColor3;
+    color: @fontColor3;
+}
+.color4() {
+    background-color:@bgColor4;
+    color: @fontColor4;
+}
+.color5() {
+    background-color:@bgColor5;
+    color: @fontColor5;
+}
+.navBarDarken(@color,@bgColor){
+    background-color:@bgColor;
+    a.navbar-brand, .navbar-nav > li > a{
+        color: darken(@color, 10%);
+    }
+    .navbar-nav > li > a:hover, 
+        .navbar-nav > li > a:focus{
+        color: @color;
+    }
+    a.navbar-brand:hover, 
+        a.navbar-brand:focus, 
+        .navbar-nav > li > a:hover, 
+        .navbar-nav > li > a:focus,
+        .navbar-nav > li.active > a, 
+        .navbar-nav > li.active > a:hover, 
+        .navbar-nav > li.active > a:focus{
+        color: @color;
+        background-color: saturate(@bgColor,30%);
+    }
+}
+.navBarLighten(@color,@bgColor){
+    background-color:@bgColor;
+    a.navbar-brand, 
+    .navbar-nav > li > a{
+        color: lighten(@color, 10%);
+    }
+    .navbar-nav > li > a:hover, 
+        .navbar-nav > li > a:focus{
+        color: @color;
+    }
+    a.navbar-brand:hover, 
+        a.navbar-brand:focus, 
+        .navbar-nav > li > a:hover, 
+        .navbar-nav > li > a:focus,
+        .navbar-nav > li.active > a, 
+        .navbar-nav > li.active > a:hover, 
+        .navbar-nav > li.active > a:focus{
+        color: @color;
+        background-color: desaturate(@bgColor,30%);
+    }
+}
+.menuColor1() {
+    .navBarDarken(@fontColor1,@bgColor1);
+}
+.menuColor2() {
+    .navBarDarken(@fontColor2,@bgColor2);
+}
+.menuColor3() {
+    .navBarLighten(@fontColor3,@bgColor3);
+}
+.menuColor4() {
+    .navBarDarken(@fontColor4,@bgColor4);
+}
+.menuColor5() {
+    .navBarDarken(@fontColor5,@bgColor5);
+}
+
+
+
+.sectionMargin(){
+    padding-top:50px;
+    padding-bottom:50px;
+}
+.sectionShadow(){
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.7);
+    a{
+        text-shadow: none;
+        box-shadow:  2px 2px 1px rgba(0, 0, 0, 0.7);
+    }
+    min-height: 100%;
+}

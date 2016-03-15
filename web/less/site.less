@@ -1,0 +1,388 @@
+@import "../../vendor/bower/bootstrap/less/variables.less";
+@import "../../vendor/bower/bootstrap/less/mixins.less";
+@import "mixins.less";
+
+@smallGap: 6px;
+@bigGap: 12px;
+@myBgGray: #f0f0f0;
+@myPadding: 5px 10px;
+@redColor: #f60100;
+
+/* style sheet */
+html,
+body {
+    height: 100%;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size:16px;
+    background-color: @myBgGray;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+
+.wrap > .content {
+    padding: 70px 15px 20px;
+}
+.wrap > .contentmarginless {
+    padding: 50px 0px 0px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+
+
+
+.btn-sm{
+    border-radius: 15px;
+    padding: 5px;
+    width: 30px;
+}
+
+.blueimp-gallery-carousel{
+    box-shadow:none;
+}
+.blueimp-gallery > .slides > .slide{
+    /*transition-timing-function:ease-out;*/
+}
+.sortable{
+    list-style-type: none;
+    padding-left:0px;
+    .sortable-handle,.sortable-placeholder{
+        list-style: none;
+        float: left;
+        margin:3px;
+        border: solid 1px black;
+    }
+    .sortable-placeholder{
+        width:100px;
+        height:100px;
+        background-color:gray;
+    }
+}
+.ribbon-block{
+    position: relative;
+}
+.ribbon {
+    &.right{
+        right: -5px; 
+        left:auto;
+        text-align: right;
+        span{
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            right: -21px;
+            left:auto;
+        }
+    }
+    position: absolute;
+    left: -5px; 
+    top: -4px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px; 
+    height: 75px;
+    text-align: left;
+    span {
+        font-size: 10px;
+        font-weight: bold;
+        color: #FFF;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 20px;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        width: 100px;
+        display: block;
+        #gradient > .vertical(@gray; darken(@gray, 7.5%));
+        background-color:darken(@gray, 7.5%);
+        box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+        position: absolute;
+        top: 19px; 
+        left: -21px;
+        &::before {
+            content: "";
+            position: absolute; left: 0px; top: 100%;
+            z-index: -1;
+            border-left: 3px solid darken(@gray, 7.5%);
+            border-right: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            border-top: 3px solid darken(@gray, 7.5%);
+
+        }
+        &::after {
+            content: "";
+            position: absolute; right: 0px; top: 100%;
+            z-index: -1;
+            border-left: 3px solid transparent;
+            border-right: 3px solid darken(@gray, 7.5%);
+            border-bottom: 3px solid transparent;
+            border-top: 3px solid darken(@gray, 7.5%);
+
+        }
+
+        &.primary{
+            #gradient > .vertical(@brand-primary; darken(@brand-primary, 7.5%));
+            background-color:darken(@brand-primary, 7.5%);
+        }
+        &.success{
+            #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
+            background-color:darken(@brand-success, 7.5%);
+        }
+        &.info{
+            #gradient > .vertical(@brand-info; darken(@brand-info, 7.5%));
+            background-color:darken(@brand-info, 7.5%);
+        }
+        &.warning{
+            #gradient > .vertical(@brand-warning; darken(@brand-warning, 7.5%));
+            background-color:darken(@brand-warning, 7.5%);
+        }
+        &.danger{
+            #gradient > .vertical(@brand-danger; darken(@brand-danger, 7.5%));
+            background-color:darken(@brand-danger, 7.5%);
+        }
+        &.primary::before{
+            border-left: 3px solid darken(@brand-primary, 7.5%);
+            border-top: 3px solid darken(@brand-primary, 7.5%);
+        }
+        &.success::before{
+            border-left: 3px solid darken(@brand-success, 7.5%);
+            border-top: 3px solid darken(@brand-success, 7.5%);
+        }
+        &.info::before{
+            border-left: 3px solid darken(@brand-info, 7.5%);
+            border-top: 3px solid darken(@brand-info, 7.5%);
+        }
+        &.warning::before{
+            border-left: 3px solid darken(@brand-warning, 7.5%);
+            border-top: 3px solid darken(@brand-warning, 7.5%);
+        }
+
+        &.danger::before{
+            border-left: 3px solid darken(@brand-danger, 7.5%);
+            border-top: 3px solid darken(@brand-danger, 7.5%);
+        }
+        &.primary::after{
+            border-right: 3px solid darken(@brand-primary, 7.5%);
+            border-top: 3px solid darken(@brand-primary, 7.5%);
+        }
+        &.success::after{
+            border-right: 3px solid darken(@brand-success, 7.5%);
+            border-top: 3px solid darken(@brand-success, 7.5%);
+        }
+        &.info::after{
+            border-right: 3px solid darken(@brand-info, 7.5%);
+            border-top: 3px solid darken(@brand-info, 7.5%);
+        }
+        &.warning::after{
+            border-right: 3px solid darken(@brand-warning, 7.5%);
+            border-top: 3px solid darken(@brand-warning, 7.5%);
+        }
+        &.danger::after{
+            border-right: 3px solid darken(@brand-danger, 7.5%);
+            border-top: 3px solid darken(@brand-danger, 7.5%);
+        }
+
+    }
+}
+.dropzone:empty{
+    &::after{
+        height:100px;
+        width:100%;
+        border: 2px solid darken(@brand-success, 12.5%); 
+        #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
+        .border-left-radius(15px);
+        .border-right-radius(15px);
+        display:block;
+        font-size:4em;
+        vertical-align: middle;
+        text-align: center;
+        color:white;
+        content: "Drop Zone";
+        clear:both;
+    }
+}
+
+
+
+
+.footer address{
+    margin-bottom: 0px;
+
+}
+
+form.kneubuhler {
+    .form-group{
+        margin-bottom:@smallGap;
+    }
+    .help-block:empty{
+        margin:0px;
+    }
+    select.form-control,
+    .has-success select.form-control {
+        color: white;
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        appearance:none;
+        background-image: url("../images/fleche_blanc_bas.png");
+        background-repeat:no-repeat;
+        background-position: right;
+        background-position: 100% 50%;
+        background-color: black;
+        border: none;
+        border-radius: 0; // Note: This has no effect on <select>s in some browsers, due to the limited stylability of <select>s in CSS.
+        padding:0px;
+        height: 25px;
+        line-height: 1;
+        text-transform: uppercase;
+        font-weight: bold;
+        .box-shadow(none);
+        &:selected{
+            background-image: url("../images/fleche_blanc_haut.png");
+
+        }
+        option{
+            text-transform: none;;
+            -webkit-appearance:none;
+            -moz-appearance:none;
+            appearance:none;
+            background-color: darkgrey;
+        }
+
+    }
+
+}
+a.kneubuhler{
+    background-color:@redColor;
+    color:white;
+    text-align:center;
+    font-weight: bold;
+    margin-bottom:@smallGap;
+    display:block;
+    width:100%;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.draggable{
+    margin-bottom:@smallGap;
+    cursor:pointer;
+
+    .rounded{
+        .border-left-radius(3px);
+        .border-right-radius(3px);
+        border: 1px solid @gray; 
+        padding: @myPadding;
+        background-color: @myBgGray;
+        span{
+            /*            white-space: nowrap; 
+                        overflow:hidden;
+                        width:150px;*/
+
+        }
+    }
+}
+a.red{
+    color:@redColor;
+}
+button.red{
+    background: none;
+    border:none;
+    color:@redColor;
+    padding:0px;
+
+}
+.week{
+
+    .title{
+        background-color:black;
+        color:white;
+        text-align:center;
+        font-weight: bold;
+        margin-bottom:@smallGap;
+    }
+    .words-of-the-week{
+        background-color:black;
+        color:white;
+        text-align:center;
+        font-weight: bold;
+        font-size: 1.4em;
+        margin-bottom:@smallGap;
+    }
+    .white-block{
+        background-color:white;
+        margin-bottom:@smallGap;
+        padding: @myPadding;  
+    }
+    .day{
+        .droppable{
+            &:empty{
+                &::after{
+                    height:50px;
+                    width:100%;
+
+                    display:block;
+                    font-size:2em;
+                    vertical-align: middle;
+                    text-align: center;
+                    color:@myBgGray;
+                    content: "Drop Zone";
+                }   
+            }
+            > div {
+                border-top: 1px solid @myBgGray;
+                padding-top: @smallGap;
+
+            }
+            > div:first-child{
+                border-top: none;
+                padding-top: none;
+            }
+        }
+
+    }
+}
+.block-vert{
+    border: 2px solid darken(@brand-success, 12.5%); 
+    #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
+    .border-left-radius(15px);
+    .border-right-radius(15px);
+}
+div.hid{
+    display:none;
+}
+.kneubuhler{
+    &.affix{
+        top:50px;
+    }
+
+}
+
+.gradi{
+   #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
+   background-size: contain;
+}
