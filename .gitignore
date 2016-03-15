@@ -16,7 +16,7 @@ Thumbs.db
 /vendor
 
 #composer lock
-composer.lock
+/composer.lock
 
 # composer itself is not needed
 composer.phar
@@ -28,3 +28,11 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+
+# config db file
+
+/config/db.php
+
+# config css file
+
+/web/css/*
