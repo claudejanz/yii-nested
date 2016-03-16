@@ -34,6 +34,14 @@ return [
         ],
         
     ],
+    'Development for Herr Kneubuhler' => [
+        'path' => 'dev_1',
+        
+        'setExecutable' => [
+            'yii',
+        ],
+        
+    ],
     'Production' => [
         'path' => 'prod',
         
