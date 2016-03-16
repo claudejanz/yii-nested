@@ -54,7 +54,6 @@ class UsersController extends MyController
                     [
                         'actions' => [
                             'index',
-                            'create',
                             'view',
                             'training-create',
                             'training-delete',
@@ -63,6 +62,13 @@ class UsersController extends MyController
                         ],
                         'allow' => true,
                         'roles' => ['coaching'],
+                    ],
+                    [
+                        'actions' => [
+                            'create',
+                        ],
+                        'allow' => true,
+                        'roles' => ['coach'],
                     ],
                     [
                         'actions' => [
@@ -176,6 +182,10 @@ class UsersController extends MyController
     {
         $model = new User;
         $model->setScenario('create');
+        if (!Yii::$app->user->can('admin')) {
+            $model->trainer_id = Yii::$app->user->id;
+            $model->role = User::ROLE_SPORTIF;
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $auth = Yii::$app->authManager;

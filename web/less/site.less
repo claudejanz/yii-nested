@@ -8,7 +8,7 @@
 @myPadding: 5px 10px;
 @redColor: #f60100;
 
-.test {}
+
 /* style sheet */
 html,
 body {
@@ -364,12 +364,12 @@ button.red{
             }
         }
         &.hover {
-		background-color: red !important;
-		}
-		
-		&.ui-state-active {
-			background-color: blue;
-		}
+            background-color: red !important;
+        }
+
+        &.ui-state-active {
+            background-color: blue;
+        }
 
 
     }
@@ -391,6 +391,25 @@ div.hid{
 }
 
 .gradi{
-   #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
-   background-size: contain;
+    #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
+    background-size: contain;
+}
+
+.sport-index{
+    ul{
+        padding-left: 10px;
+    }
+    ul.sport{
+        background-color: @brand-primary;
+    }
+    ul.cat,ul.subcat{
+        padding-left:10px;
+        background-color: @brand-info;
+    }
+    ul.subcat{
+        background-color: @brand-warning;
+    }
+    li{
+        list-style: none;
+    }
 }
