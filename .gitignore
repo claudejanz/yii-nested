@@ -1,6 +1,8 @@
 # phpstorm project files
 .idea
 
+
+
 # netbeans project files
 nbproject
 
@@ -15,11 +17,13 @@ Thumbs.db
 # composer vendor dir
 /vendor
 
+
 # composer lock
 composer.lock
 
 # composer itself is not needed
 composer.phar
+composer.lock
 
 # Mac DS_Store Files
 .DS_Store
@@ -30,9 +34,9 @@ phpunit.phar
 /phpunit.xml
 
 # config db file
-
 config/db.php
 
 # config css file
+web/css/**
 
-web/css/*
+aliasesForNb.json

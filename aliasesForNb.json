@@ -1,8 +1,0 @@
-{
-    "aliases": {
-        "@app/controllers" : ["controllers"],
-        "@app/models" : ["models"],
-        "@app/views" : ["views"],
-        "@yii": ["vendor/yiisoft/yii2"]
-    }
-}
