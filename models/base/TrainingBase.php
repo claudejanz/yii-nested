@@ -21,7 +21,7 @@ use app\models\Day;
     * @property integer $sportif_id
     * @property integer $day_id
     * @property string $time
-    * @property double $rpe
+    * @property integer $rpe
     * @property string $explanation
     * @property string $extra_comment
     * @property string $graph
@@ -57,9 +57,8 @@ public function rules()
 {
         return [
             [['title', 'sport_id', 'sportif_id', 'day_id', 'date', 'published'], 'required'],
-            [['sport_id', 'category_id', 'sub_category_id', 'sportif_id', 'day_id', 'graph_type', 'published', 'created_by', 'updated_by'], 'integer'],
+            [['sport_id', 'category_id', 'sub_category_id', 'sportif_id', 'day_id', 'rpe', 'graph_type', 'published', 'created_by', 'updated_by'], 'integer'],
             [['time', 'date', 'created_at', 'updated_at'], 'safe'],
-            [['rpe'], 'number'],
             [['explanation', 'extra_comment', 'graph'], 'string'],
             [['title'], 'string', 'max' => 1024],
             [['sport_id'], 'exist', 'skipOnError' => true, 'targetClass' => Sport::className(), 'targetAttribute' => ['sport_id' => 'id']],

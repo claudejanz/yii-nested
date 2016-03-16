@@ -1,35 +1,49 @@
 <?php
 
-use yii\helpers\Html;
-use kartik\widgets\ActiveForm;
+use app\models\Reporting;
+use claudejanz\toolbox\widgets\ajax\AjaxSubmit;
+use claudejanz\toolbox\widgets\inputs\BooleanWidget;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\ActiveForm;
+use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var yii\web\View $this
- * @var app\models\Reporting $model
- * @var yii\widgets\ActiveForm $form
+ * @var View $this
+ * @var Reporting $model
+ * @var ActiveForm2 $form
  */
 ?>
 
 <div class="reporting-form">
 
     <?php
-    $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]);
-    echo Form::widget([
-
+    $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
+     echo Form::widget([
         'model' => $model,
         'form' => $form,
-        'columns' => 1,
+        'columns' => 4,
         'attributes' => [
-
-//            'training_id'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Training ID...']],
-//
-//            'created_by'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Created By...']],
-//
-//            'updated_by'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Updated By...']],
-
-            'feedback' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Feedback...', 'rows' => 6]],
+            'done' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => BooleanWidget::className(),
+            ],
+            'feeled_rpe' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => '\kartik\widgets\RangeInput',
+                'options' => [
+                    'html5Options' => ['min' => 1, 'max' => 10],
+                    'options' => ['readonly' => true],
+                ],
+//                'columnOptions'=>[
+//                  'colspan'=>2  
+//                ]
+            ],
+            'time_done' => [
+                'type' => Form::INPUT_WIDGET,
+                'widgetClass' => BooleanWidget::className(),
+            ],
             'time' => [
                 'type' => Form::INPUT_WIDGET,
                 'widgetClass' => DateControl::classname(),
@@ -40,23 +54,37 @@ use kartik\datecontrol\DateControl;
                             'defaultTime' => false
                         ]
                     ]
-                ]
-            ],
-//            'created_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
-//
-//            'updated_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
-            'feeled_rpe' => [
-                'type' => Form::INPUT_WIDGET,
-                'widgetClass' => '\kartik\widgets\RangeInput',
-                'options' => [
-                    'html5Options' => ['min' => 1, 'max' => 10],
-                    'options' => ['readonly' => true],
-                ]
+                ],
+//                'columnOptions'=>[
+//                  'colspan'=>2  
+//                ]
             ],
         ]
     ]);
+    echo Form::widget([
+        'model' => $model,
+        'form' => $form,
+        'columns' => 1,
+        'attributes' => [
+            'feedback' => [
+                'type' => Form::INPUT_TEXTAREA,
+                'options' => [
+                    'placeholder' => 'Enter Feedback...',
+                    'rows' => 6
+                ],
+            ],
+        ]
+    ]);
+   
 
-    echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+    if (Yii::$app->request->isAjax) {
+        echo AjaxSubmit::widget(['label' => $model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
+            'options' => [
+                'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'
+        ]]);
+    } else {
+        echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+    }
     ActiveForm::end();
     ?>
 
