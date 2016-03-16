@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\controllers\base\MyController;
 use app\extentions\helpers\EuroDateTime;
 use app\models\Day;
+use app\models\Reporting;
 use app\models\search\TrainingTypeSearch;
 use app\models\search\UserSearch;
 use app\models\Training;
@@ -45,6 +46,7 @@ class UsersController extends MyController
                     'training-delete',
                     'training-update',
                     'week-publish',
+                    'reporting-update',
                     'day-update',
                 ]
             ],
@@ -75,6 +77,7 @@ class UsersController extends MyController
                             'planning',
                             'update',
                             'day-update',
+                            'reporting-update',
                         ],
                         'allow' => true,
                         'roles' => ['update user'],
@@ -97,6 +100,7 @@ class UsersController extends MyController
                     'training-update',
                     'week-publish',
                     'day-update',
+                    'reporting-update',
                 ], // in a controller
                 // if in a module, use the following IDs for user actions
                 // 'only' => ['user/view', 'user/index']
@@ -335,6 +339,41 @@ class UsersController extends MyController
         }
 
         return $this->render('/days/_form', ['model' => $model]);
+    }
+    
+    /**
+     * Updates Reporting datas
+     * 
+     * @param int $id
+     * @param string $date
+     * @return string
+     * @throws NotAcceptableHttpException
+     */
+    public function actionReportingUpdate($id, $training_id)
+    {
+        $model = Reporting::findOne(['training_id' => $training_id]);
+        if (!$model) {
+            $model = new Reporting();
+            $model->training_id = $training_id;
+        }
+        if ($model->load(Yii::$app->request->post())) {
+            if (Yii::$app->request->isAjax) {
+                if ($model->validate()) {
+                    return $model->save();
+                } else {
+                    throw new NotAcceptableHttpException();
+                }
+            } else {
+                if ($model->validate()) {
+                    $model->save();
+                    return $this->redirect(Url::previous());
+                }else{
+                    var_dump($model->errors,$training_id);
+                }
+            }
+        }
+
+        return $this->render('/reportings/_form', ['model' => $model]);
     }
 
     /**

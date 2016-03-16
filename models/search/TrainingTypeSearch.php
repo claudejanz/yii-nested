@@ -166,6 +166,9 @@ class TrainingTypeSearch extends TrainingType
                             'update' => function ($url, $model) {
                                 return Html::a(Icon::show('pencil'), Yii::$app->urlManager->createUrl(['training-types/update', 'id' => $model->id]), [
                                             'title' => Yii::t('yii', 'Edit'),
+                                            'data' => [
+                                                'pjax' => 0
+                                            ]
                                 ]);
                             },
                                     'delete' => function ($url, $model) {

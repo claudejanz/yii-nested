@@ -12,8 +12,7 @@ use app\models\Training;
     * @property integer $training_id
     * @property string $feedback
     * @property string $time
-    * @property string $date
-    * @property integer $published
+    * @property double $feeled_rpe
     * @property integer $created_by
     * @property string $created_at
     * @property integer $updated_by
@@ -37,10 +36,11 @@ return 'reporting';
 public function rules()
 {
         return [
-            [['training_id', 'date', 'published'], 'required'],
-            [['training_id', 'published', 'created_by', 'updated_by'], 'integer'],
+            [['training_id'], 'required'],
+            [['training_id', 'created_by', 'updated_by'], 'integer'],
             [['feedback'], 'string'],
-            [['time', 'date', 'created_at', 'updated_at'], 'safe'],
+            [['time', 'created_at', 'updated_at'], 'safe'],
+            [['feeled_rpe'], 'number'],
             [['training_id'], 'exist', 'skipOnError' => true, 'targetClass' => Training::className(), 'targetAttribute' => ['training_id' => 'id']],
         ];
 }
@@ -55,8 +55,7 @@ return [
     'training_id' => Yii::t('app', 'Training ID'),
     'feedback' => Yii::t('app', 'Feedback'),
     'time' => Yii::t('app', 'Time'),
-    'date' => Yii::t('app', 'Date'),
-    'published' => Yii::t('app', 'Published'),
+    'feeled_rpe' => Yii::t('app', 'Feeled Rpe'),
     'created_by' => Yii::t('app', 'Created By'),
     'created_at' => Yii::t('app', 'Created At'),
     'updated_by' => Yii::t('app', 'Updated By'),

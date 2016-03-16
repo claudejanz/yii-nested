@@ -10,7 +10,6 @@ use yii\web\View;
 /* @var $this View */
 /* @var $models Sport[] */
 
-Yii::$app->controller->page->title = Yii::t('app', 'Sports');
 ?>
 <div class="sport-index">
         <?php

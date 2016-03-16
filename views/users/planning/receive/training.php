@@ -46,6 +46,21 @@ echo Html::beginTag('div', ['class' => 'col-sm-1']);
         ],
     ]);
     echo ' ';
+    echo AjaxModalButton::widget([
+        'label' => Icon::show('caret-square-o-right'),
+        'encodeLabel' => false,
+        'url' => [
+            'reporting-update',
+            'id' => $user->id,
+            'training_id' => $model->id
+        ],
+        'title' => Yii::t('app', 'Make a report: {title}', ['title' => $model->title]),
+        'success' => '#training' . $model->id,
+        'options' => [
+            'class' => 'red',
+        ],
+    ]);
+    echo ' ';
     echo Html::a(Icon::show('trash'), Url::to(['training-delete', 'id' => $user->id, 'training_id' => $model->id]), [
         'title' => Yii::t('yii', 'Delete'),
         'class' => 'red',

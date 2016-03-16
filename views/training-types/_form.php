@@ -95,7 +95,12 @@ use yii\web\View;
     $fields = [];
 //    $fields['published'] = ['type' => Form::INPUT_WIDGET,'widgetClass'=>  PublishWidget::className()];
     $fields['time'] = ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(), 'options' => ['type' => DateControl::FORMAT_TIME]];
-    $fields['rpe'] = ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Rpe...']];
+    $fields['rpe'] = ['type' => Form::INPUT_WIDGET,
+                'widgetClass' => '\kartik\widgets\RangeInput',
+                'options' => [
+                    'html5Options' => ['min' => 1, 'max' => 10],
+                    'options' => ['readonly' => true],
+                ]];
     echo Form::widget([
 
         'model' => $model,
