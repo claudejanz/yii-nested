@@ -1,8 +1,6 @@
 # phpstorm project files
 .idea
 
-
-
 # netbeans project files
 nbproject
 
@@ -36,7 +34,6 @@ phpunit.phar
 # config db file
 config/db.php
 
-# config css file
-web/css/**
 
+#yii plugin config file
 aliasesForNb.json
