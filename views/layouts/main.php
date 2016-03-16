@@ -29,6 +29,7 @@ AssetBundle::register($this);
         <?= Html::tag('meta', '', ['name' => 'description', 'content' => Yii::$app->controller->page->meta_description]); ?>
         <?= Html::tag('meta', '', ['name' => 'keywords', 'content' => Yii::$app->controller->page->meta_keywords]); ?>
         <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,700,400italic,700italic|News+Cycle:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/fonts/stylesheet.css" type="text/css" charset="utf-8" />
         <title><?= Html::encode(Yii::$app->controller->page->title) ?></title>
         <?php $this->head() ?>
     </head>

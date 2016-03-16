@@ -26,6 +26,8 @@ echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => ($isCoach)?'col-sm-11':'col-sm-12']);
 echo Html::tag('b', $model->duration);
 echo ' - ';
+echo Html::tag('span',$model->sport->icon,['class'=>'sports']);
+echo ' - ';
 echo $model->title;
 echo Html::endTag('div');
 

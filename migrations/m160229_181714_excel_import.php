@@ -62,12 +62,13 @@ class m160229_181714_excel_import extends Migration
     {
         $name = ucwords(strtolower($line['SPORTS']));
         $sport = Sport::findOne(['title' => $name]);
+        
         if (!$sport && $line['SPORTS'] != null) {
             $sport = new Sport();
             $sport->setAttributes([
                 'title' => $name,
                 'published' => PublishBehavior::PUBLISHED_ACTIF,
-                'icon' => $name,
+                'icon' => substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1),
             ]);
             if (!$sport->save())
                 var_dump(get_class($sport), $sport->errors);
