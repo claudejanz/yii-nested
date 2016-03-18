@@ -81,7 +81,7 @@ class Page extends PageBase
             'blameable' => [
                 'class' => BlameableBehavior::className(),
             ],
-            'onlyBehavior' => [
+            'homepage' => [
                 'class' => OnlyBehavior::className(),
                 'field' => 'home_page'
             ],
