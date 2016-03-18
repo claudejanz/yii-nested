@@ -19,9 +19,9 @@ MyPjax::begin(['id' => 'day' . $dateId]);
 echo Html::beginTag('div', ['class' => 'day white-block', 'data' => ['date' => $dateId]]);
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-sm-2']);
-echo Html::beginTag('div'); //date
+echo Html::beginTag('div', ['class' => 'dayFormat']); //date
 echo Yii::$app->formatter->asDate($dateTime, 'full');
-echo Html::beginTag('div'); //city and button
+echo Html::beginTag('div', ['class' => 'cityFormat']); //city and button
 if (isset($days[$dateTime->format('Y-m-d')])) {
     $day = $days[$dateTime->format('Y-m-d')];
     $text = $day->training_city;
