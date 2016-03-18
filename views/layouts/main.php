@@ -131,7 +131,7 @@ AssetBundle::register($this);
         <link rel="stylesheet" href="/fonts/stylesheet.css" type="text/css" charset="utf-8" />
         <?php $this->head() ?>
     </head>
-    <body>
+    <body class="<?php echo Yii::$app->user->can('coaches')?'coaches':'sportifs';?>">
         <?php $this->beginBody() ?>
         <div class="wrap">    
             <?php
