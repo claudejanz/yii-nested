@@ -7,13 +7,13 @@
 @myBgGray: #f0f0f0;
 @myPadding: 5px 10px;
 @redColor: #f60100;
-
+@blackTransparent: rgba (0,0,0,0.7);
 
 /* style sheet */
 html,
 body {
     height: 100%;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     font-size:16px;
     background-color: @myBgGray;
 }
@@ -255,7 +255,7 @@ form.kneubuhler {
         background-color: black;
         border: none;
         border-radius: 0; // Note: This has no effect on <select>s in some browsers, due to the limited stylability of <select>s in CSS.
-        padding:0px;
+        padding:5px;
         height: 25px;
         line-height: 1;
         text-transform: uppercase;
@@ -277,15 +277,19 @@ form.kneubuhler {
 
 }
 a.kneubuhler{
-    background-color:@redColor;
+    background-color:@blackTransparent;
     color:white;
     text-align:center;
-    font-weight: bold;
+    font-weight: 200;
     margin-bottom:@smallGap;
     display:block;
     width:100%;
     text-decoration: none;
     text-transform: uppercase;
+    
+    &:hover {
+            background-color:@redColor;
+    }
 }
 
 .draggable{
@@ -322,14 +326,17 @@ button.red{
         background-color:black;
         color:white;
         text-align:center;
-        font-weight: bold;
+        font-weight: 200;
+        text-transform: uppercase;
+        padding: 20px 0;
+        font-size: 15px;
         margin-bottom:@smallGap;
     }
     .words-of-the-week{
         background-color:black;
         color:white;
         text-align:center;
-        font-weight: bold;
+        font-weight: 200;
         font-size: 1.4em;
         margin-bottom:@smallGap;
     }
@@ -417,4 +424,33 @@ span.sports{
    font-family: 'sports';
    font-size: 1.5em;
    color: @redColor;
+}
+
+ .dayFormat {
+     font-size: 10px;
+ }
+ 
+.cityFormat a {
+    color: black;
+}
+ 
+.cityFormat .fa-pencil {
+    color: rgba(0,0,0,0.8);
+}
+
+/*SPORTIF*/
+
+body.sportifs {
+    
+    background-image: url(../images/mobile/startup2048x1496.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: transparent;
+    background-size: 100%;
+    
+    .breadcrumb, h1 {
+        display: none;
+    }
+   
 }

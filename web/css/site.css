@@ -8,6 +8,7 @@ and open the template in the editor.
     Author     : Claude
 */
 /* mixins */
+@black Transparent: rgba (0,0,0,0.7);
 /* style sheet */
 html,
 body {
@@ -268,7 +269,7 @@ form.kneubuhler .has-success select.form-control {
   height: 25px;
   line-height: 1;
   text-transform: uppercase;
-  font-weight: 200;
+  font-weight: bold;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -285,7 +286,7 @@ form.kneubuhler .has-success select.form-control option {
   background-color: darkgrey;
 }
 a.kneubuhler {
-  background-color: rgba(0,0,0,0.2);
+  background-color: black;
   color: white;
   text-align: center;
   font-weight: 200;
@@ -294,15 +295,10 @@ a.kneubuhler {
   width: 100%;
   text-decoration: none;
   text-transform: uppercase;
-  font-size: 12px;
-  padding: 5px 0;
-  
-  &:hover {
-    background-color: #f60100;
-    
-  }
 }
-
+a.kneubuhler:hover {
+  background-color: #f60100;
+}
 .draggable {
   margin-bottom: 6px;
   cursor: pointer;
@@ -334,13 +330,11 @@ button.red {
   background-color: black;
   color: white;
   text-align: center;
+  font-weight: 200;
+  text-transform: uppercase;
+  padding: 20px 0;
+  font-size: 15px;
   margin-bottom: 6px;
-    font-size: 20px;
-    letter-spacing: 3px;
-    padding: 20px 0;
-    font-weight: 200;
-    text-transform: uppercase;
-
 }
 .week .words-of-the-week {
   background-color: black;
@@ -363,7 +357,7 @@ button.red {
   vertical-align: middle;
   text-align: center;
   color: #f0f0f0;
-  content: "DROP ZONE";
+  content: "Drop Zone";
 }
 .week .day .droppable > div {
   border-top: 1px solid #f0f0f0;
@@ -374,7 +368,7 @@ button.red {
   padding-top: none;
 }
 .week .day.hover {
-  background-color: rgba(0,0,0,0.1);
+  background-color: red !important;
 }
 .week .day.ui-state-active {
   background-color: blue;
@@ -427,20 +421,26 @@ span.sports {
   font-size: 1.5em;
   color: #f60100;
 }
-
-
-
 .dayFormat {
-    font-size: 10px;
+  font-size: 10px;
 }
-
 .cityFormat a {
-    color: black;
+  color: black;
 }
-
 .cityFormat .fa-pencil {
-    color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
-
-
+/*SPORTIF*/
+body.sportifs {
+  background-image: url(../images/mobile/startup2048x1496.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: transparent;
+  background-size: 100%;
+}
+body.sportifs .breadcrumb,
+body.sportifs h1 {
+  display: none;
+}
 /*# sourceMappingURL=site.css.map */
