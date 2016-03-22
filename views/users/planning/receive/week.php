@@ -29,7 +29,7 @@ if ($isCoach) {
         'week' => $week,
     ]);
 }
-if(isset($week)&&isset($week->words_of_the_week))echo Html::tag('div',$week->words_of_the_week,['class'=>'words-of-the-week']);
+if(isset($week)&&isset($week->words_of_the_week))echo Html::tag('div',$week->words_of_the_week,['class'=>'words-of-the-week animated flipInX']);
 echo Html::beginTag('div', ['class' => 'title']);
 echo Yii::t('app', '{startDate} to {endDate}', [
     'startDate' => Yii::$app->formatter->asDate($startDate),

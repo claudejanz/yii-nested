@@ -16,7 +16,7 @@ use yii\web\User;
 
 $dateId = $dateTime->format("Y-m-d");
 MyPjax::begin(['id' => 'day' . $dateId]);
-echo Html::beginTag('div', ['class' => 'day white-block', 'data' => ['date' => $dateId]]);
+echo Html::beginTag('div', ['class' => 'day white-block animated fadeInUp', 'data' => ['date' => $dateId]]);
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-sm-2']);
 echo Html::beginTag('div', ['class' => 'dayFormat']); //date

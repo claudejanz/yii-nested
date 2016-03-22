@@ -8,6 +8,12 @@
 @myPadding: 5px 10px;
 @redColor: #f60100;
 @blackTransparent: rgba(0,0,0,0.7);
+@mulaffBG: #2c1212;
+@mulaff: #97cccd;
+@mulaffSecondary: #78a5a6;
+@mulaffThird: #416162;
+@white: white;
+@black: black;
 
 /* style sheet */
 html,
@@ -441,16 +447,117 @@ span.sports{
 /*SPORTIF*/
 
 body.sportifs {
+    
+    background-color: @mulaffBG;
+    
+    .navbar-brand {
+        color: @mulaff;
+        text-transform: uppercase;
+        font-weight: 200;
+        letter-spacing: 2px;
+        }
+    .navbar-inverse {
+        background-color: @black;
+        border: 0;
+    }
+    .wrap > .content {
+        padding: 28px 0;
+    }
+    .weekNav {
+                background-color: @mulaff;
 
-    background-image: url(../images/mobile/startup2048x1496.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-color: transparent;
-    background-size: 100%;
-
+    }
+    a.kneubuhler {
+        background-color: @mulaff;
+        padding: 10px 0;
+        margin: 0;
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: @mulaffThird;
+        font-weight: 700;
+        &:hover {
+            background-color: @mulaffSecondary;
+        }
+    }
+    .fadeInLeft a {
+        text-align: left;
+    }
+    .fadeInRight a {
+        text-align: right;
+    }
+    
     .breadcrumb, h1 {
         display: none;
     }
-
+    .words-of-the-week {
+        background-color: transparent;
+        font-weight: 400;
+        letter-spacing: 2px;
+        color: @white;
+        padding: 20px 0;
+    }
+    .week .white-block {
+        padding: 0;
+    }
+    .week .title {
+        display:none;
+        margin-bottom: 0;
+        background-color: transparent;
+        color: @black;
+        padding: 0;
+        
+    }
+    .white-block {
+        background-color: transparent;
+    }
+    .dayFormat {
+        background-color: transparent;
+        border-top: 1px dashed @mulaff;
+        border-bottom: 1px dashed @mulaff;
+        color: @white;
+        font-size: 16px;
+        text-align: center;
+        padding: 8px 0;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 2px;
+    }
+    .cityFormat a{
+        text-transform: none;
+        font-weight: 200;
+        color: @white;
+    }
+    .cityFormat .fa-pencil {
+        color: rgba(255,255,255,0.8);
+        font-size: 11px;
+        line-height: 16px;
+        padding-left: 3px;
+    }
+    .trainingWrapper {
+        padding: 20px;
+        color: @white;
+        text-align: center;
+        font-weight: 200;
+    }
+    .timeDuration {
+        text-align: center;
+        border: 5px solid @white;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        line-height: 50px;
+        margin: 10px auto 20px auto;
+        font-weight: 700;
+        background-color: @white;
+        color: @mulaffBG;
+    }
+    .sports {
+        display:none;
+        width: 100%;
+        text-align: center;
+    }
+    .graphWrapper {
+    background-color: @white;
+    padding: 20px 30px;
+    }
 }

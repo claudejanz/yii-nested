@@ -22,12 +22,10 @@ use yii\widgets\DetailView;
 
 
 MyPjax::begin(['id' => 'training' . $model->id]);
-echo Html::beginTag('div', ['class' => 'row']);
-echo Html::beginTag('div', ['class' => ($isCoach)?'col-sm-11':'col-sm-12']);
-echo Html::tag('b', $model->duration);
-echo ' - ';
+echo Html::beginTag('div', ['class' => 'row trainingDesc']);
+echo Html::beginTag('div', ['class' => ($isCoach)?'col-sm-11':'col-sm-12 trainingWrapper']);
+echo Html::tag('div', $model->duration,['class'=>'timeDuration']);
 echo Html::tag('span',$model->sport->icon,['class'=>'sports']);
-echo ' - ';
 echo $model->title;
 echo Html::endTag('div');
 
@@ -77,7 +75,7 @@ echo Html::a(Icon::show('plus'), "#", ['onClick' => '$("#training' . $model->id 
 }
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'row'.(($isCoach)?' hid':'')]);
-echo Html::beginTag('div', ['class' => 'col-sm-12']);
+echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
 echo MulaffGraphWidget::widget(['width' => 300, 'height' => 150, 'model' => $model, 'attribute' => 'graph','withLegends'=>true,'withLines'=>true,  'color'=>MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'col-sm-12']);
