@@ -75,7 +75,7 @@ echo Html::a(Icon::show('plus'), "#", ['onClick' => '$("#training' . $model->id 
 }
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'row'.(($isCoach)?' hid':'')]);
-echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
+echo Html::beginTag('div', ['class' => 'col-sm-12 col-md-4 col-md-offset-4 graphWrapper']);
 echo MulaffGraphWidget::widget(['width' => 300, 'height' => 150, 'model' => $model, 'attribute' => 'graph','withLegends'=>true,'withLines'=>true,  'color'=>MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'col-sm-12']);

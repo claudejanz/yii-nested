@@ -18,7 +18,7 @@ $dateId = $dateTime->format("Y-m-d");
 MyPjax::begin(['id' => 'day' . $dateId]);
 echo Html::beginTag('div', ['class' => 'day white-block animated fadeInUp', 'data' => ['date' => $dateId]]);
 echo Html::beginTag('div', ['class' => 'row']);
-echo Html::beginTag('div', ['class' => 'col-sm-2']);
+echo Html::beginTag('div', ['class' => 'col-sm-2 col-md-12']);
 echo Html::beginTag('div', ['class' => 'dayFormat']); //date
 echo Yii::$app->formatter->asDate($dateTime, 'full');
 echo Html::beginTag('div', ['class' => 'cityFormat']); //city and button
@@ -41,7 +41,7 @@ echo AjaxModalButton::widget([
 echo Html::endTag('div'); //city and button
 echo Html::endTag('div'); //date
 echo Html::endTag('div'); //col-sm-2
-echo Html::beginTag('div', ['class' => 'col-sm-10']);
+echo Html::beginTag('div', ['class' => 'col-sm-10 col-md-12']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'droppable' : '']);
 if (isset($models[$dateTime->format('Y-m-d')])) {
     $trainings = $models[$dateTime->format('Y-m-d')];
