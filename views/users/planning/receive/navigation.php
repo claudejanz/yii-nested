@@ -19,14 +19,16 @@ use yii\helpers\Url;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+$linkDate = clone $startDate;
+$linkDate->modify('-7 days');
 
 echo Html::beginTag('div', ['class' => 'row weekNav']);
 echo Html::beginTag('div', ['class' => 'col-xs-6 animated fadeInLeft']);
 echo Html::a(Yii::t('app', 'Previous Week'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
 echo Html::endTag('div');
-echo Html::beginTag('div', ['class' => 'col-xs-6 animated fadeInRight']);
 $linkDate = clone $startDate;
 $linkDate->modify('+7 days');
+echo Html::beginTag('div', ['class' => 'col-xs-6 animated fadeInRight']);
 echo Html::a(Yii::t('app', 'Next Week'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
 echo Html::endTag('div');
 echo Html::endTag('div');

@@ -13,13 +13,13 @@ use yii\models\User;
 /* @var $isCoach booleen */
 
 
-$linkDate = clone $startDate;
+
 $interval = DateInterval::createFromDateString('1 week');
 $period = new DatePeriod($startDate, $interval, $endDate);
 //var_dump(array_keys($models));
-$linkDate->modify('-7 days');
+
 MyPjax::begin(['id' => 'weeks']);
-echo $this->render('navigation',['startDate'=>$startDate,'linkDate'=>$linkDate]);
+echo $this->render('navigation',['startDate'=>$startDate]);
 echo Html::beginTag('div', ['class' => 'row']);
 foreach ($period as $dateTime) {
     echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
@@ -32,9 +32,7 @@ foreach ($period as $dateTime) {
     echo Html::endTag('div');
 }
 echo Html::endTag('div');
-$linkDate = clone $startDate;
-$linkDate->modify('+7 days');
-echo $this->render('navigation',['startDate'=>$startDate,'linkDate'=>$linkDate]);
+echo $this->render('navigation',['startDate'=>$startDate]);
 
 $js = '$(function() {
     $( ".day" ).droppable({
