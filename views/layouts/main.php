@@ -128,7 +128,6 @@ AssetBundle::register($this);
         <?= Html::tag('meta', '', ['name' => 'description', 'content' => Yii::$app->controller->page->meta_description]); ?>
         <?= Html::tag('meta', '', ['name' => 'keywords', 'content' => Yii::$app->controller->page->meta_keywords]); ?>
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,700,300,900' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="/fonts/stylesheet.css" type="text/css" charset="utf-8" />
         <?php $this->head() ?>
     </head>
     <body class="<?php echo Yii::$app->user->can('coach')?'coaches':'sportifs';?>">
