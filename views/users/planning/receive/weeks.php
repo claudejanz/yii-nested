@@ -19,16 +19,7 @@ $period = new DatePeriod($startDate, $interval, $endDate);
 //var_dump(array_keys($models));
 $linkDate->modify('-7 days');
 MyPjax::begin(['id' => 'weeks']);
-echo Html::beginTag('div', ['class' => 'row weekNav']);
-echo Html::beginTag('div', ['class' => 'col-xs-6 animated fadeInLeft']);
-echo Html::a(Yii::t('app', 'Previous Week'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
-echo Html::endTag('div');
-echo Html::beginTag('div', ['class' => 'col-xs-6 animated fadeInRight']);
-$linkDate = clone $startDate;
-$linkDate->modify('+7 days');
-echo Html::a(Yii::t('app', 'Next Week'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
-echo Html::endTag('div');
-echo Html::endTag('div');
+echo $this->render('navigation',['startDate'=>$startDate,'linkDate'=>$linkDate]);
 echo Html::beginTag('div', ['class' => 'row']);
 foreach ($period as $dateTime) {
     echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
@@ -43,7 +34,8 @@ foreach ($period as $dateTime) {
 echo Html::endTag('div');
 $linkDate = clone $startDate;
 $linkDate->modify('+7 days');
-echo Html::a(Yii::t('app', 'Next Week'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
+echo $this->render('navigation',['startDate'=>$startDate,'linkDate'=>$linkDate]);
+
 $js = '$(function() {
     $( ".day" ).droppable({
         hoverClass: "hover",
