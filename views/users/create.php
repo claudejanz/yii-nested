@@ -1,14 +1,15 @@
 <?php
 
-use yii\helpers\Html;
+use app\models\User;
+use yii\web\View;
 
 /**
- * @var yii\web\View $this
- * @var app\models\User $model
+ * @var View $this
+ * @var User $model
  */
 
 Yii::$app->controller->page->title = Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'User',
+    'modelClass' => User::getLabel(),
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
