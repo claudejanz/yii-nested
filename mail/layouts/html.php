@@ -10,7 +10,7 @@ use yii\helpers\Html;
 <?php $this->beginPage() ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head style='background-color:#f60100'>
+    <head style='background-color:#2c1212'>
         <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
         <title><?php
             if (!isset($this->title))
@@ -19,9 +19,11 @@ use yii\helpers\Html;
             ?></title>
         <style type="text/css">
             body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; font-size:14px; }
-            body { background-color: #F0F0F0; margin: 0; padding: 0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none; }
+            body { background-color: #2c1212; margin: 0; padding: 0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none; }
             h2{ padding-top:12px; /* ne fonctionnera pas sous Outlook 2007+ */color:#0E7693; font-size:22px; }
-
+            .article-content {
+                padding: 50px 0;
+            }
             @media only screen and (max-width: 480px) { 
 
                 table[class=w275], td[class=w275], img[class=w275] { width:135px !important; }
@@ -59,13 +61,13 @@ use yii\helpers\Html;
                                 <!-- entete -->
                                 <tr class="pagetoplogo">
                                     <td class="w640"  width="640">
-                                        <table  class="w640"  width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#f60100">
+                                        <table  class="w640"  width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#97cccd">
                                             <tbody>
                                                 <tr>
                                                     <td class="w30"  width="30"></td>
                                                     <td  class="w580"  width="580" valign="middle" align="left">
                                                         <div class="pagetoplogo-content">
-                                                            <h1 style="color:#FFFFFF; font-size:40px; padding-top:12px; text-align: center;">
+                                                            <h1 style="color:#FFFFFF; font-size:30px; padding-top:12px; text-align: center;text-transform:uppercase;font-weight:200;letter-spacing: 2px;">
                                                                 <?= Html::encode($this->title) ?> 
                                                             </h1>
                                                         </div>
@@ -127,7 +129,7 @@ use yii\helpers\Html;
                                 <!-- pied de page -->
                                 <tr class="pagebottom">
                                     <td class="w640"  width="640">
-                                        <table class="w640"  width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#c7c7c7">
+                                        <table class="w640"  width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#2c1212">
                                             <tbody>
                                                 <tr>
                                                     <td colspan="5" height="10"></td>
