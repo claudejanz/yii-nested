@@ -19,6 +19,14 @@ use yii\helpers\Html;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+<div class="container">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="loginLogo">
+            <img src="<?= Yii::getAlias('@web/images/mobile/logo.png') ?>" class="img-responsive">
+        </div>
+    </div>
+</div>
+
 <?= $form->field($login, 'username')
 ?>
 
@@ -31,7 +39,7 @@ if (isset($form->fieldConfig['template'])) {
 }
 echo $form->field($login, 'rememberMe', $options)->checkbox()
 ?>
-<div class='row'>
+<div class='row loginForget'>
     <div class="<?= isset($form->fieldConfig['template']) ? 'col-md-offset-3 col-md-9' : 'col-md-12'; ?>">
         <p>
             Si vous avez oublié votre mot de passe vous pouvez en demander <?= Html::a('un nouveau', ['site/request-password-reset']) ?>.
