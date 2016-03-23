@@ -132,7 +132,7 @@ AssetBundle::register($this);
     </head>
     <?php
     $class = '';
-    if (!Yii::$app->user->can('@')) {
+    if (Yii::$app->user->isGuest) {
         $class = 'login';
     } elseif (Yii::$app->user->can('coach')) {
         $class = 'coaches';
@@ -144,7 +144,7 @@ AssetBundle::register($this);
         <?php $this->beginBody() ?>
         <div class="wrap">    
             <?php
-            if (Yii::$app->user->can('@')) {
+            if (!Yii::$app->user->isGuest) {
                 NavBar::begin([
                     'innerContainerOptions' => ['class' => 'container-fluid'],
                     'brandLabel' => Yii::$app->id,
