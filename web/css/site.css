@@ -561,4 +561,23 @@ body.sportifs .table-bordered > tbody > tr > th {
   font-size: 10px;
   letter-spacing: 2px;
 }
+body.sportifs .modal-content {
+  border-radius: 0;
+  background-color: #2c1212;
+  color: white;
+}
+body.sportifs .modal-content .close {
+  color: white;
+  text-shadow: 0;
+}
+body.sportifs .modal-content h4 {
+  text-align: center;
+  text-transform: uppercase;
+}
+body.sportifs .modal-content label {
+  font-weight: 200;
+}
+body.sportifs .modal-content button {
+  text-align: center;
+}
 /*# sourceMappingURL=site.css.map */
