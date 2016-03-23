@@ -16,7 +16,9 @@
 @black: black;
 
 /* style sheet */
-html,
+html {
+    
+}
 body {
     font-family: 'Source Sans Pro', sans-serif;
     font-size:16px;
@@ -376,7 +378,7 @@ button.red{
             }
         }
         &.hover {
-            background-color: red !important;
+            background-color: rgba(0,0,0,0.5);
         }
 
         &.ui-state-active {
@@ -604,4 +606,79 @@ body.sportifs {
         }
     }
     
+}
+
+body.login {
+    background-color: @mulaffBG;
+    color: @white;
+    .wrap {
+        padding: 0 50px;
+    }
+    .loginLogo {
+        padding-bottom: 30px;
+    }
+    .form-group {
+        margin-bottom: 2px;
+    }
+    label {
+        color: @white;
+        font-weight: 200;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 14px;
+    }
+    input {
+        border-radius: 0;
+    }
+    input[type="checkbox"] {
+        background-color: @mulaff;
+    }
+    .loginForget {
+        font-size: 11px;
+        color: @white;
+        font-weight: 200;
+    }
+    a {
+        color: @mulaff;
+    }
+    .footer {
+        position: absolute;
+        bottom: 5px;
+        background: none;
+        color: @white;
+        font-size: 10px;
+        border-top: 0;
+        padding-top: 50px;
+    }
+    button {
+        width: 100%;
+    }
+    .help-block {
+        font-size: 11px;
+        
+    }
+}
+
+
+/*BTN CHANGE*/
+
+.btn-primary {
+    background-color: @mulaffThird;
+    border-color: @mulaffSecondary;
+    color: @white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 1px;
+    
+    &:active {
+        background-color: @mulaff;
+
+    }
+    &:focus {
+        background-color: @mulaff;
+
+    }
+    &:hover {
+        background-color: @mulaffSecondary;
+    }
 }

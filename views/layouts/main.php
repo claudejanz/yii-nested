@@ -115,7 +115,7 @@ AssetBundle::register($this);
         <link href="<?= Yii::getAlias('@web/images/mobile/startup750x1294.png') ?>"
               media="(device-width: 375px) and (device-height: 667px)
               and (-webkit-device-pixel-ratio: 2)"
-              rel="apple-touch-startup-image">
+              rel="apple-touch-startup-image">  
 
         <!-- iPhone 5 startup image -->
         <link href="<?= Yii::getAlias('@web/images/mobile/startup640x1096.png') ?>"
