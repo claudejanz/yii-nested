@@ -646,4 +646,16 @@ body.login .help-block {
 .btn-primary:hover {
   background-color: #78a5a6;
 }
+.coaches .weekNav {
+  background-color: black;
+  padding: 0px;
+  margin: 0 0px 20px 0px;
+}
+.coaches .weekNav .kneubuhler {
+  padding: 10px;
+  margin: 0;
+}
+.coaches .weekNav .kneubuhler:hover {
+  background-color: #97cccd;
+}
 /*# sourceMappingURL=site.css.map */

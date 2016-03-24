@@ -20,8 +20,8 @@ use yii\helpers\Html;
  */
 ?>
 <div class="container">
-    <div class="col-sm-8 col-sm-offset-2">
-        <div class="loginLogo">
+    <div class="col-sm-8 col-sm-offset-2  col-lg-2 col-lg-offset-5">
+        <div class="loginLogo animated flipInX">
             <img src="<?= Yii::getAlias('@web/images/mobile/logo.png') ?>" class="img-responsive">
         </div>
     </div>
@@ -35,12 +35,12 @@ use yii\helpers\Html;
 $options = [];
 if (isset($form->fieldConfig['template'])) {
 //echo $form->fieldConfig['template'];
-    $options = ['template' => "<div class=\"col-md-offset-3 col-md-3\">{input}</div>\n<div class=\"col-md-6\">{error}</div>"];
+    $options = ['template' => "<div class=\"col-md-offset-3 col-md-3  col-lg-2 col-lg-offset-5 animated fadeInUp\">{input}</div>\n<div class=\"col-md-6 \">{error}</div>"];
 }
 echo $form->field($login, 'rememberMe', $options)->checkbox()
 ?>
-<div class='row loginForget'>
-    <div class="<?= isset($form->fieldConfig['template']) ? 'col-md-offset-3 col-md-9' : 'col-md-12'; ?>">
+<div class='row loginForget animated fadeInUp'>
+    <div class="<?= isset($form->fieldConfig['template']) ? 'col-md-offset-3 col-md-9  col-lg-2 col-lg-offset-5' : 'col-md-12'; ?>">
         <p>
             Si vous avez oublié votre mot de passe vous pouvez en demander <?= Html::a('un nouveau', ['site/request-password-reset']) ?>.
         </p>
