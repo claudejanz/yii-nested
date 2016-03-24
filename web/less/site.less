@@ -410,23 +410,65 @@ div.hid{
 }
 
 .sport-index{
+    margin-top: 30px;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
     ul{
         padding-left: 10px;
     }
     ul.sport{
-        background-color: @brand-primary;
+        background-color: @white;
+        padding-left: 20px;
+        padding-top: 30px;
     }
     ul.cat,ul.subcat{
-        padding-left:10px;
-        background-color: @brand-info;
+        text-transform: none;
+        font-size: 16px;
+            letter-spacing: 1px;
+
+        font-weight: 400;
+        padding-left:0px;
+        background-color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
     ul.subcat{
-        background-color: @brand-warning;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 10px;
+        margin-bottom: 30px;
+        margin-left: 40px;
+        font-size: 13px;
+        border-left: 1px solid rgba(0,0,0,0.1);
+        background-color: rgba(0,0,0,0.0);
     }
     li{
         list-style: none;
     }
+    button {
+        font-size: 11px;
+        margin-left: 0px;
+        border: 0;
+        box-shadow: 0;
+        background-color: white;
+        padding-right: 0;
+        color: @mulaff;
+        &:hover {
+            color: @mulaffSecondary;
+        }
+    }
 }
+
+#sports>div {
+    padding-bottom: 50px;
+    >li {
+                  border-bottom: 1px dashed black;
+      
+    }
+}
+
 span.sports{
     font-family: 'sports';
     font-size: 1.5em;
