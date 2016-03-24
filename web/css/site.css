@@ -9,7 +9,11 @@ and open the template in the editor.
 */
 /* mixins */
 /* style sheet */
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   background-color: #f0f0f0;
@@ -365,7 +369,7 @@ button.red {
   padding-top: none;
 }
 .week .day.hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .week .day.ui-state-active {
   background-color: blue;
@@ -396,22 +400,62 @@ div.hid {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5cb85c', endColorstr='#ff48a648', GradientType=0);
   background-size: contain;
 }
+.sport-index {
+  margin-top: 30px;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
 .sport-index ul {
   padding-left: 10px;
 }
 .sport-index ul.sport {
-  background-color: #337ab7;
+  background-color: white;
+  padding-left: 20px;
+  padding-top: 30px;
 }
 .sport-index ul.cat,
 .sport-index ul.subcat {
-  padding-left: 10px;
-  background-color: #5bc0de;
+  text-transform: none;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  padding-left: 0px;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .sport-index ul.subcat {
-  background-color: #f0ad4e;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  margin-bottom: 30px;
+  margin-left: 40px;
+  font-size: 13px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0);
 }
 .sport-index li {
   list-style: none;
+}
+.sport-index button {
+  font-size: 11px;
+  margin-left: 0px;
+  border: 0;
+  box-shadow: 0;
+  background-color: white;
+  padding-right: 0;
+  color: #97cccd;
+}
+.sport-index button:hover {
+  color: #78a5a6;
+}
+#sports > div {
+  padding-bottom: 50px;
+}
+#sports > div > li {
+  border-bottom: 1px dashed black;
 }
 span.sports {
   font-family: 'sports';
@@ -614,13 +658,10 @@ body.login a {
   color: #97cccd;
 }
 body.login .footer {
-  position: absolute;
-  bottom: 5px;
   background: none;
   color: white;
   font-size: 10px;
   border-top: 0;
-  padding-top: 50px;
 }
 body.login button {
   width: 100%;
@@ -629,13 +670,15 @@ body.login .help-block {
   font-size: 11px;
 }
 /*BTN CHANGE*/
+.btn {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 1px;
+}
 .btn-primary {
   background-color: #416162;
   border-color: #78a5a6;
   color: white;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-radius: 1px;
 }
 .btn-primary:active {
   background-color: #97cccd;
@@ -645,5 +688,17 @@ body.login .help-block {
 }
 .btn-primary:hover {
   background-color: #78a5a6;
+}
+.coaches .weekNav {
+  background-color: black;
+  padding: 0px;
+  margin: 0 0px 20px 0px;
+}
+.coaches .weekNav .kneubuhler {
+  padding: 10px;
+  margin: 0;
+}
+.coaches .weekNav .kneubuhler:hover {
+  background-color: #97cccd;
 }
 /*# sourceMappingURL=site.css.map */

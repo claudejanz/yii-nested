@@ -17,9 +17,10 @@
 
 /* style sheet */
 html {
-    
+    height: 100%;
 }
 body {
+    height: 100%;
     font-family: 'Source Sans Pro', sans-serif;
     font-size:16px;
     background-color: @myBgGray;
@@ -378,7 +379,7 @@ button.red{
             }
         }
         &.hover {
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.05);
         }
 
         &.ui-state-active {
@@ -410,23 +411,65 @@ div.hid{
 }
 
 .sport-index{
+    margin-top: 30px;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
     ul{
         padding-left: 10px;
     }
     ul.sport{
-        background-color: @brand-primary;
+        background-color: @white;
+        padding-left: 20px;
+        padding-top: 30px;
     }
     ul.cat,ul.subcat{
-        padding-left:10px;
-        background-color: @brand-info;
+        text-transform: none;
+        font-size: 16px;
+            letter-spacing: 1px;
+
+        font-weight: 400;
+        padding-left:0px;
+        background-color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
     ul.subcat{
-        background-color: @brand-warning;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 10px;
+        margin-bottom: 30px;
+        margin-left: 40px;
+        font-size: 13px;
+        border-left: 1px solid rgba(0,0,0,0.1);
+        background-color: rgba(0,0,0,0.0);
     }
     li{
         list-style: none;
     }
+    button {
+        font-size: 11px;
+        margin-left: 0px;
+        border: 0;
+        box-shadow: 0;
+        background-color: white;
+        padding-right: 0;
+        color: @mulaff;
+        &:hover {
+            color: @mulaffSecondary;
+        }
+    }
 }
+
+#sports>div {
+    padding-bottom: 50px;
+    >li {
+                  border-bottom: 1px dashed black;
+      
+    }
+}
+
 span.sports{
     font-family: 'sports';
     font-size: 1.5em;
@@ -642,13 +685,11 @@ body.login {
         color: @mulaff;
     }
     .footer {
-        position: absolute;
-        bottom: 5px;
+        
         background: none;
         color: @white;
         font-size: 10px;
         border-top: 0;
-        padding-top: 50px;
     }
     button {
         width: 100%;
@@ -661,14 +702,16 @@ body.login {
 
 
 /*BTN CHANGE*/
-
+.btn {
+        text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 1px;
+}
 .btn-primary {
     background-color: @mulaffThird;
     border-color: @mulaffSecondary;
     color: @white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-radius: 1px;
+
     
     &:active {
         background-color: @mulaff;
@@ -680,5 +723,24 @@ body.login {
     }
     &:hover {
         background-color: @mulaffSecondary;
+    }
+}
+
+
+.coaches {
+    
+    .weekNav {
+        background-color: @black;
+        padding: 0px;
+        margin: 0 0px 20px 0px;
+        
+        .kneubuhler {
+            padding: 10px;
+            margin: 0;
+            &:hover {
+                   background-color: @mulaff;
+
+            }
+        }
     }
 }

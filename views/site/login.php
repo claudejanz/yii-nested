@@ -18,8 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'login-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-md-3\">{input}</div>\n<div class=\"col-md-6\">{error}</div>",
-            'labelOptions' => ['class' => 'col-md-3 control-label'],
+            'template' => "{label}\n<div class=\"col-md-3 col-lg-2 animated fadeInUp\">{input}</div>\n<div class=\"col-md-6 col-lg-2 col-lg-offset-5 animated fadeInDown\">{error}</div>",
+            'labelOptions' => ['class' => 'col-md-3  col-lg-2 col-lg-offset-3 control-label animated fadeInUp'],
         ],
     ]); 
 
@@ -27,8 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     ?>
 
-    <div class="form-group">
-            <div class="col-md-offset-3 col-md-9">
+    <div class="form-group animated flipInX">
+            <div class="col-md-offset-3 col-md-9 col-lg-2 col-lg-offset-5">
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
     </div>
