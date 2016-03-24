@@ -171,21 +171,21 @@ class Page extends PageBase
         return ArrayHelper::map(Layout::find()->all(), 'id', 'title');
     }
 
-    /**
-     * @return array parent options for classification 
-     */
-    public static function getParentOptions($root_menu = self::ROOT_MENU_NULL, $parent_id = null, $indent = '')
-    {
-        $all = self::find()->select(['id', 'title'])->where(['root_menu' => $root_menu, 'parent_id' => $parent_id, 'orderable' => 1])->asArray()->all();
-        $rows = [];
-        if ($all) {
-            foreach ($all as $row) {
-                $rows[$row['id']] = $indent . $row['title'];
-                $rows = ArrayHelper::merge($rows, self::getParentOptions($root_menu, $row['id'], $indent . '-'));
-            }
-        }
-        return $rows;
-    }
+//    /**
+//     * @return array parent options for classification 
+//     */
+//    public static function getParentOptions($root_menu = self::ROOT_MENU_NULL, $parent_id = null, $indent = '')
+//    {
+//        $all = self::find()->select(['id', 'title'])->where(['root_menu' => $root_menu, 'parent_id' => $parent_id, 'orderable' => 1])->asArray()->all();
+//        $rows = [];
+//        if ($all) {
+//            foreach ($all as $row) {
+//                $rows[$row['id']] = $indent . $row['title'];
+//                $rows = ArrayHelper::merge($rows, self::getParentOptions($root_menu, $row['id'], $indent . '-'));
+//            }
+//        }
+//        return $rows;
+//    }
 
     public function getFirstChildrenLinks()
     {

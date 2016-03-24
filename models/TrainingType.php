@@ -35,8 +35,8 @@ class TrainingType extends TrainingTypeBase
     }
     
     public function getDuration(){
-        $split =  array_map('intval',preg_split('@:@', $this->time, -1, PREG_SPLIT_NO_EMPTY));
-        return join('h',  array_splice($split, 0, 2));
+        $split =  preg_split('@:@', $this->time, -1, PREG_SPLIT_NO_EMPTY);
+        return sprintf('%1$01dh%2$02d', $split['0'], $split['1']);;
     }
     public function getShortTitle(){
         return substr($this->title, 0, 25).'...';

@@ -45,6 +45,7 @@ class m140806_232625_create_db extends Migration
             'home_page' => Schema::TYPE_BOOLEAN . ' NULL DEFAULT NULL',
             'orderable' => Schema::TYPE_BOOLEAN . ' NULL DEFAULT 1',
             'root_menu' => Schema::TYPE_STRING . '(45) NULL DEFAULT NULL',
+            'rights'  => Schema::TYPE_STRING . '(45) NULL DEFAULT NULL',
             'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',

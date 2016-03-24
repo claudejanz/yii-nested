@@ -10,17 +10,16 @@ use claudejanz\toolbox\models\behaviors\PublishBehavior;
  */
 
 $page = new Page();
-$page->title = 'Organisation des Sports';
-$page->controller = 'sports';
+$page->title = 'Administration des utilisateurs';
+$page->controller = 'users';
 $page->action = 'index';
-$page->breadcrumb_text = 'Sports';
-//$page->home_page = 1;
+$page->breadcrumb_text = 'Utilisateurs';
 $page->published = PublishBehavior::PUBLISHED_ACTIF;
-$page->meta_description = 'Organisation des sport';
+$page->meta_description = 'Page index des utilisateurs';
 $page->meta_keywords = $keywords_fr;
 $page->type = Page::TYPE_DYNAMIC;
 $page->layout_id = 2;
-$page->rights = 'coach';
+$page->rights = 'admin';
 
 if (!$page->save())
     var_dump(get_class($page), $page->errors);

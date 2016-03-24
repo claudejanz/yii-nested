@@ -13,7 +13,7 @@ use yii\console\Controller;
 use yii\helpers\Console;
 
 /**
- * This command adds rbac entrys.
+ * This command resets database for test execution.
  *
  * @author Claude Janz <claude.janz@gmail.com>
  * @since 2.0

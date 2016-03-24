@@ -24,9 +24,10 @@ class m140810_221210_inserts extends Migration
 
         $keywords_fr = 'mulaff, coach, planning';
         include_once 'pages/home.php';
-        include_once 'pages/sports.php';
-        include_once 'pages/graphs.php';
+        include_once 'pages/users.php';
         include_once 'pages/sport-type.php';
+        include_once 'pages/sports.php';
+//        include_once 'pages/graphs.php';
     }
 
     public function insertElements()

@@ -156,7 +156,9 @@ AssetBundle::register($this);
                 $pages = Page::find()->where(['parent_id' => null, 'home_page' => null])->all();
                 $menus = [];
                 foreach ($pages as $page) {
-                    $menus = array_merge($menus, $page->getBreadcrumbsLink());
+                    if (!$page->rights || Yii::$app->user->can($page->rights)) {
+                        $menus = array_merge($menus, $page->getBreadcrumbsLink());
+                    }
                 }
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav'],

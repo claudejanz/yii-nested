@@ -99,7 +99,7 @@ class TrainingTypeSearch extends TrainingType
             'time' => $this->time,
             'rpe' => $this->rpe,
             'graph_type' => $this->graph_type,
-            'published' => $this->published,
+            $this->tableName().'.published' => $this->published,
             'created_by' => $this->created_by,
             'created_at' => $this->created_at,
             'updated_by' => $this->updated_by,

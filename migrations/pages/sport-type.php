@@ -20,6 +20,7 @@ $page->meta_description = 'Trainig';
 $page->meta_keywords = $keywords_fr;
 $page->type = Page::TYPE_DYNAMIC;
 $page->layout_id = 2;
+$page->rights = 'coach';
 
 if (!$page->save())
     var_dump(get_class($page), $page->errors);

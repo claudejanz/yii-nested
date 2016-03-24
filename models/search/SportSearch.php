@@ -40,7 +40,7 @@ class SportSearch extends Sport
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'published' => $this->published,
+            $this->tableName().'.published' => $this->published,
             'weight' => $this->weight,
             'created_by' => $this->created_by,
             'created_at' => $this->created_at,

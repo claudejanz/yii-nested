@@ -36,17 +36,17 @@ class TrainingTypesController extends MyController
                     [
                         'actions' => ['index'],
                         'allow'   => true,
-                        'roles'   => ['coaching'],
+                        'roles'   => ['coach'],
                     ],
                     [
                         'actions' => ['create','update', 'categories', 'sub-categories'],
                         'allow'   => true,
-                        'roles'   => ['coaching'],
+                        'roles'   => ['coach'],
                     ],
                     [
                         'actions' => ['delete'],
                         'allow'   => true,
-                        'roles'   => ['coaching'],
+                        'roles'   => ['coach'],
                     ],
                 ],
             ],

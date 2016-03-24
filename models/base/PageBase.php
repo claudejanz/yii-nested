@@ -30,6 +30,7 @@ use app\models\PageLang;
     * @property integer $home_page
     * @property integer $orderable
     * @property string $root_menu
+    * @property string $rights
     * @property integer $created_by
     * @property string $created_at
     * @property integer $updated_by
@@ -63,7 +64,7 @@ public function rules()
             [['type', 'parent_id', 'weight', 'layout_id', 'published', 'home_page', 'orderable', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['title', 'breadcrumb_text', 'meta_description', 'meta_keywords', 'slug', 'params'], 'string', 'max' => 255],
-            [['controller', 'action', 'root_menu'], 'string', 'max' => 45],
+            [['controller', 'action', 'root_menu', 'rights'], 'string', 'max' => 45],
             [['slug'], 'unique'],
             [['layout_id'], 'exist', 'skipOnError' => true, 'targetClass' => Layout::className(), 'targetAttribute' => ['layout_id' => 'id']],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Page::className(), 'targetAttribute' => ['parent_id' => 'id']],
@@ -94,6 +95,7 @@ return [
     'home_page' => Yii::t('app', 'Home Page'),
     'orderable' => Yii::t('app', 'Orderable'),
     'root_menu' => Yii::t('app', 'Root Menu'),
+    'rights' => Yii::t('app', 'Rights'),
     'created_by' => Yii::t('app', 'Created By'),
     'created_at' => Yii::t('app', 'Created At'),
     'updated_by' => Yii::t('app', 'Updated By'),
