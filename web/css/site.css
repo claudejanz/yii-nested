@@ -9,7 +9,11 @@ and open the template in the editor.
 */
 /* mixins */
 /* style sheet */
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   background-color: #f0f0f0;
@@ -654,13 +658,10 @@ body.login a {
   color: #97cccd;
 }
 body.login .footer {
-  position: absolute;
-  bottom: 5px;
   background: none;
   color: white;
   font-size: 10px;
   border-top: 0;
-  padding-top: 50px;
 }
 body.login button {
   width: 100%;
@@ -669,13 +670,15 @@ body.login .help-block {
   font-size: 11px;
 }
 /*BTN CHANGE*/
+.btn {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 1px;
+}
 .btn-primary {
   background-color: #416162;
   border-color: #78a5a6;
   color: white;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-radius: 1px;
 }
 .btn-primary:active {
   background-color: #97cccd;

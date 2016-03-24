@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'login-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-md-3 col-lg-2 animated fadeInUp\">{input}</div>\n<div class=\"col-md-6\">{error}</div>",
+            'template' => "{label}\n<div class=\"col-md-3 col-lg-2 animated fadeInUp\">{input}</div>\n<div class=\"col-md-6 col-lg-2 col-lg-offset-5 animated fadeInDown\">{error}</div>",
             'labelOptions' => ['class' => 'col-md-3  col-lg-2 col-lg-offset-3 control-label animated fadeInUp'],
         ],
     ]); 

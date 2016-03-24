@@ -35,7 +35,7 @@ use yii\helpers\Html;
 $options = [];
 if (isset($form->fieldConfig['template'])) {
 //echo $form->fieldConfig['template'];
-    $options = ['template' => "<div class=\"col-md-offset-3 col-md-3  col-lg-2 col-lg-offset-5 animated fadeInUp\">{input}</div>\n<div class=\"col-md-6 \">{error}</div>"];
+    $options = ['template' => "<div class=\"col-md-offset-3 col-md-3  col-lg-2 col-lg-offset-5 animated fadeInUp\">{input}</div>\n<div class=\"col-md-6 col-lg-2 col-lg-offset-5\">{error}</div>"];
 }
 echo $form->field($login, 'rememberMe', $options)->checkbox()
 ?>

@@ -17,9 +17,10 @@
 
 /* style sheet */
 html {
-    
+    height: 100%;
 }
 body {
+    height: 100%;
     font-family: 'Source Sans Pro', sans-serif;
     font-size:16px;
     background-color: @myBgGray;
@@ -684,13 +685,11 @@ body.login {
         color: @mulaff;
     }
     .footer {
-        position: absolute;
-        bottom: 5px;
+        
         background: none;
         color: @white;
         font-size: 10px;
         border-top: 0;
-        padding-top: 50px;
     }
     button {
         width: 100%;
@@ -703,14 +702,16 @@ body.login {
 
 
 /*BTN CHANGE*/
-
+.btn {
+        text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 1px;
+}
 .btn-primary {
     background-color: @mulaffThird;
     border-color: @mulaffSecondary;
     color: @white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-radius: 1px;
+
     
     &:active {
         background-color: @mulaff;
