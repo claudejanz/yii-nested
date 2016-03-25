@@ -386,10 +386,14 @@ class m140806_232625_create_db extends Migration
             'id' => Schema::TYPE_PK,
             'training_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'feedback' => Schema::TYPE_TEXT,
+            'date' => Schema::TYPE_DATE . ' NOT NULL',
+            'week_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'km' => Schema::TYPE_FLOAT . ' NOT NULL',
+            
             'done' => Schema::TYPE_BOOLEAN . ' NULL DEFAULT NULL',
             'time_done' => Schema::TYPE_BOOLEAN . ' NULL DEFAULT NULL',
             'time' => Schema::TYPE_TIME,
-            'feeled_rpe' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'feeled_rpe' => Schema::TYPE_INTEGER . ' NOT NULL',
             'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
@@ -397,6 +401,8 @@ class m140806_232625_create_db extends Migration
             
             'INDEX training (training_id ASC)',
             'FOREIGN KEY (training_id) REFERENCES training (id) ON DELETE CASCADE ON UPDATE CASCADE ',
+            'INDEX index_week (week_id ASC)',
+            'FOREIGN KEY (week_id) REFERENCES week (id) ON DELETE CASCADE ON UPDATE CASCADE ',
                 ], $tableOptions);
         
 

@@ -40,6 +40,9 @@ use yii\web\View;
 //                  'colspan'=>2  
 //                ]
             ],
+            'km' => [
+                'type' => Form::INPUT_TEXT,
+            ],
             'time_done' => [
                 'type' => Form::INPUT_WIDGET,
                 'widgetClass' => BooleanWidget::className(),

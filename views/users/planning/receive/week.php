@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Reporting;
 use app\models\Training;
 use app\models\Week;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
@@ -73,3 +74,7 @@ if ($isCoach) {
 }
 echo Html::endTag('div'); //ribbon-block
 echo Html::endTag('div'); //week
+if(isset($week) && $week->getReportingsByDate()){
+    echo $this->render('reportingResume',['week'=>$week]);
+    
+}

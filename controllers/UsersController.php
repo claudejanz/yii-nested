@@ -278,7 +278,7 @@ class UsersController extends MyController
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException($this->render('create', [
+                    throw new NotAcceptableHttpException($this->render('/trainings/update', [
                         'model' => $model,
                     ]));
                 }
@@ -329,7 +329,7 @@ class UsersController extends MyController
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException();
+                    throw new NotAcceptableHttpException($this->render('/days/_form', ['model' => $model]));
                 }
             } else {
                 if ($model->save()) {
@@ -354,14 +354,18 @@ class UsersController extends MyController
         $model = Reporting::findOne(['training_id' => $training_id]);
         if (!$model) {
             $model = new Reporting();
-            $model->training_id = $training_id;
+            $training = Training::findOne($training_id);
+            $model->training_id = $training->id;
+            $model->date = $training->day->date;
+            $model->week_id = $training->day->week->id;
+            
         }
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException();
+                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model]));
                 }
             } else {
                 if ($model->validate()) {
@@ -399,7 +403,7 @@ class UsersController extends MyController
                         if ($model->sendWeekMail($user))
                             return ['message' => Yii::t('app', 'Week has been sent to {user}', ['user' => $user->fullname]), 'error' => '0'];
                     } else {
-                        throw new NotAcceptableHttpException($this->render('create', [
+                        throw new NotAcceptableHttpException($this->render('/weeks/_form', [
                             'model' => $model,
                         ]));
                     }

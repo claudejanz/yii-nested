@@ -11,6 +11,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 class Week extends WeekBase
 {
@@ -61,6 +62,34 @@ class Week extends WeekBase
     public function getDaysByDate()
     {
         return $this->hasMany(Day::className(), ['week_id' => 'id'])->indexBy('date');
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTrainings()
+    {
+        return $this->hasMany(Training::className(), ['day_id' => 'id'])->via('days');
+    }
+
+    public function getReportingsByDate()
+    {
+        $models = $this->reportings;
+        return ($models) ? ArrayHelper::index($models, 'id', ['date']) : null;
+    }
+
+    public function getLoadsByDate()
+    {
+        if(!$this->getReportingsByDate())return null;
+        $data = [];
+        foreach ($this->getReportingsByDate() as $key => $reportings) {
+            $data[$key]=0;
+            foreach ($reportings as $reporting) {
+                /* @var $reporting Reporting */
+                $data[$key]+=$reporting->load;
+            }
+        }
+        return $data;
     }
 
     public function sendWeekMail($user)
