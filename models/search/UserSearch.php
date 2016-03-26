@@ -81,8 +81,20 @@ class UserSearch extends User
 //            ['class' => 'yii\grid\SerialColumn'],
 //        'id',
 //        'username',
-            'firstname',
-            'lastname',
+            [
+                'attribute' => 'firstname',
+                'value' => function($model) {
+                    return Html::a($model->firstname,['users/planning','id'=>$model->id]);
+                },
+                'format'=>'raw'
+            ],
+            [
+                'attribute' => 'lastname',
+                'value' => function($model) {
+                    return Html::a($model->lastname,['users/planning','id'=>$model->id]);
+                },
+                'format'=>'raw'
+            ],
             [
                 'label' => Sport::getLabel(2),
                 'value' => function($model) {
@@ -96,18 +108,17 @@ class UserSearch extends User
 //            'address',
 //            'city_npa',
 //            'tel', 
-                    'email:email',
+//                    'email:email',
 //            'auth_key', 
 //            'password_hash', 
 //            'password_reset_token', 
 //            'language', 
-                            
-                            [
-                        'filter' => Html::activeDropDownList($this, 'language', Yii::$app->params[ 'translatedLanguages'], ['prompt' => Yii::t('app', 'All'), 'class' => 'form-control']),
+                    [
+                        'filter' => Html::activeDropDownList($this, 'language', Yii::$app->params['translatedLanguages'], ['prompt' => Yii::t('app', 'All'), 'class' => 'form-control']),
                         'attribute' => 'language',
                         'value' =>
                         function($model) {
-                        $languages = Yii::$app->params[ 'translatedLanguages'];
+                    $languages = Yii::$app->params['translatedLanguages'];
                     return $languages[$model->language];
                 },
                     ]

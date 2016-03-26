@@ -25,6 +25,7 @@ use app\models\Week;
     * @property string $auth_key
     * @property string $password_hash
     * @property string $password_reset_token
+    * @property string $comments
     * @property integer $role
     * @property string $language
     * @property integer $trainer_id
@@ -59,6 +60,7 @@ public function rules()
 {
         return [
             [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'language'], 'required'],
+            [['comments'], 'string'],
             [['role', 'trainer_id', 'status', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
@@ -88,6 +90,7 @@ return [
     'auth_key' => Yii::t('app', 'Auth Key'),
     'password_hash' => Yii::t('app', 'Password Hash'),
     'password_reset_token' => Yii::t('app', 'Password Reset Token'),
+    'comments' => Yii::t('app', 'Comments'),
     'role' => Yii::t('app', 'Role'),
     'language' => Yii::t('app', 'Language'),
     'trainer_id' => Yii::t('app', 'Trainer ID'),

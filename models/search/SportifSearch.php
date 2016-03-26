@@ -92,8 +92,20 @@ class SportifSearch extends User
 //            ['class' => 'yii\grid\SerialColumn'],
 //        'id',
 //        'username',
-            'firstname',
-            'lastname',
+             [
+                'attribute' => 'firstname',
+                'value' => function($model) {
+                    return Html::a($model->firstname,['users/planning','id'=>$model->id]);
+                },
+                'format'=>'raw'
+            ],
+            [
+                'attribute' => 'lastname',
+                'value' => function($model) {
+                    return Html::a($model->lastname,['users/planning','id'=>$model->id]);
+                },
+                'format'=>'raw'
+            ],
             [
                 'label' => Sport::getLabel(2),
                 'value' => function($model) {

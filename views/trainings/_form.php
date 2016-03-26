@@ -40,9 +40,9 @@ use yii\widgets\ActiveForm as ActiveForm2;
 //            'created_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
 //            'updated_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
 //            'rpe'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Rpe...']],
-//            'explanation'=>['type'=> Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'Enter Explanation...','rows'=> 6]],
+            'explanation'=>['type'=> Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'Enter Explanation...','rows'=> 6]],
             'extra_comment' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Extra Comment...', 'rows' => 6]],
-//            'graph'=>['type'=> Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'Enter Graph...','rows'=> 6]],
+            'graph'=>['type'=> Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'Enter Graph...','rows'=> 6]],
         ]
     ]);
     if (Yii::$app->request->isAjax) {

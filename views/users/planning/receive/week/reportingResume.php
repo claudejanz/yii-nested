@@ -2,6 +2,7 @@
 
 use app\extentions\helpers\MyPjax;
 use app\extentions\MulaffWeekGraphWidget;
+use app\extentions\MulaffWeekSportsWidget;
 use app\models\Week;
 use yii\helpers\Html;
 
@@ -25,12 +26,18 @@ use yii\helpers\Html;
 /* @var $week Week */
 /* @var $startDate DateTime */
 MyPjax::begin(['id' => 'week_graph' . $startDate->format('Y-m-d')]);
-if ($week) {
+if ($week && $week->reportings) {
     echo Html::beginTag('div',['class'=>'white-block animated fadeInUp']);
     echo Html::beginTag('div',['class'=>'row']);
     echo Html::beginTag('div',['class'=>'col-sm-12']);
-    echo Html::tag('h3',  Yii::t('app', 'Week Graph'));
+    echo Html::tag('h4',  Yii::t('app', 'Week Graph'));
     echo MulaffWeekGraphWidget::widget(['model' => $week, 'width' => '100%', 'height' => '100']);
+    echo Html::endTag('div');
+    echo Html::endTag('div');
+    echo Html::beginTag('div',['class'=>'row']);
+    echo Html::beginTag('div',['class'=>'col-sm-12']);
+    echo Html::tag('h4',  Yii::t('app', 'Week Sports'));
+    echo MulaffWeekSportsWidget::widget(['model' => $week]);
     echo Html::endTag('div');
     echo Html::endTag('div');
     echo Html::endTag('div');

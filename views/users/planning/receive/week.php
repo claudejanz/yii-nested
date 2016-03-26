@@ -43,37 +43,16 @@ foreach ($period as $dateTime) {
     /* @var $dateTime DateTime */
     echo $this->render('day', [
         'dateTime' => $dateTime,
+        'weekStartDate'=>$startDate,
         'days' => $days,
         'isCoach' => $isCoach,
         'model' => $model,
         'models' => $models,
     ]);
 }
-if ($isCoach) {
-    echo Html::beginTag('div', ['class' => 'white-block animated fadeInUp']);
-    echo Html::beginTag('div', ['class' => 'row']);
-    echo Html::beginTag('div', ['class' => 'col-sm-12']);
-    echo AjaxModalButton::widget([
-        'label' => Icon::show('thumbs-up') . ' ' . Yii::t('app', 'Publish'),
-        'encodeLabel' => false,
-        'url' => [
-            'week-publish',
-            'id' => $model->id,
-            'date_begin' => $startDate->format('Y-m-d')
-        ],
-        'title' => Yii::t('app', 'Send the week to {username}', ['username' => $model->fullname]),
-        'success' => '#weeks',
-        'options' => [
-            'title' => Yii::t('app', 'Publish'),
-            'class' => 'red',
-        ],
-    ]);
+echo $this->render('week/reportingResume', ['week' => $week, 'startDate' => $startDate]);
+echo $this->render('week/actions',['week' => $week,'isCoach'=>$isCoach,'model'=>$model,'startDate'=>$startDate]);
 
-    echo Html::endTag('div'); //col-sm-12
-    echo Html::endTag('div'); //row
-    echo Html::endTag('div'); //white-block
-}
-echo $this->render('reportingResume', ['week' => $week, 'startDate' => $startDate]);
 echo Html::endTag('div'); //ribbon-block
 echo Html::endTag('div'); //week
 

@@ -14,6 +14,7 @@ use yii\web\User;
 /* @var $model User */
 /* @var $isCoach booleen */
 /* @var $dateTime DateTime */
+/* @var $weekStartDate DateTime */
 
 $dateId = $dateTime->format("Y-m-d");
 MyPjax::begin(['id' => 'day' . $dateId]);
@@ -35,7 +36,7 @@ echo AjaxModalButton::widget([
     'label' => Icon::show('pencil'),
     'encodeLabel' => false,
     'url' => ['day-update', 'id' => $model->id, 'date' => $dateId],
-    'success' => '#day' . $dateId,
+    'success' => '#week' . $weekStartDate->format('Y-m-d'),
     'title' => Yii::t('app', 'Update training city'),
     'options' => ['class' => 'red']
 ]);

@@ -1,7 +1,7 @@
 <?php
 
 use app\extentions\helpers\MyPjax;
-use app\models\search\UserSearch;
+use app\models\search\SportifSearch;
 use kartik\grid\GridView;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
@@ -9,7 +9,7 @@ use yii\web\View;
 
 /* @var  $this View */
 /* @var $dataProvider ActiveDataProvider  */
-/* @var $searchModel UserSearch */
+/* @var $searchModel SportifSearch */
 
 //Yii::$app->controller->page->title = Yii::t('app', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
@@ -40,11 +40,3 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); MyPjax::end(); ?>
 
 </div>
-<script>
-  var callbackFunction = function(data) {
-    var wind = data.query.results.channel.wind;
-    alert(wind.chill);
-  };
-</script>
-
-<script src="https://query.yahooapis.com/v1/public/yql?q=select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text='chicago, il')&format=json&callback=callbackFunction"></script>

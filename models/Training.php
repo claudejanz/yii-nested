@@ -78,9 +78,9 @@ class Training extends TrainingBase
         return substr($this->title, 0, 25) . '...';
     }
 
-    public function publish()
+    public function publish($value = PublishBehavior::PUBLISHED_ACTIF)
     {
-        $this->published = PublishBehavior::PUBLISHED_ACTIF;
+        $this->published = $value;
         if ($this->save()) {
             return true;
         }

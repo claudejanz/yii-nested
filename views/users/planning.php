@@ -6,7 +6,6 @@ use app\models\Training;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
-use yii\jui\JuiAsset;
 use yii\web\View;
 
 /* @var $this View */

@@ -21,6 +21,7 @@ class Week extends WeekBase
         return array(
             'publish' => [
                 'class' => PublishBehavior::className(),
+                'value' => PublishBehavior::PUBLISHED_DRAFT,
             ],
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
@@ -36,7 +37,6 @@ class Week extends WeekBase
     {
 
         return array_merge([
-            ['published', 'default', 'value' => PublishBehavior::PUBLISHED_DRAFT],
             ['title', 'validateTitle', 'skipOnEmpty' => false],
                 ], parent::rules());
     }
@@ -105,12 +105,12 @@ class Week extends WeekBase
                         ->send();
     }
 
-    public function publish()
+    public function publish($value = PublishBehavior::PUBLISHED_ACTIF)
     {
-        $this->published = PublishBehavior::PUBLISHED_ACTIF;
+        $this->published = $value;
         if ($this->save()) {
             foreach ($this->days as $day)
-                if (!$day->publish())
+                if (!$day->publish($value))
                     return false;
 
             return true;

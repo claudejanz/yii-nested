@@ -7,14 +7,22 @@ use yii\helpers\Html;
 
 /* @var $week Week */
 
-$color = 'danger';
-$label = Yii::t('app', 'Draft');
+$color = 'info';
+$label = Yii::t('app', 'Nothing done');
 if ($week) {
     
     switch ($week->published) {
         case PublishBehavior::PUBLISHED_ACTIF:
             $color = 'primary';
             $label = Yii::t('app', 'Sended');
+            break;
+        case PublishBehavior::PUBLISHED_VALIDATED:
+            $color = 'warning';
+            $label = Yii::t('app', 'City Registered');
+            break;
+        case PublishBehavior::PUBLISHED_DRAFT:
+            $color = 'danger';
+            $label = Yii::t('app', 'Draft');
             break;
         default:
             break;

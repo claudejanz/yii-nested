@@ -54,6 +54,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'trainer.trainername',
 //                'value' => '',
             ],
+            [
+                'attribute' => 'comments',
+                'format' => 'ntext',
+            ]
 //            'status',
 //            'created_by',
 //            [

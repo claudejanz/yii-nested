@@ -91,12 +91,12 @@ class Day extends DayBase
         
     }
 
-    public function publish()
+    public function publish($value = PublishBehavior::PUBLISHED_ACTIF)
     {
-         $this->published = PublishBehavior::PUBLISHED_ACTIF;
+         $this->published = $value;
         if ($this->save()) {
             foreach ($this->trainings as $training)
-                if (!$training->publish())
+                if (!$training->publish($value))
                     return false;
 
             return true;

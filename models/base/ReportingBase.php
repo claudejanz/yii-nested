@@ -5,6 +5,7 @@ namespace app\models\base;
 use Yii;
 use app\models\Training;
 use app\models\Week;
+use app\models\Sport;
 
 /**
  * This is the model class for table "reporting".
@@ -14,6 +15,7 @@ use app\models\Week;
     * @property string $feedback
     * @property string $date
     * @property integer $week_id
+    * @property integer $sport_id
     * @property double $km
     * @property integer $done
     * @property integer $time_done
@@ -26,6 +28,7 @@ use app\models\Week;
     *
             * @property Training $training
             * @property Week $week
+            * @property Sport $sport
     */
 class ReportingBase extends \yii\db\ActiveRecord
 {
@@ -43,13 +46,14 @@ return 'reporting';
 public function rules()
 {
         return [
-            [['training_id', 'date', 'week_id', 'km', 'feeled_rpe'], 'required'],
-            [['training_id', 'week_id', 'done', 'time_done', 'feeled_rpe', 'created_by', 'updated_by'], 'integer'],
+            [['training_id', 'date', 'week_id', 'sport_id', 'km', 'feeled_rpe'], 'required'],
+            [['training_id', 'week_id', 'sport_id', 'done', 'time_done', 'feeled_rpe', 'created_by', 'updated_by'], 'integer'],
             [['feedback'], 'string'],
             [['date', 'time', 'created_at', 'updated_at'], 'safe'],
             [['km'], 'number'],
             [['training_id'], 'exist', 'skipOnError' => true, 'targetClass' => Training::className(), 'targetAttribute' => ['training_id' => 'id']],
             [['week_id'], 'exist', 'skipOnError' => true, 'targetClass' => Week::className(), 'targetAttribute' => ['week_id' => 'id']],
+            [['sport_id'], 'exist', 'skipOnError' => true, 'targetClass' => Sport::className(), 'targetAttribute' => ['sport_id' => 'id']],
         ];
 }
 
@@ -64,6 +68,7 @@ return [
     'feedback' => Yii::t('app', 'Feedback'),
     'date' => Yii::t('app', 'Date'),
     'week_id' => Yii::t('app', 'Week ID'),
+    'sport_id' => Yii::t('app', 'Sport ID'),
     'km' => Yii::t('app', 'Km'),
     'done' => Yii::t('app', 'Done'),
     'time_done' => Yii::t('app', 'Time Done'),
@@ -90,6 +95,14 @@ return [
     public function getWeek()
     {
     return $this->hasOne(Week::className(), ['id' => 'week_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getSport()
+    {
+    return $this->hasOne(Sport::className(), ['id' => 'sport_id']);
     }
 
     /**

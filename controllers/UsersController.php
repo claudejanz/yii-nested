@@ -48,6 +48,7 @@ class UsersController extends MyController
                     'week-publish',
                     'reporting-update',
                     'day-update',
+                    'week-ready',
                 ]
             ],
             'access' => [
@@ -78,6 +79,7 @@ class UsersController extends MyController
                             'update',
                             'day-update',
                             'reporting-update',
+                            'week-ready',
                         ],
                         'allow' => true,
                         'roles' => ['update user'],
@@ -99,6 +101,7 @@ class UsersController extends MyController
                 'only' => [
                     'training-update',
                     'week-publish',
+                    'week-ready',
                     'day-update',
                     'reporting-update',
                 ], // in a controller
@@ -250,7 +253,7 @@ class UsersController extends MyController
         $model->sportif_id = $this->model->id;
         $model->date = $date;
         $model->setAttributes($modelType->getAttributes());
-        $model->published = PublishBehavior::PUBLISHED_DRAFT; 
+        $model->published = PublishBehavior::PUBLISHED_DRAFT;
 //        \yii\helpers\VarDumper::dump($model->getActiveValidators());
 //        die();
         if ($model->save()) {
@@ -340,7 +343,7 @@ class UsersController extends MyController
 
         return $this->render('/days/_form', ['model' => $model]);
     }
-    
+
     /**
      * Updates Reporting datas
      * 
@@ -357,8 +360,8 @@ class UsersController extends MyController
             $training = Training::findOne($training_id);
             $model->training_id = $training->id;
             $model->date = $training->day->date;
-            $model->week_id = $training->day->week->id;
-            
+            $model->week_id = $training->day->week_id;
+            $model->sport_id = $training->sport_id;
         }
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
@@ -371,8 +374,8 @@ class UsersController extends MyController
                 if ($model->validate()) {
                     $model->save();
                     return $this->redirect(Url::previous());
-                }else{
-                    var_dump($model->errors,$training_id);
+                } else {
+                    var_dump($model->errors, $training_id);
                 }
             }
         }
@@ -387,9 +390,9 @@ class UsersController extends MyController
      * @param string $date_begin
      * @return string
      */
-    public function actionWeekPublish($id, $date_begin)
+    public function actionWeekPublish($id, $week_id)
     {
-        $model = Week::findOne(['sportif_id' => $id, 'date_begin' => $date_begin]);
+        $model = Week::findOne($week_id);
         /* @var $$user User */
         $user = $this->model;
 
@@ -418,6 +421,27 @@ class UsersController extends MyController
             return $this->render('/weeks/_form', [
                         'model' => $model,
             ]);
+        }
+        return ['message' => Yii::t('app', 'Week must have something in it to be sent.'), 'error' => 1];
+    }
+
+    /**
+     * Validates a week and send an email to the sportif
+     * 
+     * @param int $id
+     * @param string $date_begin
+     * @return string
+     */
+    public function actionWeekReady($id, $week_id)
+    {
+        $model = Week::findOne($week_id);
+        /* @var $$user User */
+        $user = $this->model;
+
+        if ($model) {
+            if ($model->publish(PublishBehavior::PUBLISHED_VALIDATED)) {
+                return true;
+            }
         }
         return ['message' => Yii::t('app', 'Week must have something in it to be sent.'), 'error' => 1];
     }

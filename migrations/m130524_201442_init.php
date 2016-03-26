@@ -24,6 +24,7 @@ class m130524_201442_init extends \yii\db\Migration
             'auth_key' => Schema::TYPE_STRING . '(32) NOT NULL',
             'password_hash' => Schema::TYPE_STRING . ' NOT NULL',
             'password_reset_token' => Schema::TYPE_STRING,
+            'comments' => Schema::TYPE_TEXT,
             'role' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 10',
             'language' => Schema::TYPE_STRING . '(5) NOT NULL',
             'trainer_id' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',

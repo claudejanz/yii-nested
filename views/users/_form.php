@@ -88,6 +88,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
             ],
             'tel' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter Tél...'), 'maxlength' => 255]],
             'email' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter Email...'), 'maxlength' => 255]],
+            'comments' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => Yii::t('app', 'Enter Comments...')]],
         ]
     ]);
 
