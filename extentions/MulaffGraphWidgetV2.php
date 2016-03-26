@@ -63,12 +63,12 @@ class MulaffGraphWidgetV2 extends Widget
     /**
      * @var int Place taken by the font before graph begin
      */
-    public $fontWidth = 15;
+    public $fontWidth = 18;
 
     /**
      * @var int Place taken by the font on height to calculate to the middle of the line
      */
-    public $fontHeight = 10;
+    public $fontHeight = 15;
 
     /**
      * @var type Color must be on off COLOR constant
@@ -78,7 +78,7 @@ class MulaffGraphWidgetV2 extends Widget
     /**
      * @var int Value that separeats legends to graph.
      */
-    private $fontToGraphWidth = 10;
+    private $fontToGraphWidth = 15;
 
     /**
      * @var array The matrix for caluculations
@@ -98,11 +98,14 @@ class MulaffGraphWidgetV2 extends Widget
      * @var int the width value returned by the 
      */
     private $matrixWidth;
-    private $ratiox;
-    private $ratioy;
+    private $rightDivOptions = [];
+    private $leftDivOptions = [];
+    private $legendOptions = [];
+    private $graphOptions = [];
 
     public function init()
     {
+        parent::init();
         if ($this->value === null && !$this->hasModel()) {
             throw new InvalidConfigException(Yii::t('mulaff', "Either 'value', or 'model' and 'attribute' properties must be specified."));
         }
@@ -118,93 +121,82 @@ class MulaffGraphWidgetV2 extends Widget
         if (!isset($this->color) || !in_array($this->color, [self::COLOR_GRAY, self::COLOR_GRADIENT, self::COLOR_RAINBOW])) {
             $this->color = self::COLOR_GRAY;
         }
+        Html::addCssStyle($this->options, 'display:inline-block');
+        Html::addCssStyle($this->options, 'width:' . $this->width);
 
-        $this->options = array_merge($this->options, [
-            'width' => $this->width,
-            'height' => $this->height,
-        ]);
+        
+        if ($this->withLegends) {
+            Html::addCssStyle($this->leftDivOptions, 'display:table-cell');
+            Html::addCssStyle($this->leftDivOptions, 'min-width:' . $this->fontToGraphWidth . 'px');
+            Html::addCssStyle($this->leftDivOptions, 'height:' . $this->height . 'px');
+
+            Html::addCssStyle($this->rightDivOptions, 'display:table-cell');
+            Html::addCssStyle($this->rightDivOptions, 'vertical-align: top;');
+            Html::addCssStyle($this->rightDivOptions, 'width:100%');
+            Html::addCssStyle($this->rightDivOptions, 'height:' . $this->height . 'px');
+        }else{
+            $this->fontHeight=2;
+        }
+
+//        Html::addCssStyle($this->rightDivOptions, 'background-color:#00FF00');
+
+        Html::addCssStyle($this->legendOptions, 'width:' . $this->fontToGraphWidth . 'px');
+        Html::addCssStyle($this->legendOptions, 'height:' . $this->height . 'px');
 
         if ($this->hasModel()) {
             $this->value = $this->model->{$this->attribute};
         }
+        
+        $this->calaulateMatrix();
+        $this->graphOptions = array_merge($this->graphOptions, [
+            'viewBox' => '0 0 ' . $this->matrixWidth . ' ' . $this->height,
+            'width' => '100%',
+            'height' => $this->height,
+            'preserveAspectRatio' => 'none'
+        ]);
 
-        parent::init();
+
+
+        if ($this->hasModel()) {
+            $this->value = $this->model->{$this->attribute};
+            if (isset($this->model->graph_type)) {
+                $this->type = $this->model->graph_type;
+            }
+        }
+
+
+//        $this->height = $this->matrixWidth*$this->ratio;
     }
 
     public function run()
     {
-        echo Html::beginTag('svg', $this->options);
-        $this->calaulateMatrix();
-        switch ($this->color) {
-            case self::COLOR_GRADIENT:
-                echo Html::beginTag('defs');
-                echo Html::beginTag('linearGradient', ['id' => 'grad2', 'x1' => '0%', 'y1' => '100%', 'x2' => '0%', 'y2' => '0%']);
-                echo Html::beginTag('stop', ['offset' => '0%', 'style' => 'stop-color:' . $this->color1 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '50%', 'style' => 'stop-color:' . $this->color1 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '100%', 'style' => 'stop-color:' . $this->color2 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::endTag('linearGradient');
-                echo Html::beginTag('linearGradient', ['id' => 'grad3', 'x1' => '0%', 'y1' => '100%', 'x2' => '0%', 'y2' => '0%']);
-                echo Html::beginTag('stop', ['offset' => '0%', 'style' => 'stop-color:' . $this->color1 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '33.33%', 'style' => 'stop-color:' . $this->color1 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '66.66%', 'style' => 'stop-color:' . $this->color2 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '100%', 'style' => 'stop-color:' . $this->color3 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::endTag('linearGradient');
-                echo Html::beginTag('linearGradient', ['id' => 'grad4', 'x1' => '0%', 'y1' => '100%', 'x2' => '0%', 'y2' => '0%']);
-                echo Html::beginTag('stop', ['offset' => '0%', 'style' => 'stop-color:' . $this->color1 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '25%', 'style' => 'stop-color:' . $this->color1 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '50%', 'style' => 'stop-color:' . $this->color2 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '75%', 'style' => 'stop-color:' . $this->color3 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '100%', 'style' => 'stop-color:' . $this->color4 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::endTag('linearGradient');
-                echo Html::beginTag('linearGradient', ['id' => 'grad5', 'x1' => '0%', 'y1' => '100%', 'x2' => '0%', 'y2' => '0%']);
-                echo Html::beginTag('stop', ['offset' => '0%', 'style' => 'stop-color:' . $this->color1 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '20%', 'style' => 'stop-color:' . $this->color1 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '40%', 'style' => 'stop-color:' . $this->color2 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '60%', 'style' => 'stop-color:' . $this->color3 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '80%', 'style' => 'stop-color:' . $this->color4 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::beginTag('stop', ['offset' => '100%', 'style' => 'stop-color:' . $this->color5 . ';stop-opacity:1']);
-                echo Html::endTag('stop');
-                echo Html::endTag('linearGradient');
-                echo Html::endTag('defs');
-                break;
-        }
+        echo Html::beginTag('div', $this->options);
+
         if ($this->withLegends)
             $this->renderLegends();
+
+        echo Html::beginTag('div', $this->rightDivOptions);
+        echo Html::beginTag('svg', $this->graphOptions);
         if ($this->withLines)
             $this->renderLines();
         $this->renderGraph();
         echo Html::endTag('svg');
+        echo Html::endTag('div');
+        echo Html::endTag('div');
     }
 
     protected function renderGraph()
     {
         $arr = $this->matrix;
-        $step = ($this->withLegends) ? $this->fontWidth + $this->fontToGraphWidth : 0;
-        $bottom = $this->height;
+        $step = 0;
+        $bottom = $this->height+($this->fontHeight/2);
         $prevPoint = [$step, $bottom];
         foreach ($arr as $key => $m) {
 
 
 
-            $w = $m[0] * $this->ratiox;
-            $h = $m[1] * $this->ratioy;
+            $w = $m[0];
+            $h = $m[1] * $this->height;
 
             if ($this->type == GraphTypeBehavior::GRAPH_TYPE_HISTOGRAMME) {
                 switch ($this->color) {
@@ -242,26 +234,26 @@ class MulaffGraphWidgetV2 extends Widget
                                 $style = 'fill:url(#grad2)';
                                 break;
                             case 0.2:
-                                $style = 'fill:'.$this->color1;
+                                $style = 'fill:' . $this->color1;
                                 break;
                         }
                         break;
                     case self::COLOR_RAINBOW:
                         switch ($m[1]) {
                             case 1:
-                                $style = 'fill:'.$this->color5;
+                                $style = 'fill:' . $this->color5;
                                 break;
                             case 0.8:
-                                $style = 'fill:'.$this->color4;
+                                $style = 'fill:' . $this->color4;
                                 break;
                             case 0.6:
-                                $style = 'fill:'.$this->color3;
+                                $style = 'fill:' . $this->color3;
                                 break;
                             case 0.4:
-                                $style = 'fill:'.$this->color2;
+                                $style = 'fill:' . $this->color2;
                                 break;
                             case 0.2:
-                                $style = 'fill:'.$this->color1;
+                                $style = 'fill:' . $this->color1;
                                 break;
                         }
                         break;
@@ -282,7 +274,7 @@ class MulaffGraphWidgetV2 extends Widget
                 $cx2 = ($x2 + $x1) / 2;
                 $cy2 = $y2;
                 $prevPoint = [$x2, $y2];
-                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2", 'stroke' => "black", 'stroke-width' => 3, 'fill' => 'none']);
+                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2", 'stroke' => "black", 'stroke-width' => '0.1%', 'fill' => 'none']);
             }
             $step+=$w;
         }
@@ -301,28 +293,32 @@ class MulaffGraphWidgetV2 extends Widget
 
     protected function renderLegends()
     {
-        $bottom = $this->height;
+        echo Html::beginTag('div', $this->leftDivOptions);
+        echo Html::beginTag('svg', $this->legendOptions);
+        $bottom = $this->height+($this->fontHeight/2);
         $fontHeigth = $this->fontHeight;
         for ($i = 1; $i < 6; $i++) {
             echo Html::tag('text', 'I' . $i, [
                 'x' => 0,
-                'y' => $bottom - ($i * 0.20 * $this->ratioy) + $fontHeigth / 2,
+                'y' => $bottom - ($i * 0.20 * $this->height) + ($fontHeigth / 2),
                 'fill' => 'gray',
             ]);
         }
+        echo Html::endTag('svg');
+        echo Html::endTag('div');
     }
 
     protected function renderLines()
     {
-        $bottom = $this->height;
-        $fontWidth = ($this->withLegends) ? $this->fontWidth : 0;
+        $bottom = $this->height+($this->fontHeight/2);
+        $fontWidth =  0;
         for ($i = 1; $i < 6; $i++) {
             echo Html::tag('line', null, [
                 'x1' => $fontWidth,
-                'y1' => $bottom - ($i * 0.20 * $this->ratioy),
-                'x2' => $this->width,
-                'y2' => $bottom - ($i * 0.20 * $this->ratioy),
-                'style' => 'stroke:gray;stroke-width:1',
+                'y1' => $bottom - ($i * 0.20 * $this->height),
+                'x2' => $this->matrixWidth,
+                'y2' => $bottom - ($i * 0.20 * $this->height),
+                'style' => 'stroke:gray;stroke-width:0.2%',
             ]);
         }
     }
@@ -364,11 +360,6 @@ class MulaffGraphWidgetV2 extends Widget
         }
         $this->matrixWidth = $step;
         $this->matrix = $matrix;
-        if (!$step) {
-            $step = 1;
-        }
-        $this->ratiox = ($this->withLegends) ? ($this->width - ($this->fontWidth + $this->fontToGraphWidth)) / $step : $this->width / $step;
-        $this->ratioy = ($this->withLegends) ? $this->height - $this->fontHeight : $this->height;
     }
 
 }

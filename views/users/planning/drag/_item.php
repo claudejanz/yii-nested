@@ -1,6 +1,6 @@
 <?php
 
-use app\extentions\MulaffGraphWidget;
+use app\extentions\MulaffGraphWidgetV2;
 use kartik\helpers\Html;
 
 /* 
@@ -18,7 +18,7 @@ echo ' - ';
 echo Html::tag('span',$model->shortTitle);
 echo Html::endTag('div');
 echo Html::beginTag('div',['class'=>'col-sm-4']);
-echo MulaffGraphWidget::widget(['width'=>80,'height'=>30,'model'=>$model,'attribute'=>'graph']);
+echo MulaffGraphWidgetV2::widget(['width'=>'100%','height'=>30,'model'=>$model,'attribute'=>'graph']);
 echo Html::endTag('div');
 echo Html::endTag('div');
 echo Html::endTag('div');

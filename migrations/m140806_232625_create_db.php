@@ -353,6 +353,7 @@ class m140806_232625_create_db extends Migration
             'sub_category_id' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'sportif_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'day_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'week_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'time' => Schema::TYPE_TIME. ' NULL DEFAULT NULL',
             'rpe' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'explanation' => Schema::TYPE_TEXT,
@@ -366,6 +367,7 @@ class m140806_232625_create_db extends Migration
             'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'updated_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             
+            
             'INDEX index_title (title ASC)',
             'INDEX index_date (date ASC)',
             'INDEX index_sport (sport_id ASC)',
@@ -378,6 +380,8 @@ class m140806_232625_create_db extends Migration
             'FOREIGN KEY (sportif_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE ',
             'INDEX index_day (day_id ASC)',
             'FOREIGN KEY (day_id) REFERENCES day (id) ON DELETE CASCADE ON UPDATE CASCADE ',
+            'INDEX index_week (week_id ASC)',
+            'FOREIGN KEY (week_id) REFERENCES week (id) ON DELETE CASCADE ON UPDATE CASCADE ',
                 ], $tableOptions);
         
        

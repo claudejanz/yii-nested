@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Reporting;
+use app\extentions\helpers\MyPjax;
 use app\models\Training;
 use app\models\Week;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
@@ -22,7 +22,7 @@ $period = new DatePeriod($startDate, $interval, $endDate);
 
 $week = Week::findOne(['date_begin' => $startDate->format('Y-m-d'), 'sportif_id' => $model->id]);
 $days = ($week) ? $week->daysByDate : [];
-
+MyPjax::begin(['id' => 'week' . $startDate->format('Y-m-d')]);
 echo Html::beginTag('div', ['class' => 'week']);
 echo Html::beginTag('div', ['class' => 'ribbon-block']);
 if ($isCoach) {
@@ -30,7 +30,8 @@ if ($isCoach) {
         'week' => $week,
     ]);
 }
-if(isset($week)&&isset($week->words_of_the_week))echo Html::tag('div',$week->words_of_the_week,['class'=>'words-of-the-week animated flipInX']);
+if (isset($week) && isset($week->words_of_the_week))
+    echo Html::tag('div', $week->words_of_the_week, ['class' => 'words-of-the-week animated flipInX']);
 echo Html::beginTag('div', ['class' => 'title']);
 echo Yii::t('app', '{startDate} to {endDate}', [
     'startDate' => Yii::$app->formatter->asDate($startDate),
@@ -49,7 +50,7 @@ foreach ($period as $dateTime) {
     ]);
 }
 if ($isCoach) {
-    echo Html::beginTag('div', ['class' => 'white-block']);
+    echo Html::beginTag('div', ['class' => 'white-block animated fadeInUp']);
     echo Html::beginTag('div', ['class' => 'row']);
     echo Html::beginTag('div', ['class' => 'col-sm-12']);
     echo AjaxModalButton::widget([
@@ -60,7 +61,7 @@ if ($isCoach) {
             'id' => $model->id,
             'date_begin' => $startDate->format('Y-m-d')
         ],
-        'title' => Yii::t('app', 'Send the week to {username}',['username'=>$model->fullname]),
+        'title' => Yii::t('app', 'Send the week to {username}', ['username' => $model->fullname]),
         'success' => '#weeks',
         'options' => [
             'title' => Yii::t('app', 'Publish'),
@@ -72,9 +73,9 @@ if ($isCoach) {
     echo Html::endTag('div'); //row
     echo Html::endTag('div'); //white-block
 }
+echo $this->render('reportingResume', ['week' => $week, 'startDate' => $startDate]);
 echo Html::endTag('div'); //ribbon-block
 echo Html::endTag('div'); //week
-if(isset($week) && $week->getReportingsByDate()){
-    echo $this->render('reportingResume',['week'=>$week]);
-    
-}
+
+
+MyPjax::end();

@@ -2,6 +2,7 @@
 
 use app\extentions\helpers\MyPjax;
 use app\extentions\MulaffGraphWidget;
+use app\extentions\MulaffGraphWidgetV2;
 use app\models\Training;
 use app\models\User;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
@@ -55,7 +56,7 @@ echo Html::beginTag('div', ['class' => 'col-sm-1']);
             'training_id' => $model->id
         ],
         'title' => Yii::t('app', 'Make a report: {title}', ['title' => $model->title]),
-        'success' => '#training' . $model->id,
+        'success' => '#week_graph' . $model->week->date_begin,
         'options' => [
             'class' => 'red',
         ],
@@ -75,8 +76,8 @@ echo Html::a(Icon::show('plus'), "#", ['onClick' => '$("#training' . $model->id 
 }
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'row'.(($isCoach)?' hid':'')]);
-echo Html::beginTag('div', ['class' => 'col-sm-12 col-md-4 col-md-offset-4 graphWrapper']);
-echo MulaffGraphWidget::widget(['width' => 300, 'height' => 150, 'model' => $model, 'attribute' => 'graph','withLegends'=>true,'withLines'=>true,  'color'=>MulaffGraphWidget::COLOR_GRADIENT]);
+echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
+echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => 150, 'model' => $model, 'attribute' => 'graph','withLegends'=>true,'withLines'=>true,  'color'=>MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'col-sm-12']);
 echo DetailView::widget([

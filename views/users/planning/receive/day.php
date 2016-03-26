@@ -6,6 +6,7 @@ use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
 use kartik\icons\Icon;
+use yii\helpers\Url;
 use yii\web\User;
 
 /* @var $date DateTime */
@@ -61,4 +62,29 @@ echo Html::endTag('div'); //droppable or empty
 echo Html::endTag('div'); //coll-sm-10
 echo Html::endTag('div'); //row
 echo Html::endTag('div'); //day
+
+$js = '$(function() {
+    $( ".day" ).droppable({
+        hoverClass: "hover",
+        activeClass: "target",
+        accept: ":not(.ui-sortable-helper)",
+        drop: function( event, ui ) {
+            target = ui.draggable;
+            insert = $(this).find(".droppable:first");
+            var jqxhr2 = $.ajax({
+              method: "GET",
+              url: "' . Url::to(['training-create', 'id' => $model->id]) . '",
+              data: { date:$(this).data("date") , training_type_id: target.find(".training-type:first").data("training-type-id")}
+            })
+            .done(function( data ) {
+               insert.append(data);
+            })
+            .fail(function( data ) {
+            });
+        }
+    });
+    
+  });';
+$this->registerJs($js);
+
 MyPjax::end();

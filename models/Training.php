@@ -61,6 +61,7 @@ class Training extends TrainingBase
                 $model->save(false);
             }
             $this->{$attribute} = $model->id;
+            $this->week_id = $model->week->id;
         }
     }
 

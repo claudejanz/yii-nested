@@ -9,6 +9,7 @@ use app\models\Category;
 use app\models\SubCategory;
 use app\models\User;
 use app\models\Day;
+use app\models\Week;
 
 /**
  * This is the model class for table "training".
@@ -20,6 +21,7 @@ use app\models\Day;
     * @property integer $sub_category_id
     * @property integer $sportif_id
     * @property integer $day_id
+    * @property integer $week_id
     * @property string $time
     * @property integer $rpe
     * @property string $explanation
@@ -39,6 +41,7 @@ use app\models\Day;
             * @property SubCategory $subCategory
             * @property User $sportif
             * @property Day $day
+            * @property Week $week
     */
 class TrainingBase extends \yii\db\ActiveRecord
 {
@@ -56,8 +59,8 @@ return 'training';
 public function rules()
 {
         return [
-            [['title', 'sport_id', 'sportif_id', 'day_id', 'date', 'published'], 'required'],
-            [['sport_id', 'category_id', 'sub_category_id', 'sportif_id', 'day_id', 'rpe', 'graph_type', 'published', 'created_by', 'updated_by'], 'integer'],
+            [['title', 'sport_id', 'sportif_id', 'day_id', 'week_id', 'date', 'published'], 'required'],
+            [['sport_id', 'category_id', 'sub_category_id', 'sportif_id', 'day_id', 'week_id', 'rpe', 'graph_type', 'published', 'created_by', 'updated_by'], 'integer'],
             [['time', 'date', 'created_at', 'updated_at'], 'safe'],
             [['explanation', 'extra_comment', 'graph'], 'string'],
             [['title'], 'string', 'max' => 1024],
@@ -66,6 +69,7 @@ public function rules()
             [['sub_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubCategory::className(), 'targetAttribute' => ['sub_category_id' => 'id']],
             [['sportif_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sportif_id' => 'id']],
             [['day_id'], 'exist', 'skipOnError' => true, 'targetClass' => Day::className(), 'targetAttribute' => ['day_id' => 'id']],
+            [['week_id'], 'exist', 'skipOnError' => true, 'targetClass' => Week::className(), 'targetAttribute' => ['week_id' => 'id']],
         ];
 }
 
@@ -82,6 +86,7 @@ return [
     'sub_category_id' => Yii::t('app', 'Sub Category ID'),
     'sportif_id' => Yii::t('app', 'Sportif ID'),
     'day_id' => Yii::t('app', 'Day ID'),
+    'week_id' => Yii::t('app', 'Week ID'),
     'time' => Yii::t('app', 'Time'),
     'rpe' => Yii::t('app', 'Rpe'),
     'explanation' => Yii::t('app', 'Explanation'),
@@ -143,6 +148,14 @@ return [
     public function getDay()
     {
     return $this->hasOne(Day::className(), ['id' => 'day_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getWeek()
+    {
+    return $this->hasOne(Week::className(), ['id' => 'week_id']);
     }
 
     /**
