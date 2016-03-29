@@ -485,6 +485,22 @@ class m140806_232625_create_db extends Migration
             'FOREIGN KEY (sub_category_id) REFERENCES sub_category (id) ON DELETE CASCADE ON UPDATE CASCADE ',
                 ], $tableOptions);
         
+        $this->createTable('training_type_lang', [
+            'id' => Schema::TYPE_PK,
+            'title' => Schema::TYPE_STRING . '(1024) NOT NULL',
+            'training_type_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'explanation' => Schema::TYPE_TEXT,
+            'extra_comment' => Schema::TYPE_TEXT,
+            'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'updated_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'language' => Schema::TYPE_STRING . '(5) NOT NULL',
+            
+            'INDEX index_training_type_id (training_type_id ASC)',
+            'FOREIGN KEY (training_type_id) REFERENCES training_type (id) ON DELETE CASCADE ON UPDATE CASCADE',
+                ], $tableOptions);
+        
          $this->createTable('user_sport', [
             'user_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'sport_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
@@ -521,6 +537,7 @@ class m140806_232625_create_db extends Migration
     {
         $this->dropTable('address');
         $this->dropTable('user_sport');
+        $this->dropTable('training_type_lang');
         $this->dropTable('training_type');
         $this->dropTable('reporting');
         $this->dropTable('training');
