@@ -3,6 +3,8 @@
 namespace app\models;
 
 use app\models\base\SubCategoryBase;
+use claudejanz\toolbox\models\behaviors\MultilingualBehavior;
+use claudejanz\toolbox\models\behaviors\MultilingualQuery;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -14,6 +16,15 @@ class SubCategory extends SubCategoryBase
      public function behaviors()
     {
         return array(
+             'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => Yii::$app->params['langsNames'],
+                'langClassName' => SubCategoryLang::className(), // or namespace/for/a/class/PostLang
+                'langForeignKey' => 'sub_category_id',
+                'attributes' => [
+                    'title',
+                ]
+            ],
             'publish' => [
                 'class' => PublishBehavior::className(),
             ],
@@ -24,7 +35,6 @@ class SubCategory extends SubCategoryBase
             'blameable' => [
                 'class' => BlameableBehavior::className(),
             ],
-            
         );
     }
     
@@ -35,6 +45,13 @@ class SubCategory extends SubCategoryBase
         return array_merge([
             ['published', 'default', 'value' => PublishBehavior::PUBLISHED_ACTIF],
                 ], parent::rules());
+    }
+    
+    public static function find()
+    {
+        $q = new MultilingualQuery(get_called_class());
+        $q->localised();
+        return $q;
     }
     /**
      * Returns model display label

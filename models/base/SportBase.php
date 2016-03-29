@@ -5,6 +5,7 @@ namespace app\models\base;
 use Yii;
 use app\models\Category;
 use app\models\Reporting;
+use app\models\SportLang;
 use app\models\Training;
 use app\models\TrainingType;
 use app\models\UserSport;
@@ -25,6 +26,7 @@ use app\models\User;
     *
             * @property Category[] $categories
             * @property Reporting[] $reportings
+            * @property SportLang[] $sportLangs
             * @property Training[] $trainings
             * @property TrainingType[] $trainingTypes
             * @property UserSport[] $userSports
@@ -85,6 +87,14 @@ return [
     public function getReportings()
     {
     return $this->hasMany(Reporting::className(), ['sport_id' => 'id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getSportLangs()
+    {
+    return $this->hasMany(SportLang::className(), ['sport_id' => 'id']);
     }
 
     /**

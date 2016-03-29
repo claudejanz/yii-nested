@@ -3,6 +3,8 @@
 namespace app\models;
 
 use app\models\base\CategoryBase;
+use claudejanz\toolbox\models\behaviors\MultilingualBehavior;
+use claudejanz\toolbox\models\behaviors\MultilingualQuery;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -15,6 +17,15 @@ class Category extends CategoryBase
     public function behaviors()
     {
         return array(
+            'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => Yii::$app->params['langsNames'],
+                'langClassName' => CategoryLang::className(), // or namespace/for/a/class/PostLang
+                'langForeignKey' => 'category_id',
+                'attributes' => [
+                    'title',
+                ]
+            ],
             'publish' => [
                 'class' => PublishBehavior::className(),
             ],
@@ -34,6 +45,13 @@ class Category extends CategoryBase
         return array_merge([
             ['published', 'default', 'value' => PublishBehavior::PUBLISHED_ACTIF],
                 ], parent::rules());
+    }
+    
+    public static function find()
+    {
+        $q = new MultilingualQuery(get_called_class());
+        $q->localised();
+        return $q;
     }
 
     /**

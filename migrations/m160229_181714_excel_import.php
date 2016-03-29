@@ -143,28 +143,33 @@ class m160229_181714_excel_import extends Migration
     {
         switch ($name) {
             case 'Course A Pied':
-            case 'Marche':
             case'Piste':
-                return 'P';
+                return 'sports';
+            case 'Marche':
+                return 'sportd-7';
             case'Velo Rouleau':
+                return 'man';
             case'Vtt':
+                return 'mountain';
             case'Spinning':
             case'Velo De Route':
-                return 'H';
+                return 'silhouette-3';
             case'Peau De Phoque':
+                return 'sports-6';
             case'Ski De Fond':
             case'Ski A Roulettes':
             case'Ski De Fond':
+                return 'sports-9';
             case'Ski Backcountry':
-                return '[';
+                return 'sports-3';
             case'Natation':
             case'Aqua-jogging':
-                return 'r';
+                return 'summer-1';
             case'Aviron':
             case'Kanu-kajak':
-                return 'L';
+                return 'silhouette-7';
             default:
-                return '9';
+                return 'cup';
         }
     }
 

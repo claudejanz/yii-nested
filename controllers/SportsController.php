@@ -220,7 +220,9 @@ class SportsController extends MyController
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException($model->errors);
+                    throw new NotAcceptableHttpException($this->render('_form', [
+                        'model' => $model,
+                    ]));
                 }
             } else {
                 if ($model->save()) {
@@ -248,14 +250,12 @@ class SportsController extends MyController
                 break;
         }
         if (Yii::$app->request->isAjax) {
-                return $model->delete();
+            return $model->delete();
         } else {
             if ($model->delete()) {
                 return $this->redirect(Url::previous());
             }
         }
-
-       
     }
 
 }

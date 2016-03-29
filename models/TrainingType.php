@@ -7,6 +7,7 @@ use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\helpers\FileHelper;
 
 class TrainingType extends TrainingTypeBase
 {
@@ -41,4 +42,6 @@ class TrainingType extends TrainingTypeBase
     public function getShortTitle(){
         return substr($this->title, 0, 25).'...';
     }
+    
+    
 }

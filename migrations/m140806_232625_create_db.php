@@ -274,6 +274,20 @@ class m140806_232625_create_db extends Migration
             
             'INDEX index_title (title ASC)'
                 ], $tableOptions);
+         
+         $this->createTable('sport_lang', [
+            'id' => Schema::TYPE_PK,
+            'sport_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'title' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'updated_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'language' => Schema::TYPE_STRING . '(5) NOT NULL',
+            
+            'INDEX index_sport_id (sport_id ASC)',
+            'FOREIGN KEY (sport_id) REFERENCES sport (id) ON DELETE CASCADE ON UPDATE CASCADE',
+                ], $tableOptions);
 
         $this->createTable('category', [
             'id' => Schema::TYPE_PK,
@@ -290,6 +304,20 @@ class m140806_232625_create_db extends Migration
             'INDEX index_sport (sport_id ASC)',
             'FOREIGN KEY (sport_id) REFERENCES sport (id) ON DELETE CASCADE ON UPDATE CASCADE ',
                 ], $tableOptions);
+        
+        $this->createTable('category_lang', [
+            'id' => Schema::TYPE_PK,
+            'category_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'title' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'updated_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'language' => Schema::TYPE_STRING . '(5) NOT NULL',
+            
+            'INDEX index_category_id (category_id ASC)',
+            'FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE ON UPDATE CASCADE',
+                ], $tableOptions);
 
         $this->createTable('sub_category', [
             'id' => Schema::TYPE_PK,
@@ -305,6 +333,20 @@ class m140806_232625_create_db extends Migration
             'INDEX index_title (title ASC)',
             'INDEX index_category (category_id ASC)',
             'FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE ON UPDATE CASCADE ',
+                ], $tableOptions);
+        
+         $this->createTable('sub_category_lang', [
+            'id' => Schema::TYPE_PK,
+            'sub_category_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'title' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'updated_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'language' => Schema::TYPE_STRING . '(5) NOT NULL',
+            
+            'INDEX index_sub_category_id (sub_category_id ASC)',
+            'FOREIGN KEY (sub_category_id) REFERENCES sub_category (id) ON DELETE CASCADE ON UPDATE CASCADE',
                 ], $tableOptions);
         
          $this->createTable('week', [
@@ -484,8 +526,11 @@ class m140806_232625_create_db extends Migration
         $this->dropTable('training');
         $this->dropTable('day');
         $this->dropTable('week');
+        $this->dropTable('sub_category_lang');
         $this->dropTable('sub_category');
+        $this->dropTable('category_lang');
         $this->dropTable('category');
+        $this->dropTable('sport_lang');
         $this->dropTable('sport');
         $this->dropTable('element_slideshow_image_lang');
         $this->dropTable('element_slideshow_image');

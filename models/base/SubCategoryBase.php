@@ -4,6 +4,7 @@ namespace app\models\base;
 
 use Yii;
 use app\models\Category;
+use app\models\SubCategoryLang;
 use app\models\Training;
 use app\models\TrainingType;
 
@@ -21,6 +22,7 @@ use app\models\TrainingType;
     * @property string $updated_at
     *
             * @property Category $category
+            * @property SubCategoryLang[] $subCategoryLangs
             * @property Training[] $trainings
             * @property TrainingType[] $trainingTypes
     */
@@ -72,6 +74,14 @@ return [
     public function getCategory()
     {
     return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getSubCategoryLangs()
+    {
+    return $this->hasMany(SubCategoryLang::className(), ['sub_category_id' => 'id']);
     }
 
     /**

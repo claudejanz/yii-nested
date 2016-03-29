@@ -15,7 +15,7 @@ echo Html::beginTag('div',['class'=>'row']);
 echo Html::beginTag('div',['class'=>'col-sm-8']);
 echo Html::tag('b',$model->duration);
 echo ' - ';
-echo Html::tag('span',$model->sport->icon,['class'=>'sports']);
+echo Html::img($model->sport->iconUrl,['width'=>20]);
 if (!isset($searchModel->sport_id)) {
     echo ' ' . $model->sport->title;
 }

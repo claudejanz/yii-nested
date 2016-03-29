@@ -30,7 +30,7 @@ echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-10' : 'col-sm-12 tra
 echo Html::beginTag('div', ['class' => 'timeDuration']);
 echo $model->duration;
 echo ' - ';
-echo Html::tag('span', $model->sport->icon, ['class' => 'sports']);
+echo Html::img($model->sport->iconUrl,['width'=>25]);
 echo ' ' . $model->sport->title;
 echo ' - ';
 echo $model->title;
