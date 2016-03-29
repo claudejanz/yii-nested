@@ -35,7 +35,7 @@ class TrainingTypeSearch extends TrainingType
         return Model::scenarios();
     }
 
-    public function search($params, $user = null)
+    public function search($params, $user = null,$pageSize=20)
     {
         $query = TrainingType::find();
 
@@ -48,6 +48,7 @@ class TrainingTypeSearch extends TrainingType
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination'=>['pageSize'=>$pageSize]
         ]);
 
         $dataProvider->setSort([

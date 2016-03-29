@@ -41,7 +41,7 @@ $add = AjaxModalButton::widget([
             ],
         ]);
 $update = AjaxModalButton::widget([
-            'label' => Icon::show('pencil'),
+            'label' => Icon::show('edit'),
             'encodeLabel' => false,
             'url' => [
                 'item-update',

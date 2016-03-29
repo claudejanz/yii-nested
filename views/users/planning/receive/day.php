@@ -1,11 +1,11 @@
 <?php
 
 use app\extentions\helpers\MyPjax;
+use app\extentions\StyleIcon;
 use app\models\Training;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
-use kartik\icons\Icon;
 use yii\helpers\Url;
 use yii\web\User;
 
@@ -33,7 +33,7 @@ if (isset($days[$dateTime->format('Y-m-d')])) {
 echo Html::a($text, 'https://www.google.ch/search?q=meteo+' . $text, ['target' => '_blank']);
 echo ' ';
 echo AjaxModalButton::widget([
-    'label' => Icon::show('pencil'),
+    'label' => StyleIcon::showStyled('edit'),
     'encodeLabel' => false,
     'url' => ['day-update', 'id' => $model->id, 'date' => $dateId],
     'success' => '#week' . $weekStartDate->format('Y-m-d'),

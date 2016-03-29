@@ -62,13 +62,13 @@ class m160229_181714_excel_import extends Migration
     {
         $name = ucwords(strtolower($line['SPORTS']));
         $sport = Sport::findOne(['title' => $name]);
-        
+
         if (!$sport && $line['SPORTS'] != null) {
             $sport = new Sport();
             $sport->setAttributes([
                 'title' => $name,
                 'published' => PublishBehavior::PUBLISHED_ACTIF,
-                'icon' => substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1),
+                'icon' => $this->getIcon($name),
             ]);
             if (!$sport->save())
                 var_dump(get_class($sport), $sport->errors);
@@ -136,6 +136,35 @@ class m160229_181714_excel_import extends Migration
                 break;
             default:
                 return null;
+        }
+    }
+
+    public function getIcon($name)
+    {
+        switch ($name) {
+            case 'Course A Pied':
+            case 'Marche':
+            case'Piste':
+                return 'P';
+            case'Velo Rouleau':
+            case'Vtt':
+            case'Spinning':
+            case'Velo De Route':
+                return 'H';
+            case'Peau De Phoque':
+            case'Ski De Fond':
+            case'Ski A Roulettes':
+            case'Ski De Fond':
+            case'Ski Backcountry':
+                return '[';
+            case'Natation':
+            case'Aqua-jogging':
+                return 'r';
+            case'Aviron':
+            case'Kanu-kajak':
+                return 'L';
+            default:
+                return '9';
         }
     }
 
