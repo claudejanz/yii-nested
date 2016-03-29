@@ -3,9 +3,7 @@
 use app\extentions\helpers\MyPjax;
 use app\models\Training;
 use app\models\Week;
-use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
-use kartik\icons\Icon;
 use yii\web\User;
 
 /* @var $date DateTime */
@@ -16,13 +14,14 @@ use yii\web\User;
 $startDate = $date;
 $endDate = clone $date;
 $endDate->modify('+7 days');
+$weekId =  $startDate->format('Y-m-d');
 
 $interval = DateInterval::createFromDateString('1 day');
 $period = new DatePeriod($startDate, $interval, $endDate);
 
 $week = Week::findOne(['date_begin' => $startDate->format('Y-m-d'), 'sportif_id' => $model->id]);
 $days = ($week) ? $week->daysByDate : [];
-MyPjax::begin(['id' => 'week' . $startDate->format('Y-m-d')]);
+MyPjax::begin(['id' => 'week' .$weekId]);
 echo Html::beginTag('div', ['class' => 'week']);
 echo Html::beginTag('div', ['class' => 'ribbon-block']);
 if ($isCoach) {
@@ -30,8 +29,13 @@ if ($isCoach) {
         'week' => $week,
     ]);
 }
-if (isset($week) && isset($week->words_of_the_week))
-    echo Html::tag('div', $week->words_of_the_week, ['class' => 'words-of-the-week animated flipInX']);
+if (isset($week) && isset($week->words_of_the_week)) {
+    $options = ['class' => 'words-of-the-week'];
+    if (!Yii::$app->request->isAjax) {
+        Html::addCssClass($options, 'animated flipInX');
+    }
+    echo Html::tag('div', $week->words_of_the_week,$options);
+}
 echo Html::beginTag('div', ['class' => 'title']);
 echo Yii::t('app', '{startDate} to {endDate}', [
     'startDate' => Yii::$app->formatter->asDate($startDate),
@@ -43,15 +47,14 @@ foreach ($period as $dateTime) {
     /* @var $dateTime DateTime */
     echo $this->render('day', [
         'dateTime' => $dateTime,
-        'weekStartDate'=>$startDate,
+        'weekId' => $weekId,
         'days' => $days,
         'isCoach' => $isCoach,
         'model' => $model,
-        'models' => $models,
     ]);
 }
 echo $this->render('week/reportingResume', ['week' => $week, 'startDate' => $startDate]);
-echo $this->render('week/actions',['week' => $week,'isCoach'=>$isCoach,'model'=>$model,'startDate'=>$startDate]);
+echo $this->render('week/actions', ['week' => $week, 'isCoach' => $isCoach, 'model' => $model, 'startDate' => $startDate]);
 
 echo Html::endTag('div'); //ribbon-block
 echo Html::endTag('div'); //week

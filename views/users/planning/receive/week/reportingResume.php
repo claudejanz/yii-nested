@@ -26,17 +26,21 @@ use yii\helpers\Html;
 /* @var $week Week */
 /* @var $startDate DateTime */
 MyPjax::begin(['id' => 'week_graph' . $startDate->format('Y-m-d')]);
+$options = ['class' => 'white-block'];
+if (!Yii::$app->request->isAjax) {
+    Html::addCssClass($options, 'animated fadeInUp');
+}
 if ($week && $week->reportings) {
-    echo Html::beginTag('div',['class'=>'white-block animated fadeInUp']);
-    echo Html::beginTag('div',['class'=>'row']);
-    echo Html::beginTag('div',['class'=>'col-sm-12']);
-    echo Html::tag('h4',  Yii::t('app', 'Week Graph'));
+    echo Html::beginTag('div', $options);
+    echo Html::beginTag('div', ['class' => 'row']);
+    echo Html::beginTag('div', ['class' => 'col-sm-12']);
+    echo Html::tag('h4', Yii::t('app', 'Week Graph'));
     echo MulaffWeekGraphWidget::widget(['model' => $week, 'width' => '100%', 'height' => '100']);
     echo Html::endTag('div');
     echo Html::endTag('div');
-    echo Html::beginTag('div',['class'=>'row']);
-    echo Html::beginTag('div',['class'=>'col-sm-12']);
-    echo Html::tag('h4',  Yii::t('app', 'Week Sports'));
+    echo Html::beginTag('div', ['class' => 'row']);
+    echo Html::beginTag('div', ['class' => 'col-sm-12']);
+    echo Html::tag('h4', Yii::t('app', 'Week Sports'));
     echo MulaffWeekSportsWidget::widget(['model' => $week]);
     echo Html::endTag('div');
     echo Html::endTag('div');

@@ -19,7 +19,6 @@ use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use kartik\alert\Alert;
 use Yii;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\NotAcceptableHttpException;
 use yii\web\NotFoundHttpException;
@@ -150,10 +149,6 @@ class UsersController extends MyController
         } else {
             $endDate->modify('+6days');
         }
-//        var_dump($startDate->format('Y-m-d'),$endDate->format('Y-m-d'));
-//        var_dump($startDate->format('Y-m-d'),$endDate->format('Y-m-d'));
-        $models = Training::find()->where(['and', ['between', 'date', $startDate->format('Y-m-d'), $endDate->format('Y-m-d')], ['sportif_id' => $id]])->orderBy('date')->all();
-        $models = ArrayHelper::index($models, 'id', ['date']);
         $searchModel = new TrainingTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
         return $this->render('planning', [
@@ -161,7 +156,6 @@ class UsersController extends MyController
                     'isCoach' => $isCoach,
                     'startDate' => $startDate,
                     'endDate' => $endDate,
-                    'models' => $models,
                     'dataProvider' => $dataProvider,
                     'searchModel' => $searchModel,
         ]);

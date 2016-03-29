@@ -28,7 +28,12 @@ class TrainingTypesController extends MyController
             'context' => [
                 'class'     => ContextFilter::className(),
                 'modelName' => TrainingType::className(),
-                'only'      => ['null']
+                'only'      => [
+                    'duplicate',
+                    'delete',
+                    'view',
+                    'update'
+                    ]
             ],
             'access'  => [
                 'class' => AccessControl::className(),
@@ -39,7 +44,7 @@ class TrainingTypesController extends MyController
                         'roles'   => ['coach'],
                     ],
                     [
-                        'actions' => ['create','update', 'categories', 'sub-categories'],
+                        'actions' => ['create','update', 'categories', 'sub-categories','duplicate'],
                         'allow'   => true,
                         'roles'   => ['coach'],
                     ],
@@ -85,7 +90,7 @@ class TrainingTypesController extends MyController
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->model;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -120,7 +125,28 @@ class TrainingTypesController extends MyController
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->model;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('update', [
+                        'model' => $model,
+            ]);
+        }
+    }
+    /**
+     * Updates an existing TrainingType model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDuplicate($id)
+    {
+        $orig = $this->model;
+        
+        $model = new TrainingType;
+        $model->setAttributes($orig->attributes);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -139,7 +165,7 @@ class TrainingTypesController extends MyController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->model->delete();
 
         return $this->redirect(['index']);
     }

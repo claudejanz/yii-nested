@@ -14,13 +14,17 @@ use yii\web\User;
 /* @var $model User */
 /* @var $isCoach booleen */
 /* @var $dateTime DateTime */
-/* @var $weekStartDate DateTime */
+/* @var $weekId string */
 
 $dateId = $dateTime->format("Y-m-d");
 MyPjax::begin(['id' => 'day' . $dateId]);
-echo Html::beginTag('div', ['class' => 'day white-block animated fadeInUp', 'data' => ['date' => $dateId]]);
+$options = ['class' => 'day white-block', 'data' => ['date' => $dateId,'week'=>$weekId]];
+if (!Yii::$app->request->isAjax) {
+    Html::addCssClass($options, 'animated fadeInUp');
+}
+echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'row']);
-echo Html::beginTag('div', ['class' => 'col-sm-2 col-md-12']);
+echo Html::beginTag('div', ['class' => 'col-xs-6']);
 echo Html::beginTag('div', ['class' => 'dayFormat']); //date
 echo Yii::$app->formatter->asDate($dateTime, 'full');
 echo Html::beginTag('div', ['class' => 'cityFormat']); //city and button
@@ -36,21 +40,29 @@ echo AjaxModalButton::widget([
     'label' => StyleIcon::showStyled('edit'),
     'encodeLabel' => false,
     'url' => ['day-update', 'id' => $model->id, 'date' => $dateId],
-    'success' => '#week' . $weekStartDate->format('Y-m-d'),
+    'success' => '#week' . $weekId,
     'title' => Yii::t('app', 'Update training city'),
     'options' => ['class' => 'red']
 ]);
 echo Html::endTag('div'); //city and button
 echo Html::endTag('div'); //date
-echo Html::endTag('div'); //col-sm-2
-echo Html::beginTag('div', ['class' => 'col-sm-10 col-md-12']);
+echo Html::endTag('div'); //col-xs-6
+echo Html::beginTag('div', ['class' => 'col-xs-6 text-right']);
+if (isset($day) && isset($day->trainings)) {
+    echo $day->duration . "<br>";
+    foreach ($day->icons as $icon) {
+        echo Html::img($icon, ['width' => 20]);
+    }
+}
+echo Html::endTag('div'); //col-xs-6
+echo Html::beginTag('div', ['class' => 'col-lg-12']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'droppable' : '']);
-if (isset($models[$dateTime->format('Y-m-d')])) {
-    $trainings = $models[$dateTime->format('Y-m-d')];
+if (isset($day) && isset($day->trainings)) {
+    $trainings = $day->trainings;
 
     foreach ($trainings as $training) {
         /* @var $training Training */
-        if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF){
+        if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
             echo $this->render('training', [
                 'model' => $training,
                 'user' => $model,
@@ -72,13 +84,16 @@ $js = '$(function() {
         drop: function( event, ui ) {
             target = ui.draggable;
             insert = $(this).find(".droppable:first");
+            date = $(this).data("date");
+            week = $(this).data("week");
             var jqxhr2 = $.ajax({
               method: "GET",
               url: "' . Url::to(['training-create', 'id' => $model->id]) . '",
-              data: { date:$(this).data("date") , training_type_id: target.find(".training-type:first").data("training-type-id")}
+              data: { date:date , training_type_id: target.find(".training-type:first").data("training-type-id")}
             })
             .done(function( data ) {
                insert.append(data);
+               $.pjax.reload("#week"+week,{timeout:false});
             })
             .fail(function( data ) {
             });

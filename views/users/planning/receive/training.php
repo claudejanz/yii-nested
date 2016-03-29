@@ -6,7 +6,6 @@ use app\extentions\MulaffGraphWidgetV2;
 use app\extentions\StyleIcon;
 use app\models\Training;
 use app\models\User;
-use claudejanz\toolbox\widgets\ajax\AjaxButton;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
 use yii\helpers\Url;
@@ -30,7 +29,7 @@ echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-10' : 'col-sm-12 tra
 echo Html::beginTag('div', ['class' => 'timeDuration']);
 echo $model->duration;
 echo ' - ';
-echo Html::img($model->sport->iconUrl,['width'=>25]);
+echo Html::img($model->sport->iconUrl, ['width' => 25]);
 echo ' ' . $model->sport->title;
 echo ' - ';
 echo $model->title;
@@ -111,14 +110,18 @@ echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
 echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => 150, 'model' => $model, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'col-sm-12']);
-echo DetailView::widget([
-    'model' => $model,
-    'attributes' => [
+$attributes = [
 //        'title',
 //        'rpe',
-        'explanation:ntext',
-        'extra_comment:ntext'
-    ]
+    'explanation:ntext',
+    'extra_comment:ntext'
+];
+if($isCoach){
+    array_push($attributes, 'rpe');
+}
+echo DetailView::widget([
+    'model' => $model,
+    'attributes' => $attributes,
 ]);
 echo Html::endTag('div');
 echo Html::endTag('div');

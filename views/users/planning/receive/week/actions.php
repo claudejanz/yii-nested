@@ -27,7 +27,11 @@ use yii\helpers\Html;
 /* @var $model User */
 /* @var $startDate DateTime */
 /* @var $isCoach boolean */
-echo Html::beginTag('div', ['class' => 'white-block animated fadeInUp']);
+$options =  ['class' => 'white-block'];
+if (!Yii::$app->request->isAjax) {
+    Html::addCssClass($options, 'animated fadeInUp');
+}
+echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-sm-12']);
 if ($isCoach && (!$week || $week->published == PublishBehavior::PUBLISHED_DRAFT)) {

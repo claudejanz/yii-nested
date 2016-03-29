@@ -64,7 +64,7 @@ class MulaffWeekSportsWidget extends Widget
             /* @var $sport Sport */
             $sport = $row['sport'];
             $km = $row['km'];
-            echo Html::tag('span',$sport->icon,['class'=>'sports']);
+            echo Html::img($sport->iconUrl,['width'=>'20']);
             echo ' - ';
             echo $sport->title.': '.$km.'km<br>';
             
