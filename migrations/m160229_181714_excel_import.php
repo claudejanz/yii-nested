@@ -146,7 +146,7 @@ class m160229_181714_excel_import extends Migration
             case'Piste':
                 return 'sports';
             case 'Marche':
-                return 'sportd-7';
+                return 'sports-7';
             case'Velo Rouleau':
                 return 'man';
             case'Vtt':
