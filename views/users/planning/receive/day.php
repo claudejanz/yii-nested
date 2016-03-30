@@ -18,7 +18,7 @@ use yii\web\User;
 
 $dateId = $dateTime->format("Y-m-d");
 MyPjax::begin(['id' => 'day' . $dateId]);
-$options = ['class' => 'day white-block', 'data' => ['date' => $dateId,'week'=>$weekId]];
+$options = ['class' => 'day white-block', 'data' => ['date' => $dateId, 'week' => $weekId]];
 if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
 }
@@ -48,16 +48,16 @@ echo Html::endTag('div'); //city and button
 
 echo Html::endTag('div'); //col-sm-12 col-md-9
 echo Html::beginTag('div', ['class' => 'col-sm-12 col-md-3 bullet']);
-if (isset($day) && isset($day->trainings)) {
-    echo Html::beginTag('div', ['class'=>'timeDuration']);
+if (isset($day) && $day->duration) {
+
+    echo Html::beginTag('div', ['class' => 'timeDuration']);
     echo $day->duration . "<br>";
-    echo Html::endTag('div');//timeDuration
-    echo Html::beginTag('div', ['class'=>'sports']);
+    echo Html::endTag('div'); //timeDuration
+    echo Html::beginTag('div', ['class' => 'sports']);
     foreach ($day->icons as $icon) {
-        echo Html::img($icon, ['width' => 25,'class'=>'svg']);
+        echo Html::img($icon, ['width' => 25, 'class' => 'svg']);
     }
-    echo Html::endTag('div');//sporticons
-    
+    echo Html::endTag('div'); //sporticons
 }
 echo Html::endTag('div'); //col-sm-12 col-md-3 text-center
 echo Html::endTag('div'); //row
