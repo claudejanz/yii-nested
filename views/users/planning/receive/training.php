@@ -26,21 +26,21 @@ use yii\widgets\DetailView;
 MyPjax::begin(['id' => 'training' . $model->id]);
 echo Html::beginTag('div', ['class' => 'row trainingDesc']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-10' : 'col-sm-12 trainingWrapper']);
-echo Html::beginTag('div', ['class' => 'timeDuration']);
-echo $model->duration;
-echo Html::endTag('div'); //timeDuration
-echo Html::beginTag('div', ['class'=>'sports']);
-echo Html::img($model->sport->iconUrl, ['width' => 25,'class'=>'svg']);
-echo Html::endTag('div'); //sporticons
-echo Html::beginTag('div', ['class'=>'title']);
+echo Html::beginTag('div', ['class' => 'title']);
 echo ' ' . $model->sport->title;
 echo ' - ';
 echo $model->title;
 echo Html::endTag('div'); //sporticons
+echo Html::beginTag('div', ['class' => 'timeDuration']);
+echo $model->duration;
+echo Html::endTag('div'); //timeDuration
+echo Html::beginTag('div', ['class' => 'sports']);
+echo Html::img($model->sport->iconUrl, ['width' => 25, 'class' => 'svg']);
+echo Html::endTag('div'); //sporticons
 
-echo Html::endTag('div');
+echo Html::endTag('div'); //col-sm-12 trainingWrapper
 
-echo Html::beginTag('div', ['class' => 'col-sm-2']);
+echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-2' : 'col-sm-12']);
 echo Html::beginTag('p', ['class' => 'text-right']);
 if ($isCoach) {
     echo AjaxModalButton::widget([
@@ -88,6 +88,7 @@ if ($isCoach) {
     ]);
     echo ' ';
 }
+
 echo ' ';
 echo AjaxModalButton::widget([
     'label' => StyleIcon::showStyled('tasks'),
@@ -104,12 +105,14 @@ echo AjaxModalButton::widget([
     ],
 ]);
 echo Html::endTag('p');
-echo Html::beginTag('p', ['class' => 'text-right']);
-echo Html::a(StyleIcon::showStyled('plus'), "#", ['onClick' => '$("#training' . $model->id . '").find(".hid").slideToggle();return false;', 'class' => 'red right-align']);
-echo Html::endTag('p');
+if ($isCoach) {
+    echo Html::beginTag('p', ['class' => 'text-right']);
+    echo Html::a(StyleIcon::showStyled('plus'), "#", ['onClick' => '$("#training' . $model->id . '").find(".hid").slideToggle();return false;', 'class' => 'red right-align']);
+    echo Html::endTag('p');
+}
 echo Html::endTag('div');
 echo Html::endTag('div');
-echo Html::beginTag('div', ['class' => 'row' . (($isCoach) ? ' hid' : '')]);
+echo Html::beginTag('div', ['class' => 'row plus' . (($isCoach) ? ' hid' : '')]);
 echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
 echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => 150, 'model' => $model, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
@@ -120,7 +123,7 @@ $attributes = [
     'explanation:ntext',
     'extra_comment:ntext'
 ];
-if($isCoach){
+if ($isCoach) {
     array_push($attributes, 'rpe');
 }
 echo DetailView::widget([

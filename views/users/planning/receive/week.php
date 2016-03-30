@@ -36,7 +36,7 @@ if (isset($week) && isset($week->words_of_the_week)) {
     }
     echo Html::tag('div', $week->words_of_the_week,$options);
 }
-echo Html::beginTag('div', ['class' => 'title']);
+echo Html::beginTag('div', ['class' => 'dates']);
 echo Yii::t('app', '{startDate} to {endDate}', [
     'startDate' => Yii::$app->formatter->asDate($startDate),
     'endDate' => Yii::$app->formatter->asDate($endDate->modify('-1 day')),

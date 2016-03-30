@@ -359,13 +359,16 @@ class UsersController extends MyController
             $model->date = $training->day->date;
             $model->week_id = $training->day->week_id;
             $model->sport_id = $training->sport_id;
+            $model->time = $training->time;
+        }else{
+           $training =  $model->training;
         }
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model]));
+                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model,'training'=>$training]));
                 }
             } else {
                 if ($model->validate()) {
@@ -377,7 +380,7 @@ class UsersController extends MyController
             }
         }
 
-        return $this->render('/reportings/_form', ['model' => $model]);
+        return $this->render('/reportings/_form', ['model' => $model,'training'=>$training]);
     }
 
     /**

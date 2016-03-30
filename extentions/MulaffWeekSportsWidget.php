@@ -64,8 +64,9 @@ class MulaffWeekSportsWidget extends Widget
             /* @var $sport Sport */
             $sport = $row['sport'];
             $km = $row['km'];
+            echo Html::beginTag('div',['class'=>'sports-mini']);
             echo Html::img($sport->iconUrl,['width'=>'20']);
-            echo ' - ';
+            echo Html::endTag('div');
             echo $sport->title.': '.$km.'km<br>';
             
         }

@@ -26,7 +26,7 @@ use yii\helpers\Html;
 /* @var $week Week */
 /* @var $startDate DateTime */
 MyPjax::begin(['id' => 'week_graph' . $startDate->format('Y-m-d')]);
-$options = ['class' => 'white-block'];
+$options = ['class' => 'white-block week-graph'];
 if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
 }
