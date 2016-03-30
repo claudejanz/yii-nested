@@ -144,7 +144,7 @@ class Day extends DayBase
                 return $all;
             }
         }
-        return null;
+        return [];
     }
 
 }

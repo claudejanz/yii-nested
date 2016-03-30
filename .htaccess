@@ -1,3 +1,4 @@
+Options +FollowSymLinks
 RewriteEngine On
 
 #RewriteCond %{HTTP_HOST} !^www
@@ -5,12 +6,10 @@ RewriteEngine On
 #RewriteRule ^(.*)$ http://klod.ch/%1/$1 [QSA,L,NC,P]
 
 # if request dosn't start with web adn not subdomain add it
-RewriteCond %{HTTP_HOST} !^abctaxi
 RewriteCond %{REQUEST_URI} !^/(web)
 RewriteRule (.*) /web/$1 [QSA,L]
 
 # if file or directory dosn't exists go to /web/index.php exept if subdomain
-RewriteCond %{HTTP_HOST} !^abctaxi
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /web/index.php 

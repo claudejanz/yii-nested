@@ -28,12 +28,16 @@ echo Html::beginTag('div', ['class' => 'row trainingDesc']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-10' : 'col-sm-12 trainingWrapper']);
 echo Html::beginTag('div', ['class' => 'timeDuration']);
 echo $model->duration;
-echo ' - ';
-echo Html::img($model->sport->iconUrl, ['width' => 25]);
+echo Html::endTag('div'); //timeDuration
+echo Html::beginTag('div', ['class'=>'sports']);
+echo Html::img($model->sport->iconUrl, ['width' => 25,'class'=>'svg']);
+echo Html::endTag('div'); //sporticons
+echo Html::beginTag('div', ['class'=>'title']);
 echo ' ' . $model->sport->title;
 echo ' - ';
 echo $model->title;
-echo Html::endTag('div'); //timeDuration
+echo Html::endTag('div'); //sporticons
+
 echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'col-sm-2']);

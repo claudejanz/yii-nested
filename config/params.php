@@ -31,7 +31,7 @@ return [
         'en-US' => 'en-US',
         
     ),
-    'mailerEmail' => 'no-reply@klod.ch',
+    'mailerEmail' => 'no-reply@mulaff.com',
     'mailerName' => 'coach.mulaff.ch',
     'user.passwordResetTokenExpire' => 3600,
     'icon-framework' => 'fa',

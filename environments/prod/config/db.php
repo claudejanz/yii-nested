@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=akfm.myd.sharedbox.com;dbname=akfm_fasarchitectesch',
-    'username' => 'akfm_claude',
-    'password' => '6N9o29A7RuVMQ61vx60S3wi0',
+    'dsn' => 'mysql:host=mwgx.myd.infomaniak.com;dbname=mwgx_coach',
+    'username' => 'mwgx_claudejanz',
+    'password' => 'pexoNCvOG6Qg3vgVFRah',
     'charset' => 'utf8',
     // Duration of schema cache.
             'schemaCacheDuration' => 0,

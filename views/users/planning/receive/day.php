@@ -23,9 +23,9 @@ if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
 }
 echo Html::beginTag('div', $options);
-echo Html::beginTag('div', ['class' => 'row']);
-echo Html::beginTag('div', ['class' => 'col-xs-6']);
 echo Html::beginTag('div', ['class' => 'dayFormat']); //date
+echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-sm-12 col-md-9']);
 echo Yii::$app->formatter->asDate($dateTime, 'full');
 echo Html::beginTag('div', ['class' => 'cityFormat']); //city and button
 if (isset($days[$dateTime->format('Y-m-d')])) {
@@ -45,16 +45,24 @@ echo AjaxModalButton::widget([
     'options' => ['class' => 'red']
 ]);
 echo Html::endTag('div'); //city and button
-echo Html::endTag('div'); //date
-echo Html::endTag('div'); //col-xs-6
-echo Html::beginTag('div', ['class' => 'col-xs-6 text-right']);
+
+echo Html::endTag('div'); //col-sm-12 col-md-9
+echo Html::beginTag('div', ['class' => 'col-sm-12 col-md-3 bullet']);
 if (isset($day) && isset($day->trainings)) {
+    echo Html::beginTag('div', ['class'=>'timeDuration']);
     echo $day->duration . "<br>";
+    echo Html::endTag('div');//timeDuration
+    echo Html::beginTag('div', ['class'=>'sports']);
     foreach ($day->icons as $icon) {
-        echo Html::img($icon, ['width' => 20]);
+        echo Html::img($icon, ['width' => 25,'class'=>'svg']);
     }
+    echo Html::endTag('div');//sporticons
+    
 }
-echo Html::endTag('div'); //col-xs-6
+echo Html::endTag('div'); //col-sm-12 col-md-3 text-center
+echo Html::endTag('div'); //row
+echo Html::endTag('div'); //date
+echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-lg-12']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'droppable' : '']);
 if (isset($day) && isset($day->trainings)) {
