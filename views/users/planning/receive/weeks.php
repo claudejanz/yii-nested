@@ -25,6 +25,7 @@ foreach ($period as $dateTime) {
     echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
     echo $this->render('week', [
         'date' => $dateTime,
+        'weekId'=>$dateTime->format('Y-m-d'),
         'model' => $model,
         'isCoach' => $isCoach,
     ]);

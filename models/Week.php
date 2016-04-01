@@ -13,6 +13,9 @@ use yii\db\ActiveQuery;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 
+/**
+ * @property Day[] $daysByDate
+ */
 class Week extends WeekBase
 {
 
@@ -61,17 +64,10 @@ class Week extends WeekBase
      */
     public function getDaysByDate()
     {
-        return $this->hasMany(Day::className(), ['week_id' => 'id'])->indexBy('date');
+        return $this->hasMany(Day::className(), ['week_id' => 'id'])->with(['trainings'])->indexBy('date');
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getTrainings()
-    {
-        return $this->hasMany(Training::className(), ['day_id' => 'id'])->via('days');
-    }
-
+    
     public function getReportingsByDate()
     {
         $models = $this->reportings;

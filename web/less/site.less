@@ -94,127 +94,138 @@ body {
 }
 .ribbon-block{
     position: relative;
-}
-.ribbon {
-    &.right{
-        right: -5px; 
-        left:auto;
-        text-align: right;
-        span{
-            transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-            right: -21px;
-            left:auto;
+    .toggle-bt-cont{
+        position: relative;
+
+        z-index: 1;
+        .toggle-button{
+            position:absolute;
+            right:10px;
+            top:10px;
         }
+
     }
-    position: absolute;
-    left: -5px; 
-    top: -4px;
-    z-index: 1;
-    overflow: hidden;
-    width: 75px; 
-    height: 75px;
-    text-align: left;
-    span {
-        font-size: 10px;
-        font-weight: bold;
-        color: #FFF;
-        text-transform: uppercase;
-        text-align: center;
-        line-height: 20px;
-        transform: rotate(-45deg);
-        -webkit-transform: rotate(-45deg);
-        width: 100px;
-        display: block;
-        #gradient > .vertical(@gray; darken(@gray, 7.5%));
-        background-color:darken(@gray, 7.5%);
-        box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    .ribbon {
+        &.right{
+            right: -5px; 
+            left:auto;
+            text-align: right;
+            span{
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                right: -21px;
+                left:auto;
+            }
+        }
         position: absolute;
-        top: 19px; 
-        left: -21px;
-        &::before {
-            content: "";
-            position: absolute; left: 0px; top: 100%;
-            z-index: -1;
-            border-left: 3px solid darken(@gray, 7.5%);
-            border-right: 3px solid transparent;
-            border-bottom: 3px solid transparent;
-            border-top: 3px solid darken(@gray, 7.5%);
+        left: -5px; 
+        top: -4px;
+        z-index: 1;
+        overflow: hidden;
+        width: 75px; 
+        height: 75px;
+        text-align: left;
+        span {
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFF;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 20px;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            width: 100px;
+            display: block;
+            #gradient > .vertical(@gray; darken(@gray, 7.5%));
+            background-color:darken(@gray, 7.5%);
+            box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+            position: absolute;
+            top: 19px; 
+            left: -21px;
+            &::before {
+                content: "";
+                position: absolute; left: 0px; top: 100%;
+                z-index: -1;
+                border-left: 3px solid darken(@gray, 7.5%);
+                border-right: 3px solid transparent;
+                border-bottom: 3px solid transparent;
+                border-top: 3px solid darken(@gray, 7.5%);
+
+            }
+            &::after {
+                content: "";
+                position: absolute; right: 0px; top: 100%;
+                z-index: -1;
+                border-left: 3px solid transparent;
+                border-right: 3px solid darken(@gray, 7.5%);
+                border-bottom: 3px solid transparent;
+                border-top: 3px solid darken(@gray, 7.5%);
+
+            }
+
+            &.primary{
+                #gradient > .vertical(@brand-primary; darken(@brand-primary, 7.5%));
+                background-color:darken(@brand-primary, 7.5%);
+            }
+            &.success{
+                #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
+                background-color:darken(@brand-success, 7.5%);
+            }
+            &.info{
+                #gradient > .vertical(@brand-info; darken(@brand-info, 7.5%));
+                background-color:darken(@brand-info, 7.5%);
+            }
+            &.warning{
+                #gradient > .vertical(@brand-warning; darken(@brand-warning, 7.5%));
+                background-color:darken(@brand-warning, 7.5%);
+            }
+            &.danger{
+                #gradient > .vertical(@brand-danger; darken(@brand-danger, 7.5%));
+                background-color:darken(@brand-danger, 7.5%);
+            }
+            &.primary::before{
+                border-left: 3px solid darken(@brand-primary, 7.5%);
+                border-top: 3px solid darken(@brand-primary, 7.5%);
+            }
+            &.success::before{
+                border-left: 3px solid darken(@brand-success, 7.5%);
+                border-top: 3px solid darken(@brand-success, 7.5%);
+            }
+            &.info::before{
+                border-left: 3px solid darken(@brand-info, 7.5%);
+                border-top: 3px solid darken(@brand-info, 7.5%);
+            }
+            &.warning::before{
+                border-left: 3px solid darken(@brand-warning, 7.5%);
+                border-top: 3px solid darken(@brand-warning, 7.5%);
+            }
+
+            &.danger::before{
+                border-left: 3px solid darken(@brand-danger, 7.5%);
+                border-top: 3px solid darken(@brand-danger, 7.5%);
+            }
+            &.primary::after{
+                border-right: 3px solid darken(@brand-primary, 7.5%);
+                border-top: 3px solid darken(@brand-primary, 7.5%);
+            }
+            &.success::after{
+                border-right: 3px solid darken(@brand-success, 7.5%);
+                border-top: 3px solid darken(@brand-success, 7.5%);
+            }
+            &.info::after{
+                border-right: 3px solid darken(@brand-info, 7.5%);
+                border-top: 3px solid darken(@brand-info, 7.5%);
+            }
+            &.warning::after{
+                border-right: 3px solid darken(@brand-warning, 7.5%);
+                border-top: 3px solid darken(@brand-warning, 7.5%);
+            }
+            &.danger::after{
+                border-right: 3px solid darken(@brand-danger, 7.5%);
+                border-top: 3px solid darken(@brand-danger, 7.5%);
+            }
 
         }
-        &::after {
-            content: "";
-            position: absolute; right: 0px; top: 100%;
-            z-index: -1;
-            border-left: 3px solid transparent;
-            border-right: 3px solid darken(@gray, 7.5%);
-            border-bottom: 3px solid transparent;
-            border-top: 3px solid darken(@gray, 7.5%);
-
-        }
-
-        &.primary{
-            #gradient > .vertical(@brand-primary; darken(@brand-primary, 7.5%));
-            background-color:darken(@brand-primary, 7.5%);
-        }
-        &.success{
-            #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
-            background-color:darken(@brand-success, 7.5%);
-        }
-        &.info{
-            #gradient > .vertical(@brand-info; darken(@brand-info, 7.5%));
-            background-color:darken(@brand-info, 7.5%);
-        }
-        &.warning{
-            #gradient > .vertical(@brand-warning; darken(@brand-warning, 7.5%));
-            background-color:darken(@brand-warning, 7.5%);
-        }
-        &.danger{
-            #gradient > .vertical(@brand-danger; darken(@brand-danger, 7.5%));
-            background-color:darken(@brand-danger, 7.5%);
-        }
-        &.primary::before{
-            border-left: 3px solid darken(@brand-primary, 7.5%);
-            border-top: 3px solid darken(@brand-primary, 7.5%);
-        }
-        &.success::before{
-            border-left: 3px solid darken(@brand-success, 7.5%);
-            border-top: 3px solid darken(@brand-success, 7.5%);
-        }
-        &.info::before{
-            border-left: 3px solid darken(@brand-info, 7.5%);
-            border-top: 3px solid darken(@brand-info, 7.5%);
-        }
-        &.warning::before{
-            border-left: 3px solid darken(@brand-warning, 7.5%);
-            border-top: 3px solid darken(@brand-warning, 7.5%);
-        }
-
-        &.danger::before{
-            border-left: 3px solid darken(@brand-danger, 7.5%);
-            border-top: 3px solid darken(@brand-danger, 7.5%);
-        }
-        &.primary::after{
-            border-right: 3px solid darken(@brand-primary, 7.5%);
-            border-top: 3px solid darken(@brand-primary, 7.5%);
-        }
-        &.success::after{
-            border-right: 3px solid darken(@brand-success, 7.5%);
-            border-top: 3px solid darken(@brand-success, 7.5%);
-        }
-        &.info::after{
-            border-right: 3px solid darken(@brand-info, 7.5%);
-            border-top: 3px solid darken(@brand-info, 7.5%);
-        }
-        &.warning::after{
-            border-right: 3px solid darken(@brand-warning, 7.5%);
-            border-top: 3px solid darken(@brand-warning, 7.5%);
-        }
-        &.danger::after{
-            border-right: 3px solid darken(@brand-danger, 7.5%);
-            border-top: 3px solid darken(@brand-danger, 7.5%);
-        }
-
     }
 }
 .dropzone:empty{
@@ -386,7 +397,7 @@ button.red{
     .border-left-radius(15px);
     .border-right-radius(15px);
 }
-div.hid{
+div.trainingToggle{
     display:none;
 }
 .kneubuhler{

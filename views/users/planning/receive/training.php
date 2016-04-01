@@ -59,24 +59,6 @@ if ($isCoach) {
     ]);
 
     echo ' ';
-//    echo AjaxButton::widget([
-//        'label' => StyleIcon::showStyled('remove'),
-//        'encodeLabel' => false,
-//        'url' => [
-//            'training-delete',
-//            'id' => $user->id,
-//            'training_id' => $model->id
-//        ],
-//        'success' => '#training' . $model->id,
-//        'options' => [
-//            'class' => 'red',
-//            'title' => Yii::t('yii', 'Delete'),
-//            'class' => 'red',
-//            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-//            'data-method' => 'post',
-//            'data-pjax' => '0',
-//        ],
-//    ]);
 
     echo Html::a(StyleIcon::showStyled('remove'), Url::to(['training-delete', 'id' => $user->id, 'training_id' => $model->id]), [
         'title' => Yii::t('yii', 'Delete'),
@@ -86,7 +68,6 @@ if ($isCoach) {
         'data-method' => 'post',
         'data-pjax' => '0',
     ]);
-    echo ' ';
 }
 
 echo ' ';
@@ -107,19 +88,17 @@ echo AjaxModalButton::widget([
 echo Html::endTag('p');
 if ($isCoach) {
     echo Html::beginTag('p', ['class' => 'text-right']);
-    echo Html::a(StyleIcon::showStyled('plus'), "#", ['onClick' => '$("#training' . $model->id . '").find(".hid").slideToggle();return false;', 'class' => 'red right-align']);
+    echo Html::a(StyleIcon::showStyled('plus'), "#", ['onClick' => '$("#training' . $model->id . '").find(".trainingToggle").slideToggle();return false;', 'class' => 'red right-align']);
     echo Html::endTag('p');
 }
 echo Html::endTag('div');
 echo Html::endTag('div');
-echo Html::beginTag('div', ['class' => 'row plus' . (($isCoach) ? ' hid' : '')]);
+echo Html::beginTag('div', ['class'=>'row plus trainingToggle']);
 echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
 echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => 150, 'model' => $model, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'col-sm-12']);
 $attributes = [
-//        'title',
-//        'rpe',
     'explanation:ntext',
     'extra_comment:ntext'
 ];
@@ -130,7 +109,7 @@ echo DetailView::widget([
     'model' => $model,
     'attributes' => $attributes,
 ]);
-echo Html::endTag('div');
-echo Html::endTag('div');
+echo Html::endTag('div');// col-sm-12
+echo Html::endTag('div');// dayToggle
 
 MyPjax::end();
