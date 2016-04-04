@@ -47,7 +47,7 @@ if (isset($week) && isset($week->words_of_the_week)) {
 
 
 // dates 
-echo Html::beginTag('div', ['class' => 'dates']);
+echo Html::beginTag('div', ['class' => 'dates animated flipInX']);
 echo Yii::t('app', '{startDate} to {endDate}', [
     'startDate' => Yii::$app->formatter->asDate($startDate, 'd'),
     'endDate' => Yii::$app->formatter->asDate($endDate->modify('-1 day'), 'd MMMM \'\'yy'),

@@ -22,21 +22,27 @@ use yii\widgets\DetailView;
 /* @var $model Training */
 /* @var $user User */
 
-
+echo Html::beginTag('div', ['class' => 'eachTraining']);
 MyPjax::begin(['id' => 'training' . $model->id]);
 echo Html::beginTag('div', ['class' => 'row trainingDesc']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-10' : 'col-sm-12 trainingWrapper']);
-echo Html::beginTag('div', ['class' => 'title']);
-echo ' ' . $model->sport->title;
-echo ' - ';
-echo $model->title;
-echo Html::endTag('div'); //sporticons
+echo Html::beginTag('div', ['class' => 'col-xs-3']); //start title and time col
 echo Html::beginTag('div', ['class' => 'timeDuration']);
 echo $model->duration;
 echo Html::endTag('div'); //timeDuration
 echo Html::beginTag('div', ['class' => 'sports']);
 echo Html::img($model->sport->iconUrl, ['width' => 25, 'class' => 'svg']);
 echo Html::endTag('div'); //sporticons
+echo Html::endTag('div'); //end col-xs-4
+echo Html::beginTag('div', ['class' => 'col-xs-9']); //start title and time col
+echo Html::beginTag('div', ['class' => 'title']);
+echo ' ' . $model->sport->title;
+echo ' - ';
+echo $model->title;
+echo Html::endTag('div'); //sporticons
+echo Html::endTag('div'); //end col-xs-8
+
+
 
 echo Html::endTag('div'); //col-sm-12 trainingWrapper
 
@@ -82,7 +88,7 @@ echo AjaxModalButton::widget([
     'title' => Yii::t('app', 'Make a report: {title}', ['title' => $model->title]),
     'success' => '#week_graph' . $model->week->date_begin,
     'options' => [
-        'class' => 'red',
+        'class' => 'red mulaffBtn',
     ],
 ]);
 echo Html::endTag('p');
@@ -93,7 +99,7 @@ if ($isCoach) {
 }
 echo Html::endTag('div');
 echo Html::endTag('div');
-echo Html::beginTag('div', ['class'=>'row plus trainingToggle']);
+echo Html::beginTag('div', ['class'=>'row plus']);
 echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
 echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => 150, 'model' => $model, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
@@ -113,3 +119,4 @@ echo Html::endTag('div');// col-sm-12
 echo Html::endTag('div');// dayToggle
 
 MyPjax::end();
+echo Html::endTag('div'); //sporticons

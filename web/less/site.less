@@ -10,6 +10,7 @@
 @blackTransparent: rgba(0,0,0,0.7);
 @mulaffBG: #2c1212;
 @mulaff: #97cccd;
+@mulaffClear: rgba(166,203,198,0.2);
 @mulaffSecondary: #78a5a6;
 @mulaffThird: #416162;
 @white: white;
@@ -512,6 +513,11 @@ body.sportifs {
         }
     background-color: @mulaffBG;
     
+    >div>div.content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
     .mulaffBtn {
         background-color: transparent;
         border: 0;
@@ -528,7 +534,16 @@ body.sportifs {
             color: @mulaff;
         } 
     }
-
+    .week .dates {
+    background:none;
+    color:white;
+    text-align:center;
+    font-weight: 200;
+    text-transform: uppercase;
+    padding: 0 0 20px 0;
+    font-size: 15px;
+    margin-bottom:@smallGap;
+    }
     .navbar-brand {
         color: @mulaff;
         text-transform: uppercase;
@@ -573,7 +588,8 @@ body.sportifs {
         font-weight: 400;
         letter-spacing: 2px;
         color: @white;
-        padding: 20px 0;
+        padding: 20px 0 0 0;
+        margin: 0;
     }
     .week .white-block {
         padding: 0;
@@ -592,6 +608,7 @@ body.sportifs {
     .white-block {
         &.week-graph{
             color:@white;
+            padding: 50px 0;
             svg{
                 polygon{
                     fill:@white;
@@ -612,7 +629,7 @@ body.sportifs {
         color: @white;
         font-size: 16px;
         text-align: left;
-        padding: 8px 0;
+        padding: 0 0 8px 0;
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 2px;
@@ -628,6 +645,12 @@ body.sportifs {
         line-height: 16px;
         padding-left: 3px;
     }
+    div .eachTraining {
+        border-top: 1px solid @mulaffClear;
+        &:last-child {
+            
+        }
+    }
     .trainingWrapper {
         border-top: 0px dashed @mulaff;
         padding: 20px;
@@ -640,6 +663,24 @@ body.sportifs {
             background: none;
             padding: 0;
             margin: 0;
+            text-align: left;
+            text-size: 11px;
+        }
+        .timeDuration {
+            text-align: left;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        .sports {
+            background: none;
+            border: 0;
+            border-radius: 0;
+            min-width: 30px;
+            height: auto;
+            line-height: 30px;
+            margin: 0;
+           .filterVendor(invert(1));
+
         }
     }
 
@@ -648,12 +689,12 @@ body.sportifs {
         display:inline-block;
         text-align: right;
         padding: 2px 3px;
-        margin: 0;
-        font-size: 13px;
-        line-height: 20px;
+        margin: 0 0 5px 0;
+        font-size: 11px;
+        line-height: 13px;
         font-weight: 700;
-        background-color: @white;
-        color: @mulaffBG;
+        background: none;
+        color: @white;
     }
 
     .sports {
@@ -668,7 +709,11 @@ body.sportifs {
         background-color: @white;
         color: @mulaffBG;
     }
+    .all-sports {
+    }
     .all-sports img{
+                width: 16px;
+                margin-left: 3px;
         .filterVendor(invert(1));
 
     }
@@ -716,7 +761,9 @@ body.sportifs {
         font-size: 10px;
         letter-spacing: 2px;
     }
-
+    .week-graph {
+        padding: 50px 0 !important;
+    }
     .modal-content {
         border-radius: 0;
         background-color: @mulaffBG;
@@ -737,8 +784,17 @@ body.sportifs {
             text-align: center;
         }
     }
-
+    .footer {
+        font-size: 10px;
+        background-color: @mulaffBG;
+        color: @white;
+        font-weight: 200;
+        letter-spacing: 1px;
+        border-top: 1px dashed @mulaffClear;
+        color: @mulaff;
+    }
 }
+/*END SPORTIF*/
 
 body.login {
     background-color: @mulaffBG;

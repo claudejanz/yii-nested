@@ -490,6 +490,10 @@ body.sportifs {
 body.sportifs .collapsable.collapsed {
   display: none;
 }
+body.sportifs > div > div.content {
+  max-width: 800px;
+  margin: 0 auto;
+}
 body.sportifs .mulaffBtn {
   background-color: transparent;
   border: 0;
@@ -504,6 +508,16 @@ body.sportifs .mulaffBtn .fa-stack i {
 }
 body.sportifs .mulaffBtn .fa-stack i:last-child {
   color: #97cccd;
+}
+body.sportifs .week .dates {
+  background: none;
+  color: white;
+  text-align: center;
+  font-weight: 200;
+  text-transform: uppercase;
+  padding: 0 0 20px 0;
+  font-size: 15px;
+  margin-bottom: 6px;
 }
 body.sportifs .navbar-brand {
   color: #97cccd;
@@ -548,7 +562,8 @@ body.sportifs .words-of-the-week {
   font-weight: 400;
   letter-spacing: 2px;
   color: white;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
+  margin: 0;
 }
 body.sportifs .week .white-block {
   padding: 0;
@@ -568,6 +583,7 @@ body.sportifs .white-block {
 }
 body.sportifs .white-block.week-graph {
   color: white;
+  padding: 50px 0;
 }
 body.sportifs .white-block.week-graph svg polygon {
   fill: white;
@@ -581,7 +597,7 @@ body.sportifs .dayFormat {
   color: white;
   font-size: 16px;
   text-align: left;
-  padding: 8px 0;
+  padding: 0 0 8px 0;
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 2px;
@@ -597,6 +613,9 @@ body.sportifs .cityFormat .fa-pencil {
   line-height: 16px;
   padding-left: 3px;
 }
+body.sportifs div .eachTraining {
+  border-top: 1px solid rgba(166, 203, 198, 0.2);
+}
 body.sportifs .trainingWrapper {
   border-top: 0px dashed #97cccd;
   padding: 20px;
@@ -609,17 +628,36 @@ body.sportifs .trainingWrapper .title {
   background: none;
   padding: 0;
   margin: 0;
+  text-align: left;
+  text-size: 11px;
+}
+body.sportifs .trainingWrapper .timeDuration {
+  text-align: left;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+body.sportifs .trainingWrapper .sports {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  min-width: 30px;
+  height: auto;
+  line-height: 30px;
+  margin: 0;
+  -webkit-filter: invert(1);
+  -moz-filter: invert(1);
+  filter: invert(1);
 }
 body.sportifs .timeDuration {
   display: inline-block;
   text-align: right;
   padding: 2px 3px;
-  margin: 0;
-  font-size: 13px;
-  line-height: 20px;
+  margin: 0 0 5px 0;
+  font-size: 11px;
+  line-height: 13px;
   font-weight: 700;
-  background-color: white;
-  color: #2c1212;
+  background: none;
+  color: white;
 }
 body.sportifs .sports {
   display: inline-block;
@@ -636,6 +674,8 @@ body.sportifs .sports {
   color: #2c1212;
 }
 body.sportifs .all-sports img {
+  width: 16px;
+  margin-left: 3px;
   -webkit-filter: invert(1);
   -moz-filter: invert(1);
   filter: invert(1);
@@ -681,6 +721,9 @@ body.sportifs .table-bordered > tbody > tr > th {
   font-size: 10px;
   letter-spacing: 2px;
 }
+body.sportifs .week-graph {
+  padding: 50px 0 !important;
+}
 body.sportifs .modal-content {
   border-radius: 0;
   background-color: #2c1212;
@@ -700,6 +743,16 @@ body.sportifs .modal-content label {
 body.sportifs .modal-content button {
   text-align: center;
 }
+body.sportifs .footer {
+  font-size: 10px;
+  background-color: #2c1212;
+  color: white;
+  font-weight: 200;
+  letter-spacing: 1px;
+  border-top: 1px dashed rgba(166, 203, 198, 0.2);
+  color: #97cccd;
+}
+/*END SPORTIF*/
 body.login {
   background-color: #2c1212;
   color: white;
