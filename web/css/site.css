@@ -592,7 +592,7 @@ body.sportifs .cityFormat .fa-pencil {
   padding-left: 3px;
 }
 body.sportifs .trainingWrapper {
-  border-top: 1px dashed #97cccd;
+  border-top: 0px dashed #97cccd;
   padding: 20px;
   color: white;
   text-align: center;
@@ -606,15 +606,11 @@ body.sportifs .trainingWrapper .title {
 }
 body.sportifs .timeDuration {
   display: inline-block;
-  text-align: center;
-  border-bottom-right-radius: 30px;
-  border-top-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
-  margin: 10px 5px 20px 5px;
-  width: 60px;
-  height: 60px;
-  line-height: 60px;
+  text-align: right;
+  padding: 2px 3px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
   font-weight: 700;
   background-color: white;
   color: #2c1212;
