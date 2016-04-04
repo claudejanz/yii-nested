@@ -53,7 +53,7 @@ if ($day && $day->duration) {
     echo Html::beginTag('div', ['class' => 'timeDuration']);
     echo $day->duration . "<br>";
     echo Html::endTag('div'); //timeDuration
-    echo Html::beginTag('div', ['class' => 'sports']);
+    echo Html::beginTag('div', ['class' => 'all-sports']);
     foreach ($day->getIcons() as $icon) {
         echo Html::img($icon, ['width' => 25, 'class' => 'svg']);
     }

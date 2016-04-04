@@ -43,17 +43,7 @@ if (isset($week) && isset($week->words_of_the_week)) {
     }
     echo Html::tag('div', $week->words_of_the_week, $options);
 }
-// toggle all buttons
-echo Html::beginTag('div', ['class' => 'toggle-bt-cont','data'=>['spy'=>'affix','offset-top'=>180]]);
-echo Html::beginTag('div', ['class' => 'toggle-button']);
-$slideOptions = \yii\helpers\Json::encode([
-            'duration' => 600,
-            'easing' => 'easeOutCubic'
-        ]);
-echo Html::a(StyleIcon::showStyled('plus'), "#", ['onClick' => "$('#week$weekId').find('.trainingToggle').slideDown($slideOptions);return false;", 'class' => 'red right-align']);
-echo Html::a(StyleIcon::showStyled('minus'), "#", ['onClick' => "$('#week$weekId').find('.trainingToggle').slideUp($slideOptions);return false;", 'class' => 'red right-align']);
-echo Html::endTag('div');
-echo Html::endTag('div');
+
 
 // dates 
 echo Html::beginTag('div', ['class' => 'dates']);
