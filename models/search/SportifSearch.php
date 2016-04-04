@@ -95,14 +95,14 @@ class SportifSearch extends User
              [
                 'attribute' => 'firstname',
                 'value' => function($model) {
-                    return Html::a($model->firstname,['users/planning','id'=>$model->id]);
+                    return Html::a($model->firstname,['users/planning','id'=>$model->id],['data'=>['pjax'=>0]]);
                 },
                 'format'=>'raw'
             ],
             [
                 'attribute' => 'lastname',
                 'value' => function($model) {
-                    return Html::a($model->lastname,['users/planning','id'=>$model->id]);
+                    return Html::a($model->lastname,['users/planning','id'=>$model->id],['data'=>['pjax'=>0]]);
                 },
                 'format'=>'raw'
             ],
@@ -139,7 +139,7 @@ class SportifSearch extends User
                     ],
 //            'address',
 //            'tel', 
-                    'email:email',
+//                    'email:email',
 //            'auth_key', 
 //            'password_hash', 
 //            'password_reset_token', 
