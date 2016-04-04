@@ -84,5 +84,12 @@ class Training extends TrainingBase
         }
         return false;
     }
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getReporting()
+    {
+    return $this->hasOne(Reporting::className(), ['training_id' => 'id']);
+    }
 
 }

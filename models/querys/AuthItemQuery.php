@@ -2,12 +2,17 @@
 
 namespace app\models\querys;
 
+use app\models\AuthItem;
+use Yii;
+use yii\caching\DbDependency;
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[\app\models\AuthItem]].
  *
- * @see \app\models\AuthItem
+ * @see AuthItem
  */
-class AuthItemQuery extends \yii\db\ActiveQuery
+class AuthItemQuery extends ActiveQuery
 {
     /*public function active()
     {
@@ -17,7 +22,7 @@ class AuthItemQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return \app\models\AuthItem[]|array
+     * @return AuthItem[]|array
      */
     public function all($db = null)
     {
@@ -26,10 +31,11 @@ class AuthItemQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return \app\models\AuthItem|array|null
+     * @return AuthItem|array|null
      */
     public function one($db = null)
     {
         return parent::one($db);
     }
+    
 }

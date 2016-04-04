@@ -78,7 +78,16 @@ body {
 .ribbon-block {
   position: relative;
 }
-.ribbon {
+.ribbon-block .toggle-bt-cont {
+  position: relative;
+  z-index: 1;
+}
+.ribbon-block .toggle-bt-cont .toggle-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.ribbon-block .ribbon {
   position: absolute;
   left: -5px;
   top: -4px;
@@ -88,18 +97,18 @@ body {
   height: 75px;
   text-align: left;
 }
-.ribbon.right {
+.ribbon-block .ribbon.right {
   right: -5px;
   left: auto;
   text-align: right;
 }
-.ribbon.right span {
+.ribbon-block .ribbon.right span {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   right: -21px;
   left: auto;
 }
-.ribbon span {
+.ribbon-block .ribbon span {
   font-size: 10px;
   font-weight: bold;
   color: #FFF;
@@ -121,7 +130,7 @@ body {
   top: 19px;
   left: -21px;
 }
-.ribbon span::before {
+.ribbon-block .ribbon span::before {
   content: "";
   position: absolute;
   left: 0px;
@@ -132,7 +141,7 @@ body {
   border-bottom: 3px solid transparent;
   border-top: 3px solid #424242;
 }
-.ribbon span::after {
+.ribbon-block .ribbon span::after {
   content: "";
   position: absolute;
   right: 0px;
@@ -143,7 +152,7 @@ body {
   border-bottom: 3px solid transparent;
   border-top: 3px solid #424242;
 }
-.ribbon span.primary {
+.ribbon-block .ribbon span.primary {
   background-image: -webkit-linear-gradient(top, #337ab7 0%, #2b669a 100%);
   background-image: -o-linear-gradient(top, #337ab7 0%, #2b669a 100%);
   background-image: linear-gradient(to bottom, #337ab7 0%, #2b669a 100%);
@@ -151,7 +160,7 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2b669a', GradientType=0);
   background-color: #2b669a;
 }
-.ribbon span.success {
+.ribbon-block .ribbon span.success {
   background-image: -webkit-linear-gradient(top, #5cb85c 0%, #48a648 100%);
   background-image: -o-linear-gradient(top, #5cb85c 0%, #48a648 100%);
   background-image: linear-gradient(to bottom, #5cb85c 0%, #48a648 100%);
@@ -159,7 +168,7 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5cb85c', endColorstr='#ff48a648', GradientType=0);
   background-color: #48a648;
 }
-.ribbon span.info {
+.ribbon-block .ribbon span.info {
   background-image: -webkit-linear-gradient(top, #5bc0de 0%, #3bb4d8 100%);
   background-image: -o-linear-gradient(top, #5bc0de 0%, #3bb4d8 100%);
   background-image: linear-gradient(to bottom, #5bc0de 0%, #3bb4d8 100%);
@@ -167,7 +176,7 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff3bb4d8', GradientType=0);
   background-color: #3bb4d8;
 }
-.ribbon span.warning {
+.ribbon-block .ribbon span.warning {
   background-image: -webkit-linear-gradient(top, #f0ad4e 0%, #ed9d2b 100%);
   background-image: -o-linear-gradient(top, #f0ad4e 0%, #ed9d2b 100%);
   background-image: linear-gradient(to bottom, #f0ad4e 0%, #ed9d2b 100%);
@@ -175,7 +184,7 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff0ad4e', endColorstr='#ffed9d2b', GradientType=0);
   background-color: #ed9d2b;
 }
-.ribbon span.danger {
+.ribbon-block .ribbon span.danger {
   background-image: -webkit-linear-gradient(top, #d9534f 0%, #d23430 100%);
   background-image: -o-linear-gradient(top, #d9534f 0%, #d23430 100%);
   background-image: linear-gradient(to bottom, #d9534f 0%, #d23430 100%);
@@ -183,43 +192,43 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9534f', endColorstr='#ffd23430', GradientType=0);
   background-color: #d23430;
 }
-.ribbon span.primary::before {
+.ribbon-block .ribbon span.primary::before {
   border-left: 3px solid #2b669a;
   border-top: 3px solid #2b669a;
 }
-.ribbon span.success::before {
+.ribbon-block .ribbon span.success::before {
   border-left: 3px solid #48a648;
   border-top: 3px solid #48a648;
 }
-.ribbon span.info::before {
+.ribbon-block .ribbon span.info::before {
   border-left: 3px solid #3bb4d8;
   border-top: 3px solid #3bb4d8;
 }
-.ribbon span.warning::before {
+.ribbon-block .ribbon span.warning::before {
   border-left: 3px solid #ed9d2b;
   border-top: 3px solid #ed9d2b;
 }
-.ribbon span.danger::before {
+.ribbon-block .ribbon span.danger::before {
   border-left: 3px solid #d23430;
   border-top: 3px solid #d23430;
 }
-.ribbon span.primary::after {
+.ribbon-block .ribbon span.primary::after {
   border-right: 3px solid #2b669a;
   border-top: 3px solid #2b669a;
 }
-.ribbon span.success::after {
+.ribbon-block .ribbon span.success::after {
   border-right: 3px solid #48a648;
   border-top: 3px solid #48a648;
 }
-.ribbon span.info::after {
+.ribbon-block .ribbon span.info::after {
   border-right: 3px solid #3bb4d8;
   border-top: 3px solid #3bb4d8;
 }
-.ribbon span.warning::after {
+.ribbon-block .ribbon span.warning::after {
   border-right: 3px solid #ed9d2b;
   border-top: 3px solid #ed9d2b;
 }
-.ribbon span.danger::after {
+.ribbon-block .ribbon span.danger::after {
   border-right: 3px solid #d23430;
   border-top: 3px solid #d23430;
 }
@@ -376,7 +385,7 @@ button.red {
   border-bottom-right-radius: 15px;
   border-top-right-radius: 15px;
 }
-div.hid {
+div.trainingToggle {
   display: none;
 }
 .kneubuhler.affix {

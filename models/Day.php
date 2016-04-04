@@ -10,6 +10,10 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
+/**
+ * @property Training[] $trainingsWithSport
+ */
+
 class Day extends DayBase
 {
 
@@ -78,15 +82,10 @@ class Day extends DayBase
     public function validateTrainingCity($attribute, $params)
     {
         if (!isset($this->{$attribute})) {
-
-
             if (!isset($this->sportif_id)) {
                 $this->addError($attribute, Yii::t('app', 'sportif_id must be set for {attribute} to be set', ['attribute' => $attribute]));
                 return false;
             }
-
-
-
             $model = User::findOne(['id' => $this->sportif_id]);
 
             $this->{$attribute} = $model->city;
@@ -128,12 +127,20 @@ class Day extends DayBase
         return null;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainingsWithSport()
+    {
+        return $this->hasMany(Training::className(), ['day_id' => 'id'])->with('sport');
+    }
+
     public function getIcons()
     {
-        if ($this->trainings) {
+        if ($this->trainingsWithSport) {
             $isCoach = Yii::$app->user->can('coach');
             $all = [];
-            foreach ($this->trainings as $training) {
+            foreach ($this->trainingsWithSport as $training) {
                 if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
                     if (!isset($all[$training->sport_id])) {
                         $all[$training->sport_id] = $training->sport->iconUrl;
