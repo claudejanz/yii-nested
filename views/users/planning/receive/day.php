@@ -42,7 +42,7 @@ echo AjaxModalButton::widget([
     'url' => ['day-update', 'id' => $model->id, 'date' => $dayId],
     'success' => '#week' . $weekId,
     'title' => Yii::t('app', 'Update training city'),
-    'options' => ['class' => 'red']
+    'options' => ['class' => 'mulaffBtn']
 ]);
 echo Html::endTag('div'); //city and button
 

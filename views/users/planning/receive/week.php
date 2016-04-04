@@ -16,6 +16,7 @@ use yii\web\User;
 $startDate = $date;
 $endDate = clone $date;
 $endDate->modify('+7 days');
+$weekId =  $startDate->format('Y-m-d');
 
 $interval = DateInterval::createFromDateString('1 day');
 $period = new DatePeriod($startDate, $interval, $endDate);
