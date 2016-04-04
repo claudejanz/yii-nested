@@ -349,6 +349,9 @@ button.red {
   margin-bottom: 6px;
   padding: 5px 10px;
 }
+.week .day {
+  cursor: pointer;
+}
 .week .day .droppable:empty::after {
   height: 50px;
   width: 100%;
@@ -483,6 +486,9 @@ span.sports {
 /*SPORTIF*/
 body.sportifs {
   background-color: #2c1212;
+}
+body.sportifs .collapsable.collapsed {
+  display: none;
 }
 body.sportifs .mulaffBtn {
   background-color: transparent;

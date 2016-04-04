@@ -115,7 +115,7 @@ return [
     '{n, plural, =1{Sport} other{Sports}}' => '',
     '{n, plural, =1{Sub Category} other{Sub Categories}}' => '{n, plural, =1{Sous catégorie} other{Sous catégories}}',
     '{n, plural, =1{User} other{Users}}' => '{n, plural, =1{Utilisteur} other{Utilisateurs}}',
-    '{startDate} to {endDate}' => '',
+    '{startDate} to {endDate}' => '{startDate} au {endDate}',
     'Actif' => 'Active',
     'Add files' => 'Ajouter Fichiers',
     'Address' => 'Adresse',

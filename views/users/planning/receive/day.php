@@ -23,11 +23,15 @@ $options = ['class' => 'day white-block', 'data' => ['date' => $dayId, 'week' =>
 if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
 }
+$today = new DateTime('now');
+if($dayId == $today->format('Y-d-m')){
+   Html::addCssClass($options, 'currentDay'); 
+}
 echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'dayFormat']); //date
 echo Html::beginTag('div', ['class' => 'row']);
-echo Html::beginTag('div', ['class' => 'col-sm-12 col-md-9']);
-echo Yii::$app->formatter->asDate($dateTime, 'full');
+echo Html::beginTag('div', ['class' => 'col-xs-8']);
+echo Yii::$app->formatter->asDate($dateTime, 'EEEE, d MMM');
 echo Html::beginTag('div', ['class' => 'cityFormat']); //city and button
 if ($day) {
     $text = $day->training_city;
@@ -47,7 +51,7 @@ echo AjaxModalButton::widget([
 echo Html::endTag('div'); //city and button
 
 echo Html::endTag('div'); //col-sm-12 col-md-9
-echo Html::beginTag('div', ['class' => 'col-sm-12 col-md-3 bullet']);
+echo Html::beginTag('div', ['class' => 'col-xs-4 bullet text-right']);
 if ($day && $day->duration) {
 
     echo Html::beginTag('div', ['class' => 'timeDuration']);
@@ -67,6 +71,9 @@ $options = ['class' => 'row collapsable'];
 $today = new DateTime('now');
 if($dayId != $today->format('Y-d-m')){
    Html::addCssClass($options, 'collapsed'); 
+}
+else {
+   Html::addCssClass($options, 'currentDay'); 
 }
 
 echo Html::beginTag('div', $options);

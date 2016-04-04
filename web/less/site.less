@@ -356,6 +356,7 @@ button.red{
         padding: @myPadding;  
     }
     .day{
+        cursor:pointer;
         .droppable{
             &:empty{
                 &::after{
@@ -387,11 +388,7 @@ button.red{
         &.ui-state-active {
             background-color: blue;
         }
-        .collapsable{
-            &.collapsed{
-                display:none;
-            }
-        }
+
 
     }
 }
@@ -508,7 +505,11 @@ span.sports{
 /*SPORTIF*/
 
 body.sportifs {
-
+        .collapsable{
+            &.collapsed{
+                display:none;
+            }
+        }
     background-color: @mulaffBG;
     
     .mulaffBtn {
