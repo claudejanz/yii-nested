@@ -84,14 +84,14 @@ class UserSearch extends User
             [
                 'attribute' => 'firstname',
                 'value' => function($model) {
-                    return Html::a($model->firstname,['users/planning','id'=>$model->id]);
+                    return Html::a($model->firstname,['users/planning','id'=>$model->id],['data'=>['pjax'=>0]]);
                 },
                 'format'=>'raw'
             ],
             [
                 'attribute' => 'lastname',
                 'value' => function($model) {
-                    return Html::a($model->lastname,['users/planning','id'=>$model->id]);
+                    return Html::a($model->lastname,['users/planning','id'=>$model->id],['data'=>['pjax'=>0]]);
                 },
                 'format'=>'raw'
             ],
