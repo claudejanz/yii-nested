@@ -124,7 +124,7 @@ class MulaffGraphWidgetV2 extends Widget
         Html::addCssStyle($this->options, 'display:inline-block');
         Html::addCssStyle($this->options, 'width:' . $this->width);
 
-        
+
         if ($this->withLegends) {
             Html::addCssStyle($this->leftDivOptions, 'display:table-cell');
             Html::addCssStyle($this->leftDivOptions, 'min-width:' . $this->fontToGraphWidth . 'px');
@@ -134,8 +134,8 @@ class MulaffGraphWidgetV2 extends Widget
             Html::addCssStyle($this->rightDivOptions, 'vertical-align: top;');
             Html::addCssStyle($this->rightDivOptions, 'width:100%');
             Html::addCssStyle($this->rightDivOptions, 'height:' . $this->height . 'px');
-        }else{
-            $this->fontHeight=2;
+        } else {
+            $this->fontHeight = 2;
         }
 
 //        Html::addCssStyle($this->rightDivOptions, 'background-color:#00FF00');
@@ -146,7 +146,7 @@ class MulaffGraphWidgetV2 extends Widget
         if ($this->hasModel()) {
             $this->value = $this->model->{$this->attribute};
         }
-        
+
         $this->calaulateMatrix();
         $this->graphOptions = array_merge($this->graphOptions, [
             'viewBox' => '0 0 ' . $this->matrixWidth . ' ' . $this->height,
@@ -170,26 +170,29 @@ class MulaffGraphWidgetV2 extends Widget
 
     public function run()
     {
-        echo Html::beginTag('div', $this->options);
+        if ($this->matrix) {
 
-        if ($this->withLegends)
-            $this->renderLegends();
+            echo Html::beginTag('div', $this->options);
 
-        echo Html::beginTag('div', $this->rightDivOptions);
-        echo Html::beginTag('svg', $this->graphOptions);
-        if ($this->withLines)
-            $this->renderLines();
-        $this->renderGraph();
-        echo Html::endTag('svg');
-        echo Html::endTag('div');
-        echo Html::endTag('div');
+            if ($this->withLegends)
+                $this->renderLegends();
+
+            echo Html::beginTag('div', $this->rightDivOptions);
+            echo Html::beginTag('svg', $this->graphOptions);
+            if ($this->withLines)
+                $this->renderLines();
+            $this->renderGraph();
+            echo Html::endTag('svg');
+            echo Html::endTag('div');
+            echo Html::endTag('div');
+        }
     }
 
     protected function renderGraph()
     {
         $arr = $this->matrix;
         $step = 0;
-        $bottom = $this->height+($this->fontHeight/2);
+        $bottom = $this->height + ($this->fontHeight / 2);
         $prevPoint = [$step, $bottom];
         foreach ($arr as $key => $m) {
 
@@ -295,7 +298,7 @@ class MulaffGraphWidgetV2 extends Widget
     {
         echo Html::beginTag('div', $this->leftDivOptions);
         echo Html::beginTag('svg', $this->legendOptions);
-        $bottom = $this->height+($this->fontHeight/2);
+        $bottom = $this->height + ($this->fontHeight / 2);
         $fontHeigth = $this->fontHeight;
         for ($i = 1; $i < 6; $i++) {
             echo Html::tag('text', 'I' . $i, [
@@ -310,15 +313,15 @@ class MulaffGraphWidgetV2 extends Widget
 
     protected function renderLines()
     {
-        $bottom = $this->height+($this->fontHeight/2);
-        $fontWidth =  0;
+        $bottom = $this->height + ($this->fontHeight / 2);
+        $fontWidth = 0;
         for ($i = 1; $i < 6; $i++) {
             echo Html::tag('line', null, [
                 'x1' => $fontWidth,
                 'y1' => $bottom - ($i * 0.20 * $this->height),
                 'x2' => $this->matrixWidth,
                 'y2' => $bottom - ($i * 0.20 * $this->height),
-                'style' => 'stroke:gray;stroke-width:0.2%',
+                'style' => 'stroke:gray;stroke-width:0.3%',
             ]);
         }
     }

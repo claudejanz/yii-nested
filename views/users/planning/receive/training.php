@@ -3,11 +3,11 @@
 use app\extentions\helpers\MyPjax;
 use app\extentions\MulaffGraphWidget;
 use app\extentions\MulaffGraphWidgetV2;
+use app\extentions\StyleIcon;
 use app\models\Training;
 use app\models\User;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
-use kartik\icons\Icon;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
@@ -17,6 +17,7 @@ use yii\widgets\DetailView;
  * and open the template in the editor.
  */
 
+
 /* @var $isCoach booleen */
 /* @var $model Training */
 /* @var $user User */
@@ -24,16 +25,26 @@ use yii\widgets\DetailView;
 
 MyPjax::begin(['id' => 'training' . $model->id]);
 echo Html::beginTag('div', ['class' => 'row trainingDesc']);
-echo Html::beginTag('div', ['class' => ($isCoach)?'col-sm-11':'col-sm-12 trainingWrapper']);
-echo Html::tag('div', $model->duration,['class'=>'timeDuration']);
-echo Html::tag('span',$model->sport->icon,['class'=>'sports']);
+echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-10' : 'col-sm-12 trainingWrapper']);
+echo Html::beginTag('div', ['class' => 'title']);
+echo ' ' . $model->sport->title;
+echo ' - ';
 echo $model->title;
-echo Html::endTag('div');
+echo Html::endTag('div'); //sporticons
+echo Html::beginTag('div', ['class' => 'timeDuration']);
+echo $model->duration;
+echo Html::endTag('div'); //timeDuration
+echo Html::beginTag('div', ['class' => 'sports']);
+echo Html::img($model->sport->iconUrl, ['width' => 25, 'class' => 'svg']);
+echo Html::endTag('div'); //sporticons
 
+echo Html::endTag('div'); //col-sm-12 trainingWrapper
+
+echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-2' : 'col-sm-12']);
+echo Html::beginTag('p', ['class' => 'text-right']);
 if ($isCoach) {
-echo Html::beginTag('div', ['class' => 'col-sm-1']);
     echo AjaxModalButton::widget([
-        'label' => Icon::show('pencil'),
+        'label' => StyleIcon::showStyled('edit'),
         'encodeLabel' => false,
         'url' => [
             'training-update',
@@ -46,23 +57,28 @@ echo Html::beginTag('div', ['class' => 'col-sm-1']);
             'class' => 'red',
         ],
     ]);
+
     echo ' ';
-    echo AjaxModalButton::widget([
-        'label' => Icon::show('caret-square-o-right'),
-        'encodeLabel' => false,
-        'url' => [
-            'reporting-update',
-            'id' => $user->id,
-            'training_id' => $model->id
-        ],
-        'title' => Yii::t('app', 'Make a report: {title}', ['title' => $model->title]),
-        'success' => '#week_graph' . $model->week->date_begin,
-        'options' => [
-            'class' => 'red',
-        ],
-    ]);
-    echo ' ';
-    echo Html::a(Icon::show('trash'), Url::to(['training-delete', 'id' => $user->id, 'training_id' => $model->id]), [
+//    echo AjaxButton::widget([
+//        'label' => StyleIcon::showStyled('remove'),
+//        'encodeLabel' => false,
+//        'url' => [
+//            'training-delete',
+//            'id' => $user->id,
+//            'training_id' => $model->id
+//        ],
+//        'success' => '#training' . $model->id,
+//        'options' => [
+//            'class' => 'red',
+//            'title' => Yii::t('yii', 'Delete'),
+//            'class' => 'red',
+//            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+//            'data-method' => 'post',
+//            'data-pjax' => '0',
+//        ],
+//    ]);
+
+    echo Html::a(StyleIcon::showStyled('remove'), Url::to(['training-delete', 'id' => $user->id, 'training_id' => $model->id]), [
         'title' => Yii::t('yii', 'Delete'),
         'class' => 'red',
         'aria-label' => Yii::t('yii', 'Delete'),
@@ -71,23 +87,48 @@ echo Html::beginTag('div', ['class' => 'col-sm-1']);
         'data-pjax' => '0',
     ]);
     echo ' ';
-echo Html::a(Icon::show('plus'), "#", ['onClick' => '$("#training' . $model->id . '").find(".hid").slideToggle();return false;', 'class' => 'red']);
-    echo Html::endTag('div');
+}
+
+echo ' ';
+echo AjaxModalButton::widget([
+    'label' => StyleIcon::showStyled('tasks'),
+    'encodeLabel' => false,
+    'url' => [
+        'reporting-update',
+        'id' => $user->id,
+        'training_id' => $model->id
+    ],
+    'title' => Yii::t('app', 'Make a report: {title}', ['title' => $model->title]),
+    'success' => '#week_graph' . $model->week->date_begin,
+    'options' => [
+        'class' => 'red',
+    ],
+]);
+echo Html::endTag('p');
+if ($isCoach) {
+    echo Html::beginTag('p', ['class' => 'text-right']);
+    echo Html::a(StyleIcon::showStyled('plus'), "#", ['onClick' => '$("#training' . $model->id . '").find(".hid").slideToggle();return false;', 'class' => 'red right-align']);
+    echo Html::endTag('p');
 }
 echo Html::endTag('div');
-echo Html::beginTag('div', ['class' => 'row'.(($isCoach)?' hid':'')]);
+echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'row plus' . (($isCoach) ? ' hid' : '')]);
 echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
-echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => 150, 'model' => $model, 'attribute' => 'graph','withLegends'=>true,'withLines'=>true,  'color'=>MulaffGraphWidget::COLOR_GRADIENT]);
+echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => 150, 'model' => $model, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'col-sm-12']);
+$attributes = [
+//        'title',
+//        'rpe',
+    'explanation:ntext',
+    'extra_comment:ntext'
+];
+if ($isCoach) {
+    array_push($attributes, 'rpe');
+}
 echo DetailView::widget([
     'model' => $model,
-    'attributes' => [
-//        'title',
-        'rpe',
-        'explanation:ntext',
-        'extra_comment:ntext'
-    ]
+    'attributes' => $attributes,
 ]);
 echo Html::endTag('div');
 echo Html::endTag('div');

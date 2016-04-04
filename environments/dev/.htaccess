@@ -1,5 +1,4 @@
 Options +FollowSymLinks
-IndexIgnore */*
 RewriteEngine On
 
 #RewriteCond %{HTTP_HOST} !^www

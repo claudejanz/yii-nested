@@ -41,7 +41,7 @@ $add = AjaxModalButton::widget([
             ],
         ]);
 $update = AjaxModalButton::widget([
-            'label' => Icon::show('pencil'),
+            'label' => Icon::show('edit'),
             'encodeLabel' => false,
             'url' => [
                 'item-update',
@@ -69,6 +69,7 @@ $delete = AjaxButton::widget([
             ],
         ]);
 echo Html::beginTag('li');
+echo Html::img($model->iconUrl,['width'=>25]). ' ';
 echo $model->title . ' ' . $update . ' ' . $delete . ' ';
 echo Html2::endTag('li');
 echo Html::beginTag('ul', ['class' => 'cat']);

@@ -4,6 +4,7 @@ namespace app\models\base;
 
 use Yii;
 use app\models\Sport;
+use app\models\CategoryLang;
 use app\models\SubCategory;
 use app\models\Training;
 use app\models\TrainingType;
@@ -22,6 +23,7 @@ use app\models\TrainingType;
     * @property string $updated_at
     *
             * @property Sport $sport
+            * @property CategoryLang[] $categoryLangs
             * @property SubCategory[] $subCategories
             * @property Training[] $trainings
             * @property TrainingType[] $trainingTypes
@@ -74,6 +76,14 @@ return [
     public function getSport()
     {
     return $this->hasOne(Sport::className(), ['id' => 'sport_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getCategoryLangs()
+    {
+    return $this->hasMany(CategoryLang::className(), ['category_id' => 'id']);
     }
 
     /**

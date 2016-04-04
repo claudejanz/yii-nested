@@ -1,5 +1,6 @@
 <?php
 
+use app\extentions\MulaffIconListWidget;
 use app\models\Sport;
 use claudejanz\toolbox\widgets\ajax\AjaxSubmit;
 use kartik\builder\Form;
@@ -33,8 +34,8 @@ $fields = [
 //            'updated_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
 ];
 if ($model->hasAttribute('icon'))
-    $fields['icon'] = ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Icon...', 'maxlength' => 255]];
-
+    $fields['icon'] = ['type' => Form::INPUT_WIDGET,'widgetClass'=>MulaffIconListWidget::classname(), 'options' => [
+        'items'=>  Sport::getIconOptions()]];
 $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
 echo Form::widget([
 

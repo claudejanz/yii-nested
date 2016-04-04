@@ -47,13 +47,13 @@ if (Yii::$app->user->can('update') && !$model->isNewRecord) {
     $model = Yii::$app->controller->model;
     echo $model->title;
     echo ' ';
-    echo Html::a(Icon::show('pencil'), ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-default']);
+    echo Html::a(Icon::show('edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-default']);
     echo ' ';
     echo Html::a(Icon::show('transfer'), ['order-image', 'id' => $model->id], ['class' => 'btn btn-sm btn-default']);
     echo ' ';
     echo Html::a(Icon::show('remove'), ['delete', 'id' => $model->id], ['class' => 'btn btn-sm btn-default', 'data' => ['method' => 'post', 'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?')]]);
     echo ' ';
-    echo Html::button(Icon::show('pencil'), ['value' => Url::to(['pages/create']), 'title' => 'Creating New Page', 'class' => 'showModal btn btn-sm btn-success']); 
+    echo Html::button(Icon::show('edit'), ['value' => Url::to(['pages/create']), 'title' => 'Creating New Page', 'class' => 'showModal btn btn-sm btn-success']); 
     echo Html::endTag('h1');
 } elseif (!Yii::$app->user->isGuest) {
     echo Html::beginTag('h1');

@@ -27,7 +27,7 @@ use yii\helpers\Html;
 MyPjax::begin(['id'=>'subcat'.$model->id]);
 echo Html::beginTag('li');
 $update = AjaxModalButton::widget([
-    'label' => Icon::show('pencil'),
+    'label' => Icon::show('edit'),
     'encodeLabel' => false,
     'url' => [
         'item-update',

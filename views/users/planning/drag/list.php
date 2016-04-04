@@ -14,14 +14,19 @@ use yii\widgets\ListView;
 /* @var $model User */
 
 
-        JuiAsset::register($this);
+JuiAsset::register($this);
 MyPjax::begin(['id' => 'drag']);
 
-echo $this->render('_search', ['model' => $searchModel,'user'=>$model]);
+echo $this->render('_search', ['model' => $searchModel, 'user' => $model]);
 
 echo ListView::widget([
     'dataProvider' => $dataProvider,
-    'itemOptions' => ['class' => 'draggable'],
+    'viewParams' => [
+        'searchModel' => $searchModel,
+    ],
+    'itemOptions' => [
+        'class' => 'draggable'
+        ],
     'itemView' => '_item',
 ]);
 

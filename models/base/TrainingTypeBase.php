@@ -6,6 +6,7 @@ use Yii;
 use app\models\Sport;
 use app\models\Category;
 use app\models\SubCategory;
+use app\models\TrainingTypeLang;
 
 /**
  * This is the model class for table "training_type".
@@ -30,6 +31,7 @@ use app\models\SubCategory;
             * @property Sport $sport
             * @property Category $category
             * @property SubCategory $subCategory
+            * @property TrainingTypeLang[] $trainingTypeLangs
     */
 class TrainingTypeBase extends \yii\db\ActiveRecord
 {
@@ -106,6 +108,14 @@ return [
     public function getSubCategory()
     {
     return $this->hasOne(SubCategory::className(), ['id' => 'sub_category_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getTrainingTypeLangs()
+    {
+    return $this->hasMany(TrainingTypeLang::className(), ['training_type_id' => 'id']);
     }
 
     /**

@@ -1,10 +1,10 @@
 <?php
 
+use app\extentions\StyleIcon;
 use app\models\User;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use claudejanz\toolbox\widgets\ajax\AjaxButton;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
-use kartik\icons\Icon;
 use yii\helpers\Html;
 
 /*
@@ -25,13 +25,56 @@ use yii\helpers\Html;
  */
 
 /* @var $model User */
+/* @var $startDate DateTime */
+/* @var $isCoach boolean */
+$options =  ['class' => 'white-block'];
+if (!Yii::$app->request->isAjax) {
+    Html::addCssClass($options, 'animated fadeInUp');
+}
+echo Html::beginTag('div', $options);
+echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-sm-12']);
+if ($isCoach && (!$week || $week->published == PublishBehavior::PUBLISHED_DRAFT)) {
+    $label = Yii::t('app', 'Send Mail to Fill citys');
+    echo AjaxButton::widget([
+        'label' => StyleIcon::showStyled('send-o') . ' ' . $label,
+        'encodeLabel' => false,
+        'url' => [
+            'week-fill',
+            'id' => $model->id,
+            'date_begin' => $startDate->format('Y-m-d'),
+        ],
+//        'success' => '#week' . $startDate->format('Y-m-d'),
+        'options' => [
+            'title' => $label,
+            'class' => 'red',
+        ],
+    ]);
+}
+if (!$isCoach){
+    $label = ($week && $week->published != PublishBehavior::PUBLISHED_DRAFT) ? Yii::t('app', 'Re-validate citys') : Yii::t('app', 'Validate citys');
+    echo AjaxButton::widget([
+        'label' => StyleIcon::showStyled('thumbs-up') . ' ' . $label,
+        'encodeLabel' => false,
+        'url' => [
+            'week-ready',
+            'id' => $model->id,
+            'begin_date' => $startDate->format('Y-m-d'),
+        ],
+        'success' => '#week' . $startDate->format('Y-m-d'),
+        'options' => [
+            'title' => $label,
+            'class' => 'red',
+        ],
+    ]);
+}
 if ($week) {
-    echo Html::beginTag('div', ['class' => 'white-block animated fadeInUp']);
-    echo Html::beginTag('div', ['class' => 'row']);
-    echo Html::beginTag('div', ['class' => 'col-sm-12']);
     if ($isCoach) {
-        echo AjaxModalButton::widget([
-            'label' => Icon::show('thumbs-up') . ' ' . Yii::t('app', 'Publish'),
+
+
+        $label = Yii::t('app', 'Publish week');
+        echo ' ' . AjaxModalButton::widget([
+            'label' => StyleIcon::showStyled('send') . ' ' . $label,
             'encodeLabel' => false,
             'url' => [
                 'week-publish',
@@ -41,28 +84,12 @@ if ($week) {
             'title' => Yii::t('app', 'Send the week to {username}', ['username' => $model->fullname]),
             'success' => '#week' . $startDate->format('Y-m-d'),
             'options' => [
-                'title' => Yii::t('app', 'Publish'),
-                'class' => 'red',
-            ],
-        ]);
-    } else {
-        $label = ($week->published!=PublishBehavior::PUBLISHED_DRAFT)?Yii::t('app', 'Re-validate week'):Yii::t('app', 'Validate week');
-        echo AjaxButton::widget([
-            'label' => Icon::show('thumbs-up') . ' ' . $label,
-            'encodeLabel' => false,
-            'url' => [
-                'week-ready',
-                'id' => $model->id,
-                'week_id' => $week->id,
-            ],
-            'success' => '#week' . $startDate->format('Y-m-d'),
-            'options' => [
                 'title' => $label,
                 'class' => 'red',
             ],
         ]);
     }
-    echo Html::endTag('div'); //col-sm-12
-    echo Html::endTag('div'); //row
-    echo Html::endTag('div'); //white-block
 }
+echo Html::endTag('div'); //col-sm-12
+echo Html::endTag('div'); //row
+echo Html::endTag('div'); //white-block

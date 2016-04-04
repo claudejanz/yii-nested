@@ -43,10 +43,10 @@ use yii\web\View;
             'km' => [
                 'type' => Form::INPUT_TEXT,
             ],
-            'time_done' => [
-                'type' => Form::INPUT_WIDGET,
-                'widgetClass' => BooleanWidget::className(),
-            ],
+//            'time_done' => [
+//                'type' => Form::INPUT_WIDGET,
+//                'widgetClass' => BooleanWidget::className(),
+//            ],
             'time' => [
                 'type' => Form::INPUT_WIDGET,
                 'widgetClass' => DateControl::classname(),
@@ -58,6 +58,7 @@ use yii\web\View;
                         ]
                     ]
                 ],
+//                'hint'=>  Yii::t('app', 'Default value is <b>{value}</b>',['value'=>$training->time]),
 //                'columnOptions'=>[
 //                  'colspan'=>2  
 //                ]

@@ -13,7 +13,7 @@ if ($week) {
     
     switch ($week->published) {
         case PublishBehavior::PUBLISHED_ACTIF:
-            $color = 'primary';
+            $color = 'success';
             $label = Yii::t('app', 'Sended');
             break;
         case PublishBehavior::PUBLISHED_VALIDATED:

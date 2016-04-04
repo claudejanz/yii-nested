@@ -68,8 +68,6 @@ class Training extends TrainingBase
     public function getDuration()
     {
         $split = preg_split('@:@', $this->time, -1, PREG_SPLIT_NO_EMPTY);
-        
-                
         return sprintf('%1$01dh%2$02d', $split['0'], $split['1']);
     }
 

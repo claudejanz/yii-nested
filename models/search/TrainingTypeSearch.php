@@ -3,10 +3,12 @@
 namespace app\models\search;
 
 use app\extentions\MulaffGraphWidget;
+use app\extentions\StyleIcon;
 use app\models\Category;
 use app\models\Sport;
 use app\models\SubCategory;
 use app\models\TrainingType;
+use app\models\UserSport;
 use kartik\icons\Icon;
 use Yii;
 use yii\base\Model;
@@ -35,12 +37,12 @@ class TrainingTypeSearch extends TrainingType
         return Model::scenarios();
     }
 
-    public function search($params, $user = null)
+    public function search($params, $user = null,$pageSize=20)
     {
         $query = TrainingType::find();
 
         if ($user) {
-            $sub = \app\models\UserSport::find()->select('sport.id')->where(['user_id' => $user->id])->joinWith(['sport' => function($query) {
+            $sub = UserSport::find()->select('sport.id')->where(['user_id' => $user->id])->joinWith(['sport' => function($query) {
                             return $query->select('id');
                         }])->column();
             $query->andWhere(['in', 'training_type.sport_id', $sub]);
@@ -48,6 +50,7 @@ class TrainingTypeSearch extends TrainingType
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination'=>['pageSize'=>$pageSize]
         ]);
 
         $dataProvider->setSort([
@@ -161,10 +164,18 @@ class TrainingTypeSearch extends TrainingType
 //            ['attribute'=>'updated_at','format'=>['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A']], 
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '{update} {delete}',
+                        'template' => '{update} {delete} {duplicate}',
                         'buttons' => [
+                            'duplicate' => function ($url, $model) {
+                                return Html::a(StyleIcon::showStyled('copy'), Yii::$app->urlManager->createUrl(['training-types/duplicate', 'id' => $model->id]), [
+                                            'title' => Yii::t('yii', 'Duplicate'),
+                                            'data' => [
+                                                'pjax' => 0
+                                            ]
+                                ]);
+                            },
                             'update' => function ($url, $model) {
-                                return Html::a(Icon::show('pencil'), Yii::$app->urlManager->createUrl(['training-types/update', 'id' => $model->id]), [
+                                return Html::a(StyleIcon::showStyled('pencil'), Yii::$app->urlManager->createUrl(['training-types/update', 'id' => $model->id]), [
                                             'title' => Yii::t('yii', 'Edit'),
                                             'data' => [
                                                 'pjax' => 0
@@ -172,7 +183,7 @@ class TrainingTypeSearch extends TrainingType
                                 ]);
                             },
                                     'delete' => function ($url, $model) {
-                                return Html::a(Icon::show('trash'), Yii::$app->urlManager->createUrl(['training-types/delete', 'id' => $model->id]), [
+                                return Html::a(StyleIcon::showStyled('trash'), Yii::$app->urlManager->createUrl(['training-types/delete', 'id' => $model->id]), [
                                             'title' => Yii::t('yii', 'Delete'),
                                             'data-confirm' => Yii::t('kvgrid', 'Are you sure to delete this item?'),
                                             'data-method' => 'post',

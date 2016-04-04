@@ -330,16 +330,7 @@ button.red{
 }
 .week{
 
-    .title{
-        background-color:black;
-        color:white;
-        text-align:center;
-        font-weight: 200;
-        text-transform: uppercase;
-        padding: 20px 0;
-        font-size: 15px;
-        margin-bottom:@smallGap;
-    }
+
     .words-of-the-week{
         background-color:black;
         color:white;
@@ -427,7 +418,7 @@ div.hid{
     ul.cat,ul.subcat{
         text-transform: none;
         font-size: 16px;
-            letter-spacing: 1px;
+        letter-spacing: 1px;
 
         font-weight: 400;
         padding-left:0px;
@@ -465,8 +456,8 @@ div.hid{
 #sports>div {
     padding-bottom: 50px;
     >li {
-                  border-bottom: 1px dashed black;
-      
+        border-bottom: 1px dashed black;
+
     }
 }
 
@@ -487,19 +478,30 @@ span.sports{
 .cityFormat .fa-pencil {
     color: rgba(0,0,0,0.8);
 }
+.week .dates {
+    background-color:black;
+    color:white;
+    text-align:center;
+    font-weight: 200;
+    text-transform: uppercase;
+    padding: 20px 0;
+    font-size: 15px;
+    margin-bottom:@smallGap;
+
+}
 
 /*SPORTIF*/
 
 body.sportifs {
-    
+
     background-color: @mulaffBG;
-    
+
     .navbar-brand {
         color: @mulaff;
         text-transform: uppercase;
         font-weight: 200;
         letter-spacing: 2px;
-        }
+    }
     .navbar-inverse {
         background-color: @black;
         border: 0;
@@ -508,7 +510,7 @@ body.sportifs {
         padding: 28px 0;
     }
     .weekNav {
-                background-color: @mulaff;
+        background-color: @mulaff;
 
     }
     a.kneubuhler {
@@ -529,7 +531,7 @@ body.sportifs {
     .fadeInRight a {
         text-align: right;
     }
-    
+
     .breadcrumb, h1 {
         display: none;
     }
@@ -544,20 +546,36 @@ body.sportifs {
         padding: 0;
     }
     .week .title {
-        display:none;
-        margin-bottom: 0;
-        background-color: transparent;
-        color: @black;
-        padding: 0;
-        
+        background-color:black;
+        color:white;
+        text-align:center;
+        font-weight: 200;
+        text-transform: uppercase;
+        padding: 20px 0;
+        font-size: 15px;
+        margin-bottom:@smallGap;
+
     }
     .white-block {
+        &.week-graph{
+            color:@white;
+            svg{
+                polygon{
+                    fill:@white;
+                }
+            }
+            .legends{
+                .overflow{
+                    overflow:hidden;
+                }
+            }
+        }
         background-color: transparent;
     }
     .dayFormat {
         background-color: transparent;
         border-top: 1px dashed @mulaff;
-        border-bottom: 1px dashed @mulaff;
+
         color: @white;
         font-size: 16px;
         text-align: center;
@@ -578,31 +596,60 @@ body.sportifs {
         padding-left: 3px;
     }
     .trainingWrapper {
+        border-top: 1px dashed @mulaff;
         padding: 20px;
         color: @white;
         text-align: center;
         font-weight: 200;
     }
+
+
     .timeDuration {
+        display:inline-block;
         text-align: center;
-        border: 5px solid @white;
-        border-radius: 50%;
+        .border-right-radius(30px);
+        .border-left-radius(30px);
+        margin: 10px 5px 20px 5px;
         width: 60px;
         height: 60px;
-        line-height: 50px;
-        margin: 10px auto 20px auto;
+        line-height: 60px;
         font-weight: 700;
         background-color: @white;
         color: @mulaffBG;
     }
+
     .sports {
-        display:none;
-        width: 100%;
-        text-align: center;
+        display:inline-block;
+        .border-right-radius(30px);
+        .border-left-radius(30px);
+        margin: 10px 5px 20px 5px;
+        padding:0px 15px;
+        min-width: 60px;
+        height: 60px;
+        line-height: 60px;
+        background-color: @white;
+        color: @mulaffBG;
     }
+    .sports-mini {
+        display:inline-block;
+        .border-right-radius(15px);
+        .border-left-radius(15px);
+        margin: 5px 5px 5px 5px;
+        padding:0px 2px;
+        min-width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background-color: @white;
+        color: @mulaffBG;
+    }
+
     .graphWrapper {
-    background-color: @white;
-    padding: 20px 30px;
+        svg{
+            polygon.gradi{
+                fill:@myBgGray;
+            }  
+        }
+        padding: 20px 30px;
     }
     .table-bordered {
         border: 0;
@@ -614,25 +661,25 @@ body.sportifs {
     .table-bordered > tbody > tr > td {
         border: 0;
         font-weight: 200;
-           font-size: 12px;
-           letter-spacing: 1px;
-           text-align: left;
-           
-     
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-align: left;
+
+
     }
     .table-bordered > tbody > tr > th {
-         border: 0;
-         text-align: right;
-         font-weight: 400;
-         font-size: 10px;
-         letter-spacing: 2px;
+        border: 0;
+        text-align: right;
+        font-weight: 400;
+        font-size: 10px;
+        letter-spacing: 2px;
     }
-    
+
     .modal-content {
         border-radius: 0;
         background-color: @mulaffBG;
         color: @white;
-    
+
         .close {
             color: @white;
             text-shadow: 0;
@@ -648,7 +695,7 @@ body.sportifs {
             text-align: center;
         }
     }
-    
+
 }
 
 body.login {
@@ -685,7 +732,7 @@ body.login {
         color: @mulaff;
     }
     .footer {
-        
+
         background: none;
         color: @white;
         font-size: 10px;
@@ -696,14 +743,14 @@ body.login {
     }
     .help-block {
         font-size: 11px;
-        
+
     }
 }
 
 
 /*BTN CHANGE*/
 .btn {
-        text-transform: uppercase;
+    text-transform: uppercase;
     letter-spacing: 2px;
     border-radius: 1px;
 }
@@ -712,7 +759,7 @@ body.login {
     border-color: @mulaffSecondary;
     color: @white;
 
-    
+
     &:active {
         background-color: @mulaff;
 
@@ -726,19 +773,21 @@ body.login {
     }
 }
 
-
+body.coaches .bullet{
+    text-align: right;
+}
 .coaches {
-    
+
     .weekNav {
         background-color: @black;
         padding: 0px;
         margin: 0 0px 20px 0px;
-        
+
         .kneubuhler {
             padding: 10px;
             margin: 0;
             &:hover {
-                   background-color: @mulaff;
+                background-color: @mulaff;
 
             }
         }

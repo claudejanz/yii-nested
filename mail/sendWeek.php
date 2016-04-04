@@ -21,7 +21,9 @@ $planningLink = Yii::$app->urlManager->createAbsoluteUrl(['users/planning','id'=
 
 <p>Ton nouveau planinng du <b><?= Yii::$app->formatter->asDate($date); ?></b> au <b><?= Yii::$app->formatter->asDate($dateEnd); ?></b></p>
 <?php
-if(isset($model)&&isset($model->words_of_the_week))echo \kartik\helpers\Html::tag('p','Ton objectif: '.$model->words_of_the_week);
+if (isset($model) && !empty($model->words_of_the_week)) {
+    echo Html::tag('p', 'Ton objectif: ' . $model->words_of_the_week);
+}
 ?><p>Clique le lien ci-dessous pour le consulter:</p>
 
 

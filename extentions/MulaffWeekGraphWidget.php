@@ -150,11 +150,14 @@ class MulaffWeekGraphWidget extends Widget
 
     public function renderLegends()
     {
+        $options = [];
         $optionsCol = [];
         $optionsSep = [];
         $colW = (100/$this->matrixWidth)*$this->colWidth;
         $sepW = (100/$this->matrixWidth)*$this->gap;
         // styles
+        echo Html::addCssClass($options, 'legends');
+        echo Html::addCssClass($optionsCol, 'overflow');
         echo Html::addCssStyle($optionsCol, 'float:left');
         echo Html::addCssStyle($optionsCol, 'float:left');
         echo Html::addCssStyle($optionsCol, 'width:'.$colW.'%');
@@ -162,7 +165,7 @@ class MulaffWeekGraphWidget extends Widget
         echo Html::addCssStyle($optionsSep, 'float:left');
         echo Html::addCssStyle($optionsSep, 'width:'.$sepW.'%');
         // render;
-        echo Html::beginTag('div');
+        echo Html::beginTag('div',$options);
         foreach ($this->matrix as $key => $m) {
             if($key!=0){
             echo Html::tag('div','&nbsp;', $optionsSep);

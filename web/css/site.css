@@ -327,16 +327,6 @@ button.red {
   color: #f60100;
   padding: 0px;
 }
-.week .title {
-  background-color: black;
-  color: white;
-  text-align: center;
-  font-weight: 200;
-  text-transform: uppercase;
-  padding: 20px 0;
-  font-size: 15px;
-  margin-bottom: 6px;
-}
 .week .words-of-the-week {
   background-color: black;
   color: white;
@@ -471,6 +461,16 @@ span.sports {
 .cityFormat .fa-pencil {
   color: rgba(0, 0, 0, 0.8);
 }
+.week .dates {
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-weight: 200;
+  text-transform: uppercase;
+  padding: 20px 0;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
 /*SPORTIF*/
 body.sportifs {
   background-color: #2c1212;
@@ -524,19 +524,30 @@ body.sportifs .week .white-block {
   padding: 0;
 }
 body.sportifs .week .title {
-  display: none;
-  margin-bottom: 0;
-  background-color: transparent;
-  color: black;
-  padding: 0;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-weight: 200;
+  text-transform: uppercase;
+  padding: 20px 0;
+  font-size: 15px;
+  margin-bottom: 6px;
 }
 body.sportifs .white-block {
   background-color: transparent;
 }
+body.sportifs .white-block.week-graph {
+  color: white;
+}
+body.sportifs .white-block.week-graph svg polygon {
+  fill: white;
+}
+body.sportifs .white-block.week-graph .legends .overflow {
+  overflow: hidden;
+}
 body.sportifs .dayFormat {
   background-color: transparent;
   border-top: 1px dashed #97cccd;
-  border-bottom: 1px dashed #97cccd;
   color: white;
   font-size: 16px;
   text-align: center;
@@ -557,31 +568,60 @@ body.sportifs .cityFormat .fa-pencil {
   padding-left: 3px;
 }
 body.sportifs .trainingWrapper {
+  border-top: 1px dashed #97cccd;
   padding: 20px;
   color: white;
   text-align: center;
   font-weight: 200;
 }
 body.sportifs .timeDuration {
+  display: inline-block;
   text-align: center;
-  border: 5px solid white;
-  border-radius: 50%;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  margin: 10px 5px 20px 5px;
   width: 60px;
   height: 60px;
-  line-height: 50px;
-  margin: 10px auto 20px auto;
+  line-height: 60px;
   font-weight: 700;
   background-color: white;
   color: #2c1212;
 }
 body.sportifs .sports {
-  display: none;
-  width: 100%;
-  text-align: center;
+  display: inline-block;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  margin: 10px 5px 20px 5px;
+  padding: 0px 15px;
+  min-width: 60px;
+  height: 60px;
+  line-height: 60px;
+  background-color: white;
+  color: #2c1212;
+}
+body.sportifs .sports-mini {
+  display: inline-block;
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  margin: 5px 5px 5px 5px;
+  padding: 0px 2px;
+  min-width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background-color: white;
+  color: #2c1212;
 }
 body.sportifs .graphWrapper {
-  background-color: white;
   padding: 20px 30px;
+}
+body.sportifs .graphWrapper svg polygon.gradi {
+  fill: #f0f0f0;
 }
 body.sportifs .table-bordered {
   border: 0;
@@ -688,6 +728,9 @@ body.login .help-block {
 }
 .btn-primary:hover {
   background-color: #78a5a6;
+}
+body.coaches .bullet {
+  text-align: right;
 }
 .coaches .weekNav {
   background-color: black;

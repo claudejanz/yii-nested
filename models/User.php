@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\extentions\helpers\EuroDateTime;
 use app\models\base\UserBase;
 use arogachev\ManyToMany\behaviors\ManyToManyBehavior;
 use arogachev\ManyToMany\validators\ManyToManyValidator;
@@ -324,6 +325,20 @@ class User extends UserBase implements IdentityInterface
         }
 
         return false;
+    }
+
+    public function sendCityMail($date_begin)
+    {
+        $date = new EuroDateTime($date_begin);
+        $dateEnd = clone $date;
+        $dateEnd->modify('+6 days');
+        $sender = [Yii::$app->params['mailerEmail'] => Yii::$app->params['mailerName']];
+        $title = Yii::t('app', 'Please fill your citys {begin_date} to {end_date}', ['begin_date' => Yii::$app->formatter->asDate($date), 'end_date' => Yii::$app->formatter->asDate($dateEnd)]);
+        return Yii::$app->mailer->compose('sendFillCity', [ 'model' => $this, 'date' => $date, 'date_begin' => $date_begin, 'title' => $title])
+                        ->setFrom($sender)
+                        ->setTo($this->email)
+                        ->setSubject($title)
+                        ->send();
     }
 
 }

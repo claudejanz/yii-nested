@@ -19,7 +19,6 @@ use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use kartik\alert\Alert;
 use Yii;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\NotAcceptableHttpException;
 use yii\web\NotFoundHttpException;
@@ -49,6 +48,7 @@ class UsersController extends MyController
                     'reporting-update',
                     'day-update',
                     'week-ready',
+                    'week-fill',
                 ]
             ],
             'access' => [
@@ -80,6 +80,7 @@ class UsersController extends MyController
                             'day-update',
                             'reporting-update',
                             'week-ready',
+                            'week-fill',
                         ],
                         'allow' => true,
                         'roles' => ['update user'],
@@ -102,6 +103,7 @@ class UsersController extends MyController
                     'training-update',
                     'week-publish',
                     'week-ready',
+                    'week-fill',
                     'day-update',
                     'reporting-update',
                 ], // in a controller
@@ -147,18 +149,13 @@ class UsersController extends MyController
         } else {
             $endDate->modify('+6days');
         }
-//        var_dump($startDate->format('Y-m-d'),$endDate->format('Y-m-d'));
-//        var_dump($startDate->format('Y-m-d'),$endDate->format('Y-m-d'));
-        $models = Training::find()->where(['and', ['between', 'date', $startDate->format('Y-m-d'), $endDate->format('Y-m-d')], ['sportif_id' => $id]])->orderBy('date')->all();
-        $models = ArrayHelper::index($models, 'id', ['date']);
-        $searchModel = new TrainingTypeSearch;
-        $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model);
+        $searchModel = new TrainingTypeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
         return $this->render('planning', [
                     'model' => $this->model,
                     'isCoach' => $isCoach,
                     'startDate' => $startDate,
                     'endDate' => $endDate,
-                    'models' => $models,
                     'dataProvider' => $dataProvider,
                     'searchModel' => $searchModel,
         ]);
@@ -362,13 +359,16 @@ class UsersController extends MyController
             $model->date = $training->day->date;
             $model->week_id = $training->day->week_id;
             $model->sport_id = $training->sport_id;
+            $model->time = $training->time;
+        }else{
+           $training =  $model->training;
         }
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model]));
+                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model,'training'=>$training]));
                 }
             } else {
                 if ($model->validate()) {
@@ -380,7 +380,7 @@ class UsersController extends MyController
             }
         }
 
-        return $this->render('/reportings/_form', ['model' => $model]);
+        return $this->render('/reportings/_form', ['model' => $model,'training'=>$training]);
     }
 
     /**
@@ -426,24 +426,45 @@ class UsersController extends MyController
     }
 
     /**
-     * Validates a week and send an email to the sportif
+     * Coach sends an email to ask sportif to fill his week
      * 
      * @param int $id
      * @param string $date_begin
      * @return string
      */
-    public function actionWeekReady($id, $week_id)
+    public function actionWeekFill($id, $date_begin)
     {
-        $model = Week::findOne($week_id);
-        /* @var $$user User */
-        $user = $this->model;
-
-        if ($model) {
-            if ($model->publish(PublishBehavior::PUBLISHED_VALIDATED)) {
-                return true;
-            }
+        /* @var $model User */
+        $model = $this->model;
+        if ($model->sendCityMail($date_begin)) {
+            return ['message' => Yii::t('app', 'Mail has been sent.'), 'error' => 0];
         }
         return ['message' => Yii::t('app', 'Week must have something in it to be sent.'), 'error' => 1];
+    }
+
+    /**
+     * Sportif confirms the week places are ok
+     * 
+     * @param int $id
+     * @param string $date_begin
+     * @return string
+     */
+    public function actionWeekReady($id, $date_begin)
+    {
+        /* @var $model User */
+        $model = Week::find(['sportif_id' => $id, 'date_begin' => $date_begin]);
+        if (!$model) {
+            $date = new EuroDateTime($date_begin);
+            $date->modify('+6jours');
+            $model = new Week();
+            $model->sportif_id = $id;
+            $model->date_begin = $date_begin;
+            $model->date_end = $date->format('Y-m-d');
+            if (!$model->save()) {
+                return ['message' => Yii::t('app', 'Week could not be created.'), 'error' => 1];
+            }
+        }
+        return ['message' => Yii::t('app', 'Week has been validated.'), 'error' => 0];
     }
 
     /**

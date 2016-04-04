@@ -8,10 +8,10 @@ RewriteEngine On
 
 # if request dosn't start with web adn not subdomain add it
 
-RewriteCond %{REQUEST_URI} !^/new/(web)
-RewriteRule (.*) /new/web/$1 [QSA,L]
+RewriteCond %{REQUEST_URI} !^/coaching/(web)
+RewriteRule (.*) /coaching/web/$1 [QSA,L]
 
 # if file or directory dosn't exists go to /web/index.php exept if subdomain
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /new/web/index.php 
+RewriteRule . /coaching/web/index.php 
