@@ -62,7 +62,10 @@ if ($day && $day->duration) {
 echo Html::endTag('div'); //col-sm-12 col-md-3 text-center
 echo Html::endTag('div'); //row
 echo Html::endTag('div'); //date
-echo Html::beginTag('div', ['class' => 'row']);
+
+
+
+echo Html::beginTag('div', ['class' => 'row colapsable']);
 echo Html::beginTag('div', ['class' => 'col-lg-12']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'droppable' : '']);
 if ($day && isset($day->trainingsWithSport)) {
@@ -85,6 +88,9 @@ echo Html::endTag('div'); //row
 echo Html::endTag('div'); //day
 
 $js = '$(function() {
+    $(".day").on("click",function(){
+        $(this).find(".colapsable").slideToggle();
+    });
     $( ".day" ).droppable({
         hoverClass: "hover",
         activeClass: "target",
