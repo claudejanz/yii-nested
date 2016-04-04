@@ -63,9 +63,13 @@ echo Html::endTag('div'); //col-sm-12 col-md-3 text-center
 echo Html::endTag('div'); //row
 echo Html::endTag('div'); //date
 
+$options = ['class' => 'row collapsable'];
+$today = new DateTime('now');
+if($dayId != $today->format('Y-d-m')){
+   Html::addCssClass($options, 'collapsed'); 
+}
 
-
-echo Html::beginTag('div', ['class' => 'row colapsable']);
+echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'col-lg-12']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'droppable' : '']);
 if ($day && isset($day->trainingsWithSport)) {
