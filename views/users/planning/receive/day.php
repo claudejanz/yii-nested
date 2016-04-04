@@ -93,7 +93,7 @@ echo Html::endTag('div'); //day
 
 $js = '$(function() {
     $(".day").on("click",function(){
-        $(this).find(".colapsable").slideToggle();
+        $(this).find(".collapsable").slideToggle();
     });
     $( ".day" ).droppable({
         hoverClass: "hover",
