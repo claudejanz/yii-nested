@@ -506,6 +506,23 @@ span.sports{
 body.sportifs {
 
     background-color: @mulaffBG;
+    
+    .mulaffBtn {
+        background-color: transparent;
+        border: 0;
+      
+        .fa-stack {
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+        }
+        .fa-stack i {
+            color: transparent;
+        }
+        .fa-stack i:last-child {
+            color: @mulaff;
+        } 
+    }
 
     .navbar-brand {
         color: @mulaff;
@@ -640,6 +657,10 @@ body.sportifs {
         line-height: 60px;
         background-color: @white;
         color: @mulaffBG;
+    }
+    .all-sports img{
+        .filterVendor(invert(1));
+
     }
     .sports-mini {
         display:inline-block;
