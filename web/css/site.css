@@ -574,7 +574,7 @@ body.sportifs .dayFormat {
   border-top: 1px dashed #97cccd;
   color: white;
   font-size: 16px;
-  text-align: center;
+  text-align: left;
   padding: 8px 0;
   text-transform: uppercase;
   font-weight: 700;
@@ -597,6 +597,12 @@ body.sportifs .trainingWrapper {
   color: white;
   text-align: center;
   font-weight: 200;
+}
+body.sportifs .trainingWrapper .title {
+  text-transform: none;
+  background: none;
+  padding: 0;
+  margin: 0;
 }
 body.sportifs .timeDuration {
   display: inline-block;
