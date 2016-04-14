@@ -8,12 +8,13 @@
 @myPadding: 5px 10px;
 @redColor: #f60100;
 @blackTransparent: rgba(0,0,0,0.7);
-@mulaffBG: #2c1212;
+@mulaffBG: white;
+/*MULAFF BROWN : #2c1212*/
 @mulaff: #97cccd;
 @mulaffClear: rgba(166,203,198,0.2);
 @mulaffSecondary: #78a5a6;
 @mulaffThird: #416162;
-@white: white;
+@white: #2c1212;
 @black: black;
 
 /* style sheet */
@@ -536,7 +537,7 @@ body.sportifs {
     }
     .week .dates {
     background:none;
-    color:white;
+    color:@white;
     text-align:center;
     font-weight: 200;
     text-transform: uppercase;
@@ -596,7 +597,7 @@ body.sportifs {
     }
     .week .title {
         background-color:black;
-        color:white;
+        color:@white;
         text-align:center;
         font-weight: 200;
         text-transform: uppercase;
@@ -679,7 +680,7 @@ body.sportifs {
             height: auto;
             line-height: 30px;
             margin: 0;
-           .filterVendor(invert(1));
+           .filterVendor(invert(0));
 
         }
     }
@@ -714,7 +715,7 @@ body.sportifs {
     .all-sports img{
                 width: 16px;
                 margin-left: 3px;
-        .filterVendor(invert(1));
+        .filterVendor(invert(0));
 
     }
     .sports-mini {

@@ -31,7 +31,7 @@ echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'dayFormat']); //date
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-xs-8']);
-echo Yii::$app->formatter->asDate($dateTime, 'EEEE, d MMM');
+echo Yii::$app->formatter->asDate($dateTime, 'EEEE, d');
 echo Html::beginTag('div', ['class' => 'cityFormat']); //city and button
 if ($day) {
     $text = $day->training_city;
