@@ -3,7 +3,7 @@
 return [
     'adminEmail' => 'claudejanz@klod.ch',
     'defaultLanguage' => 'fr-CH',
-    'translatedLanguages' => ['fr' => 'Français', 'de' => 'Deutch', 'en' => 'English'],
+    'translatedLanguages' => ['fr' => 'Français', 'de' => 'Deutsch', 'en' => 'English'],
     // All alloved languages (NOTE! the variables must be identical to $translatedLanguages array)
     'langsNames' => array(
 

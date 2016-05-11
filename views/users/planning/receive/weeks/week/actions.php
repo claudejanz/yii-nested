@@ -6,6 +6,7 @@ use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use claudejanz\toolbox\widgets\ajax\AjaxButton;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /*
  * Copyright (C) 2016 Claude
@@ -27,14 +28,14 @@ use yii\helpers\Html;
 /* @var $model User */
 /* @var $startDate DateTime */
 /* @var $isCoach boolean */
-$options =  ['class' => 'white-block'];
+$options = ['class' => 'white-block'];
 if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
 }
 echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-sm-12']);
-if ($isCoach && (!$week || $week->published == PublishBehavior::PUBLISHED_DRAFT)) {
+if ($isCoach && (!$week || $week->published <= app\extentions\behaviors\WeekPublishBehavior::PUBLISHED_CITY_EDIT)) {
     $label = Yii::t('app', 'Send Mail to Fill citys');
     echo AjaxButton::widget([
         'label' => StyleIcon::showStyled('send-o') . ' ' . $label,
@@ -51,8 +52,8 @@ if ($isCoach && (!$week || $week->published == PublishBehavior::PUBLISHED_DRAFT)
         ],
     ]);
 }
-if (!$isCoach){
-    $label = ($week && $week->published != PublishBehavior::PUBLISHED_DRAFT) ? Yii::t('app', 'Re-validate citys') : Yii::t('app', 'Validate citys');
+if (!$isCoach) {
+    $label = ($week && $week->published < app\extentions\behaviors\WeekPublishBehavior::PUBLISHED_CITY_EDIT) ? Yii::t('app', 'Re-validate citys') : Yii::t('app', 'Validate citys');
     echo AjaxButton::widget([
         'label' => StyleIcon::showStyled('thumbs-up') . ' ' . $label,
         'encodeLabel' => false,
@@ -88,6 +89,9 @@ if ($week) {
                 'class' => 'red',
             ],
         ]);
+    }
+    if ($isCoach || $week->published >= app\extentions\behaviors\WeekPublishBehavior::PUBLISHED_PLANING_DONE) {
+        echo ' ' . Html::a(StyleIcon::showStyled('file-pdf-o') . ' ' . Yii::t('app', 'Week PDF'), Url::to(['planning-pdf', 'id' => $model->id, 'date' => $startDate->format('Y-m-d'), 'viewStyle' => 'pdf']), ['class' => 'red', 'target' => '_blank', 'data-pjax' => 0]);
     }
 }
 echo Html::endTag('div'); //col-sm-12

@@ -75,7 +75,7 @@ class MulaffWeekGraphWidget extends Widget
         $this->options = array_merge($this->options, [
             'width' => '100%',
             'height' => $this->height,
-            'viewBox' => '0 0 ' . $this->matrixWidth . ' ' . $this->maxHeight,
+            'viewBox' => '0 0 ' . $this->matrixWidth . ' ' . $this->height,
             'preserveAspectRatio' => 'none'
         ]);
     }
@@ -91,16 +91,17 @@ class MulaffWeekGraphWidget extends Widget
     protected function renderGraph()
     {
         $step = 0;
-        $bottom = $this->maxHeight;
-        foreach ($this->matrix as  $m) {
+        $bottom = $this->height;
+        $r = $this->height/$this->maxHeight;
+        foreach ($this->matrix as $m) {
             $w = $m[0];
-            $h = $m[1];
+            $h = $m[1]*$r;
 
 
 
 
             $points = $step . ',' . $bottom . ' ' . ($w + $step) . ',' . $bottom . ' ' . ($w + $step) . ',' . ($bottom - $h) . ' ' . $step . ',' . ($bottom - $h);
-            echo Html::tag('polygon', null, ['points' => $points, 'class' => 'gradi', 'title' => $m[2].' - '.$h]);
+            echo Html::tag('polygon', null, ['points' => $points, 'class' => 'gradi', 'title' => $m[2] . ' - ' . $h]);
 
             $step+=$w + $this->gap;
         }
@@ -129,19 +130,14 @@ class MulaffWeekGraphWidget extends Widget
         $step = 0;
         $maxHeight = 0;
         $matrix = [];
-            $w = $this->colWidth;
+        $w = $this->colWidth;
         foreach ($period as $dateTime) {
-
-
             $date = $dateTime->format('Y-m-d');
             $h = (isset($this->values[$date])) ? $this->values[$date] : 0;
-
             if ($h > $this->maxHeight) {
                 $this->maxHeight = $h;
             }
-
-            $matrix[] = [$w, $h, Yii::$app->formatter->asDate($dateTime,'short')];
-
+            $matrix[] = [$w, $h, Yii::$app->formatter->asDate($dateTime, 'short')];
             $step+=$w + $this->gap;
         }
         $this->matrixWidth = $step - $this->gap;
@@ -153,24 +149,24 @@ class MulaffWeekGraphWidget extends Widget
         $options = [];
         $optionsCol = [];
         $optionsSep = [];
-        $colW = (100/$this->matrixWidth)*$this->colWidth;
-        $sepW = (100/$this->matrixWidth)*$this->gap;
+        $colW = (100 / $this->matrixWidth) * $this->colWidth;
+        $sepW = (100 / $this->matrixWidth) * $this->gap;
         // styles
         echo Html::addCssClass($options, 'legends');
         echo Html::addCssClass($optionsCol, 'overflow');
         echo Html::addCssStyle($optionsCol, 'float:left');
         echo Html::addCssStyle($optionsCol, 'float:left');
-        echo Html::addCssStyle($optionsCol, 'width:'.$colW.'%');
+        echo Html::addCssStyle($optionsCol, 'width:' . $colW . '%');
         echo Html::addCssStyle($optionsCol, 'text-align:center');
         echo Html::addCssStyle($optionsSep, 'float:left');
-        echo Html::addCssStyle($optionsSep, 'width:'.$sepW.'%');
+        echo Html::addCssStyle($optionsSep, 'width:' . $sepW . '%');
         // render;
-        echo Html::beginTag('div',$options);
+        echo Html::beginTag('div', $options);
         foreach ($this->matrix as $key => $m) {
-            if($key!=0){
-            echo Html::tag('div','&nbsp;', $optionsSep);
+            if ($key != 0) {
+                echo Html::tag('div', '&nbsp;', $optionsSep);
             }
-            echo Html::tag('div',$m[1].'<br>'.$m[2], $optionsCol);
+            echo Html::tag('div', $m[1] . '<br>' . $m[2], $optionsCol);
         }
         echo Html::endTag('div');
     }

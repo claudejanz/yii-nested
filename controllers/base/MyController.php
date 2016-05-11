@@ -23,6 +23,7 @@ class MyController extends Controller
     {
         parent::init();
         $this->setMyAppLanguage();
+        $this->setUserStyle();
     }
 
     private function setMyAppLanguage()
@@ -57,6 +58,15 @@ class MyController extends Controller
             return parent::renderAjax($view, $params);
         } else {
             return parent::render($view, $params);
+        }
+    }
+
+    public function setUserStyle()
+    {
+        $app = Yii::$app;
+        $params = $app->request->getQueryParams();
+        if (isset($params['viewStyle'])) {
+            Yii::$app->user->setViewStyle($params['viewStyle']);
         }
     }
 

@@ -19,6 +19,8 @@
 return [
     'Actif' => '',
     'Archived' => '',
+    'City Done' => '',
+    'City Edit' => '',
     'Danger' => '',
     'Default' => '',
     'Draft' => '',
@@ -28,6 +30,7 @@ return [
     'Missing path for "{item}" in {behavior} and no default path is set.' => '',
     'No' => '',
     'Order Updated on {date}' => '',
+    'Planned' => '',
     'Please specify array of available languages for the {behavior} in the {owner} or in the application parameters' => '',
     'Please specify langForeignKey for the {behavior} in the {owner}' => '',
     'Please specify multilingual attributes for the {behavior} in the {owner}' => '',

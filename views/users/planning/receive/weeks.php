@@ -18,25 +18,31 @@ $interval = DateInterval::createFromDateString('1 week');
 $period = new DatePeriod($startDate, $interval, $endDate);
 //var_dump(array_keys($models));
 
+
 MyPjax::begin(['id' => 'weeks']);
-echo $this->render('navigation',['startDate'=>$startDate]);
-echo Html::beginTag('div', ['class' => 'row']);
-foreach ($period as $dateTime) {
-    echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
-    echo $this->render('week', [
-        'date' => $dateTime,
-        'weekId'=>$dateTime->format('Y-m-d'),
-        'model' => $model,
-        'isCoach' => $isCoach,
-    ]);
-    echo Html::endTag('div');
+//echo $this->render('weeks/view-style');
+echo $this->render('weeks/navigation', ['startDate' => $startDate]);
+
+switch (Yii::$app->user->planningStyle) {
+
+    case 'middle':
+        echo $this->render('weeks/grid', [
+            'period' => $period,
+            'model' => $model,
+            'isCoach' => $isCoach,
+        ]);
+        break;
+    case 'short':
+    default :
+        echo $this->render('weeks/list', [
+            'period' => $period,
+            'model' => $model,
+            'isCoach' => $isCoach,
+        ]);
+        break;
 }
-echo Html::endTag('div');
-echo $this->render('navigation',['startDate'=>$startDate]);
-
-
+echo $this->render('weeks/navigation', ['startDate' => $startDate]);
 MyPjax::end();
-
 $js = 'var a=document.getElementsByTagName("a");
 for(var i=0;i<a.length;i++) {
     if(!a[i].onclick && a[i].getAttribute("target") != "_blank") {
@@ -48,3 +54,12 @@ for(var i=0;i<a.length;i++) {
 }';
 
 $this->registerJs($js);
+// script to collapse days
+$js = '
+    $("body").on("click",".day",function(){
+        $(this).find(".collapsable").slideToggle();
+    });
+    ';
+$this->registerJs($js);
+
+

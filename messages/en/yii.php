@@ -21,6 +21,7 @@ return [
     'All relations with inverse' => '',
     'Are you sure you want to delete this item?' => '',
     'Delete' => '',
+    'Duplicate' => '',
     'Edit' => '',
     'No relations' => '',
     'Order' => '',

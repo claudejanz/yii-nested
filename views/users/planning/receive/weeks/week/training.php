@@ -3,13 +3,13 @@
 use app\extentions\helpers\MyPjax;
 use app\extentions\MulaffGraphWidget;
 use app\extentions\MulaffGraphWidgetV2;
+use app\extentions\PdfView;
 use app\extentions\StyleIcon;
 use app\models\Training;
 use app\models\User;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\DetailView;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,7 +25,7 @@ use yii\widgets\DetailView;
 echo Html::beginTag('div', ['class' => 'eachTraining']);
 MyPjax::begin(['id' => 'training' . $model->id]);
 echo Html::beginTag('div', ['class' => 'row trainingDesc']);
-echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-10' : 'col-sm-12 trainingWrapper']);
+echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-9' : 'col-sm-12 trainingWrapper']);
 echo Html::beginTag('div', ['class' => 'col-xs-3']); //start title and time col
 echo Html::beginTag('div', ['class' => 'timeDuration']);
 echo $model->duration;
@@ -46,7 +46,7 @@ echo Html::endTag('div'); //end col-xs-8
 
 echo Html::endTag('div'); //col-sm-12 trainingWrapper
 
-echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-2' : 'col-sm-12']);
+echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-3' : 'col-sm-12']);
 echo Html::beginTag('p', ['class' => 'text-right']);
 if ($isCoach) {
     echo AjaxModalButton::widget([
@@ -78,7 +78,7 @@ if ($isCoach) {
 
 echo ' ';
 echo AjaxModalButton::widget([
-    'label' => StyleIcon::showStyled('tasks'),
+    'label' => Yii::t('app', 'Feedback'),
     'encodeLabel' => false,
     'url' => [
         'reporting-update',
@@ -88,34 +88,48 @@ echo AjaxModalButton::widget([
     'title' => Yii::t('app', 'Make a report: {title}', ['title' => $model->title]),
     'success' => '#week_graph' . $model->week->date_begin,
     'options' => [
-        'class' => 'red mulaffBtn',
+        'class' => 'red-btn',
     ],
 ]);
 echo Html::endTag('p');
-if ($isCoach) {
-    echo Html::beginTag('p', ['class' => 'text-right']);
-    echo Html::a(StyleIcon::showStyled('plus'), "#", ['onClick' => '$("#training' . $model->id . '").find(".trainingToggle").slideToggle();return false;', 'class' => 'red right-align']);
-    echo Html::endTag('p');
-}
+//if ($isCoach) {
+//    echo Html::beginTag('p', ['class' => 'text-right']);
+//    echo Html::a(StyleIcon::showStyled('plus'), "#", ['onClick' => '$("#training' . $model->id . '").find(".trainingToggle").slideToggle();return false;', 'class' => 'red right-align']);
+//    echo Html::endTag('p');
+//}
 echo Html::endTag('div');
 echo Html::endTag('div');
 echo Html::beginTag('div', ['class'=>'row plus']);
+if(Yii::$app->user->planningStyle=='short'){
+    
+    echo Html::beginTag('div', ['class' => 'col-sm-12']);
+    $attributes = [
+        'explanation:ntext',
+    ];
+    echo PdfView::widget([
+        'model' => $model,
+        'attributes' => $attributes,
+    ]);
+    echo Html::endTag('div');// col-sm-12
+}
 echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
 echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => 150, 'model' => $model, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
-echo Html::beginTag('div', ['class' => 'col-sm-12']);
-$attributes = [
-    'explanation:ntext',
-    'extra_comment:ntext'
-];
-if ($isCoach) {
-    array_push($attributes, 'rpe');
+if(Yii::$app->user->planningStyle=='short'){
+    
+    echo Html::beginTag('div', ['class' => 'col-sm-12']);
+    $attributes = [
+        'extra_comment:ntext'
+    ];
+    if ($isCoach) {
+        array_push($attributes, 'rpe');
+    }
+    echo PdfView::widget([
+        'model' => $model,
+        'attributes' => $attributes,
+    ]);
+    echo Html::endTag('div');// col-sm-12
 }
-echo DetailView::widget([
-    'model' => $model,
-    'attributes' => $attributes,
-]);
-echo Html::endTag('div');// col-sm-12
 echo Html::endTag('div');// dayToggle
 
 MyPjax::end();

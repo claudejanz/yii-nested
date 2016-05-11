@@ -28,6 +28,7 @@ body {
     background-color: @myBgGray;
 }
 
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -341,6 +342,13 @@ button.red{
     padding:0px;
 
 }
+button.red-btn{
+    background: @redColor;
+    border:1px solid transparent;
+    color:white;
+    .border-left-radius(3px);
+    .border-right-radius(3px);
+}
 .week{
 
 
@@ -410,9 +418,43 @@ div.trainingToggle{
 
 }
 
-.gradi{
-    #gradient > .vertical(@brand-success; darken(@brand-success, 7.5%));
-    background-size: contain;
+svg{
+    &.small{
+        polygon.gradi{
+            fill:url(../images/gradi.svg#SVGID_2_); 
+            stroke:none;
+        } 
+        path.gradi{
+            stroke:url(../images/gradi.svg#SVGID_2_);
+            fill:none;
+        } 
+    }
+
+}
+.graphWrapper{
+    svg{
+
+        polygon.gradi{
+            fill:url(../images/gradi.svg#SVGID_1_) ;
+            stroke:none;
+        } 
+        path.gradi{
+            stroke:url(../images/gradi.svg#SVGID_1_);
+            fill:none;
+        } 
+    }    
+}
+.week-graph{
+    svg{
+        polygon.gradi{
+            fill:url(../images/gradi.svg#SVGID_3_) ;
+            stroke:none;
+        } 
+        path.gradi{
+            stroke:url(../images/gradi.svg#SVGID_3_);
+            fill:none;
+        } 
+    }    
 }
 
 .sport-index{
@@ -507,22 +549,22 @@ span.sports{
 /*SPORTIF*/
 
 body.sportifs {
-        .collapsable{
-            &.collapsed{
-                display:none;
-            }
+    .collapsable{
+        &.collapsed{
+            display:none;
         }
+    }
     background-color: @mulaffBG;
-    
+
     >div>div.content {
         max-width: 800px;
         margin: 0 auto;
     }
-    
+
     .mulaffBtn {
         background-color: transparent;
         border: 0;
-      
+
         .fa-stack {
             width: 16px;
             height: 16px;
@@ -536,14 +578,14 @@ body.sportifs {
         } 
     }
     .week .dates {
-    background:none;
-    color:@white;
-    text-align:center;
-    font-weight: 200;
-    text-transform: uppercase;
-    padding: 0 0 20px 0;
-    font-size: 15px;
-    margin-bottom:@smallGap;
+        background:none;
+        color:@white;
+        text-align:center;
+        font-weight: 200;
+        text-transform: uppercase;
+        padding: 0 0 20px 0;
+        font-size: 15px;
+        margin-bottom:@smallGap;
     }
     .navbar-brand {
         color: @mulaff;
@@ -610,11 +652,7 @@ body.sportifs {
         &.week-graph{
             color:@white;
             padding: 50px 0;
-            svg{
-                polygon{
-                    fill:@white;
-                }
-            }
+
             .legends{
                 .overflow{
                     overflow:hidden;
@@ -649,7 +687,7 @@ body.sportifs {
     div .eachTraining {
         border-top: 1px solid @mulaffClear;
         &:last-child {
-            
+
         }
     }
     .trainingWrapper {
@@ -658,7 +696,7 @@ body.sportifs {
         color: @white;
         text-align: center;
         font-weight: 200;
-        
+
         .title {
             text-transform: none;
             background: none;
@@ -680,7 +718,7 @@ body.sportifs {
             height: auto;
             line-height: 30px;
             margin: 0;
-           .filterVendor(invert(0));
+            .filterVendor(invert(0));
 
         }
     }
@@ -713,8 +751,8 @@ body.sportifs {
     .all-sports {
     }
     .all-sports img{
-                width: 16px;
-                margin-left: 3px;
+        width: 16px;
+        margin-left: 3px;
         .filterVendor(invert(0));
 
     }
@@ -732,11 +770,7 @@ body.sportifs {
     }
 
     .graphWrapper {
-        svg{
-            polygon.gradi{
-                fill:@myBgGray;
-            }  
-        }
+
         padding: 20px 30px;
     }
     .table-bordered {

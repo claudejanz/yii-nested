@@ -20,7 +20,7 @@ use yii\web\View;
 
     <?php
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
-     echo Form::widget([
+    echo Form::widget([
         'model' => $model,
         'form' => $form,
         'columns' => 4,
@@ -30,15 +30,11 @@ use yii\web\View;
                 'widgetClass' => BooleanWidget::className(),
             ],
             'feeled_rpe' => [
-                'type' => Form::INPUT_WIDGET,
-                'widgetClass' => '\kartik\widgets\RangeInput',
+                'type' => Form::INPUT_DROPDOWN_LIST,
+                'items' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 'options' => [
-                    'html5Options' => ['min' => 1, 'max' => 10],
-                    'options' => ['readonly' => true],
-                ],
-//                'columnOptions'=>[
-//                  'colspan'=>2  
-//                ]
+                    'prompt' => Yii::t('app', 'Enter Rpe...'),
+                ]
             ],
             'km' => [
                 'type' => Form::INPUT_TEXT,
@@ -79,7 +75,7 @@ use yii\web\View;
             ],
         ]
     ]);
-   
+
 
     if (Yii::$app->request->isAjax) {
         echo AjaxSubmit::widget(['label' => $model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),

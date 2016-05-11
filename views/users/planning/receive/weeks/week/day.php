@@ -2,6 +2,7 @@
 
 use app\extentions\helpers\MyPjax;
 use app\extentions\StyleIcon;
+use app\models\Day;
 use app\models\Training;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
@@ -59,7 +60,10 @@ if ($day && $day->duration) {
     echo Html::endTag('div'); //timeDuration
     echo Html::beginTag('div', ['class' => 'all-sports']);
     foreach ($day->getIcons() as $icon) {
-        echo Html::img($icon, ['width' => 25, 'class' => 'svg']);
+       if($icon['count']>1){
+           echo $icon['count'].'x ';
+       }
+        echo Html::img($icon['url'], ['width' => 25, 'class' => 'svg']);
     }
     echo Html::endTag('div'); //sporticons
 }
@@ -98,10 +102,9 @@ echo Html::endTag('div'); //coll-sm-10
 echo Html::endTag('div'); //row
 echo Html::endTag('div'); //day
 
-$js = '$(function() {
-    $(".day").on("click",function(){
-        $(this).find(".collapsable").slideToggle();
-    });
+
+
+$js = '
     $( ".day" ).droppable({
         hoverClass: "hover",
         activeClass: "target",
@@ -125,7 +128,7 @@ $js = '$(function() {
         }
     });
     
-  });';
+  ';
 $this->registerJs($js);
 
 MyPjax::end();

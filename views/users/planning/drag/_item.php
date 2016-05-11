@@ -23,7 +23,7 @@ echo ' - ';
 echo Html::tag('span',$model->getShortTitle());
 echo Html::endTag('div');
 echo Html::beginTag('div',['class'=>'col-sm-4']);
-echo MulaffGraphWidgetV2::widget(['width'=>'100%','height'=>30,'model'=>$model,'attribute'=>'graph']);
+echo MulaffGraphWidgetV2::widget(['width'=>'100%','height'=>30,'model'=>$model,'attribute'=>'graph','graphOptions'=>['class'=>'small']]);
 echo Html::endTag('div');
 echo Html::endTag('div');
 echo Html::endTag('div');

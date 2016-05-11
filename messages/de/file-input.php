@@ -17,13 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'All relations' => '',
-    'All relations with inverse' => '',
-    'Are you sure you want to delete this item?' => '',
-    'Delete' => '',
-    'Duplicate' => '',
-    'Edit' => '',
-    'No relations' => '',
-    'Order' => '',
-    'Planning' => '',
+    'Change' => '',
+    'Remove' => '',
+    'Select file' => '',
+    'Select image' => '',
 ];

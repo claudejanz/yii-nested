@@ -9,7 +9,7 @@ use kartik\helpers\Html;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/* @var $model Week|null */
+/* @var $model Week | null */
 /* @var $dateTime DateTime */
 $color = 'info';
 $label = Yii::t('app', 'Not set');

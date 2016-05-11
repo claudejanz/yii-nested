@@ -17,8 +17,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    '\'model\' must be an instance of Week.' => '',
     'Colonne histogramme' => '',
     'Courbe de Bézier' => '',
     'Either \'value\', or \'model\' and \'attribute\' properties must be specified.' => '',
+    'Must have \'model\' to be specified.' => '',
     'The attribute "{attribute}" must be set in class "{class}"' => '',
 ];

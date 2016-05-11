@@ -101,7 +101,7 @@ class MulaffGraphWidgetV2 extends Widget
     private $rightDivOptions = [];
     private $leftDivOptions = [];
     private $legendOptions = [];
-    private $graphOptions = [];
+    public $graphOptions = [];
 
     public function init()
     {
@@ -202,65 +202,7 @@ class MulaffGraphWidgetV2 extends Widget
             $h = $m[1] * $this->height;
 
             if ($this->type == GraphTypeBehavior::GRAPH_TYPE_HISTOGRAMME) {
-                switch ($this->color) {
-                    case self::COLOR_GRAY:
-                        switch ($m[1]) {
-                            case 1:
-                                $style = 'fill:rgb(0,0,0)';
-                                break;
-                            case 0.8:
-                                $style = 'fill:rgb(50,50,50)';
-                                break;
-                            case 0.6:
-                                $style = 'fill:rgb(100,100,100)';
-                                break;
-                            case 0.4:
-                                $style = 'fill:rgb(150,150,150)';
-                                break;
-                            case 0.2:
-                                $style = 'fill:rgb(200,200,200)';
-                                break;
-                        }
-                        break;
-                    case self::COLOR_GRADIENT:
-                        switch ($m[1]) {
-                            case 1:
-                                $style = 'fill:url(#grad5)';
-                                break;
-                            case 0.8:
-                                $style = 'fill:url(#grad4)';
-                                break;
-                            case 0.6:
-                                $style = 'fill:url(#grad3)';
-                                break;
-                            case 0.4:
-                                $style = 'fill:url(#grad2)';
-                                break;
-                            case 0.2:
-                                $style = 'fill:' . $this->color1;
-                                break;
-                        }
-                        break;
-                    case self::COLOR_RAINBOW:
-                        switch ($m[1]) {
-                            case 1:
-                                $style = 'fill:' . $this->color5;
-                                break;
-                            case 0.8:
-                                $style = 'fill:' . $this->color4;
-                                break;
-                            case 0.6:
-                                $style = 'fill:' . $this->color3;
-                                break;
-                            case 0.4:
-                                $style = 'fill:' . $this->color2;
-                                break;
-                            case 0.2:
-                                $style = 'fill:' . $this->color1;
-                                break;
-                        }
-                        break;
-                }
+                
 
                 $points = $step . ',' . $bottom . ' ' . ($w + $step) . ',' . $bottom . ' ' . ($w + $step) . ',' . ($bottom - $h) . ' ' . $step . ',' . ($bottom - $h);
                 echo Html::tag('polygon', null, ['points' => $points, 'class' => 'gradi', 'title' => $m[2] . ' / ' . $this->formatTime($m[3])]);
@@ -277,7 +219,7 @@ class MulaffGraphWidgetV2 extends Widget
                 $cx2 = ($x2 + $x1) / 2;
                 $cy2 = $y2;
                 $prevPoint = [$x2, $y2];
-                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2", 'stroke' => "black", 'stroke-width' => '0.1%', 'fill' => 'none']);
+                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2", 'class'=>'gradi']);
             }
             $step+=$w;
         }

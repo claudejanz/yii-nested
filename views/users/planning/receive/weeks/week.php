@@ -24,6 +24,8 @@ $period = new DatePeriod($startDate, $interval, $endDate);
 $week = Week::findOne(['date_begin' => $weekId, 'sportif_id' => $model->id]);
 $days = ($week) ? $week->daysByDate : [];
 
+
+
 MyPjax::begin(['id' => 'week' . $weekId]);
 echo Html::beginTag('div', ['class' => 'week']);
 echo Html::beginTag('div', ['class' => 'ribbon-block']);
@@ -32,7 +34,7 @@ echo Html::beginTag('div', ['class' => 'ribbon-block']);
 
 // ribbon
 if ($isCoach) {
-    echo $this->render('ribbon', [
+    echo $this->render('week/ribbon', [
         'week' => $week,
     ]);
 }
@@ -59,7 +61,7 @@ echo Html::endTag('div');
 foreach ($period as $dateTime) {
     /* @var $dateTime DateTime */
     $dayId = $dateTime->format('Y-m-d');
-    echo $this->render('day', [
+    echo $this->render('week/day', [
         'dateTime' => $dateTime,
         'weekId' => $weekId,
         'dayId' => $dayId,

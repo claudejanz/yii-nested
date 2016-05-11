@@ -2,9 +2,9 @@
 
 namespace app\models;
 
+use app\extentions\behaviors\WeekPublishBehavior;
 use app\extentions\helpers\EuroDateTime;
 use app\models\base\WeekBase;
-use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use DateTime;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -23,8 +23,8 @@ class Week extends WeekBase
     {
         return array(
             'publish' => [
-                'class' => PublishBehavior::className(),
-                'value' => PublishBehavior::PUBLISHED_DRAFT,
+                'class' => WeekPublishBehavior::className(),
+                'value' => WeekPublishBehavior::PUBLISHED_CITY_EDIT,
             ],
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
@@ -101,7 +101,7 @@ class Week extends WeekBase
                         ->send();
     }
 
-    public function publish($value = PublishBehavior::PUBLISHED_ACTIF)
+    public function publish($value = WeekPublishBehavior::PUBLISHED_PLANING_DONE)
     {
         $this->published = $value;
         if ($this->save()) {
@@ -113,5 +113,8 @@ class Week extends WeekBase
         }
         return false;
     }
+    
+
+    
 
 }

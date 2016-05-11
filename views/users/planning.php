@@ -18,9 +18,11 @@ use yii\web\View;
 /* @var $isCoach booleen */
 
 MySortableAsset::register($this);
-Yii::$app->controller->page->title = Yii::t('app', 'Planning of {name}', ['name' => $model->fullname]);
-
-echo '<svg width="0" height="0"><defs><linearGradient id="grad2" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" style="stop-color:#FCC40B;stop-opacity:1"></stop><stop offset="50%" style="stop-color:#FCC40B;stop-opacity:1"></stop><stop offset="100%" style="stop-color:#3FC344;stop-opacity:1"></stop></linearGradient><linearGradient id="grad3" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" style="stop-color:#FCC40B;stop-opacity:1"></stop><stop offset="33.33%" style="stop-color:#FCC40B;stop-opacity:1"></stop><stop offset="66.66%" style="stop-color:#3FC344;stop-opacity:1"></stop><stop offset="100%" style="stop-color:#1f9445;stop-opacity:1"></stop></linearGradient><linearGradient id="grad4" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" style="stop-color:#FCC40B;stop-opacity:1"></stop><stop offset="25%" style="stop-color:#FCC40B;stop-opacity:1"></stop><stop offset="50%" style="stop-color:#3FC344;stop-opacity:1"></stop><stop offset="75%" style="stop-color:#1f9445;stop-opacity:1"></stop><stop offset="100%" style="stop-color:#f68e12;stop-opacity:1"></stop></linearGradient><linearGradient id="grad5" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" style="stop-color:#FCC40B;stop-opacity:1"></stop><stop offset="20%" style="stop-color:#FCC40B;stop-opacity:1"></stop><stop offset="40%" style="stop-color:#3FC344;stop-opacity:1"></stop><stop offset="60%" style="stop-color:#1f9445;stop-opacity:1"></stop><stop offset="80%" style="stop-color:#f68e12;stop-opacity:1"></stop><stop offset="100%" style="stop-color:#f60100;stop-opacity:1"></stop></linearGradient></defs></svg>';
+if (Yii::$app->user->id == $model->id) {
+    Yii::$app->controller->page->title = Yii::t('app', 'My Planning');
+} else {
+    Yii::$app->controller->page->title = Yii::t('app', 'Planning of {name}', ['name' => $model->fullname]);
+}
 
 
 echo Html::beginTag('div', ['class' => 'row']);

@@ -17,6 +17,7 @@ use claudejanz\contextAccessFilter\filters\ContextFilter;
 use claudejanz\toolbox\controllers\behaviors\PageBehavior;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use kartik\alert\Alert;
+use kartik\mpdf\Pdf;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -39,6 +40,7 @@ class UsersController extends MyController
                 'only' => [
                     'view',
                     'planning',
+                    'planning-pdf',
                     'training-create',
                     'update',
                     'delete',
@@ -76,6 +78,7 @@ class UsersController extends MyController
                     [
                         'actions' => [
                             'planning',
+                            'planning-pdf',
                             'update',
                             'day-update',
                             'reporting-update',
@@ -138,19 +141,19 @@ class UsersController extends MyController
      */
     public function actionPlanning($id, $date = 'now')
     {
-        Url::remember();
         $startDate = new EuroDateTime($date);
         $startDate->modify('Monday this week');
         $endDate = clone $startDate;
         $isCoach = Yii::$app->user->can('coach');
         if ($isCoach) {
-
-            $endDate->modify('+13days');
+            $endDate->modify(Yii::$app->user->planningLength);
         } else {
             $endDate->modify('+6days');
         }
         $searchModel = new TrainingTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
+
+        Url::remember();
         return $this->render('planning', [
                     'model' => $this->model,
                     'isCoach' => $isCoach,
@@ -159,6 +162,65 @@ class UsersController extends MyController
                     'dataProvider' => $dataProvider,
                     'searchModel' => $searchModel,
         ]);
+    }
+
+    /**
+     * Shows all plannings from a specific sportif in PDF Format.
+     * @return mixed
+     */
+    public function actionPlanningPdf($id, $date = 'now')
+    {
+        $startDate = new EuroDateTime($date);
+        $startDate->modify('Monday this week');
+        $endDate = clone $startDate;
+        $isCoach = Yii::$app->user->can('coach');
+        $endDate->modify(Yii::$app->user->planningLength);
+        $searchModel = new TrainingTypeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
+
+        $content = $this->renderPartial('planningPdf', [
+            'model' => $this->model,
+            'isCoach' => $isCoach,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+//        return $content;
+        // setup kartik\mpdf\Pdf component
+        $label = Yii::t('app', 'Planning for {name} from {date_begin} to {date_end}', [
+                'name' => $this->model->fullname,
+                'date_begin' => Yii::$app->formatter->asDate($startDate),
+                'date_end' => Yii::$app->formatter->asDate($endDate)
+                    ]);
+        
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_CORE,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            'options' => ['title' => $label],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader' => [$label],
+                'SetFooter' => ['{PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
     }
 
     /**
@@ -254,7 +316,7 @@ class UsersController extends MyController
 //        \yii\helpers\VarDumper::dump($model->getActiveValidators());
 //        die();
         if ($model->save()) {
-            return $this->render('planning/receive/training', [
+            return $this->render('planning/receive/weeks/week/training', [
                         'model' => $model,
                         'user' => $this->model,
                         'isCoach' => true,
@@ -360,15 +422,15 @@ class UsersController extends MyController
             $model->week_id = $training->day->week_id;
             $model->sport_id = $training->sport_id;
             $model->time = $training->time;
-        }else{
-           $training =  $model->training;
+        } else {
+            $training = $model->training;
         }
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model,'training'=>$training]));
+                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model, 'training' => $training]));
                 }
             } else {
                 if ($model->validate()) {
@@ -380,7 +442,7 @@ class UsersController extends MyController
             }
         }
 
-        return $this->render('/reportings/_form', ['model' => $model,'training'=>$training]);
+        return $this->render('/reportings/_form', ['model' => $model, 'training' => $training]);
     }
 
     /**

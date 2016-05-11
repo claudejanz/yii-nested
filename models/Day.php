@@ -13,7 +13,6 @@ use yii\db\Expression;
 /**
  * @property Training[] $trainingsWithSport
  */
-
 class Day extends DayBase
 {
 
@@ -143,8 +142,12 @@ class Day extends DayBase
             foreach ($this->trainingsWithSport as $training) {
                 if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
                     if (!isset($all[$training->sport_id])) {
-                        $all[$training->sport_id] = $training->sport->iconUrl;
+                        $all[$training->sport_id] = [
+                            'url' => $training->sport->iconUrl,
+                            'count' => 0
+                        ];
                     }
+                    $all[$training->sport_id]['count']++;
                 }
             }
             if (!empty($all)) {
