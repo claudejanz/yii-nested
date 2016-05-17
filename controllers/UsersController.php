@@ -34,87 +34,90 @@ class UsersController extends MyController
     public function behaviors()
     {
         return [
-            'context' => [
-                'class' => ContextFilter::className(),
+            'context'    => [
+                'class'     => ContextFilter::className(),
                 'modelName' => User::className(),
-                'only' => [
-                    'view',
+                'only'      => [
+                    'day-update',
+                    'day-validate-city',
+                    'delete',
                     'planning',
                     'planning-pdf',
                     'training-create',
-                    'update',
-                    'delete',
                     'training-delete',
                     'training-update',
-                    'week-publish',
                     'reporting-update',
-                    'day-update',
-                    'week-ready',
+                    'update',
+                    'view',
+                    'week-publish',
                     'week-fill',
+                    'week-ready',
                 ]
             ],
-            'access' => [
+            'access'     => [
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
                         'actions' => [
                             'index',
+                            'day-validate-city',
                             'view',
                             'training-create',
                             'training-delete',
                             'training-update',
                             'week-publish',
                         ],
-                        'allow' => true,
-                        'roles' => ['coaching'],
+                        'allow'   => true,
+                        'roles'   => ['coaching'],
                     ],
                     [
                         'actions' => [
                             'create',
                         ],
-                        'allow' => true,
-                        'roles' => ['coach'],
+                        'allow'   => true,
+                        'roles'   => ['coach'],
                     ],
                     [
                         'actions' => [
+                            'day-update',
                             'planning',
                             'planning-pdf',
-                            'update',
-                            'day-update',
                             'reporting-update',
+                            'update',
                             'week-ready',
                             'week-fill',
                         ],
-                        'allow' => true,
-                        'roles' => ['update user'],
+                        'allow'   => true,
+                        'roles'   => ['update user'],
                     ],
                 ],
             ],
-            'page' => [
-                'class' => PageBehavior::className(),
+            'page'       => [
+                'class'   => PageBehavior::className(),
                 'actions' => ['index']
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'verbs'      => [
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
             ],
             'negociator' => [
-                'class' => 'yii\filters\ContentNegotiator',
-                'only' => [
+                'class'   => 'yii\filters\ContentNegotiator',
+                'only'    => [
+                    'day-update',
+                    'day-validate-city',
                     'training-update',
+                    'reporting-update',
+                    'week-fill',
                     'week-publish',
                     'week-ready',
-                    'week-fill',
-                    'day-update',
-                    'reporting-update',
                 ], // in a controller
                 // if in a module, use the following IDs for user actions
                 // 'only' => ['user/view', 'user/index']
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
-                    'text/html' => Response::FORMAT_HTML,
+                    'text/html'        => Response::FORMAT_HTML,
                 ],
             ],
         ];
@@ -131,7 +134,7 @@ class UsersController extends MyController
 
         return $this->render('index', [
                     'dataProvider' => $dataProvider,
-                    'searchModel' => $searchModel,
+                    'searchModel'  => $searchModel,
         ]);
     }
 
@@ -155,12 +158,12 @@ class UsersController extends MyController
 
         Url::remember();
         return $this->render('planning', [
-                    'model' => $this->model,
-                    'isCoach' => $isCoach,
-                    'startDate' => $startDate,
-                    'endDate' => $endDate,
+                    'model'        => $this->model,
+                    'isCoach'      => $isCoach,
+                    'startDate'    => $startDate,
+                    'endDate'      => $endDate,
                     'dataProvider' => $dataProvider,
-                    'searchModel' => $searchModel,
+                    'searchModel'  => $searchModel,
         ]);
     }
 
@@ -179,41 +182,41 @@ class UsersController extends MyController
         $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
 
         $content = $this->renderPartial('planningPdf', [
-            'model' => $this->model,
-            'isCoach' => $isCoach,
-            'startDate' => $startDate,
-            'endDate' => $endDate,
+            'model'        => $this->model,
+            'isCoach'      => $isCoach,
+            'startDate'    => $startDate,
+            'endDate'      => $endDate,
             'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
         ]);
 //        return $content;
         // setup kartik\mpdf\Pdf component
         $label = Yii::t('app', 'Planning for {name} from {date_begin} to {date_end}', [
-                'name' => $this->model->fullname,
-                'date_begin' => Yii::$app->formatter->asDate($startDate),
-                'date_end' => Yii::$app->formatter->asDate($endDate)
-                    ]);
-        
+                    'name'       => $this->model->fullname,
+                    'date_begin' => Yii::$app->formatter->asDate($startDate),
+                    'date_end'   => Yii::$app->formatter->asDate($endDate)
+        ]);
+
         $pdf = new Pdf([
             // set to use core fonts only
-            'mode' => Pdf::MODE_CORE,
+            'mode'        => Pdf::MODE_CORE,
             // A4 paper format
-            'format' => Pdf::FORMAT_A4,
+            'format'      => Pdf::FORMAT_A4,
             // portrait orientation
             'orientation' => Pdf::ORIENT_LANDSCAPE,
             // stream to browser inline
             'destination' => Pdf::DEST_BROWSER,
             // your html content input
-            'content' => $content,
+            'content'     => $content,
             // format content from your own css file if needed or use the
             // enhanced bootstrap css built by Krajee for mPDF formatting 
-            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            'cssFile'     => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
             // any css to be embedded if required
-            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'cssInline'   => '.kv-heading-1{font-size:18px}',
             // set mPDF properties on the fly
-            'options' => ['title' => $label],
+            'options'     => ['title' => $label],
             // call mPDF methods on the fly
-            'methods' => [
+            'methods'     => [
                 'SetHeader' => [$label],
                 'SetFooter' => ['{PAGENO}'],
             ]
@@ -317,8 +320,8 @@ class UsersController extends MyController
 //        die();
         if ($model->save()) {
             return $this->render('planning/receive/weeks/week/training', [
-                        'model' => $model,
-                        'user' => $this->model,
+                        'model'   => $model,
+                        'user'    => $this->model,
                         'isCoach' => true,
             ]);
         } else {
@@ -401,6 +404,30 @@ class UsersController extends MyController
         }
 
         return $this->render('/days/_form', ['model' => $model]);
+    }
+
+    /**
+     * Updates Day datas
+     * 
+     * @param int $id
+     * @param string $date
+     * @return string
+     */
+    public function actionDayValidateCity($id, $date)
+    {
+        $model = Day::findOne(['sportif_id' => $id, 'date' => $date]);
+        if (!$model) {
+            $model = new Day();
+            $model->date = $date;
+            $model->sportif_id = $id;
+            $model->training_city = $this->model->city;
+        }
+        if ($model->save()) {
+
+            return $model->save();
+        } else {
+            return;
+        }
     }
 
     /**
