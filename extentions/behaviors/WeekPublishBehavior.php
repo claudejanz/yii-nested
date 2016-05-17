@@ -18,7 +18,7 @@ class WeekPublishBehavior extends Behavior
     const PUBLISHED_DELETED = 4;
 
     public $field = 'published';
-    public $value = self::PUBLISHED_PLANING_DONE;
+    public $value = self::PUBLISHED_CITY_EDIT;
 
     public function events()
     {
@@ -51,9 +51,9 @@ class WeekPublishBehavior extends Behavior
     public static function getPublishedColors()
     {
         return array(
-            self::PUBLISHED_CITY_EDIT => 'danger',
+            self::PUBLISHED_CITY_EDIT => 'yellow',
             self::PUBLISHED_CITY_DONE => 'warning',
-            self::PUBLISHED_PLANING_DONE => 'success',
+            self::PUBLISHED_PLANING_DONE => 'warning',
             self::PUBLISHED_DELETED => 'info'
         );
     }
@@ -69,7 +69,7 @@ class WeekPublishBehavior extends Behavior
     }
 
     /**
-     * @return string display text for the current Published
+     * @return string color for the current Published
      */
     public function getPublishedColor()
     {

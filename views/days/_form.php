@@ -3,6 +3,7 @@
 use app\models\Day;
 use claudejanz\toolbox\widgets\ajax\AjaxSubmit;
 use kartik\builder\Form;
+use kartik\datecontrol\DateControl;
 use kartik\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
@@ -30,7 +31,16 @@ use yii\widgets\ActiveForm as ActiveForm2;
 //            'week_id' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Week ID...']],
             'training_city' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Training City...', 'maxlength' => 1024]],
 //            'sportif_id' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Sportif ID...']],
-//            'date' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(), 'options' => ['type' => DateControl::FORMAT_DATE]],
+           'time'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options' => [
+            'type' => DateControl::FORMAT_TIME,
+            'options' => [
+                'pluginOptions' => [
+                    'defaultTime' => false
+                ]
+            ]
+        ]],
+             'comment' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Extra Comment...', 'rows' => 6]],
+            
 //            'created_by' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Created By...']],
 //            'updated_by' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Updated By...']],
 //            'created_at' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(), 'options' => ['type' => DateControl::FORMAT_DATETIME]],

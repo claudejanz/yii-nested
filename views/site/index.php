@@ -1,8 +1,8 @@
 <?php
 
 use app\extentions\helpers\MyPjax;
+use app\extentions\MyGridView;
 use app\models\search\SportifSearch;
-use kartik\grid\GridView;
 use yii\helpers\Html;
 
 /*
@@ -22,23 +22,11 @@ if(Yii::$app->user->can('admin'))echo $this->render('/users/_trainerSearch', ['m
       'modelClass' => 'User',
       ]), ['create'], ['class' => 'btn btn-success']) */ ?>
 </p>
-
 <?php
-echo GridView::widget([
+echo MyGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
-    'columns' => $searchModel->getColumns($this),
-    'responsive' => true,
-    'hover' => true,
-    'condensed' => true,
-    //'floatHeader' => true,
-    'panel' => [
-        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
-        'type' => 'info',
-        'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['users/create'], ['class' => 'btn btn-success','data-pjax'=>0]), 
-        'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
-        'showFooter' => false
-    ],
+//    'columns' => $searchModel->getColumns($this),
 ]);
 MyPjax::end();
 ?>
