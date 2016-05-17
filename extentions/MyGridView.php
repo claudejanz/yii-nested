@@ -19,7 +19,7 @@
 
 namespace app\extentions;
 
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
