@@ -374,6 +374,8 @@ class m140806_232625_create_db extends Migration
             'sportif_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'week_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'date' => Schema::TYPE_DATE . ' NOT NULL',
+            'time_dispo' => Schema::TYPE_TIME. ' NULL DEFAULT NULL',
+            'comment' => Schema::TYPE_TEXT. ' NULL DEFAULT NULL',
             'published' => Schema::TYPE_INTEGER . '(4) NOT NULL',
             'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',

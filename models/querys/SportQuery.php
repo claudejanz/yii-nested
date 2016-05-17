@@ -32,5 +32,4 @@ class SportQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
-    
 }

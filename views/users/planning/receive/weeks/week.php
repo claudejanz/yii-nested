@@ -49,7 +49,11 @@ if (isset($week) && isset($week->words_of_the_week)) {
 
 
 // dates 
-echo Html::beginTag('div', ['class' => 'dates animated flipInX']);
+$options = ['class' => 'dates'];
+    if (!Yii::$app->request->isAjax) {
+        Html::addCssClass($options, 'animated flipInX');
+    }
+echo Html::beginTag('div', $options);
 echo Yii::t('app', '{startDate} to {endDate}', [
     'startDate' => Yii::$app->formatter->asDate($startDate, 'd MMM'),
     'endDate' => Yii::$app->formatter->asDate($endDate->modify('-1 day'), 'd MMM \'\'yy'),

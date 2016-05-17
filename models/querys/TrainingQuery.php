@@ -2,27 +2,22 @@
 
 namespace app\models\querys;
 
-use app\models\Training;
-use Yii;
-use yii\caching\DbDependency;
-use yii\db\ActiveQuery;
-
 /**
  * This is the ActiveQuery class for [[\app\models\Training]].
  *
- * @see Training
+ * @see \app\models\Training
  */
-class TrainingQuery extends ActiveQuery
+class TrainingQuery extends \yii\db\ActiveQuery
 {
-    /* public function active()
-      {
-      $this->andWhere('[[status]]=1');
-      return $this;
-      } */
+    /*public function active()
+    {
+        $this->andWhere('[[status]]=1');
+        return $this;
+    }*/
 
     /**
      * @inheritdoc
-     * @return Training[]|array
+     * @return \app\models\Training[]|array
      */
     public function all($db = null)
     {
@@ -31,13 +26,10 @@ class TrainingQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Training|array|null
+     * @return \app\models\Training|array|null
      */
     public function one($db = null)
     {
         return parent::one($db);
     }
-
-    
-
 }

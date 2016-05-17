@@ -46,7 +46,7 @@ return 'reporting';
 public function rules()
 {
         return [
-            [['training_id', 'date', 'week_id', 'sport_id', 'km', 'feeled_rpe'], 'required'],
+            [['training_id', 'date', 'week_id', 'sport_id'], 'required'],
             [['training_id', 'week_id', 'sport_id', 'done', 'time_done', 'feeled_rpe', 'created_by', 'updated_by'], 'integer'],
             [['feedback'], 'string'],
             [['date', 'time', 'created_at', 'updated_at'], 'safe'],

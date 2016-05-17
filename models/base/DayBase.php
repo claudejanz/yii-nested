@@ -15,6 +15,8 @@ use app\models\Training;
     * @property integer $sportif_id
     * @property integer $week_id
     * @property string $date
+    * @property string $time_dispo
+    * @property string $comment
     * @property integer $published
     * @property integer $created_by
     * @property string $created_at
@@ -43,7 +45,8 @@ public function rules()
         return [
             [['training_city', 'sportif_id', 'week_id', 'date', 'published'], 'required'],
             [['sportif_id', 'week_id', 'published', 'created_by', 'updated_by'], 'integer'],
-            [['date', 'created_at', 'updated_at'], 'safe'],
+            [['date', 'time_dispo', 'created_at', 'updated_at'], 'safe'],
+            [['comment'], 'string'],
             [['training_city'], 'string', 'max' => 1024],
             [['sportif_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sportif_id' => 'id']],
             [['week_id'], 'exist', 'skipOnError' => true, 'targetClass' => Week::className(), 'targetAttribute' => ['week_id' => 'id']],
@@ -61,6 +64,8 @@ return [
     'sportif_id' => Yii::t('app', 'Sportif ID'),
     'week_id' => Yii::t('app', 'Week ID'),
     'date' => Yii::t('app', 'Date'),
+    'time_dispo' => Yii::t('app', 'Time Dispo'),
+    'comment' => Yii::t('app', 'Comment'),
     'published' => Yii::t('app', 'Published'),
     'created_by' => Yii::t('app', 'Created By'),
     'created_at' => Yii::t('app', 'Created At'),

@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
 //            'week_id' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Week ID...']],
             'training_city' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Training City...', 'maxlength' => 1024]],
 //            'sportif_id' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Sportif ID...']],
-           'time'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options' => [
+           'time_dispo'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options' => [
             'type' => DateControl::FORMAT_TIME,
             'options' => [
                 'pluginOptions' => [

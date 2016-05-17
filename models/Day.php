@@ -2,12 +2,14 @@
 
 namespace app\models;
 
+use app\extentions\behaviors\WeekPublishBehavior;
 use app\extentions\helpers\EuroDateTime;
 use app\models\base\DayBase;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\Expression;
 
 /**
@@ -20,7 +22,7 @@ class Day extends DayBase
     {
         return array(
             'publish' => [
-                'class' => PublishBehavior::className(),
+                'class' => WeekPublishBehavior::className(),
             ],
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
@@ -91,7 +93,7 @@ class Day extends DayBase
         }
     }
 
-    public function publish($value = PublishBehavior::PUBLISHED_ACTIF)
+    public function publish($value = WeekPublishBehavior::PUBLISHED_PLANING_DONE)
     {
         $this->published = $value;
         if ($this->save()) {

@@ -2,17 +2,12 @@
 
 namespace app\models\querys;
 
-use app\models\AuthAssignment;
-use Yii;
-use yii\caching\DbDependency;
-use yii\db\ActiveQuery;
-
 /**
  * This is the ActiveQuery class for [[\app\models\AuthAssignment]].
  *
- * @see AuthAssignment
+ * @see \app\models\AuthAssignment
  */
-class AuthAssignmentQuery extends ActiveQuery
+class AuthAssignmentQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -22,7 +17,7 @@ class AuthAssignmentQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return AuthAssignment[]|array
+     * @return \app\models\AuthAssignment[]|array
      */
     public function all($db = null)
     {
@@ -31,11 +26,10 @@ class AuthAssignmentQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return AuthAssignment|array|null
+     * @return \app\models\AuthAssignment|array|null
      */
     public function one($db = null)
     {
         return parent::one($db);
     }
-    
 }

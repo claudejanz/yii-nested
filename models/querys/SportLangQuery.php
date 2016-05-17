@@ -2,17 +2,12 @@
 
 namespace app\models\querys;
 
-use app\models\SportLang;
-use Yii;
-use yii\caching\DbDependency;
-use yii\db\ActiveQuery;
-
 /**
  * This is the ActiveQuery class for [[\app\models\SportLang]].
  *
- * @see SportLang
+ * @see \app\models\SportLang
  */
-class SportLangQuery extends ActiveQuery
+class SportLangQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -22,7 +17,7 @@ class SportLangQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return SportLang[]|array
+     * @return \app\models\SportLang[]|array
      */
     public function all($db = null)
     {
@@ -31,12 +26,10 @@ class SportLangQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return SportLang|array|null
+     * @return \app\models\SportLang|array|null
      */
     public function one($db = null)
     {
         return parent::one($db);
     }
-    
-   
 }
