@@ -2,21 +2,29 @@
 
 namespace app\models;
 
+use app\extentions\behaviors\WeekPublishBehavior;
 use app\models\base\TrainingBase;
-use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\Expression;
 
+/**
+ * This is the model class for table "training".
+ *
+ *
+ * @property Reporting[] $reportings
+ * @property string $duration
+ */
 class Training extends TrainingBase
 {
 
     public function behaviors()
     {
         return array(
-            'publish' => [
-                'class' => PublishBehavior::className(),
+            'publish'   => [
+                'class' => WeekPublishBehavior::className(),
             ],
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
@@ -40,18 +48,18 @@ class Training extends TrainingBase
     {
         if (!isset($this->{$attribute})) {
             if (!isset($this->sportif_id)) {
-                $this->addError($attribute, Yii::t('app', 'sportif_id must be set for {attribute} to be set',['attribute'=>$attribute]));
+                $this->addError($attribute, Yii::t('app', 'sportif_id must be set for {attribute} to be set', ['attribute' => $attribute]));
                 return;
             }
             if (!isset($this->date)) {
-                $this->addError($attribute, Yii::t('app', 'date must be set for {attribute} to be set',['attribute'=>$attribute]));
+                $this->addError($attribute, Yii::t('app', 'date must be set for {attribute} to be set', ['attribute' => $attribute]));
                 return false;
             }
             $model = Day::findOne(['date' => $this->date, 'sportif_id' => $this->sportif_id]);
             if (!$model) {
                 $model = new Day();
                 $model->setAttributes([
-                    'date' => $this->date,
+                    'date'       => $this->date,
                     'sportif_id' => $this->sportif_id,
                 ]);
                 if (!$model->validate()) {
@@ -76,7 +84,7 @@ class Training extends TrainingBase
         return substr($this->title, 0, 25) . '...';
     }
 
-    public function publish($value = PublishBehavior::PUBLISHED_ACTIF)
+    public function publish($value = WeekPublishBehavior::PUBLISHED_PLANING_DONE)
     {
         $this->published = $value;
         if ($this->save()) {
@@ -84,12 +92,13 @@ class Training extends TrainingBase
         }
         return false;
     }
+
     /**
-    * @return \yii\db\ActiveQuery
-    */
+     * @return ActiveQuery
+     */
     public function getReporting()
     {
-    return $this->hasOne(Reporting::className(), ['training_id' => 'id']);
+        return $this->hasOne(Reporting::className(), ['training_id' => 'id']);
     }
 
 }

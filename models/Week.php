@@ -15,6 +15,9 @@ use yii\helpers\ArrayHelper;
 
 /**
  * @property Day[] $daysByDate
+ * @property Reporting[] $reportingsByDate
+ * @property int[] $loadsByDate
+ * @property int[] $kmByDate
  */
 class Week extends WeekBase
 {
@@ -24,7 +27,6 @@ class Week extends WeekBase
         return array(
             'publish' => [
                 'class' => WeekPublishBehavior::className(),
-                'value' => WeekPublishBehavior::PUBLISHED_CITY_EDIT,
             ],
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
@@ -55,7 +57,7 @@ class Week extends WeekBase
             }
 
             $date = new DateTime($this->date_begin);
-            $this->{$attribute} = 'W' . $date->format('W');
+            $this->{$attribute} = 'W' . $date->format('w');
         }
     }
 
@@ -83,6 +85,19 @@ class Week extends WeekBase
             foreach ($reportings as $reporting) {
                 /* @var $reporting Reporting */
                 $data[$key]+=$reporting->load;
+            }
+        }
+        return $data;
+    }
+    public function getKmByDate()
+    {
+        if(!$this->getReportingsByDate())return null;
+        $data = [];
+        foreach ($this->getReportingsByDate() as $key => $reportings) {
+            $data[$key]=0;
+            foreach ($reportings as $reporting) {
+                /* @var $reporting Reporting */
+                $data[$key]+=$reporting->km;
             }
         }
         return $data;

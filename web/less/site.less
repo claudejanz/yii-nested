@@ -17,6 +17,15 @@
 @white: #2c1212;
 @black: black;
 
+@brand-yellow:                  #FECF00;
+@btn-yellow-color:              #333;
+@btn-yellow-bg:                 @brand-yellow;
+@btn-yellow-border:             darken(@btn-yellow-bg, 2%);
+
+@panel-black-text: #FFF; 
+@panel-black-heading-bg: #000;  
+@panel-black-border: #ccc; 
+
 /* style sheet */
 html {
     height: 100%;
@@ -95,6 +104,14 @@ body {
         background-color:gray;
     }
 }
+.btn-yellow {
+    .button-variant(@btn-yellow-color; @btn-yellow-bg; @btn-yellow-border);
+}
+
+.panel-black {
+    .panel-variant(@panel-black-border; @panel-black-text; @panel-black-heading-bg; @panel-black-border);
+}
+
 .ribbon-block{
     position: relative;
     .toggle-bt-cont{
@@ -186,6 +203,10 @@ body {
                 #gradient > .vertical(@brand-danger; darken(@brand-danger, 7.5%));
                 background-color:darken(@brand-danger, 7.5%);
             }
+            &.yellow{
+                #gradient > .vertical(@brand-yellow; darken(@brand-yellow, 7.5%));
+                background-color:darken(@brand-yellow, 7.5%);
+            }
             &.primary::before{
                 border-left: 3px solid darken(@brand-primary, 7.5%);
                 border-top: 3px solid darken(@brand-primary, 7.5%);
@@ -207,6 +228,10 @@ body {
                 border-left: 3px solid darken(@brand-danger, 7.5%);
                 border-top: 3px solid darken(@brand-danger, 7.5%);
             }
+            &.yellow::before{
+                border-left: 3px solid darken(@brand-yellow, 7.5%);
+                border-top: 3px solid darken(@brand-yellow, 7.5%);
+            }
             &.primary::after{
                 border-right: 3px solid darken(@brand-primary, 7.5%);
                 border-top: 3px solid darken(@brand-primary, 7.5%);
@@ -226,6 +251,10 @@ body {
             &.danger::after{
                 border-right: 3px solid darken(@brand-danger, 7.5%);
                 border-top: 3px solid darken(@brand-danger, 7.5%);
+            }
+            &.yellow::after{
+                border-right: 3px solid darken(@brand-yellow, 7.5%);
+                border-top: 3px solid darken(@brand-yellow, 7.5%);
             }
 
         }
@@ -342,12 +371,49 @@ button.red{
     padding:0px;
 
 }
+.button(){
+    .border-left-radius(3px);
+    .border-right-radius(3px);
+}
 button.red-btn{
     background: @redColor;
     border:1px solid transparent;
     color:white;
-    .border-left-radius(3px);
-    .border-right-radius(3px);
+    .button();
+
+}
+button.green-btn{
+    background: @brand-success;
+    border:1px solid transparent;
+    color:white;
+    .button();
+}
+button.blue-btn{
+    background: @brand-info;
+    border:1px solid transparent;
+    color:white;
+    .button();
+}
+.button2( @color){
+    .button();  
+     background-color:@color;
+    display:inline-block;
+}
+span.red-border{
+    border:3px dotted @redColor;
+    color:white;
+    .button2(@redColor);
+
+}
+span.green-border{
+    border:3px dotted @brand-success;
+    color:white;
+    .button2(@brand-success);
+}
+span.blue-border{
+    border:3px dotted @brand-info;
+    color:white;
+    .button2( @brand-info);
 }
 .week{
 
@@ -447,7 +513,7 @@ svg{
 .week-graph{
     svg{
         polygon.gradi{
-            fill:url(../images/gradi.svg#SVGID_3_) ;
+            fill:@brand-primary ;
             stroke:none;
         } 
         path.gradi{
@@ -509,18 +575,15 @@ svg{
     }
 }
 
-#sports>div {
-    padding-bottom: 50px;
-    >li {
-        border-bottom: 1px dashed black;
 
-    }
-}
 
 span.sports{
     font-family: 'sports';
     font-size: 1.5em;
     color: @redColor;
+}
+.sports .sport-icon.done{
+    fill:#FF0000;
 }
 
 .dayFormat {
@@ -548,7 +611,8 @@ span.sports{
 
 /*SPORTIF*/
 
-body.sportifs {
+@media (max-width: @screen-xs-max) {
+    background-color:#FF0000;
     .collapsable{
         &.collapsed{
             display:none;
@@ -925,4 +989,9 @@ body.coaches .bullet{
             }
         }
     }
+}
+
+
+.table-condensed > tbody > tr > td {
+    padding: 0px;
 }

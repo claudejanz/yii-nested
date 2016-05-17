@@ -5,6 +5,7 @@ use app\extentions\StyleIcon;
 use app\models\Day;
 use app\models\Training;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
+use claudejanz\toolbox\widgets\ajax\AjaxButton;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
 use yii\helpers\Url;
@@ -25,8 +26,8 @@ if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
 }
 $today = new DateTime('now');
-if($dayId == $today->format('Y-d-m')){
-   Html::addCssClass($options, 'currentDay'); 
+if ($dayId == $today->format('Y-d-m')) {
+    Html::addCssClass($options, 'currentDay');
 }
 echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'dayFormat']); //date
@@ -40,16 +41,44 @@ if ($day) {
     $text = $model->city;
 }
 echo Html::a($text, 'https://www.google.ch/search?q=meteo+' . $text, ['target' => '_blank']);
+
+if ($day) {
+    $labels = $day->attributeLabels();
+    if ($day->time_dispo) {
+        echo Html::tag('br') . Html::tag('b',$labels['time_dispo']).' - '.$day->time_dispo;
+    }
+    if ($day->comment) {
+        echo Html::tag('br').Html::tag('b', $labels['comment']).' - '.$day->comment;
+        
+    }
+} 
+
+if (!$day) {
+
+    echo ' ';
+    echo AjaxButton::widget([
+        'label'       => StyleIcon::showStyled('check'),
+        'encodeLabel' => false,
+        'url'         => ['day-validate-city', 'id' => $model->id, 'date' => $dayId],
+        'success'     => '#week' . $weekId,
+        'options'     => [
+            'title' => Yii::t('app', 'Update training city'),
+            'class' => 'red mulaffBtn'
+        ]
+    ]);
+}
 echo ' ';
 echo AjaxModalButton::widget([
-    'label' => StyleIcon::showStyled('edit'),
+    'label'       => StyleIcon::showStyled('edit'),
     'encodeLabel' => false,
-    'url' => ['day-update', 'id' => $model->id, 'date' => $dayId],
-    'success' => '#week' . $weekId,
-    'title' => Yii::t('app', 'Update training city'),
-    'options' => ['class' => 'red mulaffBtn']
+    'url'         => ['day-update', 'id' => $model->id, 'date' => $dayId],
+    'success'     => '#week' . $weekId,
+    'title'       => Yii::t('app', 'Update training city'),
+    'options'     => ['class' => 'red mulaffBtn']
 ]);
 echo Html::endTag('div'); //city and button
+
+
 
 echo Html::endTag('div'); //col-sm-12 col-md-9
 echo Html::beginTag('div', ['class' => 'col-xs-4 bullet text-right']);
@@ -60,9 +89,9 @@ if ($day && $day->duration) {
     echo Html::endTag('div'); //timeDuration
     echo Html::beginTag('div', ['class' => 'all-sports']);
     foreach ($day->getIcons() as $icon) {
-       if($icon['count']>1){
-           echo $icon['count'].'x ';
-       }
+        if ($icon['count'] > 1) {
+            echo $icon['count'] . 'x ';
+        }
         echo Html::img($icon['url'], ['width' => 25, 'class' => 'svg']);
     }
     echo Html::endTag('div'); //sporticons
@@ -73,11 +102,10 @@ echo Html::endTag('div'); //date
 
 $options = ['class' => 'row collapsable'];
 $today = new DateTime('now');
-if($dayId != $today->format('Y-d-m')){
-   Html::addCssClass($options, 'collapsed'); 
-}
-else {
-   Html::addCssClass($options, 'currentDay'); 
+if ($dayId != $today->format('Y-d-m')) {
+    Html::addCssClass($options, 'collapsed');
+} else {
+    Html::addCssClass($options, 'currentDay');
 }
 
 echo Html::beginTag('div', $options);
@@ -90,8 +118,8 @@ if ($day && isset($day->trainingsWithSport)) {
         /* @var $training Training */
         if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
             echo $this->render('training', [
-                'model' => $training,
-                'user' => $model,
+                'model'   => $training,
+                'user'    => $model,
                 'isCoach' => $isCoach,
             ]);
         }
