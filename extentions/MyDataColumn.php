@@ -62,7 +62,7 @@ class MyDataColumn extends DataColumn
         if (!isset($this->dateTime)) {
             return parent::renderFilterCell();
         }
-        return Html::tag('td', strtoupper($this->dateTime->format('dd EEEEEE')));
+        return Html::tag('td', strtoupper(Yii::$app->formatter->asDate($this->dateTime,'dd EEEEEE')));
     }
 
 }

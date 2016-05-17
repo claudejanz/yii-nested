@@ -26,7 +26,7 @@ if(Yii::$app->user->can('admin'))echo $this->render('/users/_trainerSearch', ['m
 echo MyGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
-//    'columns' => $searchModel->getColumns($this),
+    'columns' => $searchModel->getColumns($this),
 ]);
 MyPjax::end();
 ?>

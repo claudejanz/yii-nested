@@ -27,6 +27,7 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property Day[] | null $daysByDate write-only password
  */
 class User extends UserBase implements IdentityInterface
 {
@@ -339,6 +340,14 @@ class User extends UserBase implements IdentityInterface
                         ->setTo($this->email)
                         ->setSubject($title)
                         ->send();
+    }
+    
+      /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getDaysByDate()
+    {
+    return $this->hasMany(Day::className(), ['sportif_id' => 'id'])->indexBy('date');
     }
 
 }

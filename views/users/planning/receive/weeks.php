@@ -56,7 +56,9 @@ for(var i=0;i<a.length;i++) {
 $this->registerJs($js);
 // script to collapse days
 $js = '
-    $("body").on("click",".day",function(){
+    
+     $(document).on("click",".day",function(event){
+        
         $(this).find(".collapsable").slideToggle();
     });
     ';
