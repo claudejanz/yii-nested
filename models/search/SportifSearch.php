@@ -119,13 +119,17 @@ class SportifSearch extends User
                     },
                         ];
                         $cols[] = [
-                            'attribute' => 'contrat_start',
-                            'format'    => 'date',
-                                ];
-                        $cols[] = [
-                            'attribute' => 'contrat_end',
-                            'format'    => 'date',
-                                ];
+                            'label'  => Yii::t('app', 'Contrat'),
+                            'format' => 'raw',
+                            'value'  => function($model) {
+
+                                return Yii::$app->formatter->asDate($model->contrat_start,'short') . ' ' . Yii::$app->formatter->asDate($model->contrat_end,'short');
+                            },
+                        ];
+//                        $cols[] = [
+//                            'attribute' => 'contrat_end',
+//                            'format'    => 'date',
+//                        ];
 
                         $date = new EuroDateTime($this->date);
                         $date->modify('Monday this week');

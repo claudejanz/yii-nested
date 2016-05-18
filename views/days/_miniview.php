@@ -14,7 +14,7 @@ if (isset($model)) {
     $label = $model->getPublishedLabel();
 }
 $label .= ': '.Yii::$app->formatter->asDate($date);
-$linkText =  Yii::$app->formatter->asDate($date,'d');
+$linkText =  Yii::$app->formatter->asDate($date,'dd');
 echo Html::a($linkText, ['users/planning', 'id' => $id, 'date' => $date], [
     'data' => ['pjax' => 0],
     'class' => 'btn btn-' . $color.' btn-xs',
