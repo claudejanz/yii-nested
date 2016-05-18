@@ -14,7 +14,9 @@ use yii\helpers\Html;
 
 echo Html::tag('h2', Yii::t('app', 'My sportifs'));
 MyPjax::begin();
-if(Yii::$app->user->can('admin'))echo $this->render('/users/_trainerSearch', ['model' => $searchModel]); 
+if (Yii::$app->user->can('coach')) {
+    echo $this->render('/users/_trainerSearch', ['model' => $searchModel]);
+}
 ?>
 
 <p>

@@ -19,12 +19,13 @@ use yii\web\View;
  */
 class SportifSearch extends User
 {
-
+    public $date = 'now';
+    
     public function rules()
     {
         return [
             [['id', 'role', 'trainer_id', 'status', 'created_by', 'updated_by'], 'integer'],
-            [['firstname', 'lastname', 'address', 'city', 'npa', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'language', 'created_at', 'updated_at'], 'safe'],
+            [['date','firstname', 'lastname', 'address', 'city', 'npa', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'language', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -105,7 +106,7 @@ class SportifSearch extends User
                     },
                         ];
 
-                        $date = new EuroDateTime('now');
+                        $date = new EuroDateTime($this->date);
                         $date->modify('Monday this week');
                         $endDate = clone $date;
                         $endDate->modify('+1 month');
