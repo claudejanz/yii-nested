@@ -16,7 +16,7 @@ $dateEnd->modify('+6 days');
 $planningLink = Yii::$app->urlManager->createAbsoluteUrl(['users/planning','id'=>$user->id,'date'=>$date_begin]);
 ?>
 
-<h1>Salut <?= Html::encode($user->fullname) ?>,</h1>
+<h1>Salut <?= Html::encode($user->firstname) ?>,</h1>
 
 
 <p>Ton nouveau planinng du <b><?= Yii::$app->formatter->asDate($date); ?></b> au <b><?= Yii::$app->formatter->asDate($dateEnd); ?></b></p>

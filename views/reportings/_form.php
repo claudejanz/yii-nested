@@ -70,8 +70,10 @@ use yii\web\View;
                 'type' => Form::INPUT_TEXTAREA,
                 'options' => [
                     'placeholder' => 'Enter Feedback...',
-                    'rows' => 6
+                    'rows' => 6,
+                    'maxlength'=>255,
                 ],
+                    'hint'=>  Yii::t('app', 'Max 255 chars'),
             ],
         ]
     ]);

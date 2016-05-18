@@ -49,6 +49,7 @@ class MulaffWeekGraphWidget extends Widget
      * @var int the width value returned by the 
      */
     private $values;
+    private $valuesKm;
     private $matrix;
     private $matrixWidth;
     private $maxHeight;
@@ -68,14 +69,15 @@ class MulaffWeekGraphWidget extends Widget
             throw new InvalidConfigException(Yii::t('mulaff', 'The attribute "{attribute}" must be set in class "{class}"', ['attribute' => 'height', 'class' => __CLASS__]));
         }
         $this->values = $this->model->getLoadsByDate();
+        $this->valuesKm = $this->model->getKmByDate();
         $this->calaulateMatrix();
 
 
 
         $this->options = array_merge($this->options, [
-            'width' => '100%',
-            'height' => $this->height,
-            'viewBox' => '0 0 ' . $this->matrixWidth . ' ' . $this->height,
+            'width'               => '100%',
+            'height'              => $this->height,
+            'viewBox'             => '0 0 ' . $this->matrixWidth . ' ' . $this->height,
             'preserveAspectRatio' => 'none'
         ]);
     }
@@ -92,18 +94,21 @@ class MulaffWeekGraphWidget extends Widget
     {
         $step = 0;
         $bottom = $this->height;
-        $r = $this->height/$this->maxHeight;
-        foreach ($this->matrix as $m) {
-            $w = $m[0];
-            $h = $m[1]*$r;
+        if ($this->maxHeight) {
+
+            $r = $this->height / $this->maxHeight;
+            foreach ($this->matrix as $m) {
+                $w = $m[0];
+                $h = $m[1] * $r;
 
 
 
 
-            $points = $step . ',' . $bottom . ' ' . ($w + $step) . ',' . $bottom . ' ' . ($w + $step) . ',' . ($bottom - $h) . ' ' . $step . ',' . ($bottom - $h);
-            echo Html::tag('polygon', null, ['points' => $points, 'class' => 'gradi', 'title' => $m[2] . ' - ' . $h]);
+                $points = $step . ',' . $bottom . ' ' . ($w + $step) . ',' . $bottom . ' ' . ($w + $step) . ',' . ($bottom - $h) . ' ' . $step . ',' . ($bottom - $h);
+                echo Html::tag('polygon', null, ['points' => $points, 'class' => 'gradi', 'title' => $m[2] . ' - ' . $h]);
 
-            $step+=$w + $this->gap;
+                $step+=$w + $this->gap;
+            }
         }
     }
 
@@ -133,11 +138,12 @@ class MulaffWeekGraphWidget extends Widget
         $w = $this->colWidth;
         foreach ($period as $dateTime) {
             $date = $dateTime->format('Y-m-d');
+            $km = (isset($this->valuesKm[$date])) ? $this->valuesKm[$date].' km' : '';
             $h = (isset($this->values[$date])) ? $this->values[$date] : 0;
             if ($h > $this->maxHeight) {
                 $this->maxHeight = $h;
             }
-            $matrix[] = [$w, $h, Yii::$app->formatter->asDate($dateTime, 'short')];
+            $matrix[] = [$w, $h, Yii::$app->formatter->asDate($dateTime, 'short'), $km];
             $step+=$w + $this->gap;
         }
         $this->matrixWidth = $step - $this->gap;
@@ -166,7 +172,7 @@ class MulaffWeekGraphWidget extends Widget
             if ($key != 0) {
                 echo Html::tag('div', '&nbsp;', $optionsSep);
             }
-            echo Html::tag('div', $m[1] . '<br>' . $m[2], $optionsCol);
+            echo Html::tag('div', $m[1] . '<br>' . $m[2] . '<br>' . $m[3], $optionsCol);
         }
         echo Html::endTag('div');
     }

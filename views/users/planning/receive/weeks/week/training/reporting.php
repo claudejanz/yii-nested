@@ -37,7 +37,6 @@ if ($model->reporting) {
         'success'     => '#week' . date('Y-m-d',strtotime($model->week->date_begin)),
         'options'     => [
             'class' => 'red-btn',
-            'onclick'=>new \yii\web\JsExpression('event.stopPropagation()'),
         ],
     ]);
 }

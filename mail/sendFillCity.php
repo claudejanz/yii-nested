@@ -14,10 +14,10 @@ $dateEnd->modify('+6 days');
 $planningLink = Yii::$app->urlManager->createAbsoluteUrl(['users/planning', 'id' => $model->id, 'date' => $date_begin]);
 ?>
 
-<h1>Salut <?= Html::encode($model->fullname) ?>,</h1>
+<h1>Salut <?= Html::encode($model->firstname) ?>,</h1>
 
 
-<p>Pourrais-tu enregistrer tes dates pour la semaine du <b><?= Yii::$app->formatter->asDate($date); ?></b> au <b><?= Yii::$app->formatter->asDate($dateEnd); ?></b> afin que je puisse faire ton planning.</p>
+<p>Merci d'indiquer tes lieux d'entraînement et ta disponibilité pour la semaine du <b><?= Yii::$app->formatter->asDate($date); ?></b> au <b><?= Yii::$app->formatter->asDate($dateEnd); ?></b> afin que je puisse faire ton planning.</p>
 <?php
 ?><p>Clique le lien ci-dessous pour l'editer:</p>
 

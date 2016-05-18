@@ -24,27 +24,24 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     $sports = (!empty($sportName)) ? join(', ', $sportName) : null;
     echo DetailView::widget([
-        'model' => $model,
-//            'condensed'=>false,
-//            'hover'=>true,
-//            'mode'=>Yii::$app->request->get('edit')=='t' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
-//            'panel'=>[
-//            'heading'=>$this->title,
-//            'type'=>DetailView::TYPE_INFO,
-//        ],
+        'model'      => $model,
         'attributes' => [
-//            'id',
             'username',
+            [
+                'attribute' => 'gender',
+                'value'     => $model->getGenderLabel(),
+            ],
             'firstname',
             'lastname',
             'address',
             'npa',
             'city',
             'tel',
+            'birthday:date',
             'email:email',
             [
-                'label' => Sport::getLabel(2),
-                'value' => $sports,
+                'label'  => Sport::getLabel(2),
+                'value'  => $sports,
                 'format' => 'raw'
             ],
 //            'auth_key',
@@ -56,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'comments',
-                'format' => 'ntext',
+                'format'    => 'ntext',
             ]
 //            'status',
 //            'created_by',

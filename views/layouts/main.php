@@ -4,7 +4,6 @@ use app\assets\AppAsset;
 use app\models\Address;
 use app\models\Page;
 use claudejanz\toolbox\widgets\ajax\AjaxModal;
-use kartik\social\GoogleAnalytics;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;

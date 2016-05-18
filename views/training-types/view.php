@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'graph:ntext',
             'graph_type',
             'published',
-            'created_by',
+//            'created_by',
 //            [
 //                'attribute'=>'created_at',
 //                'format'=>['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A'],

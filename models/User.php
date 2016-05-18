@@ -56,11 +56,11 @@ class User extends UserBase implements IdentityInterface
             'blameable' => [
                 'class' => BlameableBehavior::className(),
             ],
-            'relation' => [
-                'class' => ManyToManyBehavior::className(),
+            'relation'  => [
+                'class'     => ManyToManyBehavior::className(),
                 'relations' => [
                     [
-                        'name' => 'sports',
+                        'name'              => 'sports',
                         // This is the same as in previous example
                         'editableAttribute' => 'editableSports',
                     ],
@@ -94,7 +94,7 @@ class User extends UserBase implements IdentityInterface
     public function attributeLabels()
     {
         return array_merge([
-            'fullname' => Yii::t('app', 'Full name'),
+            'fullname'    => Yii::t('app', 'Full name'),
             'trainername' => Yii::t('app', 'Trainer name'),
                 ], parent::attributeLabels());
     }
@@ -145,7 +145,7 @@ class User extends UserBase implements IdentityInterface
 
         return static::findOne([
                     'password_reset_token' => $token,
-                    'status' => self::STATUS_ACTIVE,
+                    'status'               => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -279,9 +279,9 @@ class User extends UserBase implements IdentityInterface
     {
 
         return array(
-            self::ROLE_SPORTIF => 'sportif',
-            self::ROLE_COACH => 'coach',
-            self::ROLE_ADMIN => 'admin',
+            self::ROLE_SPORTIF    => 'sportif',
+            self::ROLE_COACH      => 'coach',
+            self::ROLE_ADMIN      => 'admin',
             self::ROLE_SUPERADMIN => 'super admin',
         );
     }
@@ -299,9 +299,25 @@ class User extends UserBase implements IdentityInterface
     {
 
         return array(
-            self::STATUS_ACTIVE => Yii::t('app', 'Actif'),
+            self::STATUS_ACTIVE  => Yii::t('app', 'Actif'),
             self::STATUS_DELETED => Yii::t('app', 'Deleted'),
         );
+
+    }
+
+    const GENDER_FEMALE = 1;
+    const GENDER_MALE = 2;
+    
+     public static function getGenderOptions() {
+         return array(
+            self::GENDER_FEMALE  => Yii::t('app', 'Male'),
+            self::GENDER_MALE => Yii::t('app', 'Female'),
+        );
+    }
+    
+    public function getGenderLabel() {
+        $options = self::getGenderOptions();
+        return isset($options[$this->gender]) ? $options[$this->gender] : "unknown role ($this->gender)";
     }
 
     public function getFullname()
@@ -341,13 +357,15 @@ class User extends UserBase implements IdentityInterface
                         ->setSubject($title)
                         ->send();
     }
-    
-      /**
-    * @return \yii\db\ActiveQuery
-    */
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getDaysByDate()
-    {
-    return $this->hasMany(Day::className(), ['sportif_id' => 'id'])->indexBy('date');
-    }
+  {
+        return $this->hasMany(Day::className(), ['sportif_id' => 'id'])->indexBy('date');
+  }
+
+    
 
 }
