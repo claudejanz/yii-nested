@@ -7,7 +7,6 @@ use app\extentions\PdfView;
 use app\extentions\StyleIcon;
 use app\models\Training;
 use app\models\User;
-use app\widgets\DoneDisplayWidget;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
 use yii\helpers\Url;
@@ -114,11 +113,6 @@ echo Html::endTag('p');
 echo Html::endTag('div');
 echo Html::endTag('div');
 
-echo Html::beginTag('div', ['class' => 'row']);
-echo Html::beginTag('div', ['class' => 'col-sm-12']);
-echo $this->render('training/reporting', ['model' => $model, 'user' => $user]);
-echo Html::endTag('div');
-echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'row plus']);
 if (Yii::$app->user->planningStyle == 'short') {
@@ -154,4 +148,11 @@ if (Yii::$app->user->planningStyle == 'short') {
 echo Html::endTag('div'); // dayToggle
 
 echo Html::endTag('div'); //sporticons
+
+
+echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-sm-12']);
+echo $this->render('training/reporting', ['model' => $model, 'user' => $user]);
+echo Html::endTag('div');
+echo Html::endTag('div');
 MyPjax::end();

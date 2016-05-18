@@ -14,7 +14,7 @@ use yii\db\Expression;
  * This is the model class for table "training".
  *
  *
- * @property Reporting[] $reportings
+ * @property Reporting $reporting
  * @property string $duration
  */
 class Training extends TrainingBase

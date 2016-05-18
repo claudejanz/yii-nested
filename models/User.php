@@ -96,6 +96,7 @@ class User extends UserBase implements IdentityInterface
         return array_merge([
             'fullname'    => Yii::t('app', 'Full name'),
             'trainername' => Yii::t('app', 'Trainer name'),
+            'editableSports' => Yii::t('app', 'Editable Sports'),
                 ], parent::attributeLabels());
     }
 

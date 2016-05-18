@@ -30,6 +30,8 @@ class m130524_201442_init extends \yii\db\Migration
             'trainer_id' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'birthday' => Schema::TYPE_DATETIME . '  NOT NULL',
             'gender' => Schema::TYPE_SMALLINT . '  NOT NULL',
+            'contrat_start' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'contrat_end' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 10',
             'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',

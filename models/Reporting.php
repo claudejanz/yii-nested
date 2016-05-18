@@ -33,7 +33,8 @@ class Reporting extends ReportingBase
     {
 
         return array_merge([
-            ['done','validateLoad']
+            ['done','validateLoad'],
+            ['done','default','value'=>0]
                 ], parent::rules());
     }
     

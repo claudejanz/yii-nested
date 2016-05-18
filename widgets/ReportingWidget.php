@@ -81,27 +81,32 @@ class ReportingWidget extends Widget
 
         echo $this->renderDone();
 
-        if ($this->model->reporting && $this->model->reporting->done) {
+        if ($this->model->reporting) {
+            if ($this->model->reporting->done) {
 
-            // Training KM
-            if ($this->model->reporting->km) {
+                // Training KM
+                if ($this->model->reporting->km) {
 
-                echo $this->renderKm();
+                    echo $this->renderKm();
+                }
+
+                // Training Feeled Rpe
+                if ($this->model->reporting->feeled_rpe) {
+
+                    echo $this->renderFeeledRpe();
+                }
+                // Training Load
+                if ($this->model->reporting->getLoad()) {
+                    echo $this->renderLoad();
+                }
+                // Training time
+                echo $this->renderTime();
             }
+            if ($this->model->reporting->feedback) {
 
-            // Training Feeled Rpe
-            if ($this->model->reporting->feeled_rpe) {
-
-                echo $this->renderFeeledRpe();
+                echo $this->renderFeedback();
             }
-            // Training Load
-            if ($this->model->reporting->getLoad()) {
-                echo $this->renderLoad();
-            }
-            // Training time
-            echo $this->renderTime();
         }
-
         echo $this->renderEdit();
 
         echo Html::endTag('div');
@@ -205,8 +210,8 @@ class ReportingWidget extends Widget
                         'id'          => $user->id,
                         'training_id' => $model->id
                     ],
-                    'title'       => Yii::t('app', 'Update report: {title}', ['title' => $model->title]),
-                    'success'     => '#week' . date('Y-m-d',strtotime($model->week->date_begin)),
+                    'title'       => Yii::t('app', 'Update feedback: {title}', ['title' => $model->title]),
+                    'success'     => '#week' . date('Y-m-d', strtotime($model->week->date_begin)),
                     'options'     => [
                         'class' => 'red-btn',
                     ],
@@ -226,11 +231,19 @@ class ReportingWidget extends Widget
                         'training_id' => $model->id
                     ],
 //                    'title'       => Yii::t('app', 'Update report: {title}', ['title' => $model->title]),
-                    'success'     =>'#week' . date('Y-m-d',strtotime($model->week->date_begin)),
+                    'success'     => '#week' . date('Y-m-d', strtotime($model->week->date_begin)),
                     'options'     => [
                         'class' => 'red-btn',
                     ],
         ]);
+    }
+
+    public function renderFeedback() {
+        $model = $this->model;
+        $return = Yii::t('app', 'Training Comment: ');
+        $return .=Yii::$app->formatter->asNtext($model->reporting->feedback);
+        $return .= Html::tag('br');
+        return $return;
     }
 
 }

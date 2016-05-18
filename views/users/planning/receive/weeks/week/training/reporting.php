@@ -3,6 +3,7 @@
 use app\models\Training;
 use app\widgets\ReportingWidget;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
+use yii\helpers\Html;
 
 /*
  * Copyright (C) 2016 Claude
@@ -21,7 +22,8 @@ use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /* @var $model Training */
-
+echo Html::beginTag('fieldset');
+echo Html::tag('legend',  Yii::t('app', 'Feedback'));
 if ($model->reporting) {
     echo ReportingWidget::widget(['model' => $model, 'attribute' => 'done', 'user' => $user]);
 } else {
@@ -40,7 +42,7 @@ if ($model->reporting) {
         ],
     ]);
 }
-
+echo Html::endTag('fieldset');
 
 
 

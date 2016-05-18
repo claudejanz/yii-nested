@@ -19,13 +19,14 @@ use yii\web\View;
  */
 class SportifSearch extends User
 {
+
     public $date = 'now';
-    
+
     public function rules()
     {
         return [
             [['id', 'role', 'trainer_id', 'status', 'created_by', 'updated_by'], 'integer'],
-            [['date','firstname', 'lastname', 'address', 'city', 'npa', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'language', 'created_at', 'updated_at'], 'safe'],
+            [['contrat_start', 'contrat_end', 'birthday', 'gender', 'date', 'firstname', 'lastname', 'address', 'city', 'npa', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'language', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -33,6 +34,14 @@ class SportifSearch extends User
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+    public function attributeLabels()
+    {
+        return array_merge([
+            'date'           => Yii::t('app', 'Date'),
+            'editableSports' => Yii::t('app', 'Editable Sports'),
+                ], parent::attributeLabels());
     }
 
     public function search($params)
@@ -56,14 +65,18 @@ class SportifSearch extends User
         }
 
         $query->andFilterWhere([
-            'id'         => $this->id,
-            'role'       => $this->role,
-            'trainer_id' => $this->trainer_id,
-            'status'     => $this->status,
-            'created_by' => $this->created_by,
-            'created_at' => $this->created_at,
-            'updated_by' => $this->updated_by,
-            'updated_at' => $this->updated_at,
+            'id'            => $this->id,
+            'role'          => $this->role,
+            'trainer_id'    => $this->trainer_id,
+            'status'        => $this->status,
+            'created_by'    => $this->created_by,
+            'created_at'    => $this->created_at,
+            'updated_by'    => $this->updated_by,
+            'updated_at'    => $this->updated_at,
+            'contrat_start' => $this->contrat_start,
+            'contrat_end'   => $this->contrat_end,
+            'birthday'      => $this->birthday,
+            'gender'        => $this->gender,
         ]);
 
         $query->andFilterWhere(['like', 'firstname', $this->firstname])
@@ -90,21 +103,29 @@ class SportifSearch extends User
     public function getColumns($view)
     {
         $cols = [];
+
         $cols[] = [
+            'attribute' => 'lastname',
+            'format'    => 'raw',
+            'value'     => function($model) {
+                return Html::a($model->lastname, ['users/update', 'id' => $model->id], ['data' => ['pjax' => 0]]);
+            },
+                ];
+                $cols[] = [
                     'attribute' => 'firstname',
                     'format'    => 'raw',
                     'value'     => function($model) {
                         return Html::a($model->firstname, ['users/update', 'id' => $model->id], ['data' => ['pjax' => 0]]);
                     },
-                ];
-
-                $cols[] = [
-                    'attribute' => 'lastname',
-                    'format'    => 'raw',
-                    'value'     => function($model) {
-                        return Html::a($model->lastname, ['users/update', 'id' => $model->id], ['data' => ['pjax' => 0]]);
-                    },
                         ];
+                        $cols[] = [
+                            'attribute' => 'contrat_start',
+                            'format'    => 'date',
+                                ];
+                        $cols[] = [
+                            'attribute' => 'contrat_end',
+                            'format'    => 'date',
+                                ];
 
                         $date = new EuroDateTime($this->date);
                         $date->modify('Monday this week');

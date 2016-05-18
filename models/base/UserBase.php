@@ -31,6 +31,8 @@ use app\models\Week;
     * @property integer $trainer_id
     * @property string $birthday
     * @property integer $gender
+    * @property string $contrat_start
+    * @property string $contrat_end
     * @property integer $status
     * @property integer $created_by
     * @property string $created_at
@@ -64,7 +66,7 @@ public function rules()
             [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'language', 'birthday', 'gender'], 'required'],
             [['comments'], 'string'],
             [['role', 'trainer_id', 'gender', 'status', 'created_by', 'updated_by'], 'integer'],
-            [['birthday', 'created_at', 'updated_at'], 'safe'],
+            [['birthday', 'contrat_start', 'contrat_end', 'created_at', 'updated_at'], 'safe'],
             [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['language'], 'string', 'max' => 5],
@@ -98,6 +100,8 @@ return [
     'trainer_id' => Yii::t('app', 'Trainer ID'),
     'birthday' => Yii::t('app', 'Birthday'),
     'gender' => Yii::t('app', 'Gender'),
+    'contrat_start' => Yii::t('app', 'Contrat Start'),
+    'contrat_end' => Yii::t('app', 'Contrat End'),
     'status' => Yii::t('app', 'Status'),
     'created_by' => Yii::t('app', 'Created By'),
     'created_at' => Yii::t('app', 'Created At'),
