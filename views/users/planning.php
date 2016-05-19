@@ -25,6 +25,7 @@ if (Yii::$app->user->id == $model->id) {
 }
 
 echo Html::beginTag('div', ['class' => 'row']);
+
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-8' : 'col-sm-12']);
 echo $this->render('planning/receive/weeks', [
     'startDate' => $startDate,
@@ -32,7 +33,8 @@ echo $this->render('planning/receive/weeks', [
     'model'     => $model,
     'isCoach'   => $isCoach,
 ]);
-echo Html::endTag('div');
+echo Html::endTag('div'); // col
+
 if ($isCoach) {
 
     echo Html::beginTag('div', ['class' => 'col-sm-4 hidden-xs']);
@@ -46,7 +48,7 @@ if ($isCoach) {
     echo Html::endTag('div');
     echo Html::endTag('div');
 }
-echo Html::endTag('div');
+echo Html::endTag('div');// row 
 
 $this->registerJs("
         var affix = $('div[data-spy=\"affix\"]'), 

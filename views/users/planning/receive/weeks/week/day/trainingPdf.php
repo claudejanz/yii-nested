@@ -1,7 +1,7 @@
 <?php
 
 use app\extentions\MulaffGraphWidget;
-use app\extentions\PdfView;
+use app\extentions\MyDetailView;
 use app\models\Training;
 use app\models\User;
 use kartik\helpers\Html;
@@ -35,7 +35,7 @@ $attributes = [
     'explanation:ntext',
 ];
   
-echo PdfView::widget([
+echo MyDetailView::widget([
     'model' => $model,
     'attributes' => $attributes,
     'class'=>'nonr'
@@ -48,7 +48,7 @@ if ($isCoach) {
     array_push($attributes, 'rpe');
 }
   
-echo PdfView::widget([
+echo MyDetailView::widget([
     'model' => $model,
     'attributes' => $attributes,
     'class'=>'nonr'

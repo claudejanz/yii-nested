@@ -1,5 +1,6 @@
 <?php
 
+use app\extentions\WebUser;
 use yii\helpers\Html;
 use yii\web\User;
 
@@ -25,14 +26,40 @@ use yii\web\User;
 /* @var $isCoach booleen */
 
 echo Html::beginTag('div', ['class' => 'row']);
-foreach ($period as $dateTime) {
-    echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
-    echo $this->render('week', [
-        'date' => $dateTime,
-        'weekId' => $dateTime->format('Y-m-d'),
-        'model' => $model,
-        'isCoach' => $isCoach,
-    ]);
-    echo Html::endTag('div');
+
+switch (Yii::$app->user->planningStyle) {
+
+    case WebUser::VIEWSTYLE_COACH:
+        foreach ($period as $key => $dateTime) {
+            if ($key < 2) {
+                echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
+            }
+            echo $this->render('week', [
+                'date'    => $dateTime,
+                'weekId'  => $dateTime->format('Y-m-d'),
+                'model'   => $model,
+                'isCoach' => $isCoach,
+                'isLight' => ($key == 0) ? true : false,
+            ]);
+            if ($key == 0) {
+                echo Html::endTag('div');
+            }
+        }
+        echo Html::endTag('div');
+        break;
+    case WebUser::VIEWSTYLE_NORMAL:
+    default :
+        foreach ($period as $dateTime) {
+            echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
+            echo $this->render('week', [
+                'date'    => $dateTime,
+                'weekId'  => $dateTime->format('Y-m-d'),
+                'model'   => $model,
+                'isCoach' => $isCoach,
+                'isLight' => false,
+            ]);
+            echo Html::endTag('div');
+        }
+        break;
 }
-echo Html::endTag('div');//row
+echo Html::endTag('div'); //row

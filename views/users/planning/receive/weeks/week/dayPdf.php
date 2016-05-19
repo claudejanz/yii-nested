@@ -45,7 +45,7 @@ if ($day && isset($day->trainingsWithSport)) {
     foreach ($trainings as $training) {
         /* @var $training Training */
         if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
-            echo $this->render('trainingPdf', [
+            echo $this->render('day/trainingPdf', [
                 'model' => $training,
                 'user' => $model,
                 'isCoach' => $isCoach,

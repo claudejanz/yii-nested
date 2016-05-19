@@ -1,8 +1,5 @@
 <?php
 
-use yii\helpers\Html;
-use yii\web\User;
-
 /*
  * Copyright (C) 2016 Claude
  *
@@ -20,18 +17,30 @@ use yii\web\User;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $period DatePeriod */
-/* @var $model User */
-/* @var $isCoach booleen */
-//echo Html::beginTag('div',['class'=>'table-responsive']);
-echo Html::beginTag('table',['class'=>'table table-condensed']);
-foreach ($period as $dateTime) {
-    echo $this->render('weekLine', [
-        'date' => $dateTime,
-        'weekId' => $dateTime->format('Y-m-d'),
-        'model' => $model,
-        'isCoach' => $isCoach,
-    ]);
+namespace app\models\forms;
+
+use Yii;
+use yii\base\Model;
+
+/**
+ * Description of ViewStyleForm
+ *
+ * @author Claude
+ */
+class ViewStyleForm extends Model
+{
+
+    public $viewStyle;
+
+    public function init() {
+        parent::init();
+        $this->viewStyle = Yii::$app->user->viewStyle;
 }
-echo Html::endTag('table');
-//echo Html::endTag('div');
+
+    public function attributeLabels(){
+        return [
+            'viewStyle' => 'View style',
+        ];
+    }
+
+}

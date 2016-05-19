@@ -15,10 +15,12 @@ use yii\web\User;
 /* @var $models Training[] */
 /* @var $model User */
 /* @var $isCoach booleen */
+/* @var $isLight booleen */
 /* @var $dateTime DateTime */
 /* @var $weekId string */
 /* @var $dayId string */
 /* @var $day Day */
+
 
 MyPjax::begin(['id' => 'day' . $dayId]);
 $options = ['class' => 'day white-block', 'data' => ['date' => $dayId, 'week' => $weekId]];
@@ -30,75 +32,16 @@ if ($dayId == $today->format('Y-d-m')) {
     Html::addCssClass($options, 'currentDay');
 }
 echo Html::beginTag('div', $options);
-echo Html::beginTag('div', ['class' => 'dayFormat']); //date
-echo Html::beginTag('div', ['class' => 'row']);
-echo Html::beginTag('div', ['class' => 'col-xs-8']);
-echo Yii::$app->formatter->asDate($dateTime, 'EEEE, d');
-echo Html::beginTag('div', ['class' => 'cityFormat']); //city and button
-if ($day) {
-    $text = $day->training_city;
-} else {
-    $text = $model->city;
-}
-echo Html::a($text, 'https://www.google.ch/search?q=meteo+' . $text, ['target' => '_blank']);
-
-if ($day) {
-    $labels = $day->attributeLabels();
-    if ($day->time_dispo) {
-        echo Html::tag('br') . Html::tag('b',$labels['time_dispo']).' - '.$day->time_dispo;
-    }
-    if ($day->comment) {
-        echo Html::tag('br').Html::tag('b', $labels['comment']).' - '.$day->comment;
-        
-    }
-} 
-
-if (!$day) {
-
-    echo ' ';
-    echo AjaxButton::widget([
-        'label'       => StyleIcon::showStyled('check'),
-        'encodeLabel' => false,
-        'url'         => ['day-validate-city', 'id' => $model->id, 'date' => $dayId],
-        'success'     => '#week' . $weekId,
-        'options'     => [
-            'title' => Yii::t('app', 'Update training city'),
-            'class' => 'red mulaffBtn'
-        ]
-    ]);
-}
-echo ' ';
-echo AjaxModalButton::widget([
-    'label'       => StyleIcon::showStyled('edit'),
-    'encodeLabel' => false,
-    'url'         => ['day-update', 'id' => $model->id, 'date' => $dayId],
-    'success'     => '#week' . $weekId,
-    'title'       => Yii::t('app', 'Update training city'),
-    'options'     => ['class' => 'red mulaffBtn']
+echo $this->render('day/day-header', [
+    'dateTime' => $dateTime,
+    'day'      => $day,
+    'model'    => $model,
+    'dayId'    => $dayId,
+    'weekId'   => $weekId,
+    'weekId'   => $weekId,
+    'isCoach'  => $isCoach,
+    'isLight'  => $isLight,
 ]);
-echo Html::endTag('div'); //city and button
-
-
-
-echo Html::endTag('div'); //col-sm-12 col-md-9
-echo Html::beginTag('div', ['class' => 'col-xs-4 bullet text-right']);
-if ($day && $day->duration) {
-
-    echo Html::beginTag('div', ['class' => 'timeDuration']);
-    echo $day->duration . "<br>";
-    echo Html::endTag('div'); //timeDuration
-    echo Html::beginTag('div', ['class' => 'all-sports']);
-    foreach ($day->getIcons() as $icon) {
-        if ($icon['count'] > 1) {
-            echo $icon['count'] . 'x ';
-        }
-        echo Html::img($icon['url'], ['width' => 25, 'class' => 'svg']);
-    }
-    echo Html::endTag('div'); //sporticons
-}
-echo Html::endTag('div'); //col-sm-12 col-md-3 text-center
-echo Html::endTag('div'); //row
-echo Html::endTag('div'); //date
 
 $options = ['class' => 'row collapsable'];
 $today = new DateTime('now');
@@ -117,10 +60,16 @@ if ($day && isset($day->trainingsWithSport)) {
     foreach ($trainings as $training) {
         /* @var $training Training */
         if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
-            echo $this->render('training', [
+            echo $this->render('day/training', [
                 'model'   => $training,
                 'user'    => $model,
-                'isCoach' => $isCoach,
+                'dateTime' => $dateTime,
+                'day'      => $day,
+                'dayId'    => $dayId,
+                'weekId'   => $weekId,
+                'weekId'   => $weekId,
+                'isCoach'  => $isCoach,
+                'isLight'  => $isLight,
             ]);
         }
     }

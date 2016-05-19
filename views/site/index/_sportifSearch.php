@@ -1,26 +1,25 @@
 <?php
 
 use app\extentions\helpers\EuroDateTime;
-use app\models\search\UserSearch;
+use app\models\search\SportifSearch;
 use app\models\User;
 use kartik\builder\Form;
 use kartik\form\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\web\View;
 
 /**
  * @var View $this
- * @var UserSearch $model
+ * @var SportifSearch $model
  * @var ActiveForm $form
  */
 ?>
 
-<div class="user-search">
+<div class="sportif-search">
 
     <?php
     $form = ActiveForm::begin([
-//        'action' => ['index'],
+                'action'  => ['index'],
                 'method'  => 'get',
                 'options' => [
                     'data-pjax' => '',

@@ -77,8 +77,6 @@ class SiteController extends MyController
 
     public function actionIndex()
     {
-//        $model = Page::find()->select('id')->andWhere(['home_page'=>1])->one(); 
-//        return $this->redirect(['pages/view','id'=>$model->id]);
         if (Yii::$app->user->can('coach')) {
 
             $searchModel = new SportifSearch;

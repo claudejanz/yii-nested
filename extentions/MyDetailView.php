@@ -28,7 +28,7 @@ use yii\widgets\DetailView;
  *
  * @author Claude
  */
-class PdfView extends DetailView
+class MyDetailView extends DetailView
 {
 
     /**

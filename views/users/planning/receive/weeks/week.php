@@ -1,7 +1,6 @@
 <?php
 
 use app\extentions\helpers\MyPjax;
-use app\extentions\StyleIcon;
 use app\models\Training;
 use app\models\Week;
 use kartik\helpers\Html;
@@ -11,6 +10,7 @@ use yii\web\User;
 /* @var $models Training[] */
 /* @var $model User */
 /* @var $isCoach booleen */
+/* @var $isLight booleen */
 /* @var $weekId string */
 
 $startDate = $date;
@@ -33,7 +33,7 @@ echo Html::beginTag('div', ['class' => 'ribbon-block']);
 
 
 // ribbon
-if ($isCoach) {
+if ($isCoach && !$isLight) {
     echo $this->render('week/ribbon', [
         'week' => $week,
     ]);
@@ -71,6 +71,7 @@ foreach ($period as $dateTime) {
         'dayId' => $dayId,
         'day' => isset($days[$dayId])?$days[$dayId]:null,
         'isCoach' => $isCoach,
+        'isLight' => $isLight,
         'model' => $model,
     ]);
 }

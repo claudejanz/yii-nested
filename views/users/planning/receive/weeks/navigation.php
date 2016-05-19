@@ -1,5 +1,9 @@
 <?php
 
+use app\extentions\WebUser;
+use app\models\forms\ViewStyleForm;
+use kartik\builder\Form;
+use kartik\form\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -19,10 +23,14 @@ use yii\helpers\Url;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+/* @var $user User */
+/* @var $startDate DateTime */
 $linkDate = clone $startDate;
 $linkDate->modify('-7 days');
 $optionsLeft=['class' => 'col-xs-6'];
-$optionsRight=['class' => 'col-xs-6 animated fadeInRight'];
+$optionsRight=['class' => 'col-xs-6'];
+$optionsBottom=['class' => 'col-xs-12'];
+
 if (!Yii::$app->request->isAjax) {
     Html::addCssClass($optionsLeft, 'animated fadeInLeft');
     Html::addCssClass($optionsRight, 'animated fadeInRight');
@@ -37,4 +45,36 @@ $linkDate->modify('+7 days');
 echo Html::beginTag('div', $optionsRight);
 echo Html::a(Yii::t('app', 'Next Week'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
 echo Html::endTag('div');
-echo Html::endTag('div');
+
+echo Html::beginTag('div', $optionsBottom);
+ $form = ActiveForm::begin([
+                'action'  => ['planning','id'=>$user->id,'date'=>$startDate->format('Y-m-d')],
+                'method'  => 'get',
+                'options' => [
+                    'data-pjax' => '',
+                    'class'     => 'kneubuhler'
+                ]
+    ]);
+ $fields = [];
+    $fields['viewStyle'] = [
+        'type'    => Form::INPUT_DROPDOWN_LIST,
+        'items'   => WebUser::getViewStyleOptions(),
+        'options' => [
+//            'prompt'   => ucfirst($model->viewStyle),
+            'class'    => 'form-control',
+            'onchange' => '$(this).parents("form:first").submit();',
+        ]
+    ];
+ echo Form::widget([
+        'model'      => new ViewStyleForm(),
+        'form'       => $form,
+//        'contentBefore' => Html::tag('legend', Yii::t('app', 'Profile data')),
+        'columns'    => 2,
+        'attributes' => $fields,
+    ]);
+
+
+    ActiveForm::end();
+echo Html::endTag('div');//col
+
+echo Html::endTag('div');//row

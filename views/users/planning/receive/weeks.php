@@ -1,9 +1,8 @@
 <?php
 
 use app\extentions\helpers\MyPjax;
+use app\extentions\WebUser;
 use app\models\Training;
-use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\models\User;
 
 /* @var $startDate DateTime */
@@ -21,27 +20,15 @@ $period = new DatePeriod($startDate, $interval, $endDate);
 
 MyPjax::begin(['id' => 'weeks']);
 //echo $this->render('weeks/view-style');
-echo $this->render('weeks/navigation', ['startDate' => $startDate]);
+echo $this->render('weeks/navigation', ['startDate' => $startDate, 'user' => $model]);
 
-switch (Yii::$app->user->planningStyle) {
+echo $this->render('weeks/list', [
+    'period'  => $period,
+    'model'   => $model,
+    'isCoach' => $isCoach,
+]);
 
-    case 'middle':
-        echo $this->render('weeks/grid', [
-            'period' => $period,
-            'model' => $model,
-            'isCoach' => $isCoach,
-        ]);
-        break;
-    case 'short':
-    default :
-        echo $this->render('weeks/list', [
-            'period' => $period,
-            'model' => $model,
-            'isCoach' => $isCoach,
-        ]);
-        break;
-}
-echo $this->render('weeks/navigation', ['startDate' => $startDate]);
+echo $this->render('weeks/navigation', ['startDate' => $startDate, 'user' => $model]);
 MyPjax::end();
 $js = 'var a=document.getElementsByTagName("a");
 for(var i=0;i<a.length;i++) {

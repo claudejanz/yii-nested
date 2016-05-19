@@ -91,7 +91,7 @@ if ($week) {
         ]);
     }
     if ($isCoach || $week->published >= app\extentions\behaviors\WeekPublishBehavior::PUBLISHED_PLANING_DONE) {
-        echo ' ' . Html::a(StyleIcon::showStyled('file-pdf-o') . ' ' . Yii::t('app', 'Week PDF'), Url::to(['planning-pdf', 'id' => $model->id, 'date' => $startDate->format('Y-m-d'), 'viewStyle' => 'pdf']), ['class' => 'red', 'target' => '_blank', 'data-pjax' => 0]);
+        echo ' ' . Html::a(StyleIcon::showStyled('file-pdf-o') . ' ' . Yii::t('app', 'Week PDF'), Url::to(['planning-pdf', 'id' => $model->id, 'date' => $startDate->format('Y-m-d'), 'ViewStyleForm[viewStyle]' => 'pdf']), ['class' => 'red', 'target' => '_blank', 'data-pjax' => 0]);
     }
 }
 echo Html::endTag('div'); //col-sm-12

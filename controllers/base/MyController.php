@@ -65,8 +65,8 @@ class MyController extends Controller
     {
         $app = Yii::$app;
         $params = $app->request->getQueryParams();
-        if (isset($params['viewStyle'])) {
-            Yii::$app->user->setViewStyle($params['viewStyle']);
+        if (isset($params['ViewStyleForm']['viewStyle'])) {
+            Yii::$app->user->setViewStyle($params['ViewStyleForm']['viewStyle']);
         }
     }
 

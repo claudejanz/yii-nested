@@ -26,27 +26,30 @@ use yii\web\User;
  * Description of WebUser
  *
  * @author Claude
- * @property string $planningStyle Getter and Setter for 
+ * @property string $viewStyle Getter and Setter for setting view style
+ * @property string $planningLength Getter to get length for selecting elements
  */
 class WebUser extends User
 {
 
     public function getPlanningStyle()
     {
-        return $this->getViewStyle();
+        return $this->viewStyle;
     }
 
-    
+    const VIEWSTYLE_NORMAL = 'normal';
+    const VIEWSTYLE_COACH = 'coach';
+    const VIEWSTYLE_PDF = 'pdf';
 
     public function getPlanningLength()
     {
-        switch ($this->getViewStyle()) {
-            case 'short':
+        switch ($this->viewStyle) {
+            case self::VIEWSTYLE_NORMAL:
                 return '+13days';
-            case 'middle':
-                return '+1month';
+            case self::VIEWSTYLE_COACH:
+                return '+20days';
                 break;
-            case 'pdf':
+            case self::VIEWSTYLE_PDF:
                 return '+6days';
                 break;
             default:
@@ -61,11 +64,11 @@ class WebUser extends User
     {
         if (!$this->_viewStyle)
             switch ($style) {
-                case 'short':
-                case 'middle':
+                case self::VIEWSTYLE_NORMAL:
+                case self::VIEWSTYLE_COACH:
                     Yii::$app->session->set('planningStyle', $style);
                     break;
-                case 'pdf':
+                case self::VIEWSTYLE_PDF:
                 default:
                     break;
             }
@@ -76,9 +79,16 @@ class WebUser extends User
     public function getViewStyle()
     {
         if (!$this->_viewStyle) {
-            $this->_viewStyle = Yii::$app->session->get('planningStyle', 'short');
+            $this->_viewStyle = Yii::$app->session->get('planningStyle', self::VIEWSTYLE_NORMAL);
         }
         return $this->_viewStyle;
+    }
+
+    public static function getViewStyleOptions() {
+        return [
+            self::VIEWSTYLE_COACH  => Yii::t('app', 'VIEWSTYLE_COACH'),
+            self::VIEWSTYLE_NORMAL => Yii::t('app', 'VIEWSTYLE_NORMAL'),
+        ];
     }
 
 }

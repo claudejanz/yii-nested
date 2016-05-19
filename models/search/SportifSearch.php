@@ -22,6 +22,8 @@ class SportifSearch extends User
 
     public $date = 'now';
 
+   
+
     public function rules()
     {
         return [
@@ -41,6 +43,7 @@ class SportifSearch extends User
         return array_merge([
             'date'           => Yii::t('app', 'Date'),
             'editableSports' => Yii::t('app', 'Editable Sports'),
+            'viewStyle'      => Yii::t('app', 'View style'),
                 ], parent::attributeLabels());
     }
 
@@ -95,6 +98,8 @@ class SportifSearch extends User
         return $dataProvider;
     }
 
+    
+
     /**
      * 
      * @param View $view
@@ -119,17 +124,13 @@ class SportifSearch extends User
                     },
                         ];
                         $cols[] = [
-                            'label'  => Yii::t('app', 'Contrat'),
-                            'format' => 'raw',
-                            'value'  => function($model) {
-
-                                return Yii::$app->formatter->asDate($model->contrat_start,'short') . ' ' . Yii::$app->formatter->asDate($model->contrat_end,'short');
-                            },
+                            'attribute' => 'contrat_start',
+                            'format'    => 'date',
                         ];
-//                        $cols[] = [
-//                            'attribute' => 'contrat_end',
-//                            'format'    => 'date',
-//                        ];
+                        $cols[] = [
+                            'attribute' => 'contrat_end',
+                            'format'    => 'date',
+                        ];
 
                         $date = new EuroDateTime($this->date);
                         $date->modify('Monday this week');
