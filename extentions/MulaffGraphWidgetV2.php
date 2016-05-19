@@ -148,9 +148,9 @@ class MulaffGraphWidgetV2 extends Widget
 
         $this->calaulateMatrix();
         $this->graphOptions = array_merge($this->graphOptions, [
-            'viewBox' => '0 0 ' . $this->matrixWidth . ' ' . $this->height,
-            'width' => '100%',
-            'height' => $this->height,
+            'viewBox'             => '0 0 ' . $this->matrixWidth . ' ' . $this->height,
+            'width'               => '100%',
+            'height'              => $this->height,
             'preserveAspectRatio' => 'none'
         ]);
 
@@ -205,10 +205,10 @@ class MulaffGraphWidgetV2 extends Widget
             $h = $m[1] * $this->height;
 
             if ($this->type == GraphTypeBehavior::GRAPH_TYPE_HISTOGRAMME) {
-                
+
 
                 $points = $step . ',' . $bottom . ' ' . ($w + $step) . ',' . $bottom . ' ' . ($w + $step) . ',' . ($bottom - $h) . ' ' . $step . ',' . ($bottom - $h);
-                echo Html::tag('polygon', null, ['fill'=>'url(#gardient_'.$this->id.')','points' => $points, 'class' => 'gradi', 'title' => $m[2] . ' / ' . $this->formatTime($m[3])]);
+                echo Html::tag('polygon', null, ['fill' => 'url(#' . $this->id . ')', 'points' => $points, 'class' => 'gradi', 'title' => $m[2] . ' / ' . $this->formatTime($m[3])]);
             } else {
                 $x1 = $prevPoint[0];
                 $y1 = $prevPoint[1];
@@ -222,7 +222,7 @@ class MulaffGraphWidgetV2 extends Widget
                 $cx2 = ($x2 + $x1) / 2;
                 $cy2 = $y2;
                 $prevPoint = [$x2, $y2];
-                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2",'stroke'=>'url(#gardient_'.$this->id.')']);
+                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2", 'fill'=>'none','stroke' => 'url(#' . $this->id . ')']);
             }
             $step+=$w;
         }
@@ -247,8 +247,8 @@ class MulaffGraphWidgetV2 extends Widget
         $fontHeigth = $this->fontHeight;
         for ($i = 1; $i < 6; $i++) {
             echo Html::tag('text', 'I' . $i, [
-                'x' => 0,
-                'y' => $bottom - ($i * 0.20 * $this->height) + ($fontHeigth / 2),
+                'x'    => 0,
+                'y'    => $bottom - ($i * 0.20 * $this->height) + ($fontHeigth / 2),
                 'fill' => 'gray',
             ]);
         }
@@ -262,10 +262,10 @@ class MulaffGraphWidgetV2 extends Widget
         $fontWidth = 0;
         for ($i = 1; $i < 6; $i++) {
             echo Html::tag('line', null, [
-                'x1' => $fontWidth,
-                'y1' => $bottom - ($i * 0.20 * $this->height),
-                'x2' => $this->matrixWidth,
-                'y2' => $bottom - ($i * 0.20 * $this->height),
+                'x1'    => $fontWidth,
+                'y1'    => $bottom - ($i * 0.20 * $this->height),
+                'x2'    => $this->matrixWidth,
+                'y2'    => $bottom - ($i * 0.20 * $this->height),
                 'style' => 'stroke:gray;stroke-width:0.3%',
             ]);
         }
@@ -312,21 +312,32 @@ class MulaffGraphWidgetV2 extends Widget
 
     public function renderGradDef() {
         echo Html::beginTag('defs');
-        echo Html::beginTag('linearGradient',[
-            'id'=>'gardient_'.$this->id,
-            'gradientUnits'=>'userSpaceOnUse',
-            'x1'=>'0%',
-            'y1'=>'100%',
-            'x2'=>'0%',
-            'y2'=>'0%'
+        echo Html::beginTag('linearGradient', [
+            'id'            => $this->id,
+            'gradientUnits' => 'userSpaceOnUse',
+            'x1'            => '0%',
+            'y1'            => '100%',
+            'x2'            => '0%',
+            'y2'            => '0%'
         ]);
-        echo Html::tag('stop',null,['offset'=>'13.01%','style'=>'stop-color:#FAC413']);
-        echo Html::tag('stop',null,['offset'=>'34.62%','style'=>'stop-color:#49B749']);
-        echo Html::tag('stop',null,['offset'=>'56.24%','style'=>'stop-color:#1F9447']);
-        echo Html::tag('stop',null,['offset'=>'76.24%','style'=>'stop-color:#F6901E']);
-        echo Html::tag('stop',null,['offset'=>'100%','style'=>'stop-color:#ED1C24']);
+        echo Html::tag('stop', null, ['offset' => '13.01%', 'style' => 'stop-color:#FAC413']);
+        echo Html::tag('stop', null, ['offset' => '34.62%', 'style' => 'stop-color:#49B749']);
+        echo Html::tag('stop', null, ['offset' => '56.24%', 'style' => 'stop-color:#1F9447']);
+        echo Html::tag('stop', null, ['offset' => '76.24%', 'style' => 'stop-color:#F6901E']);
+        echo Html::tag('stop', null, ['offset' => '100%', 'style' => 'stop-color:#ED1C24']);
         echo Html::endTag('linearGradient');
         echo Html::endTag('defs');
     }
+
+    private $_id;
+
+    public function getId($autoGenerate = true)
+   {
+        if ($autoGenerate && $this->_id === null) {
+            $this->_id = 'gradient_' . static::$counter++ . time();
+        }
+
+        return $this->_id;
+   }
 
 }
