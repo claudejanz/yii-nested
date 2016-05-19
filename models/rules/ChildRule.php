@@ -30,6 +30,6 @@ class ChildRule extends Rule{
     public $name = 'isChild';
     
     public function execute($user, $item, $params) {
-        return isset($params['model']) ? $params['model']->role <= Yii::$app->user->identity->role : false;
+        return isset($params['model'])&&Yii::$app->user->identity ? $params['model']->role <= Yii::$app->user->identity->role : false;
     }
 }

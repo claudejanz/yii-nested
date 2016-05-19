@@ -9,11 +9,11 @@
 namespace app\extentions;
 
 use app\models\behaviors\GraphTypeBehavior;
+use kartik\helpers\Html;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 /**
  * Description of MulaffGraphWidget
@@ -92,7 +92,6 @@ class MulaffGraphWidgetV2 extends Widget
 
     const COLOR_GRAY = 1;
     const COLOR_GRADIENT = 2;
-    const COLOR_RAINBOW = 3;
 
     /**
      * @var int the width value returned by the 
@@ -118,8 +117,8 @@ class MulaffGraphWidgetV2 extends Widget
         if (!isset($this->type)) {
             $this->type = GraphTypeBehavior::GRAPH_TYPE_HISTOGRAMME;
         }
-        if (!isset($this->color) || !in_array($this->color, [self::COLOR_GRAY, self::COLOR_GRADIENT, self::COLOR_RAINBOW])) {
-            $this->color = self::COLOR_GRAY;
+        if (!isset($this->color) || !in_array($this->color, [self::COLOR_GRAY, self::COLOR_GRADIENT])) {
+            $this->color = self::COLOR_GRADIENT;
         }
         Html::addCssStyle($this->options, 'display:inline-block');
         Html::addCssStyle($this->options, 'width:' . $this->width);
@@ -179,8 +178,12 @@ class MulaffGraphWidgetV2 extends Widget
 
             echo Html::beginTag('div', $this->rightDivOptions);
             echo Html::beginTag('svg', $this->graphOptions);
-            if ($this->withLines)
+            if ($this->color == self::COLOR_GRADIENT) {
+                $this->renderGradDef();
+            }
+            if ($this->withLines) {
                 $this->renderLines();
+            }
             $this->renderGraph();
             echo Html::endTag('svg');
             echo Html::endTag('div');
@@ -205,7 +208,7 @@ class MulaffGraphWidgetV2 extends Widget
                 
 
                 $points = $step . ',' . $bottom . ' ' . ($w + $step) . ',' . $bottom . ' ' . ($w + $step) . ',' . ($bottom - $h) . ' ' . $step . ',' . ($bottom - $h);
-                echo Html::tag('polygon', null, ['points' => $points, 'class' => 'gradi', 'title' => $m[2] . ' / ' . $this->formatTime($m[3])]);
+                echo Html::tag('polygon', null, ['fill'=>'url(#gardient_'.$this->id.')','points' => $points, 'class' => 'gradi', 'title' => $m[2] . ' / ' . $this->formatTime($m[3])]);
             } else {
                 $x1 = $prevPoint[0];
                 $y1 = $prevPoint[1];
@@ -219,7 +222,7 @@ class MulaffGraphWidgetV2 extends Widget
                 $cx2 = ($x2 + $x1) / 2;
                 $cy2 = $y2;
                 $prevPoint = [$x2, $y2];
-                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2", 'class'=>'gradi']);
+                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2",'stroke'=>'url(#gardient_'.$this->id.')']);
             }
             $step+=$w;
         }
@@ -305,6 +308,25 @@ class MulaffGraphWidgetV2 extends Widget
         }
         $this->matrixWidth = $step;
         $this->matrix = $matrix;
+    }
+
+    public function renderGradDef() {
+        echo Html::beginTag('defs');
+        echo Html::beginTag('linearGradient',[
+            'id'=>'gardient_'.$this->id,
+            'gradientUnits'=>'userSpaceOnUse',
+            'x1'=>'0%',
+            'y1'=>'100%',
+            'x2'=>'0%',
+            'y2'=>'0%'
+        ]);
+        echo Html::tag('stop',null,['offset'=>'13.01%','style'=>'stop-color:#FAC413']);
+        echo Html::tag('stop',null,['offset'=>'34.62%','style'=>'stop-color:#49B749']);
+        echo Html::tag('stop',null,['offset'=>'56.24%','style'=>'stop-color:#1F9447']);
+        echo Html::tag('stop',null,['offset'=>'76.24%','style'=>'stop-color:#F6901E']);
+        echo Html::tag('stop',null,['offset'=>'100%','style'=>'stop-color:#ED1C24']);
+        echo Html::endTag('linearGradient');
+        echo Html::endTag('defs');
     }
 
 }

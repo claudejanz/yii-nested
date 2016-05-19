@@ -60,7 +60,7 @@ class m160229_181714_excel_import extends Migration
 
     public function setSportId($line)
     {
-        $name = ucwords(strtolower($line['SPORTS']));
+        $name = ucfirst(strtolower($line['SPORTS']));
         $sport = Sport::findOne(['title' => $name]);
 
         if (!$sport && $line['SPORTS'] != null) {
@@ -82,7 +82,7 @@ class m160229_181714_excel_import extends Migration
 
     public function setCatId($line)
     {
-        $name = ucwords(strtolower($line['CATEGORIE']));
+        $name = ucfirst(strtolower($line['CATEGORIE']));
         $cat = Category::findOne([
                     'title' => $name,
                     'sport_id' => $this->actualSportId,
@@ -105,7 +105,7 @@ class m160229_181714_excel_import extends Migration
 
     public function setSubCatId($line)
     {
-        $name = ucwords(strtolower($line['SOUS-CATEGORIE']));
+        $name = ucfirst(strtolower($line['SOUS-CATEGORIE']));
         $subcat = SubCategory::findOne([
                     'title' => $name,
                     'category_id' => $this->actualCatId,

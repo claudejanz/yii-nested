@@ -24,14 +24,13 @@ if (Yii::$app->user->id == $model->id) {
     Yii::$app->controller->page->title = Yii::t('app', 'Planning of {name}', ['name' => $model->fullname]);
 }
 
-
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-8' : 'col-sm-12']);
 echo $this->render('planning/receive/weeks', [
     'startDate' => $startDate,
-    'endDate' => $endDate,
-    'model' => $model,
-    'isCoach' => $isCoach,
+    'endDate'   => $endDate,
+    'model'     => $model,
+    'isCoach'   => $isCoach,
 ]);
 echo Html::endTag('div');
 if ($isCoach) {
@@ -40,9 +39,9 @@ if ($isCoach) {
     echo Html::beginTag('div', ['class' => 'kneubuhler', 'data-spy' => "affix", 'data-offset-top' => "180", 'data-top' => "0",]);
 
     echo $this->render('planning/drag/list', [
-        'model' => $model,
+        'model'        => $model,
         'dataProvider' => $dataProvider,
-        'searchModel' => $searchModel,
+        'searchModel'  => $searchModel,
     ]);
     echo Html::endTag('div');
     echo Html::endTag('div');
