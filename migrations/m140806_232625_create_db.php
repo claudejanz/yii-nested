@@ -436,6 +436,7 @@ class m140806_232625_create_db extends Migration
             'feedback' => Schema::TYPE_TEXT,
             'date' => Schema::TYPE_DATE . ' NOT NULL',
             'week_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'day_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'sport_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'km' => Schema::TYPE_FLOAT . ' NULL DEFAULT NULL',
             'done' => Schema::TYPE_BOOLEAN . ' NULL DEFAULT NULL',
@@ -451,6 +452,8 @@ class m140806_232625_create_db extends Migration
             'FOREIGN KEY (training_id) REFERENCES training (id) ON DELETE CASCADE ON UPDATE CASCADE ',
             'INDEX index_week (week_id ASC)',
             'FOREIGN KEY (week_id) REFERENCES week (id) ON DELETE CASCADE ON UPDATE CASCADE ',
+            'INDEX index_day (day_id ASC)',
+            'FOREIGN KEY (day_id) REFERENCES day (id) ON DELETE CASCADE ON UPDATE CASCADE ',
             'INDEX index_sport (sport_id ASC)',
             'FOREIGN KEY (sport_id) REFERENCES sport (id) ON DELETE CASCADE ON UPDATE CASCADE ',
                 ], $tableOptions);

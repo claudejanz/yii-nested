@@ -2,6 +2,7 @@
 
 namespace app\extentions\behaviors;
 
+use app\models\Day;
 use Yii;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;

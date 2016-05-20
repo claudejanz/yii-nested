@@ -5,6 +5,7 @@ namespace app\models\base;
 use Yii;
 use app\models\User;
 use app\models\Week;
+use app\models\Reporting;
 use app\models\Training;
 
 /**
@@ -25,6 +26,7 @@ use app\models\Training;
     *
             * @property User $sportif
             * @property Week $week
+            * @property Reporting[] $reportings
             * @property Training[] $trainings
     */
 class DayBase extends \yii\db\ActiveRecord
@@ -88,6 +90,14 @@ return [
     public function getWeek()
     {
     return $this->hasOne(Week::className(), ['id' => 'week_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getReportings()
+    {
+    return $this->hasMany(Reporting::className(), ['day_id' => 'id']);
     }
 
     /**

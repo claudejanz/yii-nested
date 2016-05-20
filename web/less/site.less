@@ -22,6 +22,23 @@
 @btn-yellow-bg:                 @brand-yellow;
 @btn-yellow-border:             darken(@btn-yellow-bg, 2%);
 
+@brand-green:                  #008000;
+@btn-green-color:              #FFF;
+@btn-green-bg:                 @brand-green;
+@btn-green-border:             darken(@btn-green-bg, 2%);
+
+@brand-dark-green:                  #006400;
+@btn-dark-green-color:              #FFF;
+@btn-dark-green-bg:                 @brand-dark-green;
+@btn-dark-green-border:             darken(@btn-dark-green-bg, 2%);
+
+.btn-green {
+  .button-variant(@btn-green-color; @btn-green-bg; @btn-green-border);
+}
+.btn-dark-green {
+  .button-variant(@btn-dark-green-color; @btn-dark-green-bg; @btn-dark-green-border);
+}
+
 @panel-black-text: #FFF; 
 @panel-black-heading-bg: #000;  
 @panel-black-border: #ccc; 

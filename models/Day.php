@@ -14,6 +14,8 @@ use yii\db\Expression;
 
 /**
  * @property Training[] $trainingsWithSport
+ * @property booleen $hasReportingDone
+ * @property booleen $hasReporting
  */
 class Day extends DayBase
 {
@@ -21,7 +23,7 @@ class Day extends DayBase
     public function behaviors()
     {
         return array(
-            'publish' => [
+            'publish'   => [
                 'class' => WeekPublishBehavior::className(),
             ],
             'timestamp' => [
@@ -32,6 +34,38 @@ class Day extends DayBase
                 'class' => BlameableBehavior::className(),
             ],
         );
+    }
+
+    /**
+     * Overrides 
+     * @return a text on published status
+     */
+    public function getPublishedLabel()
+    {
+
+        $publishedOptions = WeekPublishBehavior::getPublishedOptions();
+        if ($this->published > 2) {
+            if ($this->hasReportingDone) {
+                return Yii::t('app', 'Done');
+            } elseif ($this->hasReporting) {
+                return Yii::t('app', 'Not done');
+            }
+        }
+        return isset($publishedOptions[$this->published]) ? $publishedOptions[$this->published] : "unknown published ($this->published)";
+    }
+
+    public function getPublishedColor()
+    {
+
+        $publishedOptions = WeekPublishBehavior::getPublishedColors();
+        if ($this->published > 2) {
+            if ($this->hasReportingDone) {
+                return 'green';
+            } elseif ($this->hasReporting) {
+                return 'dark-green';
+            }
+        }
+        return isset($publishedOptions[$this->published]) ? $publishedOptions[$this->published] : "unknown published ($this->published)";
     }
 
     public function rules()
@@ -67,7 +101,7 @@ class Day extends DayBase
                 $model = new Week();
                 $model->setAttributes([
                     'date_begin' => $startDate->format('Y-m-d'),
-                    'date_end' => $endDate->format('Y-m-d'),
+                    'date_end'   => $endDate->format('Y-m-d'),
                     'sportif_id' => $this->sportif_id,
                 ]);
                 if (!$model->validate()) {
@@ -145,11 +179,11 @@ class Day extends DayBase
                 if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
                     if (!isset($all[$training->sport_id])) {
                         $all[$training->sport_id] = [
-                            'url' => $training->sport->iconUrl,
+                            'url'   => $training->sport->iconUrl,
                             'count' => 0
                         ];
                     }
-                    $all[$training->sport_id]['count']++;
+                    $all[$training->sport_id]['count'] ++;
                 }
             }
             if (!empty($all)) {
@@ -157,6 +191,32 @@ class Day extends DayBase
             }
         }
         return [];
+    }
+
+    private $_hasReportingDone;
+
+    public function getHasReportingDone() {
+        if(!$this->_hasReportingDone){
+        return $this->_hasReporting =((new \yii\db\Query())
+                        ->select(['done'])
+                        ->from('reporting')
+                        ->where(['day_id' => $this->id, 'done' => 1])
+                        ->scalar())?true:false;
+        }
+        return $this->_hasReportingDone;
+    }
+
+    private $_hasReporting;
+
+    public function getHasReporting() {
+        if(!$this->_hasReporting){
+            $this->_hasReporting = ((new \yii\db\Query())
+                        ->select(['id'])
+                        ->from('reporting')
+                        ->where(['day_id' => $this->id])
+                        ->scalar() != null)?true:false;
+        }
+        return $this->_hasReporting;
     }
 
 }

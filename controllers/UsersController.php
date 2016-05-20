@@ -445,6 +445,7 @@ class UsersController extends MyController
             $model->training_id = $training->id;
             $model->date = $training->day->date;
             $model->week_id = $training->day->week_id;
+            $model->day_id = $training->day_id;
             $model->sport_id = $training->sport_id;
             $model->time = $training->time;
         } else {
