@@ -21,22 +21,23 @@ use yii\helpers\Html;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* @var $model Training */
+/* @var $training Training */
+/* @var $model User */
 echo Html::beginTag('fieldset');
 echo Html::tag('legend',  Yii::t('app', 'Feedback'));
-if ($model->reporting) {
-    echo ReportingWidget::widget(['model' => $model, 'attribute' => 'done', 'user' => $user]);
+if ($training->reporting) {
+    echo ReportingWidget::widget(['model' => $training, 'attribute' => 'done', 'user' => $model]);
 } else {
     echo AjaxModalButton::widget([
         'label'       => Yii::t('app', 'Add Feedback'),
         'encodeLabel' => false,
         'url'         => [
             'reporting-update',
-            'id'          => $user->id,
-            'training_id' => $model->id
+            'id'          => $model->id,
+            'training_id' => $training->id
         ],
-        'title'       => Yii::t('app', 'Make a report: {title}', ['title' => $model->title]),
-        'success'     => '#week' . date('Y-m-d',strtotime($model->week->date_begin)),
+        'title'       => Yii::t('app', 'Make a report: {title}', ['title' => $training->title]),
+        'success'     => '#week' . date('Y-m-d',strtotime($training->week->date_begin)),
         'options'     => [
             'class' => 'red-btn',
         ],

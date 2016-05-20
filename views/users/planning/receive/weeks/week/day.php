@@ -1,12 +1,9 @@
 <?php
 
 use app\extentions\helpers\MyPjax;
-use app\extentions\StyleIcon;
 use app\models\Day;
 use app\models\Training;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
-use claudejanz\toolbox\widgets\ajax\AjaxButton;
-use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
 use yii\helpers\Url;
 use yii\web\User;
@@ -38,7 +35,6 @@ echo $this->render('day/day-header', [
     'model'    => $model,
     'dayId'    => $dayId,
     'weekId'   => $weekId,
-    'weekId'   => $weekId,
     'isCoach'  => $isCoach,
     'isLight'  => $isLight,
 ]);
@@ -61,12 +57,11 @@ if ($day && isset($day->trainingsWithSport)) {
         /* @var $training Training */
         if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
             echo $this->render('day/training', [
-                'model'   => $training,
-                'user'    => $model,
+                'training'   => $training,
+                'model'    => $model,
                 'dateTime' => $dateTime,
                 'day'      => $day,
                 'dayId'    => $dayId,
-                'weekId'   => $weekId,
                 'weekId'   => $weekId,
                 'isCoach'  => $isCoach,
                 'isLight'  => $isLight,

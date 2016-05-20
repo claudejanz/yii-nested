@@ -159,11 +159,11 @@ class UsersController extends MyController
         Url::remember();
         return $this->render('planning', [
                     'model'        => $this->model,
-                    'isCoach'      => $isCoach,
                     'startDate'    => $startDate,
                     'endDate'      => $endDate,
                     'dataProvider' => $dataProvider,
                     'searchModel'  => $searchModel,
+                    'isCoach'      => $isCoach,
         ]);
     }
 
@@ -318,11 +318,7 @@ class UsersController extends MyController
 //        \yii\helpers\VarDumper::dump($model->getActiveValidators());
 //        die();
         if ($model->save()) {
-            return $this->render('planning/receive/weeks/week/training', [
-                        'model'   => $model,
-                        'user'    => $this->model,
-                        'isCoach' => true,
-            ]);
+            return '';
         } else {
             return print_r($model->errors, true);
         }
@@ -367,8 +363,11 @@ class UsersController extends MyController
     public function actionTrainingDelete($id, $training_id)
     {
         Training::findOne($training_id)->delete();
-
-        return $this->redirect(Url::previous());
+        if (Yii::$app->request->isAjax) {
+            return true;
+        } else {
+            return $this->redirect(Url::previous());
+        }
     }
 
     /**

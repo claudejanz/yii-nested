@@ -19,13 +19,13 @@ use kartik\helpers\Html;
 
 /* @var $isCoach booleen */
 /* @var $isLight booleen */
-/* @var $model Training */
-/* @var $user User */
+/* @var $training Training */
+/* @var $model User */
 /* @var $dateTime DateTime */
 /* @var $day Day */
 /* @var $weekId string */
 /* @var $dayId string */
-MyPjax::begin(['id' => 'training' . $model->id]);
+MyPjax::begin(['id' => 'training' . $training->id]);
 
 $options = ['class' => 'eachTraining'];
 
@@ -35,8 +35,8 @@ echo Html::beginTag('div', $options);
 // training header
 echo $this->render('training/training-header', [
     'day'     => $day,
-    'model'   => $model,
-    'user'    => $user,
+    'training'   => $training,
+    'model'    => $model,
     'dayId'   => $dayId,
     'weekId'  => $weekId,
     'weekId'  => $weekId,
@@ -53,14 +53,14 @@ $attributes = [
     'explanation:ntext',
 ];
 echo MyDetailView::widget([
-    'model'      => $model,
+    'model'      => $training,
     'attributes' => $attributes,
 ]);
 echo Html::endTag('div'); // col-sm-12
 
 // graph
 echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
-echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => (!$isLight)?100:65, 'model' => $model, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
+echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => (!$isLight)?100:65, 'model' => $training, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
 
 // comment and rpe
@@ -72,7 +72,7 @@ if ($isCoach) {
     array_push($attributes, 'rpe');
 }
 echo MyDetailView::widget([
-    'model'      => $model,
+    'model'      => $training,
     'attributes' => $attributes,
 ]);
 echo Html::endTag('div'); // col-sm-12
@@ -84,7 +84,7 @@ echo Html::endTag('div'); //sporticons
 
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-sm-12']);
-echo $this->render('training/reporting', ['model' => $model, 'user' => $user]);
+echo $this->render('training/reporting', ['training' => $training, 'model' => $model]);
 echo Html::endTag('div');
 echo Html::endTag('div');
 MyPjax::end();
