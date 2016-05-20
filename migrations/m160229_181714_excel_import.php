@@ -142,25 +142,25 @@ class m160229_181714_excel_import extends Migration
     public function getIcon($name)
     {
         switch ($name) {
-            case 'Course A Pied':
+            case 'Course a pied':
             case'Piste':
                 return 'sports';
             case 'Marche':
                 return 'sports-7';
-            case'Velo Rouleau':
+            case'Velo rouleau':
                 return 'man';
             case'Vtt':
                 return 'mountain';
             case'Spinning':
-            case'Velo De Route':
+            case'Velo de route':
                 return 'silhouette-3';
-            case'Peau De Phoque':
+            case'Peau de phoque':
                 return 'sports-6';
-            case'Ski De Fond':
-            case'Ski A Roulettes':
-            case'Ski De Fond':
+            case'Ski de fond':
+            case'Ski a roulettes':
+            case'Ski de fond':
                 return 'sports-9';
-            case'Ski Backcountry':
+            case'Ski backcountry':
                 return 'sports-3';
             case'Natation':
             case'Aqua-jogging':

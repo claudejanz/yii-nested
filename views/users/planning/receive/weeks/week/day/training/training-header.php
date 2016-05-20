@@ -101,22 +101,15 @@ if ($isCoach && !$isLight) {
             'training_id' => $training->id
         ],
         'success'     => '#week' . $weekId,
+            'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+        'ajaxOptions' => [
+            'type'=>'post'
+        ],
         'options'     => [
             'title'        => Yii::t('yii', 'Delete'),
             'class'        => 'red',
-            'aria-label'   => Yii::t('yii', 'Delete'),
-            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-            'data-method'  => 'post',
         ],
     ]);
-//    echo Html::a(StyleIcon::showStyled('remove'), Url::to(['training-delete', 'id' => $model->id, 'training_id' => $training->id]), [
-//        'title'        => Yii::t('yii', 'Delete'),
-//        'class'        => 'red',
-//        'aria-label'   => Yii::t('yii', 'Delete'),
-//        'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-//        'data-method'  => 'post',
-////        'data-pjax'    => '0',
-//    ]);
 
 
     echo Html::endTag('p');

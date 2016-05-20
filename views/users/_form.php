@@ -38,8 +38,8 @@ use yii\widgets\ActiveForm as ActiveForm2;
                 'type'    => Form::INPUT_TEXT,
                 'options' => ['placeholder' => Yii::t('app', 'Enter Nom d\'utilisateur...'), 'maxlength' => 255]
             ],
-            'birthday'  => [
-                'type' => Form::INPUT_WIDGET,
+            'birthday'       => [
+                'type'        => Form::INPUT_WIDGET,
                 'widgetClass' => DateControl::classname(),
                 'options'     => [
                     'type'    => DateControl::FORMAT_DATE,
@@ -76,12 +76,36 @@ use yii\widgets\ActiveForm as ActiveForm2;
             'contentBefore' => Html::tag('legend', Yii::t('app', 'Only for administrators')),
             'columns'       => 2,
             'attributes'    => [
-                'trainer_id' => [
+                'contrat_start' => [
+                    'type'        => Form::INPUT_WIDGET,
+                    'widgetClass' => DateControl::classname(),
+                    'options'     => [
+                        'type'    => DateControl::FORMAT_DATETIME,
+                        'options' => [
+                            'pluginOptions' => [
+                                'defaultTime' => false
+                            ]
+                        ]
+                    ]
+                ],
+                'contrat_end'   => [
+                    'type'        => Form::INPUT_WIDGET,
+                    'widgetClass' => DateControl::classname(),
+                    'options'     => [
+                        'type'    => DateControl::FORMAT_DATETIME,
+                        'options' => [
+                            'pluginOptions' => [
+                                'defaultTime' => false
+                            ]
+                        ]
+                    ]
+                ],
+                'trainer_id'    => [
                     'type'    => Form::INPUT_DROPDOWN_LIST,
                     'items'   => ArrayHelper::map(User::find()->select(['id', 'title' => 'CONCAT(firstname,\' \',lastname)'])->andWhere(['between', 'role', User::ROLE_COACH, User::ROLE_ADMIN])->asArray()->all(), 'id', 'title'),
                     'options' => [ 'prompt' => Yii::t('app', 'Enter Trainer ID...')]
                 ],
-                'role'       => [
+                'role'          => [
                     'type'    => Form::INPUT_DROPDOWN_LIST,
                     'items'   => User::getRoleOptions(Yii::$app->user),
                     'options' => ['placeholder' => Yii::t('app', 'Enter Role...')]
