@@ -60,7 +60,7 @@ if (!$isCoach) {
         'url' => [
             'week-ready',
             'id' => $model->id,
-            'begin_date' => $startDate->format('Y-m-d'),
+            'date_begin' => $startDate->format('Y-m-d'),
         ],
         'success' => '#week' . $startDate->format('Y-m-d'),
         'options' => [

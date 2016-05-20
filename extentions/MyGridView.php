@@ -34,7 +34,7 @@ class MyGridView extends GridView
     public $responsive = true;
     public $hover = true;
     public $condensed = true;
-    public $floatHeader = true;
+    public $floatHeader = false;
     
     public $dataColumnClass = 'app\extentions\MyDataColumn';
 

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\controllers\base\MyController;
+use app\extentions\behaviors\WeekPublishBehavior;
 use app\extentions\helpers\EuroDateTime;
 use app\models\Day;
 use app\models\Reporting;
@@ -60,7 +61,6 @@ class UsersController extends MyController
                     [
                         'actions' => [
                             'index',
-                            'day-validate-city',
                             'view',
                             'training-create',
                             'training-delete',
@@ -80,6 +80,7 @@ class UsersController extends MyController
                     [
                         'actions' => [
                             'day-update',
+                            'day-validate-city',
                             'planning',
                             'planning-pdf',
                             'reporting-update',
@@ -540,7 +541,7 @@ class UsersController extends MyController
     public function actionWeekReady($id, $date_begin)
     {
         /* @var $model User */
-        $model = Week::find(['sportif_id' => $id, 'date_begin' => $date_begin]);
+        $model = Week::findOne(['sportif_id' => $id, 'date_begin' => $date_begin]);
         if (!$model) {
             $date = new EuroDateTime($date_begin);
             $date->modify('+6jours');
@@ -552,6 +553,7 @@ class UsersController extends MyController
                 return ['message' => Yii::t('app', 'Week could not be created.'), 'error' => 1];
             }
         }
+        $model->publish(WeekPublishBehavior::PUBLISHED_CITY_DONE);
         return ['message' => Yii::t('app', 'Week has been validated.'), 'error' => 0];
     }
 

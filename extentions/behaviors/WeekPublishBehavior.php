@@ -42,10 +42,10 @@ class WeekPublishBehavior extends Behavior
     public static function getPublishedOptions()
     {
         return array(
-            self::PUBLISHED_CITY_EDIT => Yii::t('claudejanz', 'City Edit'),
-            self::PUBLISHED_CITY_DONE => Yii::t('claudejanz', 'City Done'),
-            self::PUBLISHED_PLANING_DONE => Yii::t('claudejanz', 'Planned'),
-            self::PUBLISHED_DELETED => Yii::t('claudejanz', 'Archived'),
+            self::PUBLISHED_CITY_EDIT => Yii::t('app', 'City Edit'),
+            self::PUBLISHED_CITY_DONE => Yii::t('app', 'City Done'),
+            self::PUBLISHED_PLANING_DONE => Yii::t('app', 'Planned'),
+            self::PUBLISHED_DELETED => Yii::t('app', 'Archived'),
         );
     }
 
@@ -53,7 +53,7 @@ class WeekPublishBehavior extends Behavior
     {
         return array(
             self::PUBLISHED_CITY_EDIT => 'yellow',
-            self::PUBLISHED_CITY_DONE => 'warning',
+            self::PUBLISHED_CITY_DONE => 'danger',
             self::PUBLISHED_PLANING_DONE => 'warning',
             self::PUBLISHED_DELETED => 'info'
         );

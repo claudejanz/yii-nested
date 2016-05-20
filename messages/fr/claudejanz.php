@@ -17,15 +17,12 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'City Done' => '',
-    'City Edit' => '',
     'Danger' => '',
     'Default' => '',
     'Info' => '',
     'Missing "returnFullPath" for "{item}" in {behavior} and no default "returnFullPath" is set.' => '',
     'Missing "skipOnEmpty" for "{item}" in {behavior} and no default "skipOnEmpty" is set.' => '',
     'Missing path for "{item}" in {behavior} and no default path is set.' => '',
-    'Planned' => '',
     'Please specify array of available languages for the {behavior} in the {owner} or in the application parameters' => '',
     'Please specify langForeignKey for the {behavior} in the {owner}' => '',
     'Please specify multilingual attributes for the {behavior} in the {owner}' => '',

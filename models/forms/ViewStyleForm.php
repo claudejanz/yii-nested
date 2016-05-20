@@ -39,7 +39,7 @@ class ViewStyleForm extends Model
 
     public function attributeLabels(){
         return [
-            'viewStyle' => 'View style',
+            'viewStyle' => Yii::t('app', 'View style'),
         ];
     }
 
