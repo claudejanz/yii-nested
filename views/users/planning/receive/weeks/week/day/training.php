@@ -34,49 +34,51 @@ echo Html::beginTag('div', $options);
 
 // training header
 echo $this->render('training/training-header', [
-    'day'     => $day,
-    'training'   => $training,
+    'day'      => $day,
+    'training' => $training,
     'model'    => $model,
-    'dayId'   => $dayId,
-    'weekId'  => $weekId,
-    'weekId'  => $weekId,
-    'isCoach' => $isCoach,
-    'isLight' => $isLight,
+    'dayId'    => $dayId,
+    'weekId'   => $weekId,
+    'weekId'   => $weekId,
+    'isCoach'  => $isCoach,
+    'isLight'  => $isLight,
 ]);
 
 
 echo Html::beginTag('div', ['class' => 'row plus']);
 
 // explications
-echo Html::beginTag('div', ['class' => 'col-sm-12']);
-$attributes = [
-    'explanation:ntext',
-];
-echo MyDetailView::widget([
-    'model'      => $training,
-    'attributes' => $attributes,
-]);
-echo Html::endTag('div'); // col-sm-12
-
+if (!$isLight) {
+    echo Html::beginTag('div', ['class' => 'col-sm-12']);
+    $attributes = [
+        'explanation:ntext',
+    ];
+    echo MyDetailView::widget([
+        'model'      => $training,
+        'attributes' => $attributes,
+    ]);
+    echo Html::endTag('div'); // col-sm-12
+}
 // graph
 echo Html::beginTag('div', ['class' => 'col-sm-12 graphWrapper']);
-echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => (!$isLight)?100:65, 'model' => $training, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
+echo MulaffGraphWidgetV2::widget(['width' => '100%', 'height' => (!$isLight) ? 100 : 65, 'model' => $training, 'attribute' => 'graph', 'withLegends' => true, 'withLines' => true, 'color' => MulaffGraphWidget::COLOR_GRADIENT]);
 echo Html::endTag('div');
 
 // comment and rpe
-echo Html::beginTag('div', ['class' => 'col-sm-12']);
-$attributes = [
-    'extra_comment:ntext'
-];
-if ($isCoach) {
-    array_push($attributes, 'rpe');
+if (!$isLight) {
+    echo Html::beginTag('div', ['class' => 'col-sm-12']);
+    $attributes = [
+        'extra_comment:ntext'
+    ];
+    if ($isCoach) {
+        array_push($attributes, 'rpe');
+    }
+    echo MyDetailView::widget([
+        'model'      => $training,
+        'attributes' => $attributes,
+    ]);
+    echo Html::endTag('div'); // col-sm-12
 }
-echo MyDetailView::widget([
-    'model'      => $training,
-    'attributes' => $attributes,
-]);
-echo Html::endTag('div'); // col-sm-12
-
 echo Html::endTag('div'); // dayToggle
 
 echo Html::endTag('div'); //sporticons
