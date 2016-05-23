@@ -1,5 +1,6 @@
 <?php
 
+use app\extentions\helpers\EuroDateTime;
 use app\extentions\helpers\MyPjax;
 use app\models\Day;
 use app\models\Training;
@@ -24,7 +25,7 @@ $options = ['class' => 'day white-block', 'data' => ['date' => $dayId, 'week' =>
 if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
 }
-$today = new DateTime('now');
+$today = new EuroDateTime('now');
 if ($dayId == $today->format('Y-d-m')) {
     Html::addCssClass($options, 'currentDay');
 }
@@ -40,11 +41,12 @@ echo $this->render('day/day-header', [
 ]);
 
 $options = ['class' => 'row collapsable'];
-$today = new DateTime('now');
-if ($dayId != $today->format('Y-d-m')) {
-    Html::addCssClass($options, 'collapsed');
-} else {
+$today = new EuroDateTime('now');
+if ($dayId == $today->format('Y-m-d')) {
     Html::addCssClass($options, 'currentDay');
+} elseif($isCoach) {
+    Html::addCssClass($options, 'collapsed');
+    Html::addCssStyle($options, 'display: none;');
 }
 
 echo Html::beginTag('div', $options);
