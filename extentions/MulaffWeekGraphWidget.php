@@ -172,7 +172,7 @@ class MulaffWeekGraphWidget extends Widget
             if ($key != 0) {
                 echo Html::tag('div', '&nbsp;', $optionsSep);
             }
-            echo Html::tag('div', $m[1] . '<br>' . $m[2] . '<br>' . $m[3], $optionsCol);
+            echo Html::tag('div', $m[1] . '<br>' . $m[3], $optionsCol);
         }
         echo Html::endTag('div');
     }
