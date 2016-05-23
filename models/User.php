@@ -311,8 +311,8 @@ class User extends UserBase implements IdentityInterface
     
      public static function getGenderOptions() {
          return array(
-            self::GENDER_FEMALE  => Yii::t('app', 'Male'),
-            self::GENDER_MALE => Yii::t('app', 'Female'),
+            self::GENDER_FEMALE  => Yii::t('app', 'Female'),
+            self::GENDER_MALE => Yii::t('app', 'Male'),
         );
     }
     

@@ -5,9 +5,11 @@ use app\models\Category;
 use app\models\Sport;
 use app\models\SubCategory;
 use app\models\TrainingType;
+use app\models\User;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use moonland\phpexcel\Excel;
 use yii\db\Migration;
+use yii\helpers\Console;
 
 class m160229_181714_excel_import extends Migration
 {
@@ -15,46 +17,79 @@ class m160229_181714_excel_import extends Migration
     private $actualSportId;
     private $actualCatId;
     private $actualSubCatId;
+    private $count=0;
 
     public function up()
     {
-        $data = Excel::import(Yii::getAlias('@app/migrations/excel/mulaff_endurance_coaching_app.xls'), [
-                    'getOnlySheet' => 'MULAFF ENDURANCE COACHING APP',
+        $data = Excel::import(Yii::getAlias('@app/migrations/excel/mulaff.xls'), [
+                    'getOnlySheet'         => 'MULAFF ENDURANCE COACHING APP',
                     'setFirstRecordAsKeys' => true,
-                    'setIndexSheetByName' => true,
+                    'setIndexSheetByName'  => true,
         ]);
+        $data2 = Excel::import(Yii::getAlias('@app/migrations/excel/mulaff.xls'), [
+                    'getOnlySheet'         => 'Users',
+                    'setFirstRecordAsKeys' => true,
+                    'setIndexSheetByName'  => true,
+        ]);
+        $total =count($data)+count($data2);
+        Console::startProgress(0, $total, 'Doing Updates: ', false);
+        
         foreach ($data as $line) {
+             Console::updateProgress($this->count++, $total);
             $this->setSportId($line);
             $this->setCatId($line);
             $this->setSubCatId($line);
             if (!empty($line['DESCRIPTION'])) {
                 $tt = new TrainingType();
                 $tt->setAttributes([
-                    'sport_id' => $this->actualSportId,
-                    'category_id' => $this->actualCatId,
+                    'sport_id'        => $this->actualSportId,
+                    'category_id'     => $this->actualCatId,
                     'sub_category_id' => $this->actualSubCatId,
-                    'title' => $line['DESCRIPTION'],
-                    'time' => str_replace('h', ':', $line['DUREE']),
-                    'rpe' => $line['RPE'],
-                    'explanation' => $line['EXPLICATION'],
-                    'extra_comment' => $line['COMMENTS PERSO (en grisé)'],
-                    'graph' => mb_strtoupper($line['GRAPHIQUE'], 'UTF-8'),
-                    'graph_type' => $this->getGraphType($line),
-                    'published' => PublishBehavior::PUBLISHED_ACTIF,
+                    'title'           => $line['DESCRIPTION'],
+                    'time'            => str_replace('h', ':', $line['DUREE']),
+                    'rpe'             => $line['RPE'],
+                    'explanation'     => $line['EXPLICATION'],
+                    'extra_comment'   => $line['COMMENTS PERSO (en grisé)'],
+                    'graph'           => mb_strtoupper($line['GRAPHIQUE'], 'UTF-8'),
+                    'graph_type'      => $this->getGraphType($line),
+                    'published'       => PublishBehavior::PUBLISHED_ACTIF,
                 ]);
                 if (!$tt->save())
                     var_dump(get_class($tt), $tt->errors);
             }
         }
+        
+        foreach ($data2 as $line) {
+                Console::updateProgress($this->count++, $total);
+            if ($line['firstname']) {
+                $user = new User();
+                $user->scenario = 'create';
+                $user->setAttributes($line);
+                $user->password = '12345678';
+                $user->npa = (string) $line['npa'];
+                $user->editableSports = explode(',', $line['sports']);
+                if (!$user->save()) {
+                    var_dump($user->errors);
+                    return false;
+                }
+            }
+        }
+        Console::endProgress("done." . PHP_EOL);
         return true;
     }
 
     public function down()
     {
         $this->delete('training_type');
+        $this->execute('ALTER TABLE training_type AUTO_INCREMENT=1;');
         $this->delete('sub_category');
+        $this->execute('ALTER TABLE sub_category AUTO_INCREMENT=1;');
         $this->delete('category');
+        $this->execute('ALTER TABLE category AUTO_INCREMENT=1;');
         $this->delete('sport');
+        $this->execute('ALTER TABLE sport AUTO_INCREMENT=1;');
+        $this->delete('user', ['>', 'id', '3']);
+        $this->execute('ALTER TABLE user AUTO_INCREMENT=1;');
         return true;
     }
 
@@ -65,10 +100,12 @@ class m160229_181714_excel_import extends Migration
 
         if (!$sport && $line['SPORTS'] != null) {
             $sport = new Sport();
+            $sport->id = $line['SPORTS ID'];
             $sport->setAttributes([
-                'title' => $name,
+
+                'title'     => $name,
                 'published' => PublishBehavior::PUBLISHED_ACTIF,
-                'icon' => $this->getIcon($name),
+                'icon'      => $this->getIcon($name),
             ]);
             if (!$sport->save())
                 var_dump(get_class($sport), $sport->errors);
@@ -84,15 +121,15 @@ class m160229_181714_excel_import extends Migration
     {
         $name = ucfirst(strtolower($line['CATEGORIE']));
         $cat = Category::findOne([
-                    'title' => $name,
+                    'title'    => $name,
                     'sport_id' => $this->actualSportId,
         ]);
         if (!$cat && $name != null) {
             $cat = new Category();
             $cat->setAttributes([
-                'title' => $name,
+                'title'     => $name,
                 'published' => PublishBehavior::PUBLISHED_ACTIF,
-                'sport_id' => $this->actualSportId,
+                'sport_id'  => $this->actualSportId,
             ]);
             if (!$cat->save())
                 var_dump(get_class($cat), $cat->errors);
@@ -107,14 +144,14 @@ class m160229_181714_excel_import extends Migration
     {
         $name = ucfirst(strtolower($line['SOUS-CATEGORIE']));
         $subcat = SubCategory::findOne([
-                    'title' => $name,
+                    'title'       => $name,
                     'category_id' => $this->actualCatId,
         ]);
         if (!$subcat && $name != null) {
             $subcat = new SubCategory();
             $subcat->setAttributes([
-                'title' => $name,
-                'published' => PublishBehavior::PUBLISHED_ACTIF,
+                'title'       => $name,
+                'published'   => PublishBehavior::PUBLISHED_ACTIF,
                 'category_id' => $this->actualCatId,
             ]);
             if (!$subcat->save())

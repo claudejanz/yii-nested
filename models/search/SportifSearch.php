@@ -3,7 +3,6 @@
 namespace app\models\search;
 
 use app\extentions\helpers\EuroDateTime;
-use app\models\Day;
 use app\models\User;
 use app\models\Week;
 use DateInterval;
@@ -20,7 +19,10 @@ use yii\web\View;
 class SportifSearch extends User
 {
 
-    public $date = 'now';
+    public $date = 'first day of this month';
+    
+    
+    
 
    
 
@@ -133,7 +135,7 @@ class SportifSearch extends User
                         ];
 
                         $date = new EuroDateTime($this->date);
-                        $date->modify('Monday this week');
+//                        $date->modify('Monday this week');
                         $endDate = clone $date;
                         $endDate->modify('+1 month');
                         $interval = DateInterval::createFromDateString('1 day');

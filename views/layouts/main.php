@@ -159,6 +159,14 @@ AssetBundle::register($this);
                         $menus = array_merge($menus, $page->getBreadcrumbsLink());
                     }
                 }
+                if(Yii::$app->controller->model && Yii::$app->controller->model instanceof app\models\User){
+                    if(Yii::$app->user->can('coach')){
+                        $label = Yii::t('app', 'Competitions');
+                    }else{
+                        $label = Yii::t('app', 'My Competitions');
+                    }
+                    $menus = array_merge($menus, [['label'=>  $label,'url'=>['competition/index','sportif_id'=>Yii::$app->controller->model->id]]]);
+                }
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav'],
                     'items' => $menus

@@ -79,6 +79,7 @@ class UsersController extends MyController
                     ],
                     [
                         'actions' => [
+                            
                             'day-update',
                             'day-validate-city',
                             'planning',
@@ -131,6 +132,7 @@ class UsersController extends MyController
     public function actionIndex()
     {
         $searchModel = new UserSearch;
+        
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [

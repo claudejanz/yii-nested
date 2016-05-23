@@ -3,6 +3,7 @@
 use app\models\Training;
 use claudejanz\toolbox\widgets\ajax\AjaxSubmit;
 use kartik\builder\Form;
+use kartik\datecontrol\DateControl;
 use kartik\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
@@ -36,7 +37,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
 //            'graph_type'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Graph Type...']],
 //            'created_by'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Created By...']],
 //            'updated_by'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Updated By...']],
-//            'time'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_TIME]],
+            'time'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_TIME]],
 //            'created_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
 //            'updated_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
 //            'rpe'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Rpe...']],

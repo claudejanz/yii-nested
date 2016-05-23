@@ -19,6 +19,7 @@
 
 namespace app\extentions;
 
+use app\extentions\helpers\EuroDateTime;
 use DateTime;
 use kartik\grid\DataColumn;
 use kartik\helpers\Html;
@@ -38,6 +39,8 @@ class MyDataColumn extends DataColumn
      */
     public $dateTime;
 
+    
+    public static $hasADayBeenDisplayed = false;
     /**
      * Renders the filter.
      * @return string the rendering result.
@@ -47,8 +50,12 @@ class MyDataColumn extends DataColumn
         if (!isset($this->dateTime)) {
             return parent::renderHeaderCell();
         }
-        if (Yii::$app->formatter->asDate($this->dateTime, 'e') == 1) {
-            return Html::tag('th', Yii::t('app', 'Week {n}', ['n' => $this->dateTime->format('W')]), ['colspan' => 7]);
+        $date = new EuroDateTime($this->dateTime->format('Y-m-d'));
+        if (Yii::$app->formatter->asDate($this->dateTime, 'e') == 1 || !self::$hasADayBeenDisplayed) {
+            $this->dateTime->format('d');
+            $colspan= ( !self::$hasADayBeenDisplayed)?7-Yii::$app->formatter->asDate($this->dateTime, 'e')+1:7;
+            self::$hasADayBeenDisplayed = true;
+            return Html::tag('th', Yii::t('app', 'Week {n}', ['n' => $this->dateTime->format('W')]), ['colspan' => $colspan]);
         }
         return '';
     }

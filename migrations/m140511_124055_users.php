@@ -71,36 +71,7 @@ class m140511_124055_users extends Migration
             'gender'    => User::GENDER_MALE,
         ];
         $coach->save();
-        $languages = array_keys(Yii::$app->params['translatedLanguages']);
-        for ($index = 1; $index < 20; $index++) {
-            shuffle($languages);
-            $sportif = new User();
-            $sportif->scenario = 'create';
-            $sportif->detachBehavior('relation');
-            $lastname = $faker->lastName;
-            $firstname = $faker->firstName;
-            $email = str_replace(
-                            array('à', 'â', 'ä', 'á', 'ã', 'å', 'î', 'ï', 'ì', 'í', 'ô', 'ö', 'ò', 'ó', 'õ', 'ø', 'ù', 'û', 'ü', 'ú', 'é', 'è', 'ê', 'ë', 'ç', 'ÿ', 'ñ'), array('a', 'a', 'a', 'a', 'a', 'a', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'e', 'e', 'e', 'e', 'c', 'y', 'n',
-                            ), mb_strtolower($firstname . '.' . $lastname, 'UTF-8')) . '@' . $faker->freeEmailDomain;
-            $sportif->attributes = [
-                'username'      => 'sportif' . $index,
-                'firstname'     => $firstname,
-                'lastname'      => $lastname,
-                'address'       => $faker->streetAddress,
-                'npa'           => $faker->postcode,
-                'city'          => $faker->city,
-                'tel'           => $faker->phoneNumber,
-                'email'         => $email,
-                'password'      => '12345678',
-                'trainer_id'    => ($index < 10) ? $admin->id : $coach->id,
-                'language'      => reset($languages),
-                'birthday'      => $faker->dateTimeBetween('-40years', '-20years')->format('Y-m-d'),
-                'gender'        => User::GENDER_MALE,
-                'contrat_start' => $faker->dateTimeBetween('now', '+3 month')->format('Y-m-d'),
-                'contrat_end'   => $faker->dateTimeBetween('+12 month', '+18 month')->format('Y-m-d'),
-            ];
-            $sportif->save();
-        }
+        
     }
 
     public function down()

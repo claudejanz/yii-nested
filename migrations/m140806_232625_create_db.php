@@ -534,12 +534,31 @@ class m140806_232625_create_db extends Migration
             'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'updated_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
                 ], $tableOptions);
+          
+           $this->createTable('competition', [
+            'id' => Schema::TYPE_PK,
+            'title' => Schema::TYPE_STRING . '(1024) NOT NULL',
+            'sportif_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'date_begin' => Schema::TYPE_DATE . ' NOT NULL',
+            'date_end' => Schema::TYPE_DATE . ' NOT NULL',
+            'published' => Schema::TYPE_INTEGER . '(4) NOT NULL',
+            'created_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'created_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'updated_by' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'updated_at' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'INDEX index_date_begin (date_begin ASC)',
+            'INDEX index_date_end (date_end ASC)',
+            'INDEX index_sportif (sportif_id ASC)',
+            'FOREIGN KEY (sportif_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE ',
+            'INDEX index_title (title ASC)',
+                ], $tableOptions);
 
        
     }
 
     public function down()
     {
+        $this->dropTable('competition');
         $this->dropTable('address');
         $this->dropTable('user_sport');
         $this->dropTable('training_type_lang');

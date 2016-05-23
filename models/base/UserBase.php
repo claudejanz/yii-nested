@@ -3,6 +3,7 @@
 namespace app\models\base;
 
 use Yii;
+use app\models\Competition;
 use app\models\Day;
 use app\models\Training;
 use app\models\User;
@@ -39,6 +40,7 @@ use app\models\Week;
     * @property integer $updated_by
     * @property string $updated_at
     *
+            * @property Competition[] $competitions
             * @property Day[] $days
             * @property Training[] $trainings
             * @property User $trainer
@@ -109,6 +111,14 @@ return [
     'updated_at' => Yii::t('app', 'Updated At'),
 ];
 }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getCompetitions()
+    {
+    return $this->hasMany(Competition::className(), ['sportif_id' => 'id']);
+    }
 
     /**
     * @return \yii\db\ActiveQuery

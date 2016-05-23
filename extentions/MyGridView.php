@@ -42,13 +42,13 @@ class MyGridView extends GridView
 
     public function init()
     {
-        $this->panel = ArrayHelper::merge($this->panel, [
+        $this->panel = ArrayHelper::merge( [
                     'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i></h3>',
                     'type' => self::TYPE_ACTIVE,
                     'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['users/create'], ['class' => 'btn btn-success', 'data-pjax' => 0]),
                     'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info', 'data-pjax' => 0]),
                     'showFooter' => false
-        ]);
+        ],$this->panel);
         parent::init();
     }
 
