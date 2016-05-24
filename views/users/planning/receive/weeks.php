@@ -20,7 +20,8 @@ $period = new DatePeriod($startDate, $interval, $endDate);
 
 MyPjax::begin(['id' => 'weeks']);
 //echo $this->render('weeks/view-style');
-echo $this->render('weeks/navigation', ['startDate' => $startDate, 'user' => $model]);
+echo $this->render('weeks/navigation', ['startDate' => $startDate, 'model' => $model]);
+echo $this->render('weeks/competition', ['startDate' => $startDate,'endDate'=>$endDate, 'model' => $model]);
 
 echo $this->render('weeks/list', [
     'period'  => $period,
@@ -28,7 +29,7 @@ echo $this->render('weeks/list', [
     'isCoach' => $isCoach,
 ]);
 
-echo $this->render('weeks/navigation', ['startDate' => $startDate, 'user' => $model]);
+echo $this->render('weeks/navigation', ['startDate' => $startDate, 'model' => $model]);
 MyPjax::end();
 $js = 'var a=document.getElementsByTagName("a");
 for(var i=0;i<a.length;i++) {

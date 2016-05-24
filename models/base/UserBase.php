@@ -65,7 +65,7 @@ return 'user';
 public function rules()
 {
         return [
-            [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'language', 'birthday', 'gender'], 'required'],
+            [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'language', 'gender'], 'required'],
             [['comments'], 'string'],
             [['role', 'trainer_id', 'gender', 'status', 'created_by', 'updated_by'], 'integer'],
             [['birthday', 'contrat_start', 'contrat_end', 'created_at', 'updated_at'], 'safe'],

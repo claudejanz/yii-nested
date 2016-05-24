@@ -1,22 +1,17 @@
 <?php
 
-use yii\helpers\Html;
+use app\models\Competition;
+use yii\web\View;
 
 /**
- * @var yii\web\View $this
- * @var app\models\Competition $model
+ * @var View $this
+ * @var Competition $model
  */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'Competition',
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Competitions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+Yii::$app->controller->page->title = Yii::t('app', 'Create competition');
 ?>
 <div class="competition-create">
-    <div class="page-header">
-        <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+   
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

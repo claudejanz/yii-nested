@@ -23,7 +23,7 @@ use yii\helpers\Url;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* @var $user User */
+/* @var $model User */
 /* @var $startDate DateTime */
 $linkDate = clone $startDate;
 $linkDate->modify('-7 days');
@@ -40,7 +40,7 @@ if (!Yii::$app->request->isAjax) {
 echo Html::beginTag('div', ['class' => 'row viewStyleNav']);
 echo Html::beginTag('div', $optionsTop);
  $form = ActiveForm::begin([
-                'action'  => ['planning','id'=>$user->id,'date'=>$startDate->format('Y-m-d')],
+                'action'  => ['planning','id'=>$model->id,'date'=>$startDate->format('Y-m-d')],
                 'method'  => 'get',
                 'options' => [
                     'data-pjax' => '',

@@ -1,8 +1,8 @@
 <?php
 
 use app\extentions\helpers\MyPjax;
+use app\extentions\MyGridView;
 use app\models\search\SportifSearch;
-use kartik\grid\GridView;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\web\View;
@@ -18,23 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
    
 
 
-    <?php MyPjax::begin(); echo GridView::widget([
+    <?php MyPjax::begin(); echo MyGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $searchModel->getColumns(),
-        'responsive'=>true,
-        'hover'=>true,
-        'condensed'=>true,
-        'floatHeader'=>true,
 
 
 
 
         'panel' => [
             'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
-            'type'=>'info',
-            'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),                                                                                                                                                          'after'=>Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
-            'showFooter'=>false
+            'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success','data-pjax'=>0]),                                                                                                                                                          'after'=>Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
         ],
     ]); MyPjax::end(); ?>
 

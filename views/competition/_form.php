@@ -14,21 +14,34 @@ use kartik\datecontrol\DateControl;
 
 <div class="competition-form">
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
-
-        'model' => $model,
-        'form' => $form,
-        'columns' => 1,
+    <?php
+    $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
+    echo Form::widget([
+        'model'      => $model,
+        'form'       => $form,
+        'columns'    => 1,
         'attributes' => [
-
-            'title'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Titre...', 'maxlength'=>1024]],
-
-//            'sportif_id'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Sportif...']],
-
-            'date_begin'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATE]],
-
-            'date_end'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATE]],
-
+            'title' => [
+                'type'    => Form::INPUT_TEXT,
+                'options' => ['placeholder' => 'Enter Titre...', 'maxlength' => 1024],
+            ],
+        ]
+    ]);
+    echo Form::widget([
+        'model'      => $model,
+        'form'       => $form,
+        'columns'    => 2,
+        'attributes' => [
+            'date_begin' => [
+                'type'        => Form::INPUT_WIDGET,
+                'widgetClass' => DateControl::classname(),
+                'options'     => ['type' => DateControl::FORMAT_DATE]
+            ],
+            'date_end'   => [
+                'type'        => Form::INPUT_WIDGET,
+                'widgetClass' => DateControl::classname(),
+                'options'     => ['type' => DateControl::FORMAT_DATE]
+            ],
 //            'published'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Publication...']],
 //
 //            'created_by'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Created By...']],
@@ -38,12 +51,11 @@ use kartik\datecontrol\DateControl;
 //            'created_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
 //
 //            'updated_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]],
-
         ]
-
     ]);
 
     echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
-    ActiveForm::end(); ?>
+    ActiveForm::end();
+    ?>
 
 </div>

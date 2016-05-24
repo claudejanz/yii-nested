@@ -27,7 +27,7 @@ class m160229_181714_excel_import extends Migration
                     'setIndexSheetByName'  => true,
         ]);
         $data2 = Excel::import(Yii::getAlias('@app/migrations/excel/mulaff.xls'), [
-                    'getOnlySheet'         => 'Users',
+                    'getOnlySheet'         => 'USERS',
                     'setFirstRecordAsKeys' => true,
                     'setIndexSheetByName'  => true,
         ]);

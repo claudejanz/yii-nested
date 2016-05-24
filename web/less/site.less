@@ -13,7 +13,6 @@
 @mulaff: #97cccd;
 @mulaffClear: rgba(166,203,198,0.2);
 @mulaffSecondary: #78a5a6;
-@mulaffThird: #416162;
 @white: #2c1212;
 @black: black;
 
@@ -32,16 +31,19 @@
 @btn-dark-green-bg:                 @brand-dark-green;
 @btn-dark-green-border:             darken(@btn-dark-green-bg, 2%);
 
-.btn-green {
-  .button-variant(@btn-green-color; @btn-green-bg; @btn-green-border);
-}
-.btn-dark-green {
-  .button-variant(@btn-dark-green-color; @btn-dark-green-bg; @btn-dark-green-border);
-}
+@brand-mulaff:                  #416162;
+@btn-mulaff-color:              white;
+@btn-mulaff-bg:                 @brand-mulaff;
+@btn-mulaff-border:             @mulaffSecondary;
+
 
 @panel-black-text: #FFF; 
 @panel-black-heading-bg: #000;  
 @panel-black-border: #ccc; 
+
+
+
+
 
 /* style sheet */
 html {
@@ -121,14 +123,49 @@ body {
         background-color:gray;
     }
 }
+/*BTN CHANGE*/
+.btn {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 1px;
+}
+/*.btn-primary {
+    background-color: @brand-mulaff;
+    border-color: @mulaffSecondary;
+    color: @white;
+
+
+    &:active {
+        background-color: @mulaff;
+
+    }
+    &:focus {
+        background-color: @mulaff;
+
+    }
+    &:hover {
+        background-color: @mulaffSecondary;
+    }
+}*/
+.btn-primary {
+    .button-variant(@btn-mulaff-color; @btn-mulaff-bg; @btn-mulaff-border);
+}
+
+.btn-green {
+    .button-variant(@btn-green-color; @btn-green-bg; @btn-green-border);
+}
+.btn-dark-green {
+    .button-variant(@btn-dark-green-color; @btn-dark-green-bg; @btn-dark-green-border);
+}
 .btn-yellow {
     .button-variant(@btn-yellow-color; @btn-yellow-bg; @btn-yellow-border);
 }
-
+/*ADD PANEL STYLE*/
 .panel-black {
     .panel-variant(@panel-black-border; @panel-black-text; @panel-black-heading-bg; @panel-black-border);
 }
 
+/*RIBBON*/
 .ribbon-block{
     position: relative;
     .toggle-bt-cont{
@@ -277,6 +314,7 @@ body {
         }
     }
 }
+/*DROP ZONE*/
 .dropzone:empty{
     &::after{
         height:100px;
@@ -413,7 +451,7 @@ button.blue-btn{
 }
 .button2( @color){
     .button();  
-     background-color:@color;
+    background-color:@color;
     display:inline-block;
 }
 span.red-border{
@@ -602,7 +640,7 @@ span.sports{
 }
 
 /*SPORTIF*/
-
+/* TODO avec les nouvelles couleurs
 @media (max-width: @screen-xs-max) {
     background-color:#FF0000;
     .collapsable{
@@ -666,7 +704,7 @@ span.sports{
         margin: 0;
         font-size: 11px;
         letter-spacing: 1px;
-        color: @mulaffThird;
+        color: @brand-mulaff;
         font-weight: 700;
         &:hover {
             background-color: @mulaffSecondary;
@@ -885,6 +923,7 @@ span.sports{
         color: @mulaff;
     }
 }
+*/
 /*END SPORTIF*/
 
 body.login {
@@ -937,30 +976,7 @@ body.login {
 }
 
 
-/*BTN CHANGE*/
-.btn {
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-radius: 1px;
-}
-.btn-primary {
-    background-color: @mulaffThird;
-    border-color: @mulaffSecondary;
-    color: @white;
 
-
-    &:active {
-        background-color: @mulaff;
-
-    }
-    &:focus {
-        background-color: @mulaff;
-
-    }
-    &:hover {
-        background-color: @mulaffSecondary;
-    }
-}
 
 body.coaches .bullet{
     text-align: right;

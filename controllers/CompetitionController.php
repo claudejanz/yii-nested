@@ -11,6 +11,7 @@ use claudejanz\contextAccessFilter\filters\ContextFilter;
 use claudejanz\toolbox\controllers\behaviors\PageBehavior;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -29,6 +30,7 @@ class CompetitionController extends MyController
                 'only'      => [
                     'index',
                     'create',
+                    'update',
                 ]
             ],
             'access'  => [
@@ -50,7 +52,8 @@ class CompetitionController extends MyController
 //                    ],
                     [
                         'actions' => [
-                            'create'
+                            'create',
+                            'update'
                         ],
                         'allow'   => true,
                         'roles'   => ['update user'],
@@ -78,7 +81,7 @@ class CompetitionController extends MyController
     {
         $searchModel = new CompetitionSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
+        Url::remember();
         return $this->render('index', [
                     'dataProvider' => $dataProvider,
                     'searchModel'  => $searchModel,
@@ -130,7 +133,7 @@ class CompetitionController extends MyController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(Url::previous());
         } else {
             return $this->render('update', [
                         'model' => $model,

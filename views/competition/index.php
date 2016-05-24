@@ -49,14 +49,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template'=>'{update} {delete}',
                 'buttons' => [
                 'update' => function ($url, $model) {
-                                    return Html::a(Icon::show('edit'), Yii::$app->urlManager->createUrl(['competition/view','sportif_id'=>Yii::$app->controller->model->id,'id' => $model->id,'edit'=>'t']), [
+                                    return Html::a(Icon::show('edit'), Yii::$app->urlManager->createUrl(['competition/update','sportif_id'=>Yii::$app->controller->model->id,'id' => $model->id]), [
                                                     'title' => Yii::t('yii', 'Edit'),
                                                   ]);
                                     
                 },
 
                         'delete'=>function ($url, $model) {
-                                    return Html::a(Icon::show('remove'), Yii::$app->urlManager->createUrl(['competition/delete','sportif_id'=>Yii::$app->controller->model->id,'id' => $model->id,'edit'=>'t']), [
+                                    return Html::a(Icon::show('remove'), Yii::$app->urlManager->createUrl(['competition/delete','sportif_id'=>Yii::$app->controller->model->id,'id' => $model->id]), [
                                                     'title' => Yii::t('yii', 'Delete'),
                                         'data-comfirm'=>  Yii::t('app', 'Are you sure you want to delete this item?'),
                                         'data-method'=> 'post'
@@ -72,10 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         'panel' => [
             'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
-            'type'=>'info',
             'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create','sportif_id'=>Yii::$app->controller->model->id], ['class' => 'btn btn-success']),                                                                                                                                                          'after'=>Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
-            'showFooter'=>false,
-            'data-pjax'=>0,
         ],
     ]); Pjax::end(); ?>
 

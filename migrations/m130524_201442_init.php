@@ -28,7 +28,7 @@ class m130524_201442_init extends \yii\db\Migration
             'role' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 10',
             'language' => Schema::TYPE_STRING . '(5) NOT NULL',
             'trainer_id' => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
-            'birthday' => Schema::TYPE_DATETIME . '  NOT NULL',
+            'birthday' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'gender' => Schema::TYPE_SMALLINT . '  NOT NULL',
             'contrat_start' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'contrat_end' => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
