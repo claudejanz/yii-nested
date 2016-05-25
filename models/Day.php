@@ -129,13 +129,26 @@ class Day extends DayBase
 
     public function publish($value = WeekPublishBehavior::PUBLISHED_PLANING_DONE)
     {
-        $this->published = $value;
-        if ($this->save()) {
-            foreach ($this->trainings as $training)
-                if (!$training->publish($value))
+        if ($value == WeekPublishBehavior::PUBLISHED_PLANING_DONE) {
+            if ($this->trainings) {
+                $this->published = $value;
+                if (!$this->save()) {
                     return false;
-
+                }
+                foreach ($this->trainings as $training) {
+                    if (!$training->publish($value)) {
+                        return false;
+                    }
+                }
+                $this->week->addNewPublishedDay($this);
+                return true;
+            }
             return true;
+        } elseif ($value < WeekPublishBehavior::PUBLISHED_PLANING_DONE) {
+            $this->published = $value;
+            if ($this->save()) {
+                return true;
+            }
         }
         return false;
     }
@@ -196,12 +209,12 @@ class Day extends DayBase
     private $_hasReportingDone;
 
     public function getHasReportingDone() {
-        if(!$this->_hasReportingDone){
-        return $this->_hasReporting =((new \yii\db\Query())
-                        ->select(['done'])
-                        ->from('reporting')
-                        ->where(['day_id' => $this->id, 'done' => 1])
-                        ->scalar())?true:false;
+        if (!$this->_hasReportingDone) {
+            return $this->_hasReporting = ((new \yii\db\Query())
+                            ->select(['done'])
+                            ->from('reporting')
+                            ->where(['day_id' => $this->id, 'done' => 1])
+                            ->scalar()) ? true : false;
         }
         return $this->_hasReportingDone;
     }
@@ -209,14 +222,30 @@ class Day extends DayBase
     private $_hasReporting;
 
     public function getHasReporting() {
-        if(!$this->_hasReporting){
+        if (!$this->_hasReporting) {
             $this->_hasReporting = ((new \yii\db\Query())
-                        ->select(['id'])
-                        ->from('reporting')
-                        ->where(['day_id' => $this->id])
-                        ->scalar() != null)?true:false;
+                            ->select(['id'])
+                            ->from('reporting')
+                            ->where(['day_id' => $this->id])
+                            ->scalar() != null) ? true : false;
         }
         return $this->_hasReporting;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReportings()
+    {
+        return $this->hasMany(Reporting::className(), ['day_id' => 'id'])->inverseOf('day');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainings()
+    {
+        return $this->hasMany(Training::className(), ['day_id' => 'id'])->inverseOf('day');
     }
 
 }

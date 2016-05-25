@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Day;
 use app\models\User;
 use app\models\Week;
 use yii\helpers\Html;
@@ -7,25 +8,28 @@ use yii\web\View;
 
 /* @var $this View */
 /* @var $user User */
-/* @var $date DateTime */
-/* @var $date_begin DateTime */
 /* @var $model Week */
 
-$dateEnd= clone $date;
-$dateEnd->modify('+6 days');
-$planningLink = Yii::$app->urlManager->createAbsoluteUrl(['users/planning','id'=>$user->id,'date'=>$date_begin]);
-?>
-
-<h1>Salut <?= Html::encode($user->firstname) ?>,</h1>
-
-
-<p>Ton nouveau planinng du <b><?= Yii::$app->formatter->asDate($date); ?></b> au <b><?= Yii::$app->formatter->asDate($dateEnd); ?></b></p>
-<?php
+echo Html::tag('h1',  Yii::t('mail', 'Hi {name},',['name'=>$user->firstname]));
 if (isset($model) && !empty($model->words_of_the_week)) {
-    echo Html::tag('p', 'Ton objectif: ' . $model->words_of_the_week);
+    echo Html::tag('p', Yii::t('mail', 'Your objectif: {word_of_the_week}',['word_of_the_week'=>$model->words_of_the_week]));
 }
-?><p>Clique le lien ci-dessous pour le consulter:</p>
 
-
-<?= Html::a(Yii::t('app', 'See planning.'), $planningLink) ?>
+$days = $model->getNewPublishedDay();
+if (!empty($days)) {
+    echo Html::tag('p', Yii::t('mail', 'Your new planning for the following days:'));
+    echo Html::beginTag('ul');
+    foreach ($days as $day) {
+        /* @var $day Day */
+        echo Html::beginTag('li');
+        echo Yii::$app->formatter->asDate($day->date);
+        echo Html::endTag('li');
+    }
+    echo Html::endTag('ul');
+}
+echo Html::tag('p',  Yii::t('mail', 'Click on the following link to see your planning:'));
+$planningLink = Yii::$app->urlManager->createAbsoluteUrl(['users/planning','id'=>$user->id,'date'=>$model->date_begin]);
+echo Html::a(Yii::t('mail', 'See planning'), $planningLink) 
+        
+        ?>
 

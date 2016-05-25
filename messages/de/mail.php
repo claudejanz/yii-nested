@@ -17,5 +17,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Click on the following link to see your planning:' => '',
+    'Hi {name},' => '',
+    'See planning' => '',
     'Welcome on {sitename}' => '',
+    'Your new planning for the following days:' => '',
+    'Your objectif: {word_of_the_week}' => '',
 ];

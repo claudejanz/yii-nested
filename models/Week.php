@@ -10,6 +10,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use yii\db\Exception;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 
@@ -25,7 +26,7 @@ class Week extends WeekBase
     public function behaviors()
     {
         return array(
-            'publish' => [
+            'publish'   => [
                 'class' => WeekPublishBehavior::className(),
             ],
             'timestamp' => [
@@ -69,7 +70,6 @@ class Week extends WeekBase
         return $this->hasMany(Day::className(), ['week_id' => 'id'])->with(['trainings'])->indexBy('date');
     }
 
-    
     public function getReportingsByDate()
     {
         $models = $this->reportings;
@@ -78,10 +78,11 @@ class Week extends WeekBase
 
     public function getLoadsByDate()
     {
-        if(!$this->getReportingsByDate())return null;
+        if (!$this->getReportingsByDate())
+            return null;
         $data = [];
         foreach ($this->getReportingsByDate() as $key => $reportings) {
-            $data[$key]=0;
+            $data[$key] = 0;
             foreach ($reportings as $reporting) {
                 /* @var $reporting Reporting */
                 $data[$key]+=$reporting->load;
@@ -89,12 +90,14 @@ class Week extends WeekBase
         }
         return $data;
     }
+
     public function getKmByDate()
     {
-        if(!$this->getReportingsByDate())return null;
+        if (!$this->getReportingsByDate())
+            return null;
         $data = [];
         foreach ($this->getReportingsByDate() as $key => $reportings) {
-            $data[$key]=0;
+            $data[$key] = 0;
             foreach ($reportings as $reporting) {
                 /* @var $reporting Reporting */
                 $data[$key]+=$reporting->km;
@@ -105,11 +108,12 @@ class Week extends WeekBase
 
     public function sendWeekMail($user)
     {
+
         $date = new EuroDateTime($this->date_begin);
         $dateEnd = clone $date;
         $dateEnd->modify('+6 days');
-        $title = Yii::t('app', 'Your new planning from {begin_date} to {end_date}', ['begin_date' => Yii::$app->formatter->asDate($date), 'end_date' => Yii::$app->formatter->asDate($dateEnd)]);
-        return Yii::$app->mailer->compose('sendWeek', ['model' => $this, 'user' => $user, 'date' => $date, 'date_begin' => $this->date_begin, 'title' => $title])
+        $title = Yii::t('app', 'A new planning has been done for you');
+        return Yii::$app->mailer->compose('sendWeek', ['model' => $this, 'user' => $user, 'title' => $title])
                         ->setFrom([Yii::$app->params['mailerEmail'] => Yii::$app->params['mailerName']])
                         ->setTo($user->email)
                         ->setSubject($title)
@@ -120,16 +124,57 @@ class Week extends WeekBase
     {
         $this->published = $value;
         if ($this->save()) {
-            foreach ($this->days as $day)
-                if (!$day->publish($value))
+            foreach ($this->days as $day) {
+                if (!$day->publish($value)) {
                     return false;
-
+                }
+            }
             return true;
         }
         return false;
     }
-    
 
-    
+    private $_newPublishedDay = [];
+
+    /**
+     * Add new published day for mail report
+     * @param Day $day
+     */
+    public function addNewPublishedDay($day) {
+
+        $this->_newPublishedDay[] = $day;
+    }
+
+    /**
+     * Returns new days for mail report
+     * @return Day[]
+     */
+    public function getNewPublishedDay() {
+        return $this->_newPublishedDay;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDays()
+    {
+        return $this->hasMany(Day::className(), ['week_id' => 'id'])->orderBy(['date'=>SORT_ASC])->inverseOf('week');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReportings()
+    {
+        return $this->hasMany(Reporting::className(), ['week_id' => 'id'])->inverseOf('week');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainings()
+    {
+        return $this->hasMany(Training::className(), ['week_id' => 'id'])->inverseOf('week');
+    }
 
 }

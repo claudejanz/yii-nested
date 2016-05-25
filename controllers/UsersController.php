@@ -491,11 +491,10 @@ class UsersController extends MyController
 
             if ($model->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
-                    if ($model->publish()) {
-
-
-                        if ($model->sendWeekMail($user))
+                    if ($model->publish(WeekPublishBehavior::PUBLISHED_PLANING_DONE)) {
+                        if ($model->sendWeekMail($user)) {
                             return ['message' => Yii::t('app', 'Week has been sent to {user}', ['user' => $user->fullname]), 'error' => '0'];
+                        }
                     } else {
                         throw new NotAcceptableHttpException($this->render('/weeks/_form', [
                             'model' => $model,
