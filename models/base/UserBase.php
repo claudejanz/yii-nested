@@ -39,6 +39,7 @@ use app\models\Week;
     * @property string $created_at
     * @property integer $updated_by
     * @property string $updated_at
+    * @property string $mail_password
     *
             * @property Competition[] $competitions
             * @property Day[] $days
@@ -69,7 +70,7 @@ public function rules()
             [['comments'], 'string'],
             [['role', 'trainer_id', 'gender', 'status', 'created_by', 'updated_by'], 'integer'],
             [['birthday', 'contrat_start', 'contrat_end', 'created_at', 'updated_at'], 'safe'],
-            [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
+            [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'password_hash', 'password_reset_token', 'mail_password'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['language'], 'string', 'max' => 5],
             [['username'], 'unique'],
@@ -109,6 +110,7 @@ return [
     'created_at' => Yii::t('app', 'Created At'),
     'updated_by' => Yii::t('app', 'Updated By'),
     'updated_at' => Yii::t('app', 'Updated At'),
+    'mail_password' => Yii::t('app', 'Mail Password'),
 ];
 }
 
