@@ -113,6 +113,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
             ]
         ]);
     }
+    
     echo Form::widget([
         'model'         => $model,
         'form'          => $form,
@@ -133,6 +134,31 @@ use yii\widgets\ActiveForm as ActiveForm2;
             'comments'  => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => Yii::t('app', 'Enter Comments...')]],
         ]
     ]);
+    if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->id && $model->role>User::ROLE_SPORTIF) {
+        echo Form::widget([
+            'model'         => $model,
+            'form'          => $form,
+            'contentBefore' => Html::tag('legend', Yii::t('app', 'Mail settings')),
+            'columns'       => 3,
+            'attributes'    => [
+                
+                'mail_password'          => [
+                    'type'    => Form::INPUT_TEXT,
+                    'hint'=> Yii::t('app', 'The password the email account you provided before.'),
+                ],
+                
+                'mail_host'          => [
+                    'type'    => Form::INPUT_TEXT,
+                    'hint'=> Yii::t('app', 'The smtp mail host. ex: mail.infomaniak.com'),
+                ],
+                
+                'mail_port'          => [
+                    'type'    => Form::INPUT_TEXT,
+                    'hint'=> Yii::t('app', 'The smtp mail port. ex: 587'),
+                ],
+            ]
+        ]);
+    }
 
 
     echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);

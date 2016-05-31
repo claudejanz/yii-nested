@@ -1,7 +1,7 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
-Yii::setAlias('@tests', dirname(__DIR__).DIRECTORY_SEPARATOR.'tests');
+Yii::setAlias('@tests', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'tests');
 $config = [
     'id'         => 'Mulaff Training Planner',
     'name'       => 'Mulaff Training Planner',
@@ -11,7 +11,7 @@ $config = [
 //    'baseUrl' => 'http://coaching.mulaff.com',
 //    'defaultRoute'=>'pages',
     'modules'    => [
-        'social' => [
+        'social'      => [
 // the module class
             'class'           => 'kartik\social\Module',
 // the global settings for the google-analytics widget
@@ -20,7 +20,20 @@ $config = [
                 'domain' => 'coach.mulaff.ch'
             ],
         ],
-        'redactor'    => 'yii\redactor\RedactorModule',
+        'redactor'    => [
+            'class'               => 'yii\redactor\RedactorModule',
+            'widgetClientOptions' => [
+                'buttons'    => [
+                    'format',
+                    'html',
+                    'bold',
+                    'italic',
+                ],
+                'focus'      => true,
+                'formatting' => ['p', 'blockquote'],
+                'plugins'=>['fullscreen']
+            ]
+        ],
         'gridview'    => [
             'class' => 'kartik\grid\Module',
         ],

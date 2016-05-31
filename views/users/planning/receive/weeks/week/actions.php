@@ -52,6 +52,7 @@ if ($isCoach && (!$week || $week->published <= app\extentions\behaviors\WeekPubl
         ],
     ]);
 }
+
 if (!$isCoach) {
     $label = ($week && $week->published < app\extentions\behaviors\WeekPublishBehavior::PUBLISHED_CITY_EDIT) ? Yii::t('app', 'Re-validate citys') : Yii::t('app', 'Validate citys');
     echo AjaxButton::widget([
@@ -83,6 +84,22 @@ if ($week) {
                 'week_id' => $week->id,
             ],
             'title' => Yii::t('app', 'Send the week to {username}', ['username' => $model->fullname]),
+            'success' => '#week' . $startDate->format('Y-m-d'),
+            'options' => [
+                'title' => $label,
+                'class' => 'red',
+            ],
+        ]);
+        $label = Yii::t('app', 'Mail report');
+        echo ' ' . AjaxModalButton::widget([
+            'label' => StyleIcon::showStyled('send') . ' ' . $label,
+            'encodeLabel' => false,
+            'url' => [
+                'mail-report',
+                'id' => $model->id,
+                'week_id' => $week->id,
+            ],
+            'title' => Yii::t('app', 'Send mail report to {name}', ['name' => $model->fullname]),
             'success' => '#week' . $startDate->format('Y-m-d'),
             'options' => [
                 'title' => $label,

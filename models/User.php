@@ -88,6 +88,7 @@ class User extends UserBase implements IdentityInterface
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
             ['editableSports', ManyToManyValidator::className()],
+                       
                 ], parent::rules());
     }
 

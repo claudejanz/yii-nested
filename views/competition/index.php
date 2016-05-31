@@ -1,8 +1,8 @@
 <?php
 
 use app\extentions\MyGridView;
+use app\extentions\StyleIcon;
 use app\models\search\CompetitionSearch;
-use kartik\icons\Icon;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\web\View;
@@ -49,14 +49,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template'=>'{update} {delete}',
                 'buttons' => [
                 'update' => function ($url, $model) {
-                                    return Html::a(Icon::show('edit'), Yii::$app->urlManager->createUrl(['competition/update','sportif_id'=>Yii::$app->controller->model->id,'id' => $model->id]), [
+                                    return Html::a(StyleIcon::showStyled('pencil'), Yii::$app->urlManager->createUrl(['competition/update','sportif_id'=>Yii::$app->controller->model->id,'id' => $model->id]), [
                                                     'title' => Yii::t('yii', 'Edit'),
                                                   ]);
                                     
                 },
 
                         'delete'=>function ($url, $model) {
-                                    return Html::a(Icon::show('remove'), Yii::$app->urlManager->createUrl(['competition/delete','sportif_id'=>Yii::$app->controller->model->id,'id' => $model->id]), [
+                                    return Html::a(StyleIcon::showStyled('trash'), Yii::$app->urlManager->createUrl(['competition/delete','sportif_id'=>Yii::$app->controller->model->id,'id' => $model->id]), [
                                                     'title' => Yii::t('yii', 'Delete'),
                                         'data-comfirm'=>  Yii::t('app', 'Are you sure you want to delete this item?'),
                                         'data-method'=> 'post'

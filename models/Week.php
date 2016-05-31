@@ -166,7 +166,7 @@ class Week extends WeekBase
      */
     public function getReportings()
     {
-        return $this->hasMany(Reporting::className(), ['week_id' => 'id'])->inverseOf('week');
+        return $this->hasMany(Reporting::className(), ['week_id' => 'id'])->orderBy(['date'=>SORT_ASC])->inverseOf('week');
     }
 
     /**

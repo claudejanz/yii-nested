@@ -6,6 +6,7 @@ use app\controllers\base\MyController;
 use app\extentions\behaviors\WeekPublishBehavior;
 use app\extentions\helpers\EuroDateTime;
 use app\models\Day;
+use app\models\Mail;
 use app\models\Reporting;
 use app\models\search\TrainingTypeSearch;
 use app\models\search\UserSearch;
@@ -42,6 +43,7 @@ class UsersController extends MyController
                     'day-update',
                     'day-validate-city',
                     'delete',
+                    'mail-report',
                     'planning',
                     'planning-pdf',
                     'training-create',
@@ -62,6 +64,7 @@ class UsersController extends MyController
                         'actions' => [
                             'index',
                             'view',
+                            'mail-report',
                             'training-create',
                             'training-delete',
                             'training-update',
@@ -79,7 +82,7 @@ class UsersController extends MyController
                     ],
                     [
                         'actions' => [
-                            
+
                             'day-update',
                             'day-validate-city',
                             'planning',
@@ -109,6 +112,7 @@ class UsersController extends MyController
                 'only'    => [
                     'day-update',
                     'day-validate-city',
+                    'mail-report',
                     'training-update',
                     'reporting-update',
                     'week-fill',
@@ -132,7 +136,7 @@ class UsersController extends MyController
     public function actionIndex()
     {
         $searchModel = new UserSearch;
-        
+
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
@@ -262,7 +266,7 @@ class UsersController extends MyController
 
             $auth = Yii::$app->authManager;
             $role = $auth->getRole($model->getRoleName());
-            $auth->assign($role, $model->getId());
+            $auth->assign($role, $model->id);
 
             if ($model->sendPasswordInit()) {
                 Yii::$app->getSession()->setFlash(Alert::TYPE_SUCCESS, Yii::t('app', 'Email sended to {name}', ['name' => $model->getFullname()]));
@@ -286,6 +290,12 @@ class UsersController extends MyController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $auth = Yii::$app->authManager;
+            $auth->revokeAll($model->id);
+            $role = $auth->getRole($model->getRoleName());
+            $auth->assign($role, $model->id);
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -557,6 +567,45 @@ class UsersController extends MyController
         $model->publish(WeekPublishBehavior::PUBLISHED_CITY_DONE);
         return ['message' => Yii::t('app', 'Week has been validated.'), 'error' => 0];
     }
+
+    public function actionMailReport($id, $week_id)
+    {
+        $week = Week::findOne($week_id);
+        if ($week) {
+            $model = new Mail();
+            $user = $this->model;
+            $model->receiver_id = $user->id;
+            $model->week_id = $week->id;
+            $model->date = date('Y-m-d');
+            $model->prepareWeekReport($week);
+            
+
+            if ($model->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    if ($model->validate()) {
+                        if ($model->sendWeekReport($user)) {
+                            return ['message' => Yii::t('app', 'Week report has been sent to {user}', ['user' => $user->fullname]), 'error' => '0'];
+                        }
+                    } else {
+                        throw new NotAcceptableHttpException($this->render('/mails/_form', [
+                            'model' => $model,
+                        ]).print_r($model->errors,true));
+                    }
+                } else {
+                    if ($model->save()) {
+                        if ($model->sendWeekReport($user)) {
+                            return $this->redirect(Url::previous());
+                        }
+                    }
+                }
+            }
+
+            return $this->render('/mails/_form', [
+                        'model' => $model,
+            ]);
+        }
+        return ['message' => Yii::t('app', 'Week report must have something in it to be sent.'), 'error' => 1];
+}
 
     /**
      * Finds the User model based on its primary key value.

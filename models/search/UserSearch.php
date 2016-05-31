@@ -2,6 +2,7 @@
 
 namespace app\models\search;
 
+use app\extentions\StyleIcon;
 use app\models\Sport;
 use app\models\User;
 use Yii;
@@ -82,16 +83,16 @@ class UserSearch extends User
 //        'id',
 //        'username',
             [
-                'attribute' => 'lastname',
+                'attribute' => 'firstname',
                 'value' => function($model) {
-                    return Html::a($model->lastname,['users/update','id'=>$model->id],['data'=>['pjax'=>0]]);
+                    return Html::a($model->firstname,['users/update','id'=>$model->id],['data'=>['pjax'=>0]]);
                 },
                 'format'=>'raw'
             ],
             [
-                'attribute' => 'firstname',
+                'attribute' => 'lastname',
                 'value' => function($model) {
-                    return Html::a($model->firstname,['users/update','id'=>$model->id],['data'=>['pjax'=>0]]);
+                    return Html::a($model->lastname,['users/update','id'=>$model->id],['data'=>['pjax'=>0]]);
                 },
                 'format'=>'raw'
             ],
@@ -152,25 +153,25 @@ class UserSearch extends User
                     'template' => '{view} {update} {planning} {delete}',
                     'buttons' => [
                         'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->urlManager->createUrl(['users/view', 'id' => $model->id]), [
+                            return Html::a(StyleIcon::showStyled('eye'), Yii::$app->urlManager->createUrl(['users/view', 'id' => $model->id]), [
                                         'data-pjax' => '0',
-                                        'title' => Yii::t('yii', 'Edit'),
+                                        'title' => Yii::t('yii', 'View'),
                             ]);
                         },
                                 'update' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Yii::$app->urlManager->createUrl(['users/update', 'id' => $model->id]), [
+                            return Html::a(StyleIcon::showStyled('pencil'), Yii::$app->urlManager->createUrl(['users/update', 'id' => $model->id]), [
                                         'data-pjax' => '0',
                                         'title' => Yii::t('yii', 'Edit'),
                             ]);
                         },
                                 'planning' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-list"></span>', Yii::$app->urlManager->createUrl(['users/planning', 'id' => $model->id]), [
+                            return Html::a(StyleIcon::showStyled('list'), Yii::$app->urlManager->createUrl(['users/planning', 'id' => $model->id]), [
                                         'data-pjax' => '0',
                                         'title' => Yii::t('yii', 'Planning'),
                             ]);
                         },
                                 'delete' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', Yii::$app->urlManager->createUrl(['users/delete', 'id' => $model->id]), [
+                            return Html::a(StyleIcon::showStyled('trash'), Yii::$app->urlManager->createUrl(['users/delete', 'id' => $model->id]), [
                                         'title' => Yii::t('yii', 'Delete'),
                                         'aria-label' => Yii::t('yii', 'Delete'),
                                         'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
