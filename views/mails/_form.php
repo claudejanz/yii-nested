@@ -1,5 +1,6 @@
 <?php
 
+use app\extentions\MyTinyMce;
 use app\models\Mail;
 use claudejanz\toolbox\widgets\ajax\AjaxSubmit;
 use kartik\builder\Form;
@@ -19,6 +20,16 @@ use yii\web\View;
 
     <?php
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
+    switch (substr(Yii::$app->language, 0, 2)) {
+        case 'de':
+            $language = 'de';
+            break;
+        case 'fr':
+            $language = 'fr_FR';
+            break;
+        default:
+            $language = 'en';
+    }
     echo Form::widget([
 
         'model'      => $model,
@@ -30,23 +41,25 @@ use yii\web\View;
 //            'content' => ['type'        => Form::INPUT_HTML5,
 //                
 //            ],
-            'content' => ['type'        => Form::INPUT_WIDGET, 'widgetClass' => Redactor::className(),
-                
-            ],
-//            'content' => ['type'        => Form::INPUT_WIDGET, 'widgetClass' => TinyMce::className(),
-//                'options'     => [
-//                    'options'       => ['rows' => 6],
-//                    'language'      => 'es',
-//                    'clientOptions' => [
-//                        'plugins' => [
+//            'content' => ['type'        => Form::INPUT_WIDGET, 'widgetClass' => Redactor::className()],
+            'content' => ['type'        => Form::INPUT_WIDGET, 'widgetClass' => MyTinyMce::className(),
+                'options'     => [
+                    'options'       => ['rows' => 6],
+                    'language'      => $language,
+                    'clientOptions' => [
+                        'plugins' => [
+                            "",
+                            "visualblocks code fullscreen",
+                            "table contextmenu paste"
 //                            "advlist autolink lists link charmap print preview anchor",
 //                            "searchreplace visualblocks code fullscreen",
 //                            "insertdatetime media table contextmenu paste"
-//                        ],
+                        ],
 //                        'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-//                    ]
-//                ]
-//            ],
+                        'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent"
+                    ]
+                ]
+            ],
         ]
     ]);
 

@@ -31,7 +31,7 @@ use yii\web\View;
             ],
             'feeled_rpe' => [
                 'type' => Form::INPUT_DROPDOWN_LIST,
-                'items' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                'items' => [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 'options' => [
                     'prompt' => Yii::t('app', 'Enter Rpe...'),
                 ]
