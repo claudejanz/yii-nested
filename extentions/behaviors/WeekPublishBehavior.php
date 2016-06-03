@@ -52,8 +52,8 @@ class WeekPublishBehavior extends Behavior
     public static function getPublishedColors()
     {
         return array(
-            self::PUBLISHED_CITY_EDIT => 'yellow',
-            self::PUBLISHED_CITY_DONE => 'danger',
+            self::PUBLISHED_CITY_EDIT => 'info',
+            self::PUBLISHED_CITY_DONE => 'yellow',
             self::PUBLISHED_PLANING_DONE => 'warning',
             self::PUBLISHED_DELETED => 'info'
         );

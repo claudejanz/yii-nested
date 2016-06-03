@@ -28,6 +28,7 @@ echo MyGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
     'columns'      => $searchModel->getColumns($this),
+    'addHeader'    => true,
 ]);
 MyPjax::end();
 ?>

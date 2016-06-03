@@ -16,7 +16,7 @@ use yii\web\User;
 $startDate = $date;
 $endDate = clone $date;
 $endDate->modify('+7 days');
-$weekId =  $startDate->format('Y-m-d');
+$weekId = $startDate->format('Y-m-d');
 
 $interval = DateInterval::createFromDateString('1 day');
 $period = new DatePeriod($startDate, $interval, $endDate);
@@ -33,11 +33,11 @@ echo Html::beginTag('div', ['class' => 'ribbon-block']);
 
 
 // ribbon
-if ($isCoach && !$isLight) {
-    echo $this->render('week/ribbon', [
-        'week' => $week,
-    ]);
-}
+//if ($isCoach && !$isLight) {
+//    echo $this->render('week/ribbon', [
+//        'week' => $week,
+//    ]);
+//}
 // word of the week
 if (isset($week) && isset($week->words_of_the_week)) {
     $options = ['class' => 'words-of-the-week'];
@@ -46,17 +46,25 @@ if (isset($week) && isset($week->words_of_the_week)) {
     }
     echo Html::tag('div', $week->words_of_the_week, $options);
 }
-
+if (isset($week)) {
+    echo $this->render('week/commentaires', [
+        'weekId'  => $weekId,
+        'isCoach' => $isCoach,
+        'isLight' => $isLight,
+        'model'   => $model,
+        'week'   => $week,
+    ]);
+}
 
 // dates 
 $options = ['class' => 'dates'];
-    if (!Yii::$app->request->isAjax) {
-        Html::addCssClass($options, 'animated flipInX');
-    }
+if (!Yii::$app->request->isAjax) {
+    Html::addCssClass($options, 'animated flipInX');
+}
 echo Html::beginTag('div', $options);
 echo Yii::t('app', '{startDate} to {endDate}', [
     'startDate' => Yii::$app->formatter->asDate($startDate, 'd MMM'),
-    'endDate' => Yii::$app->formatter->asDate($endDate->modify('-1 day'), 'd MMM \'\'yy'),
+    'endDate'   => Yii::$app->formatter->asDate($endDate->modify('-1 day'), 'd MMM \'\'yy'),
 ]);
 
 
@@ -67,12 +75,12 @@ foreach ($period as $dateTime) {
     $dayId = $dateTime->format('Y-m-d');
     echo $this->render('week/day', [
         'dateTime' => $dateTime,
-        'weekId' => $weekId,
-        'dayId' => $dayId,
-        'day' => isset($days[$dayId])?$days[$dayId]:null,
-        'isCoach' => $isCoach,
-        'isLight' => $isLight,
-        'model' => $model,
+        'weekId'   => $weekId,
+        'dayId'    => $dayId,
+        'day'      => isset($days[$dayId]) ? $days[$dayId] : null,
+        'isCoach'  => $isCoach,
+        'isLight'  => $isLight,
+        'model'    => $model,
     ]);
 }
 // reporting

@@ -14,6 +14,7 @@ use app\models\Training;
 use app\models\TrainingType;
 use app\models\User;
 use app\models\Week;
+use app\models\WeekComment;
 use claudejanz\contextAccessFilter\filters\AccessControl;
 use claudejanz\contextAccessFilter\filters\ContextFilter;
 use claudejanz\toolbox\controllers\behaviors\PageBehavior;
@@ -52,6 +53,7 @@ class UsersController extends MyController
                     'reporting-update',
                     'update',
                     'view',
+                    'week-add-comment',
                     'week-publish',
                     'week-fill',
                     'week-ready',
@@ -89,6 +91,7 @@ class UsersController extends MyController
                             'planning-pdf',
                             'reporting-update',
                             'update',
+                            'week-add-comment',
                             'week-ready',
                             'week-fill',
                         ],
@@ -115,6 +118,7 @@ class UsersController extends MyController
                     'mail-report',
                     'training-update',
                     'reporting-update',
+                    'week-add-comment',
                     'week-fill',
                     'week-publish',
                     'week-ready',
@@ -525,6 +529,32 @@ class UsersController extends MyController
         return ['message' => Yii::t('app', 'Week must have something in it to be sent.'), 'error' => 1];
     }
 
+    public function actionWeekAddComment($id, $week_id){
+        $week = Week::findOne($week_id);
+        /* @var $$user User */
+        $user = $this->model;
+        $model = new WeekComment();
+        $model->week_id = $week_id;
+        if ($model->load(Yii::$app->request->post())) {
+            if (Yii::$app->request->isAjax) {
+                if ($model->validate()) {
+                    return $model->save();
+                } else {
+                    throw new NotAcceptableHttpException($this->render('/week-comments/_form', ['model' => $model]));
+                }
+            } else {
+                if ($model->validate()) {
+                    $model->save();
+                    return $this->redirect(Url::previous());
+                } else {
+                    var_dump($model->errors, $training_id);
+                }
+            }
+        }
+
+        return $this->render('/week-comments/_form', ['model' => $model]);
+}
+
     /**
      * Coach sends an email to ask sportif to fill his week
      * 
@@ -578,7 +608,7 @@ class UsersController extends MyController
             $model->week_id = $week->id;
             $model->date = date('Y-m-d');
             $model->prepareWeekReport($week);
-            
+
 
             if ($model->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
@@ -589,7 +619,7 @@ class UsersController extends MyController
                     } else {
                         throw new NotAcceptableHttpException($this->render('/mails/_form', [
                             'model' => $model,
-                        ]).print_r($model->errors,true));
+                        ]) . print_r($model->errors, true));
                     }
                 } else {
                     if ($model->save()) {

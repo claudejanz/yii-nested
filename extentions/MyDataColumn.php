@@ -38,9 +38,8 @@ class MyDataColumn extends DataColumn
      * @var DateTime
      */
     public $dateTime;
-
-    
     public static $hasADayBeenDisplayed = false;
+
     /**
      * Renders the filter.
      * @return string the rendering result.
@@ -53,9 +52,9 @@ class MyDataColumn extends DataColumn
         $date = new EuroDateTime($this->dateTime->format('Y-m-d'));
         if (Yii::$app->formatter->asDate($this->dateTime, 'e') == 1 || !self::$hasADayBeenDisplayed) {
             $this->dateTime->format('d');
-            $colspan= ( !self::$hasADayBeenDisplayed)?7-Yii::$app->formatter->asDate($this->dateTime, 'e')+1:7;
+            $colspan = (!self::$hasADayBeenDisplayed) ? 7 - Yii::$app->formatter->asDate($this->dateTime, 'e') + 1 : 7;
             self::$hasADayBeenDisplayed = true;
-            return Html::tag('th', Yii::t('app', 'Week {n}', ['n' => $this->dateTime->format('W')]), ['colspan' => $colspan]);
+            return Html::tag('th', $this->dateTime->format('W'), ['colspan' => $colspan]);
         }
         return '';
     }
@@ -69,7 +68,23 @@ class MyDataColumn extends DataColumn
         if (!isset($this->dateTime)) {
             return parent::renderFilterCell();
         }
-        return Html::tag('td', strtoupper(Yii::$app->formatter->asDate($this->dateTime,'d\'<br>\'EEEEE')));
+        return Html::tag('td', strtoupper(Yii::$app->formatter->asDate($this->dateTime, 'd\'<br>\'EEEEE')));
     }
+
+    public function renderDataCell($model, $key, $index)
+            {
+        if (!isset($this->dateTime)) {
+            return parent::renderDataCell($model, $key, $index);
+        }
+        $options = $this->fetchContentOptions($model, $key, $index);
+        if (Yii::$app->formatter->asDate($this->dateTime, 'e')==7) {
+            Html::addCssClass($options, 'dim');
+        }
+        $this->parseGrouping($options, $model, $key, $index);
+        $this->parseExcelFormats($options, $model, $key, $index);
+        $this->initPjax($this->_clientScript);
+        return Html::tag('td', $this->renderDataCellContent($model, $key, $index), $options);
+        
+}
 
 }

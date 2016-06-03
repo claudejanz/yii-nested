@@ -5,6 +5,7 @@ use app\extentions\helpers\MyPjax;
 use app\models\Day;
 use app\models\Training;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
+use kartik\alert\Alert;
 use kartik\helpers\Html;
 use yii\helpers\Url;
 use yii\web\User;
@@ -20,10 +21,20 @@ use yii\web\User;
 /* @var $day Day */
 
 
+
 MyPjax::begin(['id' => 'day' . $dayId]);
+
 $options = ['class' => 'day white-block', 'data' => ['date' => $dayId, 'week' => $weekId]];
 if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
+}
+
+if ($isCoach) {
+    if ($day) {
+        Html::addCssClass($options, 'day-' . $day->publishedColor);
+    } else {
+        Html::addCssClass($options, 'day-empty');
+    }
 }
 $today = new EuroDateTime('now');
 if ($dayId == $today->format('Y-d-m')) {
@@ -44,10 +55,10 @@ $options = ['class' => 'row collapsable'];
 $today = new EuroDateTime('now');
 if ($dayId == $today->format('Y-m-d')) {
     Html::addCssClass($options, 'currentDay');
-} elseif($isCoach) {
-    Html::addCssClass($options, 'collapsed');
-    Html::addCssStyle($options, 'display: none;');
 }
+
+Html::addCssClass($options, 'collapsed');
+Html::addCssStyle($options, 'display: none;');
 
 echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'col-lg-12']);
@@ -59,7 +70,7 @@ if ($day && isset($day->trainingsWithSport)) {
         /* @var $training Training */
         if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
             echo $this->render('day/training', [
-                'training'   => $training,
+                'training' => $training,
                 'model'    => $model,
                 'dateTime' => $dateTime,
                 'day'      => $day,
@@ -104,5 +115,4 @@ $js = '
     
   ';
 $this->registerJs($js);
-
 MyPjax::end();

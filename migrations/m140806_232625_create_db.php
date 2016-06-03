@@ -371,6 +371,19 @@ class m140806_232625_create_db extends Migration
             'INDEX index_week (week_id ASC)',
             'FOREIGN KEY (week_id) REFERENCES week (id) ON DELETE CASCADE ON UPDATE CASCADE ',
                 ], $tableOptions);
+        
+        $this->createTable('week_comment', [
+            'id'            => Schema::TYPE_PK,
+            'title'       => Schema::TYPE_STRING . '(1024) NOT NULL',
+            'week_id'       => Schema::TYPE_INTEGER . '(11) NOT NULL',
+            'content'       => Schema::TYPE_TEXT . ' NULL DEFAULT NULL',
+            'created_by'    => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'created_at'    => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'updated_by'    => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
+            'updated_at'    => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
+            'INDEX index_week (week_id ASC)',
+            'FOREIGN KEY (week_id) REFERENCES week (id) ON DELETE CASCADE ON UPDATE CASCADE ',
+                ], $tableOptions);
 
         $this->createTable('training', [
             'id'              => Schema::TYPE_PK,
@@ -562,6 +575,7 @@ class m140806_232625_create_db extends Migration
         $this->dropTable('training_type');
         $this->dropTable('reporting');
         $this->dropTable('training');
+        $this->dropTable('week_comment');
         $this->dropTable('day');
         $this->dropTable('week');
         $this->dropTable('sub_category_lang');
@@ -587,5 +601,4 @@ class m140806_232625_create_db extends Migration
         $this->dropTable('layout');
         return true;
     }
-
 }

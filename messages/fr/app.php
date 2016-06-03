@@ -125,7 +125,7 @@ return [
     'City Edit' => 'Villes éditées',
     'Color' => 'Couleur',
     'Comment' => 'Commentaire',
-    'Comments' => 'Commentaies',
+    'Comments' => 'Commentaires',
     'Competitions' => 'Compétitions',
     'Content' => 'Contenu',
     'Contrat End' => 'Fin de contrat',

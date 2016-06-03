@@ -222,7 +222,7 @@ class MulaffGraphWidgetV2 extends Widget
                 $cx2 = ($x2 + $x1) / 2;
                 $cy2 = $y2;
                 $prevPoint = [$x2, $y2];
-                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2", 'fill'=>'none','stroke' => 'url(#' . $this->id . ')']);
+                echo Html::tag('path', null, ['d' => "M $x1 $y1 C $cx1 $cy1 $cx2 $cy2 $x2 $y2", 'fill' => 'none', 'stroke' => 'url(#' . $this->id . ')']);
             }
             $step+=$w;
         }
@@ -284,27 +284,29 @@ class MulaffGraphWidgetV2 extends Widget
 
         foreach ($arr as $value) {
             $vals = preg_split('@X@', $value, -1, PREG_SPLIT_NO_EMPTY);
+            if (count($vals)>1) {
 
-            switch ($vals[0]) {
-                case'I5':
-                    $h = 1;
-                    break;
-                case'I4':
-                    $h = 0.8;
-                    break;
-                case'I3':
-                    $h = 0.6;
-                    break;
-                case'I2':
-                    $h = 0.4;
-                    break;
-                case'I1':
-                    $h = 0.2;
-                    break;
+                switch ($vals[0]) {
+                    case'I5':
+                        $h = 1;
+                        break;
+                    case'I4':
+                        $h = 0.8;
+                        break;
+                    case'I3':
+                        $h = 0.6;
+                        break;
+                    case'I2':
+                        $h = 0.4;
+                        break;
+                    case'I1':
+                        $h = 0.2;
+                        break;
+                }
+                $w = ($vals[1] > 1) ? $vals[1] : 1;
+                $matrix[] = [$w, $h, $vals[0], $vals[1]];
+                $step+=$w;
             }
-            $w = ($vals[1] > 1) ? $vals[1] : 1;
-            $matrix[] = [$w, $h, $vals[0], $vals[1]];
-            $step+=$w;
         }
         $this->matrixWidth = $step;
         $this->matrix = $matrix;

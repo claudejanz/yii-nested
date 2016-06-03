@@ -16,12 +16,12 @@
 @white: #2c1212;
 @black: black;
 
-@brand-yellow:                  #FECF00;
+@brand-yellow:                  #FEEF00;
 @btn-yellow-color:              #333;
 @btn-yellow-bg:                 @brand-yellow;
 @btn-yellow-border:             darken(@btn-yellow-bg, 2%);
 
-@brand-green:                  #008000;
+@brand-green:                  #009000;
 @btn-green-color:              #FFF;
 @btn-green-bg:                 @brand-green;
 @btn-green-border:             darken(@btn-green-bg, 2%);
@@ -164,6 +164,8 @@ body {
 .panel-black {
     .panel-variant(@panel-black-border; @panel-black-text; @panel-black-heading-bg; @panel-black-border);
 }
+
+
 
 /*RIBBON*/
 .ribbon-block{
@@ -481,12 +483,43 @@ span.blue-border{
         font-size: 1.4em;
         margin-bottom:@smallGap;
     }
-    .white-block{
+    .white-block,
+    .week-comment-view{
         background-color:white;
         margin-bottom:@smallGap;
         padding: @myPadding;  
     }
     .day{
+        &.day-orange,
+        &.day-warning{
+            .make-day(@btn-warning-border; black; @btn-warning-border; @btn-warning-border);
+        }
+        &.day-success{
+            .make-day(@panel-black-border; black; @btn-success-border; @btn-success-border);
+        }
+        &.day-green{
+            .make-day(@btn-green-border; black; @btn-green-border; @btn-green-border);
+        }
+        &.day-dark-green{
+            .make-day(@btn-dark-green-border; black; @btn-dark-green-border; @btn-dark-green-border);
+        }
+        &.day-danger{
+            .make-day(@btn-danger-border; black; @btn-danger-border; @btn-danger-border);
+        }
+        &.day-yellow{
+            .make-day(@btn-yellow-border; black; @btn-yellow-border; @btn-yellow-border);
+        }
+        &.day-success{
+            .make-day(@btn-success-border; black; @btn-success-border; @btn-success-border);
+        }
+        &.day-info,
+        &.day-empty{
+            .make-day(@btn-info-border; black; @btn-info-border; @btn-info-border);
+        }
+        &.day-black {
+            .make-day(@panel-black-border; black; @panel-black-border; @panel-black-border);
+        }
+
         cursor:pointer;
         .droppable{
             &:empty{
@@ -539,6 +572,13 @@ div.trainingToggle{
 
 }
 
+.kv-grid-table{
+    td.dim{
+        /*border-right-width: 2px;*/
+        border-right-color:black;
+    }
+}
+
 
 .week-graph{
     svg{
@@ -552,6 +592,7 @@ div.trainingToggle{
         } 
     }    
 }
+
 
 .sport-index{
     margin-top: 30px;

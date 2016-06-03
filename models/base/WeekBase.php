@@ -8,6 +8,7 @@ use app\models\Mail;
 use app\models\Reporting;
 use app\models\Training;
 use app\models\User;
+use app\models\WeekComment;
 
 /**
  * This is the model class for table "week".
@@ -29,6 +30,7 @@ use app\models\User;
             * @property Reporting[] $reportings
             * @property Training[] $trainings
             * @property User $sportif
+            * @property WeekComment[] $weekComments
     */
 class WeekBase extends \yii\db\ActiveRecord
 {
@@ -112,6 +114,14 @@ return [
     public function getSportif()
     {
     return $this->hasOne(User::className(), ['id' => 'sportif_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getWeekComments()
+    {
+    return $this->hasMany(WeekComment::className(), ['week_id' => 'id']);
     }
 
     /**

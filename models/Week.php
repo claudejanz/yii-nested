@@ -122,7 +122,9 @@ class Week extends WeekBase
 
     public function publish($value = WeekPublishBehavior::PUBLISHED_PLANING_DONE)
     {
-        $this->published = $value;
+        if($value>$this->published){
+            $this->published=$value;
+        }
         if ($this->save()) {
             foreach ($this->days as $day) {
                 if (!$day->publish($value)) {

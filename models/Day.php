@@ -131,7 +131,9 @@ class Day extends DayBase
     {
         if ($value == WeekPublishBehavior::PUBLISHED_PLANING_DONE) {
             if ($this->trainings) {
-                $this->published = $value;
+                if ($value > $this->published) {
+                    $this->published = $value;
+                }
                 if (!$this->save()) {
                     return false;
                 }
@@ -145,7 +147,9 @@ class Day extends DayBase
             }
             return true;
         } elseif ($value < WeekPublishBehavior::PUBLISHED_PLANING_DONE) {
-            $this->published = $value;
+            if ($value > $this->published) {
+                $this->published = $value;
+            }
             if ($this->save()) {
                 return true;
             }
