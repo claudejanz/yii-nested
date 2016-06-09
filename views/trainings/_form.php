@@ -28,18 +28,8 @@ use yii\widgets\ActiveForm as ActiveForm2;
 
     <?php
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
-    if (Yii::$app->user->can('coach')) {
-        echo Form::widget([
-            'model'      => $model,
-            'form'       => $form,
-            'columns'    => 2,
-            'attributes' => [
-                'sportif_id' => ['type' => Form::INPUT_DROPDOWN_LIST, 'items' => ArrayHelper::map(User::find()->all(), 'id', 'fullname'), 'options' => ['placeholder' => 'Enter Sportif ID...']],
-                'date'       => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(), 'options' => ['type' => DateControl::FORMAT_DATE]],
-            ]
-        ]);
-    }
-     $fields = [
+
+    $fields = [
         'sport_id' => [
             'type'        => Form::INPUT_WIDGET,
             'widgetClass' => Select2::className(),
@@ -52,7 +42,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
         ],
     ];
 
-   
+
     echo Form::widget([
         'model'      => $model,
         'form'       => $form,
@@ -87,6 +77,18 @@ use yii\widgets\ActiveForm as ActiveForm2;
             'graph'         => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Graph...', 'rows' => 6]],
         ]
     ]);
+    if (Yii::$app->user->can('coach')) {
+        echo Form::widget([
+            'model'         => $model,
+            'form'          => $form,
+            'contentBefore' => Html::tag('legend', Yii::t('app', 'Only for coaches')),
+            'columns'       => 2,
+            'attributes'    => [
+                'sportif_id' => ['type' => Form::INPUT_DROPDOWN_LIST, 'items' => ArrayHelper::map(User::find()->all(), 'id', 'fullname'), 'options' => ['placeholder' => 'Enter Sportif ID...']],
+                'date'       => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(), 'options' => ['type' => DateControl::FORMAT_DATE]],
+            ]
+        ]);
+    }
     if (Yii::$app->request->isAjax) {
         echo AjaxSubmit::widget(['label'   => $model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
             'options' => [

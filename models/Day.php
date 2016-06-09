@@ -48,7 +48,7 @@ class Day extends DayBase
     public static function getPublishedOptions()
     {
         return array(
-            WeekPublishBehavior::PUBLISHED_CITY_EDIT => Yii::t('app', 'City Edit'),
+            WeekPublishBehavior::PUBLISHED_CITY_EDIT => Yii::t('app', 'Nothing done'),
             WeekPublishBehavior::PUBLISHED_CITY_DONE => Yii::t('app', 'City Done'),
             WeekPublishBehavior::PUBLISHED_PLANING_DONE => Yii::t('app', 'Planned'),
             self::PUBLISHED_TRAINING_DONE => Yii::t('app', 'Training done'),

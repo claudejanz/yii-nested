@@ -74,7 +74,7 @@ if (!$isLight) {
                         'label'       => StyleIcon::showStyled('list'),
                         'encodeLabel' => false,
                         'url'         => ['training-order', 'id' => $model->id, 'date' => $dayId],
-                        'success'     => '#day' . $dayId,
+                        'success'     => '#trainings' . $dayId,
                         'title'       => Yii::t('app', 'Update training city'),
                         'options'     => ['class' => 'red mulaffBtn']
             ]);

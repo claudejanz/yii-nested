@@ -1,6 +1,7 @@
 <?php
 
-use app\models\Day;
+use app\models\Training;
+use claudejanz\toolbox\widgets\ajax\AjaxSubmit;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -40,10 +41,14 @@ use yii\web\View;
         
         'clientEvents' => [
             'update' => 'function(){$.ajax("' . $url . '",' . $ajaxOptions . ').done(function( data ) {
-            $("#response-order").html(data);
+            $("#trainig").html(data);
 })}'
         ]
     ]);
+    echo AjaxSubmit::widget(['label'   => Yii::t('app', 'Update'),
+            'options' => [
+                'class' => 'btn btn-primary'
+        ]]);
     ?>
 
 </div>

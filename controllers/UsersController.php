@@ -156,7 +156,6 @@ class UsersController extends MyController
 
     public function actionTrainingOrder($id, $date)
   {
-
         $items = Training::find()->select(['id', 'title', 'date'])->andWhere(['sportif_id' => $id, 'date' => $date])->asArray()->all();
         return $this->render('/trainings/order', ['items' => $items]);
   }

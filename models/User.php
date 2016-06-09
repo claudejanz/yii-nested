@@ -95,7 +95,7 @@ class User extends UserBase implements IdentityInterface
 
     public function validatePhone($attribute, $params){
         if (substr($this->$attribute, 0, 1) != '+') {
-            $this->addError($attribute, Yii::t('app', 'Birtday must begin with "+"'));
+            $this->addError($attribute, Yii::t('app', 'Phonenumber must begin with "+"'));
             return false;
         }
         return true;

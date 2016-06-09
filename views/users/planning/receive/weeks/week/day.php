@@ -70,6 +70,8 @@ Html::addCssStyle($options, 'display: none;');
 
 echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'col-lg-12']);
+// block pjax
+MyPjax::begin(['id' => 'trainings' . $dayId]);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'droppable' : '']);
 if ($day && isset($day->trainingsWithSport)) {
     $trainings = $day->trainingsWithSport;
@@ -91,6 +93,7 @@ if ($day && isset($day->trainingsWithSport)) {
     }
 }
 echo Html::endTag('div'); //droppable or empty
+MyPjax::end();
 echo Html::endTag('div'); //coll-sm-10
 echo Html::endTag('div'); //row
 if ($isCoach) {

@@ -25,20 +25,8 @@ use yii\widgets\ActiveForm as ActiveForm2;
 
     <?php
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
-    echo Html::beginTag('fieldset');
-    echo Html::tag('legend',  Yii::t('app', 'Training'));
-    if (Yii::$app->user->can('coach')) {
-        echo Form::widget([
-            'model'      => $model,
-            'form'       => $form,
-            'columns'    => 2,
-            'attributes' => [
-                'sportif_id' => ['type' => Form::INPUT_DROPDOWN_LIST, 'items' => ArrayHelper::map(User::find()->all(), 'id', 'fullname'), 'options' => ['placeholder' => 'Enter Sportif ID...']],
-                'date'       => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(), 'options' => ['type' => DateControl::FORMAT_DATE]],
-            ]
-        ]);
-    }
-     $fields = [
+    
+    $fields = [
         'sport_id' => [
             'type'        => Form::INPUT_WIDGET,
             'widgetClass' => Select2::className(),
@@ -51,7 +39,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
         ],
     ];
 
-   
+
     echo Form::widget([
         'model'      => $model,
         'form'       => $form,
@@ -65,7 +53,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
         'columns'    => 1,
         'attributes' => [
 
-            'title'         => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Titre...', 'maxlength' => 1024]],
+            'title'       => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Titre...', 'maxlength' => 1024]],
 //            'published'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Publication...']],
 //            'category_id'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Category ID...']],
 //            'sub_category_id'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Sub Category ID...']],
@@ -78,18 +66,16 @@ use yii\widgets\ActiveForm as ActiveForm2;
 //                            'minuteStep'  => 1,
 //                        ]
 //                    ]]],
-            'explanation'   => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Explanation...', 'rows' => 6]],
+            'explanation' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Explanation...', 'rows' => 6]],
         ]
     ]);
-    echo Html::endTag('fieldset');
-    echo Html::beginTag('fieldset');
-    echo Html::tag('legend',  Yii::t('app', 'Reporting'));
     echo Form::widget([
 
-        'model'      => $reporting,
-        'form'       => $form,
-        'columns'    => 4,
-        'attributes' => [
+        'model'         => $reporting,
+        'form'          => $form,
+        'columns'       => 4,
+        'contentBefore' => Html::tag('legend', Yii::t('app', 'Reporting')),
+        'attributes'    => [
             'done'       => [
                 'type'        => Form::INPUT_WIDGET,
                 'widgetClass' => BooleanWidget::className(),
@@ -156,7 +142,18 @@ use yii\widgets\ActiveForm as ActiveForm2;
             ],
         ]
     ]);
-    echo Html::endTag('fieldset');
+    if (Yii::$app->user->can('coach')) {
+        echo Form::widget([
+            'model'         => $model,
+            'form'          => $form,
+            'contentBefore' => Html::tag('legend', Yii::t('app', 'Only for coaches')),
+            'columns'       => 2,
+            'attributes'    => [
+                'sportif_id' => ['type' => Form::INPUT_DROPDOWN_LIST, 'items' => ArrayHelper::map(User::find()->all(), 'id', 'fullname'), 'options' => ['placeholder' => 'Enter Sportif ID...']],
+                'date'       => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(), 'options' => ['type' => DateControl::FORMAT_DATE]],
+            ]
+        ]);
+    }
     if (Yii::$app->request->isAjax) {
         echo AjaxSubmit::widget(['label'   => $model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
             'options' => [
