@@ -1,47 +1,19 @@
 @import "../../vendor/bower/bootstrap/less/variables.less";
 @import "../../vendor/bower/bootstrap/less/mixins.less";
+@import "variables.less";
 @import "mixins.less";
 
-@smallGap: 6px;
-@bigGap: 12px;
-@myBgGray: #f0f0f0;
-@myPadding: 5px 10px;
-@redColor: #f60100;
-@blackTransparent: rgba(0,0,0,0.7);
-@mulaffBG: white;
-/*MULAFF BROWN : #2c1212*/
-@mulaff: #97cccd;
-@mulaffClear: rgba(166,203,198,0.2);
-@mulaffSecondary: #78a5a6;
-@white: #2c1212;
-@black: black;
-
-@brand-yellow:                  #FEEF00;
-@btn-yellow-color:              #333;
-@btn-yellow-bg:                 @brand-yellow;
-@btn-yellow-border:             darken(@btn-yellow-bg, 2%);
-
-@brand-green:                  #009000;
-@btn-green-color:              #FFF;
-@btn-green-bg:                 @brand-green;
-@btn-green-border:             darken(@btn-green-bg, 2%);
-
-@brand-dark-green:                  #006400;
-@btn-dark-green-color:              #FFF;
-@btn-dark-green-bg:                 @brand-dark-green;
-@btn-dark-green-border:             darken(@btn-dark-green-bg, 2%);
-
-@brand-mulaff:                  #416162;
-@btn-mulaff-color:              white;
-@btn-mulaff-bg:                 @brand-mulaff;
-@btn-mulaff-border:             @mulaffSecondary;
 
 
-@panel-black-text: #FFF; 
-@panel-black-heading-bg: #000;  
-@panel-black-border: #ccc; 
 
 
+/*ADD PANEL STYLE*/
+
+
+
+.panel-black {
+    .panel-variant(@btn-black-border; @btn-black-color; @btn-black-bg; @btn-black-border);
+}
 
 
 
@@ -129,41 +101,11 @@ body {
     letter-spacing: 2px;
     border-radius: 1px;
 }
-/*.btn-primary {
-    background-color: @brand-mulaff;
-    border-color: @mulaffSecondary;
-    color: @white;
-
-
-    &:active {
-        background-color: @mulaff;
-
-    }
-    &:focus {
-        background-color: @mulaff;
-
-    }
-    &:hover {
-        background-color: @mulaffSecondary;
-    }
-}*/
-.btn-primary {
-    .button-variant(@btn-mulaff-color; @btn-mulaff-bg; @btn-mulaff-border);
+.btn{
+    .make-buttons-colors();
 }
 
-.btn-green {
-    .button-variant(@btn-green-color; @btn-green-bg; @btn-green-border);
-}
-.btn-dark-green {
-    .button-variant(@btn-dark-green-color; @btn-dark-green-bg; @btn-dark-green-border);
-}
-.btn-yellow {
-    .button-variant(@btn-yellow-color; @btn-yellow-bg; @btn-yellow-border);
-}
-/*ADD PANEL STYLE*/
-.panel-black {
-    .panel-variant(@panel-black-border; @panel-black-text; @panel-black-heading-bg; @panel-black-border);
-}
+
 
 
 
@@ -428,10 +370,7 @@ button.red{
     padding:0px;
 
 }
-.button(){
-    .border-left-radius(3px);
-    .border-right-radius(3px);
-}
+
 button.red-btn{
     background: @redColor;
     border:1px solid transparent;
@@ -451,26 +390,22 @@ button.blue-btn{
     color:white;
     .button();
 }
-.button2( @color){
-    .button();  
-    background-color:@color;
-    display:inline-block;
-}
+
 span.red-border{
     border:3px dotted @redColor;
     color:white;
-    .button2(@redColor);
+    .buttonColorInline(@redColor);
 
 }
 span.green-border{
     border:3px dotted @brand-success;
     color:white;
-    .button2(@brand-success);
+    .buttonColorInline(@brand-success);
 }
 span.blue-border{
     border:3px dotted @brand-info;
     color:white;
-    .button2( @brand-info);
+    .buttonColorInline( @brand-info);
 }
 .week{
 
@@ -490,34 +425,9 @@ span.blue-border{
         padding: @myPadding;  
     }
     .day{
-        &.day-orange,
-        &.day-warning{
-            .make-day(@btn-warning-border; black; @btn-warning-border; @btn-warning-border);
-        }
-        &.day-success{
-            .make-day(@panel-black-border; black; @btn-success-border; @btn-success-border);
-        }
-        &.day-green{
-            .make-day(@btn-green-border; black; @btn-green-border; @btn-green-border);
-        }
-        &.day-dark-green{
-            .make-day(@btn-dark-green-border; black; @btn-dark-green-border; @btn-dark-green-border);
-        }
-        &.day-danger{
-            .make-day(@btn-danger-border; black; @btn-danger-border; @btn-danger-border);
-        }
-        &.day-yellow{
-            .make-day(@btn-yellow-border; black; @btn-yellow-border; @btn-yellow-border);
-        }
-        &.day-success{
-            .make-day(@btn-success-border; black; @btn-success-border; @btn-success-border);
-        }
-        &.day-info,
-        &.day-empty{
-            .make-day(@btn-info-border; black; @btn-info-border; @btn-info-border);
-        }
-        &.day-black {
-            .make-day(@panel-black-border; black; @panel-black-border; @panel-black-border);
+        &.day{
+            
+        .make-day();
         }
 
         cursor:pointer;
@@ -1043,4 +953,9 @@ body.coaches .bullet{
 
 .table-condensed > tbody > tr > td {
     padding: 0px;
+}
+.required{
+    & > label::after{
+        content :'*';
+    }
 }

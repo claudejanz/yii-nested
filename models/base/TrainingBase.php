@@ -30,6 +30,7 @@ use app\models\Week;
     * @property integer $graph_type
     * @property string $date
     * @property integer $published
+    * @property integer $weight
     * @property integer $created_by
     * @property string $created_at
     * @property integer $updated_by
@@ -60,7 +61,7 @@ public function rules()
 {
         return [
             [['title', 'sport_id', 'sportif_id', 'day_id', 'week_id', 'date', 'published'], 'required'],
-            [['sport_id', 'category_id', 'sub_category_id', 'sportif_id', 'day_id', 'week_id', 'rpe', 'graph_type', 'published', 'created_by', 'updated_by'], 'integer'],
+            [['sport_id', 'category_id', 'sub_category_id', 'sportif_id', 'day_id', 'week_id', 'rpe', 'graph_type', 'published', 'weight', 'created_by', 'updated_by'], 'integer'],
             [['time', 'date', 'created_at', 'updated_at'], 'safe'],
             [['explanation', 'extra_comment', 'graph'], 'string'],
             [['title'], 'string', 'max' => 1024],
@@ -95,6 +96,7 @@ return [
     'graph_type' => Yii::t('app', 'Graph Type'),
     'date' => Yii::t('app', 'Date'),
     'published' => Yii::t('app', 'Published'),
+    'weight' => Yii::t('app', 'Weight'),
     'created_by' => Yii::t('app', 'Created By'),
     'created_at' => Yii::t('app', 'Created At'),
     'updated_by' => Yii::t('app', 'Updated By'),

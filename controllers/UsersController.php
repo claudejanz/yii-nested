@@ -17,6 +17,7 @@ use app\models\Week;
 use app\models\WeekComment;
 use claudejanz\contextAccessFilter\filters\AccessControl;
 use claudejanz\contextAccessFilter\filters\ContextFilter;
+use claudejanz\toolbox\controllers\actions\SortableAction;
 use claudejanz\toolbox\controllers\behaviors\PageBehavior;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
 use kartik\alert\Alert;
@@ -47,9 +48,11 @@ class UsersController extends MyController
                     'mail-report',
                     'planning',
                     'planning-pdf',
+                    'training-add',
                     'training-create',
                     'training-delete',
                     'training-update',
+                    'training-order',
                     'reporting-update',
                     'update',
                     'view',
@@ -67,9 +70,10 @@ class UsersController extends MyController
                             'index',
                             'view',
                             'mail-report',
-                            'training-create',
+                            'training-add',
                             'training-delete',
                             'training-update',
+                            'training-order',
                             'week-publish',
                         ],
                         'allow'   => true,
@@ -78,6 +82,8 @@ class UsersController extends MyController
                     [
                         'actions' => [
                             'create',
+                            'training-sort',
+                            'training-order',
                         ],
                         'allow'   => true,
                         'roles'   => ['coach'],
@@ -90,6 +96,7 @@ class UsersController extends MyController
                             'planning',
                             'planning-pdf',
                             'reporting-update',
+                            'training-create',
                             'update',
                             'week-add-comment',
                             'week-ready',
@@ -113,9 +120,12 @@ class UsersController extends MyController
             'negociator' => [
                 'class'   => 'yii\filters\ContentNegotiator',
                 'only'    => [
+                    'training-order',
+                    'training-sort',
                     'day-update',
                     'day-validate-city',
                     'mail-report',
+                    'training-create',
                     'training-update',
                     'reporting-update',
                     'week-add-comment',
@@ -132,6 +142,24 @@ class UsersController extends MyController
             ],
         ];
     }
+
+    public function actions()
+    {
+        return [
+            'training-sort' => [
+                'class'      => SortableAction::className(),
+                //'scenario'=>'editable',  //optional
+                'modelclass' => Training::className(),
+            ],
+        ];
+    }
+
+    public function actionTrainingOrder($id, $date)
+  {
+
+        $items = Training::find()->select(['id', 'title', 'date'])->andWhere(['sportif_id' => $id, 'date' => $date])->asArray()->all();
+        return $this->render('/trainings/order', ['items' => $items]);
+  }
 
     /**
      * Lists all User models.
@@ -162,7 +190,7 @@ class UsersController extends MyController
         if ($isCoach) {
             $endDate->modify(Yii::$app->user->planningLength);
         } else {
-            $endDate->modify('+6days');
+            $endDate->modify('+13days');
         }
         $searchModel = new TrainingTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
@@ -324,7 +352,45 @@ class UsersController extends MyController
      * Adds a training for a sportif. Needs a date and a training-type id.
      * @return mixed
      */
-    public function actionTrainingCreate($id, $date, $training_type_id)
+    public function actionTrainingCreate($id, $date)
+    {
+        $model = new Training();
+
+        $model->sportif_id = $this->model->id;
+        $model->date = $date;
+        $model->published = PublishBehavior::PUBLISHED_DRAFT;
+        $reporting = new Reporting();
+        if ($model->load(Yii::$app->request->post()) && $reporting->load(Yii::$app->request->post())) {
+            if (Yii::$app->request->isAjax) {
+                if ($model->validate()) {
+                    $reporting->training_id = 1;
+                    if ($reporting->validate()) {
+                        $model->save(false);
+                        $reporting->training_id = $model->id;
+
+                        return $reporting->save(false);
+                    } else {
+                        throw new NotAcceptableHttpException($this->render('/trainings/_formCreate', ['model' => $model, 'reporting' => $reporting]) . print_r($reporting->errors, true));
+                    }
+                } else {
+                    throw new NotAcceptableHttpException($this->render('/trainings/_formCreate', ['model' => $model, 'reporting' => $reporting]) . print_r($reporting->errors, true));
+                }
+            } else {
+                if ($model->save()) {
+                    return $this->redirect(Url::previous());
+                }
+            }
+        }
+
+        return $this->render('/trainings/_formCreate', ['model' => $model, 'reporting' => $reporting]);
+
+    }
+
+    /**
+     * Adds a training for a sportif. Needs a date and a training-type id.
+     * @return mixed
+     */
+    public function actionTrainingAdd($id, $date, $training_type_id, $isLight = false)
     {
         $modelType = TrainingType::findOne($training_type_id);
         $model = new Training();
@@ -335,7 +401,18 @@ class UsersController extends MyController
 //        \yii\helpers\VarDumper::dump($model->getActiveValidators());
 //        die();
         if ($model->save()) {
-            return '';
+
+            $isCoach = Yii::$app->user->can('coach');
+            return $this->render('planning/receive/weeks/week/day/training', [
+                        'model'    => $this->model,
+                        'training' => $model,
+                        'day'      => $model->day,
+                        'dayId'    => $model->day->date,
+                        'week'     => $model->week,
+                        'weekId'   => $model->week->date_begin,
+                        'isCoach'  => $isCoach,
+                        'isLight'  => $isLight,
+            ]);
         } else {
             return print_r($model->errors, true);
         }
@@ -353,7 +430,8 @@ class UsersController extends MyController
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
                 if ($model->validate()) {
-                    return $model->save();
+                    $model->save();
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
                 } else {
                     throw new NotAcceptableHttpException($this->render('/trainings/update', [
                         'model' => $model,
@@ -361,7 +439,7 @@ class UsersController extends MyController
                 }
             } else {
                 if ($model->save()) {
-                    return $this->redirect(Url::previous());
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
                 }
             }
         }
@@ -460,10 +538,6 @@ class UsersController extends MyController
             $model = new Reporting();
             $training = Training::findOne($training_id);
             $model->training_id = $training->id;
-            $model->date = $training->day->date;
-            $model->week_id = $training->day->week_id;
-            $model->day_id = $training->day_id;
-            $model->sport_id = $training->sport_id;
             $model->time = $training->time;
         } else {
             $training = $model->training;

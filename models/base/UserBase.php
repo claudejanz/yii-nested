@@ -17,9 +17,11 @@ use app\models\Week;
     * @property integer $id
     * @property string $firstname
     * @property string $lastname
+    * @property string $society
     * @property string $address
     * @property string $npa
     * @property string $city
+    * @property string $country
     * @property string $tel
     * @property string $username
     * @property string $email
@@ -68,11 +70,11 @@ return 'user';
 public function rules()
 {
         return [
-            [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'language', 'gender'], 'required'],
+            [['firstname', 'lastname', 'address', 'npa', 'city', 'country', 'tel', 'username', 'email', 'auth_key', 'password_hash', 'language', 'gender'], 'required'],
             [['comments'], 'string'],
             [['role', 'trainer_id', 'gender', 'mail_port', 'status', 'created_by', 'updated_by'], 'integer'],
             [['birthday', 'contrat_start', 'contrat_end', 'created_at', 'updated_at'], 'safe'],
-            [['firstname', 'lastname', 'address', 'npa', 'city', 'tel', 'username', 'email', 'password_hash', 'password_reset_token', 'mail_password', 'mail_host'], 'string', 'max' => 255],
+            [['firstname', 'lastname', 'society', 'address', 'npa', 'city', 'country', 'tel', 'username', 'email', 'password_hash', 'password_reset_token', 'mail_password', 'mail_host'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['language'], 'string', 'max' => 5],
             [['username'], 'unique'],
@@ -90,9 +92,11 @@ return [
     'id' => Yii::t('app', 'ID'),
     'firstname' => Yii::t('app', 'Firstname'),
     'lastname' => Yii::t('app', 'Lastname'),
+    'society' => Yii::t('app', 'Society'),
     'address' => Yii::t('app', 'Address'),
     'npa' => Yii::t('app', 'Npa'),
     'city' => Yii::t('app', 'City'),
+    'country' => Yii::t('app', 'Country'),
     'tel' => Yii::t('app', 'Tel'),
     'username' => Yii::t('app', 'Username'),
     'email' => Yii::t('app', 'Email'),

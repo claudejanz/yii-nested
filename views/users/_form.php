@@ -80,10 +80,10 @@ use yii\widgets\ActiveForm as ActiveForm2;
                     'type'        => Form::INPUT_WIDGET,
                     'widgetClass' => DateControl::classname(),
                     'options'     => [
-                        'type'    => DateControl::FORMAT_DATETIME,
+                        'type'    => DateControl::FORMAT_DATE,
                         'options' => [
                             'pluginOptions' => [
-                                'defaultTime' => false
+                                'defaultTime' => false,
                             ]
                         ]
                     ]
@@ -92,10 +92,10 @@ use yii\widgets\ActiveForm as ActiveForm2;
                     'type'        => Form::INPUT_WIDGET,
                     'widgetClass' => DateControl::classname(),
                     'options'     => [
-                        'type'    => DateControl::FORMAT_DATETIME,
+                        'type'    => DateControl::FORMAT_DATE,
                         'options' => [
                             'pluginOptions' => [
-                                'defaultTime' => false
+                                'defaultTime' => false,
                             ]
                         ]
                     ]
@@ -113,7 +113,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
             ]
         ]);
     }
-    
+
     echo Form::widget([
         'model'         => $model,
         'form'          => $form,
@@ -122,6 +122,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
         'attributes'    => [
             'lastname'  => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter Nom...'), 'maxlength' => 255]],
             'firstname' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter Prénom...'), 'maxlength' => 255]],
+            'society' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter Socété...'), 'maxlength' => 255]],
             'address'   => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter Adresse...'), 'maxlength' => 255]],
             'npa'       => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter CCP...'), 'maxlength' => 255]],
             'city'      => [
@@ -129,32 +130,38 @@ use yii\widgets\ActiveForm as ActiveForm2;
                 'options' => ['placeholder' => Yii::t('app', 'Enter Ville...'), 'maxlength' => 255],
                 'hint'    => Yii::t('app', 'Will also be used as default training city.'),
             ],
+             'country'    => [
+                    'type'    => Form::INPUT_DROPDOWN_LIST,
+                    'items'   => [
+                        'CH'=>  Yii::t('app', 'Suisse'),
+                        'FR'=>  Yii::t('app', 'France'),
+                        ],
+                    'options' => [ 'prompt' => Yii::t('app', 'Enter Country...')]
+                ],
             'tel'       => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter Tél...'), 'maxlength' => 255]],
             'email'     => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => Yii::t('app', 'Enter Email...'), 'maxlength' => 255]],
             'comments'  => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => Yii::t('app', 'Enter Comments...')]],
         ]
     ]);
-    if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->id && $model->role>User::ROLE_SPORTIF) {
+    if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->id && $model->role > User::ROLE_SPORTIF) {
         echo Form::widget([
             'model'         => $model,
             'form'          => $form,
-            'contentBefore' => Html::tag('legend', Yii::t('app', 'Mail settings')),
+            'contentBefore' => Html::tag('legend', Yii::t('app', 'Mail settings for Coaches')),
             'columns'       => 3,
             'attributes'    => [
-                
-                'mail_password'          => [
-                    'type'    => Form::INPUT_TEXT,
-                    'hint'=> Yii::t('app', 'The password the email account you provided before.'),
+
+                'mail_password' => [
+                    'type' => Form::INPUT_TEXT,
+                    'hint' => Yii::t('app', 'The password the email account you provided before.'),
                 ],
-                
-                'mail_host'          => [
-                    'type'    => Form::INPUT_TEXT,
-                    'hint'=> Yii::t('app', 'The smtp mail host. ex: mail.infomaniak.com'),
+                'mail_host' => [
+                    'type' => Form::INPUT_TEXT,
+                    'hint' => Yii::t('app', 'The smtp mail host. ex: mail.infomaniak.com'),
                 ],
-                
-                'mail_port'          => [
-                    'type'    => Form::INPUT_TEXT,
-                    'hint'=> Yii::t('app', 'The smtp mail port. ex: 587'),
+                'mail_port' => [
+                    'type' => Form::INPUT_TEXT,
+                    'hint' => Yii::t('app', 'The smtp mail port. ex: 587'),
                 ],
             ]
         ]);

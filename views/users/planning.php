@@ -36,7 +36,6 @@ echo $this->render('planning/receive/weeks', [
 echo Html::endTag('div'); // col
 
 if ($isCoach) {
-
     echo Html::beginTag('div', ['class' => 'col-sm-4 hidden-xs']);
     echo Html::beginTag('div', ['class' => 'kneubuhler', 'data-spy' => "affix", 'data-offset-top' => "180", 'data-top' => "0",]);
 

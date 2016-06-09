@@ -46,6 +46,26 @@ if (isset($week) && isset($week->words_of_the_week)) {
     }
     echo Html::tag('div', $week->words_of_the_week, $options);
 }
+
+
+// dates 
+$options = ['class' => 'dates'];
+if (!Yii::$app->request->isAjax) {
+    Html::addCssClass($options, 'animated flipInX');
+}
+echo Html::beginTag('div', $options);
+echo Yii::t('app', 'Week: {week}',['week'=>Yii::$app->formatter->asDate($startDate, 'w')]);
+echo ' - ';
+echo Yii::t('app', '{startDate} to {endDate}', [
+    'startDate' => Yii::$app->formatter->asDate($startDate, 'd MMM'),
+    'endDate'   => Yii::$app->formatter->asDate($endDate->modify('-1 day'), 'd MMM \'\'yy'),
+]);
+
+
+echo Html::endTag('div');
+
+
+//commentaires
 if (isset($week)) {
     echo $this->render('week/commentaires', [
         'weekId'  => $weekId,
@@ -56,19 +76,7 @@ if (isset($week)) {
     ]);
 }
 
-// dates 
-$options = ['class' => 'dates'];
-if (!Yii::$app->request->isAjax) {
-    Html::addCssClass($options, 'animated flipInX');
-}
-echo Html::beginTag('div', $options);
-echo Yii::t('app', '{startDate} to {endDate}', [
-    'startDate' => Yii::$app->formatter->asDate($startDate, 'd MMM'),
-    'endDate'   => Yii::$app->formatter->asDate($endDate->modify('-1 day'), 'd MMM \'\'yy'),
-]);
 
-
-echo Html::endTag('div');
 // trainins
 foreach ($period as $dateTime) {
     /* @var $dateTime DateTime */

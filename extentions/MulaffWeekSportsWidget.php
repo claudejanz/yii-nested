@@ -51,13 +51,13 @@ class MulaffWeekSportsWidget extends Widget
         $all = [];
         foreach ($this->model->reportings as $key => $reporting) {
             /* @var $reporting Reporting */
-            if(!isset($all[$reporting->sport_id])){
-               $all[$reporting->sport_id]=[
+            if(!isset($all[$reporting->sport->id])){
+               $all[$reporting->sport->id]=[
                    'km'=>0,
                    'sport'=>$reporting->sport,
                ] ;
             }
-            $all[$reporting->sport_id]['km']+=$reporting->km;
+            $all[$reporting->sport->id]['km']+=$reporting->km;
             
         }
         foreach ($all as $row) {

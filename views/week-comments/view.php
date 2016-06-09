@@ -1,8 +1,5 @@
 <?php
 
-use app\models\WeekComment;
-use yii\data\ActiveDataProvider;
-
 use app\models\User;
 use app\models\WeekComment;
 use yii\data\ActiveDataProvider;
@@ -21,9 +18,9 @@ use yii\web\View;
     <?php
     /* @var $model WeekComment */
     $user = User::findOne($model->created_by);
-    echo Html::tag('p',Yii::$app->formatter->asDatetime($model->created_at)); 
-    echo Html::tag('p',$user->firstname); 
-    echo Html::tag('h2',$model->title); 
+    echo Html::tag('p',  Yii::t('app', 'by: {name}',['name'=>$user->firstname]),['class'=>'pull-right']); 
+    echo Html::tag('p',  Yii::t('app', 'date: {date}',['date'=>Yii::$app->formatter->asDatetime($model->created_at)])); 
+    echo Html::tag('h4',$model->title); 
     echo Html::tag('p',$model->content); 
     ?>
 

@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\extentions\behaviors\WeekPublishBehavior;
 use app\models\base\TrainingBase;
+use app\models\querys\TrainingQuery;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -19,6 +20,13 @@ use yii\db\Expression;
  */
 class Training extends TrainingBase
 {
+
+    public static function find()
+        {
+        $q = new TrainingQuery(get_called_class());
+        $q->orderBy('weight');
+        return $q;
+        }
 
     public function behaviors()
     {
@@ -46,36 +54,39 @@ class Training extends TrainingBase
 
     public function validateDay($attribute, $params)
     {
-        if (!isset($this->{$attribute})) {
-            if (!isset($this->sportif_id)) {
-                $this->addError($attribute, Yii::t('app', 'sportif_id must be set for {attribute} to be set', ['attribute' => $attribute]));
-                return;
-            }
-            if (!isset($this->date)) {
-                $this->addError($attribute, Yii::t('app', 'date must be set for {attribute} to be set', ['attribute' => $attribute]));
+        if (!isset($this->sportif_id)) {
+            $this->addError($attribute, Yii::t('app', 'sportif_id must be set for {attribute} to be set', ['attribute' => $attribute]));
+            return;
+        }
+        if (!isset($this->date)) {
+            $this->addError($attribute, Yii::t('app', 'date must be set for {attribute} to be set', ['attribute' => $attribute]));
+            return false;
+        }
+        $model = Day::findOne(['date' => $this->date, 'sportif_id' => $this->sportif_id]);
+        if (!$model) {
+            $model = new Day();
+            $model->setAttributes([
+                'date'       => $this->date,
+                'sportif_id' => $this->sportif_id,
+            ]);
+            if (!$model->validate()) {
+                $this->addError($attribute, Yii::t('app', 'A new day could not be created because: {errors}', ['errors' => print_r($model->errors, true)]));
                 return false;
             }
-            $model = Day::findOne(['date' => $this->date, 'sportif_id' => $this->sportif_id]);
-            if (!$model) {
-                $model = new Day();
-                $model->setAttributes([
-                    'date'       => $this->date,
-                    'sportif_id' => $this->sportif_id,
-                ]);
-                if (!$model->validate()) {
-                    $this->addError($attribute, Yii::t('app', 'A new day could not be created because: {errors}', ['errors' => print_r($model->errors, true)]));
-                    return false;
-                }
-                $model->save(false);
-            }
-            $this->{$attribute} = $model->id;
-            $this->week_id = $model->week->id;
+            $model->save(false);
         }
+        $this->{$attribute} = $model->id;
+        $this->week_id = $model->week->id;
+        $this->day_id = $model->id;
     }
 
     public function getDuration()
     {
         $split = preg_split('@:@', $this->time, -1, PREG_SPLIT_NO_EMPTY);
+        if (count($split) < 2) {
+            $split['0'] = 0;
+            $split['1'] = 0;
+        }
         return sprintf('%1$01dh%2$02d', $split['0'], $split['1']);
     }
 
@@ -98,7 +109,7 @@ class Training extends TrainingBase
      */
     public function getReporting()
     {
-        return $this->hasOne(Reporting::className(), ['training_id' => 'id']);
+        return $this->hasOne(Reporting::className(), ['training_id' => 'id'])->inverseOf('training');
     }
 
 }

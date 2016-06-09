@@ -1,5 +1,7 @@
 <?php
 
+use kartik\datecontrol\Module;
+
 $params = require(__DIR__ . '/params.php');
 Yii::setAlias('@tests', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'tests');
 $config = [
@@ -31,7 +33,7 @@ $config = [
                 ],
                 'focus'      => true,
                 'formatting' => ['p', 'blockquote'],
-                'plugins'=>['fullscreen']
+                'plugins'    => ['fullscreen']
             ]
         ],
         'gridview'    => [
@@ -52,14 +54,11 @@ $config = [
                 'datetime' => 'php:Y-m-d H:i:s',
             ],
             'autoWidgetSettings' => [
-                'datetime' => [
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'startView' => 3,
-                        'minView'   => 1,
-                    ]
-                ],
+                Module::FORMAT_DATE     => ['type' => 2, 'pluginOptions' => ['autoclose' => true]], // example
+                Module::FORMAT_DATETIME => [], // setup if needed
+                Module::FORMAT_TIME     => [], // setup if needed
             ],
+            
             // automatically use kartik\widgets for each of the above formats
             'autoWidget'         => true,
         ]

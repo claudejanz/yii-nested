@@ -1,3 +1,5 @@
+@import "variables.less";
+@import "../../vendor/bower/bootstrap/less/variables.less";
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -8,17 +10,17 @@ and open the template in the editor.
     Author     : Claude
 */
 
-/* mixins */
-@bgColor1: #0070A3;
-@fontColor1:#FFFFFF;
-@bgColor2: #97A635;
-@fontColor2:#FFFFFF;
-@bgColor3: #FE9F31;
-@fontColor3:#333333;
-@bgColor4: #7A2F62;
-@fontColor4:#FFFFFF;
-@bgColor5: #0E7787;
-@fontColor5:#FFFFFF;
+
+
+.button(){
+    .border-left-radius(3px);
+    .border-right-radius(3px);
+}
+.buttonColorInline( @color){
+    .button();  
+    background-color:@color;
+    display:inline-block;
+}
 
 .color1() {
     background-color:@bgColor1;
@@ -112,17 +114,69 @@ and open the template in the editor.
     min-height: 100%;
 }
 .coucou(){
-	background-color: red;
+    background-color: red;
 }
 
 .filterVendor(@filtername){
-  -webkit-filter: @filtername;
-     -moz-filter: @filtername;
-          filter: @filtername;
+    -webkit-filter: @filtername;
+    -moz-filter: @filtername;
+    filter: @filtername;
 }
 
-.make-day(@color-border, @color-text, @color-heading-bg, @color-border) {
-    .panel-variant(@color-border; @color-text; @color-heading-bg; @color-border);
-    border-style: solid;
-    border-width: 5px;
+
+// ............................................................
+// .for
+
+.for(@i, @n) {.-each(@i)}
+.for(@n)     when (isnumber(@n)) {.for(1, @n)}
+.for(@i, @n) when not (@i = @n)  {
+    .for((@i + (@n - @i) / abs(@n - @i)), @n);
 }
+
+// ............................................................
+// .for-each
+
+.for(@array)   when (default()) {.for-impl_(length(@array))}
+.for-impl_(@i) when (@i > 1)    {.for-impl_((@i - 1))}
+.for-impl_(@i) when (@i > 0)    {.-each(extract(@array, @i))}
+
+
+@colors: default, primary, green, dark-green, yellow,info,warning,danger,black;
+
+
+.make-day() {
+    .for(@colors); .-each(@name) {
+        @name-color : "btn-@{name}-color";
+        @name-bg : "btn-@{name}-bg";
+        @name-border : "btn-@{name}-border";
+        &-@{name} {
+            .panel-variant(@@name-border; @@name-border; @@name-bg;@@name-border);
+
+            border-style: solid;
+            border-width: 5px;
+            .day-ribbon{
+                background-color: @@name-border;
+                color:@@name-color;
+                padding: 3px 0px;
+                margin-top:5px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+@colors: default, primary, green, dark-green, yellow,info,warning,danger;
+.make-buttons-colors(){
+    .for(@colors); .-each(@name) {
+        @name-color : "btn-@{name}-color";
+        @name-bg : "btn-@{name}-bg";
+        @name-border : "btn-@{name}-border";
+        &-@{name} {
+            .button-variant(@@name-color; @@name-bg; @@name-border);
+
+        }
+    }
+}
+
+

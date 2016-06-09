@@ -2,10 +2,10 @@
 
 use app\extentions\helpers\EuroDateTime;
 use app\extentions\helpers\MyPjax;
+use app\extentions\TypeDisplay;
 use app\models\Day;
 use app\models\Training;
 use claudejanz\toolbox\models\behaviors\PublishBehavior;
-use kartik\alert\Alert;
 use kartik\helpers\Html;
 use yii\helpers\Url;
 use yii\web\User;
@@ -21,26 +21,29 @@ use yii\web\User;
 /* @var $day Day */
 
 
-
+// block pjax
 MyPjax::begin(['id' => 'day' . $dayId]);
-
-$options = ['class' => 'day white-block', 'data' => ['date' => $dayId, 'week' => $weekId]];
+// options de base
+$options = ['class' => 'day white-block', 'data' => ['date' => $dayId, 'week' => $weekId,'isLight'=>$isLight]];
+// options annimée si c'est pas de l'ajax
 if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated fadeInUp');
 }
-
-if ($isCoach) {
-    if ($day) {
-        Html::addCssClass($options, 'day-' . $day->publishedColor);
-    } else {
-        Html::addCssClass($options, 'day-empty');
-    }
-}
+//option aujourd'hui
 $today = new EuroDateTime('now');
 if ($dayId == $today->format('Y-d-m')) {
     Html::addCssClass($options, 'currentDay');
 }
+// les options pour le display du statut
+if ($day) {
+    Html::addCssClass($options, 'day-' . $day->publishedColor);
+} else {
+    Html::addCssClass($options, 'day-empty');
+}
 echo Html::beginTag('div', $options);
+
+MyPjax::begin(['id' => 'day-header' . $dayId]);
+
 echo $this->render('day/day-header', [
     'dateTime' => $dateTime,
     'day'      => $day,
@@ -50,13 +53,18 @@ echo $this->render('day/day-header', [
     'isCoach'  => $isCoach,
     'isLight'  => $isLight,
 ]);
+MyPjax::end();
 
+// default options
 $options = ['class' => 'row collapsable'];
+
+// add current day
 $today = new EuroDateTime('now');
 if ($dayId == $today->format('Y-m-d')) {
     Html::addCssClass($options, 'currentDay');
 }
 
+// add collapsed
 Html::addCssClass($options, 'collapsed');
 Html::addCssStyle($options, 'display: none;');
 
@@ -85,8 +93,12 @@ if ($day && isset($day->trainingsWithSport)) {
 echo Html::endTag('div'); //droppable or empty
 echo Html::endTag('div'); //coll-sm-10
 echo Html::endTag('div'); //row
+if ($isCoach) {
+    echo TypeDisplay::widget([
+        'day' => $day,
+    ]);
+}
 echo Html::endTag('div'); //day
-
 
 
 $js = '
@@ -99,14 +111,15 @@ $js = '
             insert = $(this).find(".droppable:first");
             date = $(this).data("date");
             week = $(this).data("week");
+            isLight = $(this).data("isLight");
             var jqxhr2 = $.ajax({
               method: "GET",
-              url: "' . Url::to(['training-create', 'id' => $model->id]) . '",
-              data: { date:date , training_type_id: target.find(".training-type:first").data("training-type-id")}
+              url: "' . Url::to(['training-add', 'id' => $model->id]) . '",
+              data: { date:date ,isLight: isLight, training_type_id: target.find(".training-type:first").data("training-type-id")}
             })
             .done(function( data ) {
                insert.append(data);
-               $.pjax.reload("#week"+week,{timeout:false});
+               $.pjax.reload("#day-header"+date,{timeout:false});
             })
             .fail(function( data ) {
             });

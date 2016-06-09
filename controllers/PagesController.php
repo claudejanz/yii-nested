@@ -72,6 +72,12 @@ class PagesController extends MyController
             ],
         ];
     }
+    
+     public function actionDayOrder($id)
+    {
+        return $this->render('day/order', ['id' => $id]);
+    }
+
 
     /**
      * Lists all Page models.

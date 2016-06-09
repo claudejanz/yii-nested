@@ -1,10 +1,7 @@
 <?php
 
-use app\extentions\StyleIcon;
 use app\models\Day;
 use app\models\User;
-use claudejanz\toolbox\widgets\ajax\AjaxButton;
-use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
 use kartik\helpers\Html;
 
 /* 
@@ -52,32 +49,16 @@ if ($day) {
         echo Html::tag('br') . Html::tag('b', $labels['comment']) . ' - ' . $day->comment;
     }
 }
-if (!$isLight) {
+echo $this->render('day-actions', [
+    'dateTime' => $dateTime,
+    'day'      => $day,
+    'model'    => $model,
+    'dayId'    => $dayId,
+    'weekId'   => $weekId,
+    'isCoach'  => $isCoach,
+    'isLight'  => $isLight,
+]);
 
-    if (!$day) {
-
-        echo ' ';
-        echo AjaxButton::widget([
-            'label'       => StyleIcon::showStyled('check'),
-            'encodeLabel' => false,
-            'url'         => ['day-validate-city', 'id' => $model->id, 'date' => $dayId],
-            'success'     => '#week' . $weekId,
-            'options'     => [
-                'title' => Yii::t('app', 'Update training city'),
-                'class' => 'red mulaffBtn'
-            ]
-        ]);
-    }
-    echo ' ';
-    echo AjaxModalButton::widget([
-        'label'       => StyleIcon::showStyled('edit'),
-        'encodeLabel' => false,
-        'url'         => ['day-update', 'id' => $model->id, 'date' => $dayId],
-        'success'     => '#week' . $weekId,
-        'title'       => Yii::t('app', 'Update training city'),
-        'options'     => ['class' => 'red mulaffBtn']
-    ]);
-}
 echo Html::endTag('div'); //city and button
 
 

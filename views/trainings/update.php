@@ -10,9 +10,6 @@ use yii\helpers\Html;
 Yii::$app->controller->page->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Training',
 ]) . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Trainings'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="training-update">
 

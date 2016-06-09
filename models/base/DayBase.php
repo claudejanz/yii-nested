@@ -5,7 +5,6 @@ namespace app\models\base;
 use Yii;
 use app\models\User;
 use app\models\Week;
-use app\models\Reporting;
 use app\models\Training;
 
 /**
@@ -19,6 +18,7 @@ use app\models\Training;
     * @property string $time_dispo
     * @property string $comment
     * @property integer $published
+    * @property integer $weight
     * @property integer $created_by
     * @property string $created_at
     * @property integer $updated_by
@@ -26,7 +26,6 @@ use app\models\Training;
     *
             * @property User $sportif
             * @property Week $week
-            * @property Reporting[] $reportings
             * @property Training[] $trainings
     */
 class DayBase extends \yii\db\ActiveRecord
@@ -46,7 +45,7 @@ public function rules()
 {
         return [
             [['training_city', 'sportif_id', 'week_id', 'date', 'published'], 'required'],
-            [['sportif_id', 'week_id', 'published', 'created_by', 'updated_by'], 'integer'],
+            [['sportif_id', 'week_id', 'published', 'weight', 'created_by', 'updated_by'], 'integer'],
             [['date', 'time_dispo', 'created_at', 'updated_at'], 'safe'],
             [['comment'], 'string'],
             [['training_city'], 'string', 'max' => 1024],
@@ -69,6 +68,7 @@ return [
     'time_dispo' => Yii::t('app', 'Time Dispo'),
     'comment' => Yii::t('app', 'Comment'),
     'published' => Yii::t('app', 'Published'),
+    'weight' => Yii::t('app', 'Weight'),
     'created_by' => Yii::t('app', 'Created By'),
     'created_at' => Yii::t('app', 'Created At'),
     'updated_by' => Yii::t('app', 'Updated By'),
@@ -90,14 +90,6 @@ return [
     public function getWeek()
     {
     return $this->hasOne(Week::className(), ['id' => 'week_id']);
-    }
-
-    /**
-    * @return \yii\db\ActiveQuery
-    */
-    public function getReportings()
-    {
-    return $this->hasMany(Reporting::className(), ['day_id' => 'id']);
     }
 
     /**

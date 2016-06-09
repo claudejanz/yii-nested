@@ -5,7 +5,6 @@ namespace app\models\base;
 use Yii;
 use app\models\Day;
 use app\models\Mail;
-use app\models\Reporting;
 use app\models\Training;
 use app\models\User;
 use app\models\WeekComment;
@@ -27,7 +26,6 @@ use app\models\WeekComment;
     *
             * @property Day[] $days
             * @property Mail[] $mails
-            * @property Reporting[] $reportings
             * @property Training[] $trainings
             * @property User $sportif
             * @property WeekComment[] $weekComments
@@ -90,14 +88,6 @@ return [
     public function getMails()
     {
     return $this->hasMany(Mail::className(), ['week_id' => 'id']);
-    }
-
-    /**
-    * @return \yii\db\ActiveQuery
-    */
-    public function getReportings()
-    {
-    return $this->hasMany(Reporting::className(), ['week_id' => 'id']);
     }
 
     /**

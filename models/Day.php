@@ -11,6 +11,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * @property Training[] $trainingsWithSport
@@ -36,18 +37,49 @@ class Day extends DayBase
         );
     }
 
+    const PUBLISHED_TRAINING_DONE = 5;
+    const PUBLISHED_TRAINING_NOT_DONE =6;
+    const PUBLISHED_TRAINING_DAY_OFF = 7;
+    
+    
+    /**
+     * @return array published names indexed by published IDs
+     */
+    public static function getPublishedOptions()
+    {
+        return array(
+            WeekPublishBehavior::PUBLISHED_CITY_EDIT => Yii::t('app', 'City Edit'),
+            WeekPublishBehavior::PUBLISHED_CITY_DONE => Yii::t('app', 'City Done'),
+            WeekPublishBehavior::PUBLISHED_PLANING_DONE => Yii::t('app', 'Planned'),
+            self::PUBLISHED_TRAINING_DONE => Yii::t('app', 'Training done'),
+            self::PUBLISHED_TRAINING_NOT_DONE => Yii::t('app', 'Training not done'),
+            self::PUBLISHED_TRAINING_DAY_OFF => Yii::t('app', 'Day off'),
+        );
+    }
+
+    public static function getPublishedColors()
+    {
+        return array(
+            WeekPublishBehavior::PUBLISHED_CITY_EDIT => 'info',
+            WeekPublishBehavior::PUBLISHED_CITY_DONE => 'yellow',
+            WeekPublishBehavior::PUBLISHED_PLANING_DONE => 'warning',
+            self::PUBLISHED_TRAINING_DONE => 'green',
+            self::PUBLISHED_TRAINING_NOT_DONE => 'dark-green',
+            self::PUBLISHED_TRAINING_DAY_OFF => 'danger',
+        );
+    }
     /**
      * Overrides 
-     * @return a text on published status
+     * @return string a text on published status
      */
     public function getPublishedLabel()
     {
 
-        $publishedOptions = WeekPublishBehavior::getPublishedOptions();
+        $publishedOptions = self::getPublishedOptions();
         if ($this->published > 2) {
-            if ($this->hasReportingDone) {
+            if ($this->reportingsDone) {
                 return Yii::t('app', 'Done');
-            } elseif ($this->hasReporting) {
+            } elseif ($this->reportings) {
                 return Yii::t('app', 'Not done');
             }
         }
@@ -57,11 +89,15 @@ class Day extends DayBase
     public function getPublishedColor()
     {
 
-        $publishedOptions = WeekPublishBehavior::getPublishedColors();
+        $publishedOptions = self::getPublishedColors();
         if ($this->published > 2) {
-            if ($this->hasReportingDone) {
+            if ($this->getHasSportId(47)) {
+                return 'danger';
+            }
+            if ($this->reportingsDone) {
                 return 'green';
-            } elseif ($this->hasReporting) {
+            }
+            if ($this->reportings) {
                 return 'dark-green';
             }
         }
@@ -75,7 +111,7 @@ class Day extends DayBase
             ['published', 'default', 'value' => PublishBehavior::PUBLISHED_DRAFT],
             ['week_id', 'validateWeek', 'skipOnEmpty' => false],
             ['training_city', 'validateTrainingCity', 'skipOnEmpty' => false],
-                ], parent::rules());
+                ], self::rules());
     }
 
     public function validateWeek($attribute, $params)
@@ -121,7 +157,7 @@ class Day extends DayBase
                 $this->addError($attribute, Yii::t('app', 'sportif_id must be set for {attribute} to be set', ['attribute' => $attribute]));
                 return false;
             }
-            $model = User::findOne(['id' => $this->sportif_id]);
+            $model = $this->sportif;
 
             $this->{$attribute} = $model->city;
         }
@@ -167,8 +203,14 @@ class Day extends DayBase
                 if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
                     $duration = $training->time;
                     $split = preg_split('@:@', $training->time, -1, PREG_SPLIT_NO_EMPTY);
-                    $hours += $split[0];
-                    $minutes += $split[1];
+                    if (count($split) > 1) {
+                        $hours += $split[0];
+                        $minutes += $split[1];
+                        if ($minutes >= 60) {
+                            $hours +=floor($minutes / 60);
+                            $minutes -= floor($minutes / 60) * 60;
+                        }
+                    }
                 }
                 /* @var $training Training */
             }
@@ -180,7 +222,7 @@ class Day extends DayBase
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTrainingsWithSport()
     {
@@ -210,46 +252,40 @@ class Day extends DayBase
         return [];
     }
 
-    private $_hasReportingDone;
+    
 
-    public function getHasReportingDone() {
-        if (!$this->_hasReportingDone) {
-            return $this->_hasReporting = ((new \yii\db\Query())
-                            ->select(['done'])
-                            ->from('reporting')
-                            ->where(['day_id' => $this->id, 'done' => 1])
-                            ->scalar()) ? true : false;
-        }
-        return $this->_hasReportingDone;
-    }
-
-    private $_hasReporting;
-
-    public function getHasReporting() {
-        if (!$this->_hasReporting) {
-            $this->_hasReporting = ((new \yii\db\Query())
-                            ->select(['id'])
-                            ->from('reporting')
-                            ->where(['day_id' => $this->id])
-                            ->scalar() != null) ? true : false;
-        }
-        return $this->_hasReporting;
-    }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getReportings()
-    {
-        return $this->hasMany(Reporting::className(), ['day_id' => 'id'])->inverseOf('day');
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTrainings()
     {
         return $this->hasMany(Training::className(), ['day_id' => 'id'])->inverseOf('day');
     }
+    
+    /**
+     * @return ActiveQuery
+     */
+    public function getReportings()
+    {
+        return $this->hasMany(Reporting::className(), ['training_id' => 'id'])->via('trainings')->inverseOf('day');
+    }
+    /**
+     * @return ActiveQuery
+     */
+    public function getReportingsDone()
+    {
+        return $this->hasMany(Reporting::className(), ['training_id' => 'id'])->via('trainings')->where(['done' => 1])->inverseOf('day');
+    }
+
+    public function getHasSportId($sport_id) {
+        return ((new Query())
+                        ->select(['sport_id'])
+                        ->from('training')
+                        ->where(['day_id' => $this->id])
+                        ->andWhere(['sport_id' => $sport_id])
+                        ->scalar() != null) ? true : false;
+
+         }
 
 }

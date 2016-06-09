@@ -10,6 +10,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\Expression;
 use yii\web\IdentityInterface;
 
@@ -87,16 +88,24 @@ class User extends UserBase implements IdentityInterface
             ['role', 'in', 'range' => array_keys(self::getRoleOptions())],
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
+            ['tel', 'validatePhone'],
             ['editableSports', ManyToManyValidator::className()],
-                       
                 ], parent::rules());
+    }
+
+    public function validatePhone($attribute, $params){
+        if (substr($this->$attribute, 0, 1) != '+') {
+            $this->addError($attribute, Yii::t('app', 'Birtday must begin with "+"'));
+            return false;
+        }
+        return true;
     }
 
     public function attributeLabels()
     {
         return array_merge([
-            'fullname'    => Yii::t('app', 'Full name'),
-            'trainername' => Yii::t('app', 'Trainer name'),
+            'fullname'       => Yii::t('app', 'Full name'),
+            'trainername'    => Yii::t('app', 'Trainer name'),
             'editableSports' => Yii::t('app', 'Editable Sports'),
                 ], parent::attributeLabels());
     }
@@ -309,14 +318,14 @@ class User extends UserBase implements IdentityInterface
 
     const GENDER_FEMALE = 1;
     const GENDER_MALE = 2;
-    
-     public static function getGenderOptions() {
-         return array(
-            self::GENDER_FEMALE  => Yii::t('app', 'Female'),
-            self::GENDER_MALE => Yii::t('app', 'Male'),
+
+    public static function getGenderOptions() {
+        return array(
+            self::GENDER_FEMALE => Yii::t('app', 'Female'),
+            self::GENDER_MALE   => Yii::t('app', 'Male'),
         );
-    }
-    
+   }
+
     public function getGenderLabel() {
         $options = self::getGenderOptions();
         return isset($options[$this->gender]) ? $options[$this->gender] : "unknown role ($this->gender)";
@@ -361,7 +370,7 @@ class User extends UserBase implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDaysByDate()
   {

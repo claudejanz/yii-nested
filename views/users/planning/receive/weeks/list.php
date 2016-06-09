@@ -26,10 +26,10 @@ use yii\web\User;
 /* @var $isCoach booleen */
 
 echo Html::beginTag('div', ['class' => 'row']);
-
 switch (Yii::$app->user->planningStyle) {
 
     case WebUser::VIEWSTYLE_COACH:
+        
         foreach ($period as $key => $dateTime) {
             if ($key < 2) {
                 echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);

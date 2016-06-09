@@ -73,7 +73,7 @@ class Week extends WeekBase
     public function getReportingsByDate()
     {
         $models = $this->reportings;
-        return ($models) ? ArrayHelper::index($models, 'id', ['date']) : null;
+        return ($models) ? ArrayHelper::index($models, 'id', ['day.date']) : null;
     }
 
     public function getLoadsByDate()
@@ -122,8 +122,8 @@ class Week extends WeekBase
 
     public function publish($value = WeekPublishBehavior::PUBLISHED_PLANING_DONE)
     {
-        if($value>$this->published){
-            $this->published=$value;
+        if ($value > $this->published) {
+            $this->published = $value;
         }
         if ($this->save()) {
             foreach ($this->days as $day) {
@@ -160,16 +160,16 @@ class Week extends WeekBase
      */
     public function getDays()
     {
-        return $this->hasMany(Day::className(), ['week_id' => 'id'])->orderBy(['date'=>SORT_ASC])->inverseOf('week');
+        return $this->hasMany(Day::className(), ['week_id' => 'id'])->orderBy(['date' => SORT_ASC])->inverseOf('week');
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getReportings()
-    {
-        return $this->hasMany(Reporting::className(), ['week_id' => 'id'])->orderBy(['date'=>SORT_ASC])->inverseOf('week');
-    }
+    public function getMails()
+   {
+        return $this->hasMany(Mail::className(), ['week_id' => 'id'])->inverseOf('week');
+   }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -177,6 +177,14 @@ class Week extends WeekBase
     public function getTrainings()
     {
         return $this->hasMany(Training::className(), ['week_id' => 'id'])->inverseOf('week');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReportings()
+    {
+        return $this->hasMany(Reporting::className(), ['training_id' => 'id'])->via('trainings')->inverseOf('week');
     }
 
 }

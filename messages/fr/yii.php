@@ -26,4 +26,5 @@ return [
     'No relations' => '',
     'Order' => '',
     'Planning' => '',
+    'View' => '',
 ];

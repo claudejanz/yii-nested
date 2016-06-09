@@ -67,6 +67,7 @@ class m160229_181714_excel_import extends Migration
                 $user->setAttributes($line);
                 $user->password = '12345678';
                 $user->npa = (string) $line['npa'];
+                $user->country = 'CH';
                 $user->editableSports = explode(',', $line['sports']);
                 if (!$user->save()) {
                     var_dump($user->errors);

@@ -316,6 +316,8 @@ class m140806_232625_create_db extends Migration
             'updated_at'  => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'INDEX index_title (title ASC)',
             'INDEX index_category (category_id ASC)',
+            'INDEX index_weight (weight ASC)',
+            
             'FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE ON UPDATE CASCADE ',
                 ], $tableOptions);
 
@@ -360,6 +362,7 @@ class m140806_232625_create_db extends Migration
             'time_dispo'    => Schema::TYPE_TIME . ' NULL DEFAULT NULL',
             'comment'       => Schema::TYPE_TEXT . ' NULL DEFAULT NULL',
             'published'     => Schema::TYPE_INTEGER . '(4) NOT NULL',
+            'weight'     => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT 1',
             'created_by'    => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'created_at'    => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'updated_by'    => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
@@ -402,6 +405,7 @@ class m140806_232625_create_db extends Migration
             'graph_type'      => Schema::TYPE_INTEGER . '(11)',
             'date'            => Schema::TYPE_DATE . ' NOT NULL',
             'published'       => Schema::TYPE_INTEGER . '(4) NOT NULL',
+            'weight'     => Schema::TYPE_INTEGER . '(11) NULL DEFAULT 1',
             'created_by'      => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
             'created_at'      => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'updated_by'      => Schema::TYPE_INTEGER . '(11) NULL DEFAULT NULL',
@@ -409,6 +413,7 @@ class m140806_232625_create_db extends Migration
             'INDEX index_title (title ASC)',
             'INDEX index_date (date ASC)',
             'INDEX index_sport (sport_id ASC)',
+            'INDEX index_weight (weight ASC)',
             'FOREIGN KEY (sport_id) REFERENCES sport (id) ON DELETE CASCADE ON UPDATE CASCADE ',
             'INDEX index_category (category_id ASC)',
             'FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE ON UPDATE CASCADE ',
@@ -428,10 +433,6 @@ class m140806_232625_create_db extends Migration
             'id'          => Schema::TYPE_PK,
             'training_id' => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'feedback'    => Schema::TYPE_TEXT,
-            'date'        => Schema::TYPE_DATE . ' NOT NULL',
-            'week_id'     => Schema::TYPE_INTEGER . '(11) NOT NULL',
-            'day_id'      => Schema::TYPE_INTEGER . '(11) NOT NULL',
-            'sport_id'    => Schema::TYPE_INTEGER . '(11) NOT NULL',
             'km'          => Schema::TYPE_FLOAT . ' NULL DEFAULT NULL',
             'done'        => Schema::TYPE_BOOLEAN . ' NULL DEFAULT NULL',
             'time_done'   => Schema::TYPE_BOOLEAN . ' NULL DEFAULT NULL',
@@ -443,12 +444,6 @@ class m140806_232625_create_db extends Migration
             'updated_at'  => Schema::TYPE_DATETIME . ' NULL DEFAULT NULL',
             'INDEX training (training_id ASC)',
             'FOREIGN KEY (training_id) REFERENCES training (id) ON DELETE CASCADE ON UPDATE CASCADE ',
-            'INDEX index_week (week_id ASC)',
-            'FOREIGN KEY (week_id) REFERENCES week (id) ON DELETE CASCADE ON UPDATE CASCADE ',
-            'INDEX index_day (day_id ASC)',
-            'FOREIGN KEY (day_id) REFERENCES day (id) ON DELETE CASCADE ON UPDATE CASCADE ',
-            'INDEX index_sport (sport_id ASC)',
-            'FOREIGN KEY (sport_id) REFERENCES sport (id) ON DELETE CASCADE ON UPDATE CASCADE ',
                 ], $tableOptions);
 
 

@@ -35,7 +35,8 @@ use yii\widgets\ActiveForm as ActiveForm2;
             'type' => DateControl::FORMAT_TIME,
             'options' => [
                 'pluginOptions' => [
-                    'defaultTime' => false
+                    'defaultTime' => false,
+                    'minuteStep'  => 1,
                 ]
             ]
         ]],

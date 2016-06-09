@@ -28,6 +28,7 @@ class m140511_124055_users extends Migration
             'language'  => 'fr',
             'birthday'  => '1976-09-18',
             'gender'    => User::GENDER_MALE,
+            'country'    => 'CH',
         ];
         $superadmin->save();
 
@@ -48,6 +49,7 @@ class m140511_124055_users extends Migration
             'language'  => 'fr',
             'birthday'  => $faker->dateTimeBetween('-40years', '-20years')->format('Y-m-d'),
             'gender'    => User::GENDER_MALE,
+            'country'    => 'CH',
         ];
         $admin->save();
 
@@ -62,13 +64,14 @@ class m140511_124055_users extends Migration
             'address'   => $faker->streetAddress,
             'npa'       => $faker->postcode,
             'city'      => $faker->city,
-            'tel'       => $faker->phoneNumber,
+            'tel'       => '+'.$faker->phoneNumber,
             'email'     => $faker->email,
             'password'  => '12345678',
             'role'      => User::ROLE_COACH,
             'language'  => 'fr',
             'birthday'  => $faker->dateTimeBetween('-40years', '-20years')->format('Y-m-d'),
             'gender'    => User::GENDER_MALE,
+            'country'    => 'CH',
         ];
         $coach->save();
         

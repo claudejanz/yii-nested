@@ -24,11 +24,16 @@ echo $this->render('index/_navigation', ['model' => $searchModel]);
       ]), ['create'], ['class' => 'btn btn-success']) */ ?>
 </p>
 <?php
+$legend = $this->render('index/_legend');
 echo MyGridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
     'columns'      => $searchModel->getColumns($this),
     'addHeader'    => true,
+    'panel'        => [
+
+        'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info', 'data-pjax' => 0]).Html::tag('p',$legend,['class'=>'pull-right']),
+    ]
 ]);
 MyPjax::end();
 ?>
