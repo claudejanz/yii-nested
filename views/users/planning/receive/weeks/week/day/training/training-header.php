@@ -83,7 +83,23 @@ if ($isCoach && !$isLight) {
             'training_id' => $training->id
         ],
         'title'       => Yii::t('app', 'Edit training: {title}', ['title' => $training->title]),
-        'success'     => '#week' . $weekId,
+//        'success'     => '#training' . $training->id,
+        'options'     => [
+            'class' => 'red',
+        ],
+    ]);
+
+    echo ' ';
+    echo AjaxModalButton::widget([
+        'label'       => StyleIcon::showStyled('clone'),
+        'encodeLabel' => false,
+        'url'         => [
+            'training-duplicate',
+            'id'          => $model->id,
+            'training_id' => $training->id
+        ],
+        'title'       => Yii::t('app', 'Duplicate training: {title}', ['title' => $training->title]),
+//        'success'     => '#training' . $training->id,
         'options'     => [
             'class' => 'red',
         ],
@@ -100,7 +116,7 @@ if ($isCoach && !$isLight) {
             'id'          => $model->id,
             'training_id' => $training->id
         ],
-        'success'     => '#week' . $weekId,
+        'success'     => '#day' . $dayId,
             'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
         'ajaxOptions' => [
             'type'=>'post'

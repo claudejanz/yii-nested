@@ -29,9 +29,6 @@ class MulaffWeekSportsWidget extends Widget
      */
     public $model;
 
-    
-
-
     public function init()
     {
         parent::init();
@@ -41,9 +38,9 @@ class MulaffWeekSportsWidget extends Widget
         if (!$this->model instanceof Week) {
             throw new InvalidConfigException(Yii::t('mulaff', "'model' must be an instance of Week."));
         }
-       
-        
-        
+
+
+
     }
 
     public function run()
@@ -51,26 +48,30 @@ class MulaffWeekSportsWidget extends Widget
         $all = [];
         foreach ($this->model->reportings as $key => $reporting) {
             /* @var $reporting Reporting */
-            if(!isset($all[$reporting->sport->id])){
-               $all[$reporting->sport->id]=[
-                   'km'=>0,
-                   'sport'=>$reporting->sport,
-               ] ;
+            if (!isset($all[$reporting->sport->id])) {
+                $all[$reporting->sport->id] = [
+                    'km'    => 0,
+                    'sport' => $reporting->sport,
+                ];
             }
             $all[$reporting->sport->id]['km']+=$reporting->km;
-            
         }
-        foreach ($all as $row) {
-            /* @var $sport Sport */
-            $sport = $row['sport'];
-            $km = $row['km'];
-            echo Html::beginTag('div',['class'=>'sports-mini']);
-            echo Html::img($sport->iconUrl,['width'=>'20']);
-            echo Html::endTag('div');
-            echo $sport->title.': '.$km.'km<br>';
-            
+        if (!empty($all)) {
+            echo Html::beginTag('div', ['class' => 'row']);
+            foreach ($all as $row) {
+                /* @var $sport Sport */
+                $sport = $row['sport'];
+                $km = $row['km'];
+                echo Html::beginTag('div', ['class' => 'col-sm-4']);
+                echo Html::img($sport->iconUrl, ['width' => '15','title'=>$sport->title]);
+//                echo ' - ';
+//                echo $sport->title;
+                echo ': ';
+                echo $km . 'km';
+                echo Html::endTag('div');
+            }
+            echo Html::endTag('div'); //row
         }
     }
 
-   
 }

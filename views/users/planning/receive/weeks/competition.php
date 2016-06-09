@@ -26,7 +26,11 @@ use yii\helpers\Html;
 /* @var $model User */
 /* @var $startDate DateTime */
 /* @var $endDate DateTime */
-$competitions = Competition::find()->andWhere(['sportif_id' => $model->id])->andWhere(['OR', ['between', 'date_begin', $startDate->format('Y-m-d'), $endDate->format('Y-m-d')], ['between', 'date_end', $startDate->format('Y-m-d'), $endDate->format('Y-m-d')]])->all();
+$competitions = Competition::find()->andWhere(['sportif_id' => $model->id])
+        ->andWhere(['<=', 'date_begin', $endDate->format('Y-m-d')])
+        ->andWhere(['>=', 'date_end', $startDate->format('Y-m-d')])
+//        ->andWhere(['OR', ['between', 'date_begin', $startDate->format('Y-m-d'), $endDate->format('Y-m-d')], ['between', 'date_end', $startDate->format('Y-m-d'), $endDate->format('Y-m-d')]])
+        ->all();
 if ($competitions) {
     Alert::begin([
         'options' => [

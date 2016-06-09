@@ -38,7 +38,7 @@ if ($dayId == $today->format('Y-d-m')) {
 if ($day) {
     Html::addCssClass($options, 'day-' . $day->publishedColor);
 } else {
-    Html::addCssClass($options, 'day-empty');
+    Html::addCssClass($options, 'day-info');
 }
 echo Html::beginTag('div', $options);
 
@@ -123,6 +123,7 @@ $js = '
             .done(function( data ) {
                insert.append(data);
                $.pjax.reload("#day-header"+date,{timeout:false});
+               insert.parents(".collapsable.collapsed").slideToggle();
             })
             .fail(function( data ) {
             });

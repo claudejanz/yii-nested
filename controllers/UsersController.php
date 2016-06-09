@@ -6,6 +6,7 @@ use app\controllers\base\MyController;
 use app\extentions\behaviors\WeekPublishBehavior;
 use app\extentions\helpers\EuroDateTime;
 use app\models\Day;
+use app\models\forms\DayTrainingsDuplicateForm;
 use app\models\Mail;
 use app\models\Reporting;
 use app\models\search\TrainingTypeSearch;
@@ -43,6 +44,7 @@ class UsersController extends MyController
                 'modelName' => User::className(),
                 'only'      => [
                     'day-update',
+                    'day-trainings-duplicate',
                     'day-validate-city',
                     'delete',
                     'mail-report',
@@ -51,6 +53,7 @@ class UsersController extends MyController
                     'training-add',
                     'training-create',
                     'training-delete',
+                    'training-duplicate',
                     'training-update',
                     'training-order',
                     'reporting-update',
@@ -67,13 +70,15 @@ class UsersController extends MyController
                 'rules' => [
                     [
                         'actions' => [
+                            'day-trainings-duplicate',
                             'index',
-                            'view',
                             'mail-report',
                             'training-add',
                             'training-delete',
+                            'training-duplicate',
                             'training-update',
                             'training-order',
+                            'view',
                             'week-publish',
                         ],
                         'allow'   => true,
@@ -122,11 +127,13 @@ class UsersController extends MyController
                 'only'    => [
                     'training-order',
                     'training-sort',
+                    'day-trainings-duplicate',
                     'day-update',
                     'day-validate-city',
                     'mail-report',
                     'training-create',
                     'training-update',
+                    'training-duplicate',
                     'reporting-update',
                     'week-add-comment',
                     'week-fill',
@@ -399,6 +406,7 @@ class UsersController extends MyController
         $model->published = PublishBehavior::PUBLISHED_DRAFT;
 //        \yii\helpers\VarDumper::dump($model->getActiveValidators());
 //        die();
+        $model->validate();
         if ($model->save()) {
 
             $isCoach = Yii::$app->user->can('coach');
@@ -416,11 +424,12 @@ class UsersController extends MyController
             return print_r($model->errors, true);
         }
     }
-
+    
     /**
-     * Deletes an existing User model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Updates an existing Training model.
+     * If deletion is successful, the browser will be redirected to the 'planning' page.
      * @param integer $id
+     * @param integer $training_id
      * @return mixed
      */
     public function actionTrainingUpdate($id, $training_id)
@@ -448,9 +457,79 @@ class UsersController extends MyController
         ]);
     }
 
+
     /**
-     * Deletes an existing User model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Duplicates all training of one day of an existing Day model.
+     * If deletion is successful, the browser will be redirected to the 'planning' page.
+     * @param integer $id
+     * @param integer $day_id
+     * @return mixed
+     */
+    public function actionDayTrainingsDuplicate($id, $day_id)
+    {
+        $day = Day::findOne($day_id);
+        $model = new DayTrainingsDuplicateForm();
+        $model->date = $day->date;
+        $model->sportif_id = $id;
+        $model->day = $day;
+        if ($model->load(Yii::$app->request->post())) {
+            if (Yii::$app->request->isAjax) {
+                if ( $model->save()) {
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
+                } else {
+                    throw new NotAcceptableHttpException($this->render('/site/_dayCopyForm', [
+                        'model' => $model,
+                    ]));
+                }
+            } else {
+                if ($model->save()) {
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
+                }
+            }
+        }
+
+        return $this->render('/site/_dayCopyForm', [
+                    'model' => $model,
+        ]);
+    }
+
+    /**
+     * Duplicate an existing Training model.
+     * If deletion is successful, the browser will be redirected to the 'planning' page.
+     * @param integer $id
+     * @param integer $training_id
+     * @return mixed
+     */
+    public function actionTrainingDuplicate($id, $training_id)
+    {
+        $training = Training::findOne($training_id);
+        $model = new Training();
+        $model->setAttributes($training->attributes);
+        if ($model->load(Yii::$app->request->post())) {
+            if (Yii::$app->request->isAjax) {
+                if ($model->validate()) {
+                    $model->save();
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
+                } else {
+                    throw new NotAcceptableHttpException($this->render('/trainings/update', [
+                        'model' => $model,
+                    ]));
+                }
+            } else {
+                if ($model->save()) {
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
+                }
+            }
+        }
+
+        return $this->render('/trainings/update', [
+                    'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Training model.
+     * If deletion is successful, the browser will be redirected to Url::previous().
      * @param integer $id
      * @return mixed
      */
@@ -546,7 +625,7 @@ class UsersController extends MyController
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model, 'training' => $training]));
+                    throw new NotAcceptableHttpException(print_r($model->errors, true).$this->render('/reportings/_form', ['model' => $model, 'training' => $training]));
                 }
             } else {
                 if ($model->validate()) {

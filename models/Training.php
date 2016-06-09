@@ -56,7 +56,7 @@ class Training extends TrainingBase
     {
         if (!isset($this->sportif_id)) {
             $this->addError($attribute, Yii::t('app', 'sportif_id must be set for {attribute} to be set', ['attribute' => $attribute]));
-            return;
+            return false;
         }
         if (!isset($this->date)) {
             $this->addError($attribute, Yii::t('app', 'date must be set for {attribute} to be set', ['attribute' => $attribute]));
@@ -65,10 +65,8 @@ class Training extends TrainingBase
         $model = Day::findOne(['date' => $this->date, 'sportif_id' => $this->sportif_id]);
         if (!$model) {
             $model = new Day();
-            $model->setAttributes([
-                'date'       => $this->date,
-                'sportif_id' => $this->sportif_id,
-            ]);
+            $model->date = $this->date;
+            $model->sportif_id = $this->sportif_id;
             if (!$model->validate()) {
                 $this->addError($attribute, Yii::t('app', 'A new day could not be created because: {errors}', ['errors' => print_r($model->errors, true)]));
                 return false;
@@ -77,7 +75,7 @@ class Training extends TrainingBase
         }
         $this->{$attribute} = $model->id;
         $this->week_id = $model->week->id;
-        $this->day_id = $model->id;
+        return true;
     }
 
     public function getDuration()

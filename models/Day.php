@@ -38,36 +38,36 @@ class Day extends DayBase
     }
 
     const PUBLISHED_TRAINING_DONE = 5;
-    const PUBLISHED_TRAINING_NOT_DONE =6;
+    const PUBLISHED_TRAINING_NOT_DONE = 6;
     const PUBLISHED_TRAINING_DAY_OFF = 7;
-    
-    
+
     /**
      * @return array published names indexed by published IDs
      */
     public static function getPublishedOptions()
     {
         return array(
-            WeekPublishBehavior::PUBLISHED_CITY_EDIT => Yii::t('app', 'Nothing done'),
-            WeekPublishBehavior::PUBLISHED_CITY_DONE => Yii::t('app', 'City Done'),
+            WeekPublishBehavior::PUBLISHED_CITY_EDIT    => Yii::t('app', 'Nothing done'),
+            WeekPublishBehavior::PUBLISHED_CITY_DONE    => Yii::t('app', 'City Done'),
             WeekPublishBehavior::PUBLISHED_PLANING_DONE => Yii::t('app', 'Planned'),
-            self::PUBLISHED_TRAINING_DONE => Yii::t('app', 'Training done'),
-            self::PUBLISHED_TRAINING_NOT_DONE => Yii::t('app', 'Training not done'),
-            self::PUBLISHED_TRAINING_DAY_OFF => Yii::t('app', 'Day off'),
+            self::PUBLISHED_TRAINING_DONE               => Yii::t('app', 'Training done'),
+            self::PUBLISHED_TRAINING_NOT_DONE           => Yii::t('app', 'Training not done'),
+            self::PUBLISHED_TRAINING_DAY_OFF            => Yii::t('app', 'Day off'),
         );
     }
 
     public static function getPublishedColors()
     {
         return array(
-            WeekPublishBehavior::PUBLISHED_CITY_EDIT => 'info',
-            WeekPublishBehavior::PUBLISHED_CITY_DONE => 'yellow',
+            WeekPublishBehavior::PUBLISHED_CITY_EDIT    => 'info',
+            WeekPublishBehavior::PUBLISHED_CITY_DONE    => 'yellow',
             WeekPublishBehavior::PUBLISHED_PLANING_DONE => 'warning',
-            self::PUBLISHED_TRAINING_DONE => 'green',
-            self::PUBLISHED_TRAINING_NOT_DONE => 'dark-green',
-            self::PUBLISHED_TRAINING_DAY_OFF => 'danger',
+            self::PUBLISHED_TRAINING_DONE               => 'green',
+            self::PUBLISHED_TRAINING_NOT_DONE           => 'dark-green',
+            self::PUBLISHED_TRAINING_DAY_OFF            => 'danger',
         );
     }
+
     /**
      * Overrides 
      * @return string a text on published status
@@ -108,10 +108,10 @@ class Day extends DayBase
     {
 
         return array_merge([
-            ['published', 'default', 'value' => PublishBehavior::PUBLISHED_DRAFT],
+            ['published', 'default', 'value' => WeekPublishBehavior::PUBLISHED_CITY_EDIT],
             ['week_id', 'validateWeek', 'skipOnEmpty' => false],
             ['training_city', 'validateTrainingCity', 'skipOnEmpty' => false],
-                ], self::rules());
+                ], parent::rules());
     }
 
     public function validateWeek($attribute, $params)
@@ -135,11 +135,9 @@ class Day extends DayBase
             $model = Week::findOne(['date_begin' => $startDate->format('Y-m-d'), 'sportif_id' => $this->sportif_id]);
             if (!$model) {
                 $model = new Week();
-                $model->setAttributes([
-                    'date_begin' => $startDate->format('Y-m-d'),
-                    'date_end'   => $endDate->format('Y-m-d'),
-                    'sportif_id' => $this->sportif_id,
-                ]);
+                $model->date_begin = $startDate->format('Y-m-d');
+                $model->date_end = $endDate->format('Y-m-d');
+                $model->sportif_id = $this->sportif_id;
                 if (!$model->validate()) {
                     $this->addError($attribute, Yii::t('app', 'A new week could not be created because: {errors}', ['errors' => print_r($model->errors, true)]));
                     return false;
@@ -252,9 +250,6 @@ class Day extends DayBase
         return [];
     }
 
-    
-
-
     /**
      * @return ActiveQuery
      */
@@ -262,7 +257,7 @@ class Day extends DayBase
     {
         return $this->hasMany(Training::className(), ['day_id' => 'id'])->inverseOf('day');
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -270,6 +265,7 @@ class Day extends DayBase
     {
         return $this->hasMany(Reporting::className(), ['training_id' => 'id'])->via('trainings')->inverseOf('day');
     }
+
     /**
      * @return ActiveQuery
      */

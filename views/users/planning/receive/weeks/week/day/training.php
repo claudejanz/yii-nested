@@ -4,7 +4,6 @@ use app\extentions\helpers\MyPjax;
 use app\extentions\MulaffGraphWidget;
 use app\extentions\MulaffGraphWidgetV2;
 use app\extentions\MyDetailView;
-use app\extentions\WebUser;
 use app\models\Day;
 use app\models\Training;
 use app\models\User;

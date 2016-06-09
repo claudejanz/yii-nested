@@ -58,7 +58,7 @@ class Reporting extends ReportingBase
             if (!$this->time) {
                 $this->addError('time', Yii::t('app', 'If training done you have to fill "{attribute}"', ['attribute' => $this->getAttributeLabel('time')]));
             }
-            if (!empty($this->feeled_rpe)) {
+            if (empty($this->feeled_rpe)) {
                 $this->addError('feeled_rpe', Yii::t('app', 'If training done you have to fill "{attribute}"', ['attribute' => $this->getAttributeLabel('feeled_rpe')]));
             }
         }

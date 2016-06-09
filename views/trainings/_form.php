@@ -1,19 +1,15 @@
 <?php
 
-use app\models\Category;
 use app\models\Sport;
-use app\models\SubCategory;
 use app\models\Training;
 use app\models\User;
 use claudejanz\toolbox\widgets\ajax\AjaxSubmit;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\ActiveForm;
-use kartik\widgets\DepDrop;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\web\View;
 use yii\widgets\ActiveForm as ActiveForm2;
 

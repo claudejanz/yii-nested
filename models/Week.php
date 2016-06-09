@@ -58,7 +58,7 @@ class Week extends WeekBase
             }
 
             $date = new DateTime($this->date_begin);
-            $this->{$attribute} = 'W' . $date->format('w');
+            $this->{$attribute} = 'W' . $date->format('W');
         }
     }
 

@@ -61,13 +61,23 @@ if (!$isLight) {
                     'options'     => ['class' => 'red mulaffBtn']
         ]);
         $buttons[] = AjaxModalButton::widget([
-                        'label'       => StyleIcon::showStyled('plus'),
-                        'encodeLabel' => false,
+                    'label'       => StyleIcon::showStyled('plus'),
+                    'encodeLabel' => false,
                     'url'         => ['training-create', 'id' => $model->id, 'date' => $dayId],
-                        'success'     => '#day' . $dayId,
-                        'title'       => Yii::t('app', 'Add training'),
+                    'success'     => '#day' . $dayId,
+                    'title'       => Yii::t('app', 'Add training'),
+                    'options'     => ['class' => 'red mulaffBtn']
+        ]);
+        if ($day->trainings) {
+            $buttons[] = AjaxModalButton::widget([
+                        'label'       => StyleIcon::showStyled('clone'),
+                        'encodeLabel' => false,
+                        'url'         => ['day-trainings-duplicate', 'id' => $model->id, 'day_id' => $day->id],
+//                        'success'     => '#day' . $dayId,
+                        'title'       => Yii::t('app', 'Duplicate trainings'),
                         'options'     => ['class' => 'red mulaffBtn']
             ]);
+        }
         if ($day->trainings && count($day->trainings) > 1) {
 
             $buttons[] = AjaxModalButton::widget([
