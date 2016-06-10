@@ -19,6 +19,10 @@ use yii\helpers\ArrayHelper;
  * @property Reporting[] $reportingsByDate
  * @property int[] $loadsByDate
  * @property int[] $kmByDate
+ * @property int $reportingsKm
+ * @property int $reportingsMinutes
+ * @property int $trainingsKm
+ * @property int $trainingsMinutes
  */
 class Week extends WeekBase
 {
@@ -75,15 +79,21 @@ class Week extends WeekBase
         $models = $this->reportings;
         return ($models) ? ArrayHelper::index($models, 'id', ['day.date']) : null;
     }
+    public function getTrainingsByDate()
+    {
+        $models = $this->trainings;
+        return ($models) ? ArrayHelper::index($models, 'id', ['day.date']) : null;
+    }
 
     public function getLoadsByDate()
     {
-        if (!$this->getReportingsByDate())
+        if (!$this->getReportingsByDate()) {
             return null;
+        }
         $data = [];
-        foreach ($this->getReportingsByDate() as $key => $reportings) {
+        foreach ($this->getReportingsByDate() as $key => $rows) {
             $data[$key] = 0;
-            foreach ($reportings as $reporting) {
+            foreach ($rows as $reporting) {
                 /* @var $reporting Reporting */
                 $data[$key]+=$reporting->load;
             }
@@ -93,17 +103,68 @@ class Week extends WeekBase
 
     public function getKmByDate()
     {
-        if (!$this->getReportingsByDate())
+        if (!$this->getReportingsByDate()) {
             return null;
+        }
         $data = [];
-        foreach ($this->getReportingsByDate() as $key => $reportings) {
+        foreach ($this->getReportingsByDate() as $key => $rows) {
             $data[$key] = 0;
-            foreach ($reportings as $reporting) {
+            foreach ($rows as $reporting) {
                 /* @var $reporting Reporting */
                 $data[$key]+=$reporting->km;
             }
         }
         return $data;
+    }
+
+    public function getReportingsKm()
+    {
+        if (!$this->reportings) {
+            return 0;
+        }
+        $total = 0;
+        foreach ($this->reportings as $reporting) {
+            /* @var $reporting Reporting */
+            $total+=$reporting->km;
+        }
+        return $total;
+    }
+    public function getReportingsMinutes()
+    {
+        if (!$this->reportings) {
+            return 0;
+        }
+        $total = 0;
+        foreach ($this->reportings as $reporting) {
+            /* @var $reporting Reporting */
+            $total+=$reporting->minutes;
+        }
+        return $total;
+    }
+
+    public function getTrainingsKm()
+    {
+        if (!$this->trainings) {
+            return 0;
+        }
+        $total = 0;
+        foreach ($this->trainings as $training) {
+                /* @var $training Training */
+                $total+=$training->km;
+        }
+        return $total;
+    }
+    public function getTrainingsMinutes()
+    {
+        if (!$this->trainings) {
+            return 0;
+        }
+        $total = 0;
+        foreach ($this->trainings as $training) {
+                /* @var $training Training */
+                $total+=$training->minutes;
+        }
+        return $total;
     }
 
     public function sendWeekMail($user)

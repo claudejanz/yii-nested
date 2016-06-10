@@ -115,7 +115,7 @@ $config = [
             ],
         ],
         'formatter'    => [
-            'class'        => 'yii\i18n\Formatter',
+            'class'        => 'app\extentions\MyFormatter',
             'currencyCode' => 'CHF',
         ],
 //        'session' => [

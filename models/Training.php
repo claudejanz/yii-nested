@@ -88,6 +88,16 @@ class Training extends TrainingBase
         return sprintf('%1$01dh%2$02d', $split['0'], $split['1']);
     }
 
+    public function getMinutes()
+    {
+        $parse = array();
+        if (!preg_match('#^(?<hours>[\d]{2}):(?<mins>[\d]{2}):(?<secs>[\d]{2})$#', $this->time, $parse)) {
+            // Throw error, exception, etc
+            return 0;
+        }
+        return (int) $parse['hours'] * 60 + (int) $parse['mins'];
+    }
+
     public function getShortTitle()
     {
         return substr($this->title, 0, 25) . '...';
@@ -108,6 +118,13 @@ class Training extends TrainingBase
     public function getReporting()
     {
         return $this->hasOne(Reporting::className(), ['training_id' => 'id'])->inverseOf('training');
+    }
+
+    public function colon() {
+        $t = new Training();
+        $t->setAttributes($this->getAttributes());
+        $t->published = WeekPublishBehavior::PUBLISHED_CITY_EDIT;
+        return $t;
     }
 
 }

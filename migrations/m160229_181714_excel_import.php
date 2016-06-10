@@ -179,6 +179,7 @@ class m160229_181714_excel_import extends Migration
 
     public function getIcon($name)
     {
+        echo $name;
         switch ($name) {
             case 'Course a pied':
             case'Piste':
@@ -201,11 +202,22 @@ class m160229_181714_excel_import extends Migration
             case'Ski backcountry':
                 return 'sports-3';
             case'Natation':
+                return 'sport';
             case'Aqua-jogging':
                 return 'summer-1';
             case'Aviron':
             case'Kanu-kajak':
                 return 'silhouette-7';
+            case'Force en salle':
+                return 'silhouette-5';
+            case'Gainage':
+                return 'person';
+            case'Autres sports':
+                return 'sports-4';
+            case'Bien-etre':
+                return 'man-1';
+            case'Day-off':
+                return 'drink';
             default:
                 return 'cup';
         }

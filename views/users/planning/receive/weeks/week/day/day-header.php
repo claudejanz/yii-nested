@@ -65,10 +65,10 @@ echo Html::endTag('div'); //city and button
 
 echo Html::endTag('div'); //col-sm-12 col-md-9
 echo Html::beginTag('div', ['class' => 'col-xs-4 bullet text-right']);
-if ($day && $day->duration) {
+if ($day && $day->trainingsDuration) {
 
     echo Html::beginTag('div', ['class' => 'timeDuration']);
-    echo $day->duration . "<br>";
+    echo $day->trainingsDuration . "<br>";
     echo Html::endTag('div'); //timeDuration
     echo Html::beginTag('div', ['class' => 'all-sports']);
     foreach ($day->getIcons() as $icon) {

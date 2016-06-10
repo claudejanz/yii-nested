@@ -7,6 +7,7 @@ use app\extentions\behaviors\WeekPublishBehavior;
 use app\extentions\helpers\EuroDateTime;
 use app\models\Day;
 use app\models\forms\DayTrainingsDuplicateForm;
+use app\models\forms\WeekTrainingsDuplicateForm;
 use app\models\Mail;
 use app\models\Reporting;
 use app\models\search\TrainingTypeSearch;
@@ -60,8 +61,9 @@ class UsersController extends MyController
                     'update',
                     'view',
                     'week-add-comment',
-                    'week-publish',
                     'week-fill',
+                    'week-publish',
+                    'week-trainings-duplicate',
                     'week-ready',
                 ]
             ],
@@ -80,6 +82,7 @@ class UsersController extends MyController
                             'training-order',
                             'view',
                             'week-publish',
+                            'week-trainings-duplicate',
                         ],
                         'allow'   => true,
                         'roles'   => ['coaching'],
@@ -138,6 +141,7 @@ class UsersController extends MyController
                     'week-add-comment',
                     'week-fill',
                     'week-publish',
+                    'week-trainings-duplicate',
                     'week-ready',
                 ], // in a controller
                 // if in a module, use the following IDs for user actions
@@ -424,7 +428,7 @@ class UsersController extends MyController
             return print_r($model->errors, true);
         }
     }
-    
+
     /**
      * Updates an existing Training model.
      * If deletion is successful, the browser will be redirected to the 'planning' page.
@@ -457,7 +461,6 @@ class UsersController extends MyController
         ]);
     }
 
-
     /**
      * Duplicates all training of one day of an existing Day model.
      * If deletion is successful, the browser will be redirected to the 'planning' page.
@@ -474,7 +477,7 @@ class UsersController extends MyController
         $model->day = $day;
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
-                if ( $model->save()) {
+                if ($model->save()) {
                     return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
                 } else {
                     throw new NotAcceptableHttpException($this->render('/site/_dayCopyForm', [
@@ -505,6 +508,7 @@ class UsersController extends MyController
         $training = Training::findOne($training_id);
         $model = new Training();
         $model->setAttributes($training->attributes);
+        $model->published = WeekPublishBehavior::PUBLISHED_CITY_EDIT;
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
                 if ($model->validate()) {
@@ -625,7 +629,7 @@ class UsersController extends MyController
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException(print_r($model->errors, true).$this->render('/reportings/_form', ['model' => $model, 'training' => $training]));
+                    throw new NotAcceptableHttpException(print_r($model->errors, true) . $this->render('/reportings/_form', ['model' => $model, 'training' => $training]));
                 }
             } else {
                 if ($model->validate()) {
@@ -679,6 +683,41 @@ class UsersController extends MyController
             ]);
         }
         return ['message' => Yii::t('app', 'Week must have something in it to be sent.'), 'error' => 1];
+    }
+    
+     /**
+     * Duplicates all training of one week of an existing Day model.
+     * If deletion is successful, the browser will be redirected to the 'planning' page.
+     * @param integer $id
+     * @param integer $week_id
+     * @return mixed
+     */
+    public function actionWeekTrainingsDuplicate($id, $week_id)
+    {
+        $week = Week::findOne($week_id);
+        $model = new WeekTrainingsDuplicateForm();
+        $model->date = $week->date_begin;
+        $model->sportif_id = $id;
+        $model->week = $week;
+        if ($model->load(Yii::$app->request->post())) {
+            if (Yii::$app->request->isAjax) {
+                if ($model->save()) {
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
+                } else {
+                    throw new NotAcceptableHttpException($this->render('/site/_dayCopyForm', [
+                        'model' => $model,
+                    ]));
+                }
+            } else {
+                if ($model->save()) {
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
+                }
+            }
+        }
+
+        return $this->render('/site/_dayCopyForm', [
+                    'model' => $model,
+        ]);
     }
 
     public function actionWeekAddComment($id, $week_id){

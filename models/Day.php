@@ -17,6 +17,13 @@ use yii\db\Query;
  * @property Training[] $trainingsWithSport
  * @property booleen $hasReportingDone
  * @property booleen $hasReporting
+ * @property booleen $hasSportId
+ * @property string $publishedLabel Published Label
+ * @property string $publishedColor Published Color Css String
+ * @property string $trainingsDuration 1h30
+ * @property int $trainingsMinutes Minutes of all trainings
+ * @property int $reportingsMinutes Minutes of all reportings
+ * @property array[] $icons Get training icones [[ 'url'   => ..., 'count' => 0],[...,...]]
  */
 class Day extends DayBase
 {
@@ -37,72 +44,9 @@ class Day extends DayBase
         );
     }
 
-    const PUBLISHED_TRAINING_DONE = 5;
-    const PUBLISHED_TRAINING_NOT_DONE = 6;
-    const PUBLISHED_TRAINING_DAY_OFF = 7;
-
-    /**
-     * @return array published names indexed by published IDs
+    /*
+     * VALIDATION
      */
-    public static function getPublishedOptions()
-    {
-        return array(
-            WeekPublishBehavior::PUBLISHED_CITY_EDIT    => Yii::t('app', 'Nothing done'),
-            WeekPublishBehavior::PUBLISHED_CITY_DONE    => Yii::t('app', 'City Done'),
-            WeekPublishBehavior::PUBLISHED_PLANING_DONE => Yii::t('app', 'Planned'),
-            self::PUBLISHED_TRAINING_DONE               => Yii::t('app', 'Training done'),
-            self::PUBLISHED_TRAINING_NOT_DONE           => Yii::t('app', 'Training not done'),
-            self::PUBLISHED_TRAINING_DAY_OFF            => Yii::t('app', 'Day off'),
-        );
-    }
-
-    public static function getPublishedColors()
-    {
-        return array(
-            WeekPublishBehavior::PUBLISHED_CITY_EDIT    => 'info',
-            WeekPublishBehavior::PUBLISHED_CITY_DONE    => 'yellow',
-            WeekPublishBehavior::PUBLISHED_PLANING_DONE => 'warning',
-            self::PUBLISHED_TRAINING_DONE               => 'green',
-            self::PUBLISHED_TRAINING_NOT_DONE           => 'dark-green',
-            self::PUBLISHED_TRAINING_DAY_OFF            => 'danger',
-        );
-    }
-
-    /**
-     * Overrides 
-     * @return string a text on published status
-     */
-    public function getPublishedLabel()
-    {
-
-        $publishedOptions = self::getPublishedOptions();
-        if ($this->published > 2) {
-            if ($this->reportingsDone) {
-                return Yii::t('app', 'Done');
-            } elseif ($this->reportings) {
-                return Yii::t('app', 'Not done');
-            }
-        }
-        return isset($publishedOptions[$this->published]) ? $publishedOptions[$this->published] : "unknown published ($this->published)";
-    }
-
-    public function getPublishedColor()
-    {
-
-        $publishedOptions = self::getPublishedColors();
-        if ($this->published > 2) {
-            if ($this->getHasSportId(47)) {
-                return 'danger';
-            }
-            if ($this->reportingsDone) {
-                return 'green';
-            }
-            if ($this->reportings) {
-                return 'dark-green';
-            }
-        }
-        return isset($publishedOptions[$this->published]) ? $publishedOptions[$this->published] : "unknown published ($this->published)";
-    }
 
     public function rules()
     {
@@ -161,6 +105,45 @@ class Day extends DayBase
         }
     }
 
+    /*
+     * STATICS
+     */
+
+    const PUBLISHED_TRAINING_DONE = 5;
+    const PUBLISHED_TRAINING_NOT_DONE = 6;
+    const PUBLISHED_TRAINING_DAY_OFF = 7;
+
+    /**
+     * @return array published names indexed by published IDs
+     */
+    public static function getPublishedOptions()
+    {
+        return array(
+            WeekPublishBehavior::PUBLISHED_CITY_EDIT    => Yii::t('app', 'Nothing done'),
+            WeekPublishBehavior::PUBLISHED_CITY_DONE    => Yii::t('app', 'City Done'),
+            WeekPublishBehavior::PUBLISHED_PLANING_DONE => Yii::t('app', 'Planned'),
+            self::PUBLISHED_TRAINING_DONE               => Yii::t('app', 'Training done'),
+            self::PUBLISHED_TRAINING_NOT_DONE           => Yii::t('app', 'Training not done'),
+            self::PUBLISHED_TRAINING_DAY_OFF            => Yii::t('app', 'Day off'),
+        );
+    }
+
+    public static function getPublishedColors()
+    {
+        return array(
+            WeekPublishBehavior::PUBLISHED_CITY_EDIT    => 'info',
+            WeekPublishBehavior::PUBLISHED_CITY_DONE    => 'yellow',
+            WeekPublishBehavior::PUBLISHED_PLANING_DONE => 'warning',
+            self::PUBLISHED_TRAINING_DONE               => 'green',
+            self::PUBLISHED_TRAINING_NOT_DONE           => 'dark-green',
+            self::PUBLISHED_TRAINING_DAY_OFF            => 'danger',
+        );
+    }
+
+    /*
+     * ACTIONS
+     */
+
     public function publish($value = WeekPublishBehavior::PUBLISHED_PLANING_DONE)
     {
         if ($value == WeekPublishBehavior::PUBLISHED_PLANING_DONE) {
@@ -191,40 +174,86 @@ class Day extends DayBase
         return false;
     }
 
-    public function getDuration()
+    /*
+     * GETTERS
+     */
+
+    /**
+     * Overrides 
+     * @return string a text on published status
+     */
+    public function getPublishedLabel()
+    {
+
+        $publishedOptions = self::getPublishedOptions();
+        if ($this->published > 2) {
+            if ($this->reportingsDone) {
+                return Yii::t('app', 'Done');
+            } elseif ($this->reportings) {
+                return Yii::t('app', 'Not done');
+            }
+        }
+        return isset($publishedOptions[$this->published]) ? $publishedOptions[$this->published] : "unknown published ($this->published)";
+    }
+
+    public function getPublishedColor()
+    {
+
+        $publishedOptions = self::getPublishedColors();
+        if ($this->published > 2) {
+            if ($this->getHasSportId(47)) {
+                return 'danger';
+            }
+            if ($this->reportingsDone) {
+                return 'green';
+            }
+            if ($this->reportings) {
+                return 'dark-green';
+            }
+        }
+        return isset($publishedOptions[$this->published]) ? $publishedOptions[$this->published] : "unknown published ($this->published)";
+    }
+
+    public function getTrainingsDuration()
     {
         if ($this->trainings) {
             $isCoach = Yii::$app->user->can('coach');
-            $hours = 0;
-            $minutes = 0;
+            $duration = 0;
             foreach ($this->trainings as $training) {
                 if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
-                    $duration = $training->time;
-                    $split = preg_split('@:@', $training->time, -1, PREG_SPLIT_NO_EMPTY);
-                    if (count($split) > 1) {
-                        $hours += $split[0];
-                        $minutes += $split[1];
-                        if ($minutes >= 60) {
-                            $hours +=floor($minutes / 60);
-                            $minutes -= floor($minutes / 60) * 60;
-                        }
-                    }
+                    $duration += $training->minutes;
                 }
-                /* @var $training Training */
             }
-            if (!($hours == 0 && $minutes == 0)) {
-                return sprintf('%1$01dh%2$02d', $hours, $minutes);
-            }
+            return Yii::$app->formatter->asMyDuration($duration);
         }
         return null;
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getTrainingsWithSport()
+    public function getTrainingsMinutes()
     {
-        return $this->hasMany(Training::className(), ['day_id' => 'id'])->with('sport');
+        if ($this->trainings) {
+            $isCoach = Yii::$app->user->can('coach');
+            $duration = 0;
+            foreach ($this->trainings as $training) {
+                if ($isCoach || $training->published == PublishBehavior::PUBLISHED_ACTIF) {
+                    $duration += $training->minutes;
+                }
+            }
+            return $duration;
+        }
+        return null;
+    }
+
+    public function getReportingsMinutes()
+    {
+        if ($this->reportings) {
+            $duration = 0;
+            foreach ($this->reportings as $reporting) {
+                $duration += $reporting->minutes;
+            }
+            return $duration;
+        }
+        return 0;
     }
 
     public function getIcons()
@@ -250,6 +279,20 @@ class Day extends DayBase
         return [];
     }
 
+    public function getHasSportId($sport_id) {
+        return ((new Query())
+                        ->select(['sport_id'])
+                        ->from('training')
+                        ->where(['day_id' => $this->id])
+                        ->andWhere(['sport_id' => $sport_id])
+                        ->scalar() != null) ? true : false;
+
+         }
+
+    /*
+     * Relation Ref
+     */
+
     /**
      * @return ActiveQuery
      */
@@ -274,14 +317,12 @@ class Day extends DayBase
         return $this->hasMany(Reporting::className(), ['training_id' => 'id'])->via('trainings')->where(['done' => 1])->inverseOf('day');
     }
 
-    public function getHasSportId($sport_id) {
-        return ((new Query())
-                        ->select(['sport_id'])
-                        ->from('training')
-                        ->where(['day_id' => $this->id])
-                        ->andWhere(['sport_id' => $sport_id])
-                        ->scalar() != null) ? true : false;
-
-         }
+    /**
+     * @return ActiveQuery
+     */
+    public function getTrainingsWithSport()
+   {
+        return $this->hasMany(Training::className(), ['day_id' => 'id'])->with('sport')->inverseOf('day');
+   }
 
 }

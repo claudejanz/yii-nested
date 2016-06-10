@@ -69,52 +69,7 @@ use yii\widgets\ActiveForm as ActiveForm2;
             ],
         ]
     ]);
-    if (Yii::$app->user->can('admin')) {
-        echo Form::widget([
-            'model'         => $model,
-            'form'          => $form,
-            'contentBefore' => Html::tag('legend', Yii::t('app', 'Only for administrators')),
-            'columns'       => 2,
-            'attributes'    => [
-                'contrat_start' => [
-                    'type'        => Form::INPUT_WIDGET,
-                    'widgetClass' => DateControl::classname(),
-                    'options'     => [
-                        'type'    => DateControl::FORMAT_DATE,
-                        'options' => [
-                            'pluginOptions' => [
-                                'defaultTime' => false,
-                            ]
-                        ]
-                    ]
-                ],
-                'contrat_end'   => [
-                    'type'        => Form::INPUT_WIDGET,
-                    'widgetClass' => DateControl::classname(),
-                    'options'     => [
-                        'type'    => DateControl::FORMAT_DATE,
-                        'options' => [
-                            'pluginOptions' => [
-                                'defaultTime' => false,
-                            ]
-                        ]
-                    ]
-                ],
-                'trainer_id'    => [
-                    'type'    => Form::INPUT_DROPDOWN_LIST,
-                    'items'   => ArrayHelper::map(User::find()->select(['id', 'title' => 'CONCAT(firstname,\' \',lastname)'])->andWhere(['between', 'role', User::ROLE_COACH, User::ROLE_ADMIN])->asArray()->all(), 'id', 'title'),
-                    'options' => [ 'prompt' => Yii::t('app', 'Enter Trainer ID...')]
-                ],
-                'role'          => [
-                    'type'    => Form::INPUT_DROPDOWN_LIST,
-                    'items'   => User::getRoleOptions(Yii::$app->user),
-                    'options' => ['placeholder' => Yii::t('app', 'Enter Role...')]
-                ],
-            ]
-        ]);
-    }
-
-    echo Form::widget([
+     echo Form::widget([
         'model'         => $model,
         'form'          => $form,
         'contentBefore' => Html::tag('legend', Yii::t('app', 'Personal data')),
@@ -143,6 +98,61 @@ use yii\widgets\ActiveForm as ActiveForm2;
             'comments'  => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => Yii::t('app', 'Enter Comments...')]],
         ]
     ]);
+    if (Yii::$app->user->can('admin')) {
+        echo Form::widget([
+            'model'         => $model,
+            'form'          => $form,
+            'contentBefore' => Html::tag('legend', Yii::t('app', 'Contract')),
+            'columns'       => 2,
+            'attributes'    => [
+                'contrat_start' => [
+                    'type'        => Form::INPUT_WIDGET,
+                    'widgetClass' => DateControl::classname(),
+                    'options'     => [
+                        'type'    => DateControl::FORMAT_DATE,
+                        'options' => [
+                            'pluginOptions' => [
+                                'defaultTime' => false,
+                            ]
+                        ]
+                    ]
+                ],
+                'contrat_end'   => [
+                    'type'        => Form::INPUT_WIDGET,
+                    'widgetClass' => DateControl::classname(),
+                    'options'     => [
+                        'type'    => DateControl::FORMAT_DATE,
+                        'options' => [
+                            'pluginOptions' => [
+                                'defaultTime' => false,
+                            ]
+                        ]
+                    ]
+                ],
+               
+            ]
+        ]);
+        echo Form::widget([
+            'model'         => $model,
+            'form'          => $form,
+            'contentBefore' => Html::tag('legend', Yii::t('app', 'Only for administrators')),
+            'columns'       => 2,
+            'attributes'    => [
+                'trainer_id'    => [
+                    'type'    => Form::INPUT_DROPDOWN_LIST,
+                    'items'   => ArrayHelper::map(User::find()->select(['id', 'title' => 'CONCAT(firstname,\' \',lastname)'])->andWhere(['between', 'role', User::ROLE_COACH, User::ROLE_ADMIN])->asArray()->all(), 'id', 'title'),
+                    'options' => [ 'prompt' => Yii::t('app', 'Enter Trainer ID...')]
+                ],
+                'role'          => [
+                    'type'    => Form::INPUT_DROPDOWN_LIST,
+                    'items'   => User::getRoleOptions(Yii::$app->user),
+                    'options' => ['placeholder' => Yii::t('app', 'Enter Role...')]
+                ],
+            ]
+        ]);
+    }
+
+   
     if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->id && $model->role > User::ROLE_SPORTIF) {
         echo Form::widget([
             'model'         => $model,

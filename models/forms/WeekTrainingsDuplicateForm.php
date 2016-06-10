@@ -28,17 +28,18 @@ use yii\base\Model;
 /**
  * Form to copy Day
  */
-class DayTrainingsDuplicateForm extends Model
+class WeekTrainingsDuplicateForm extends Model
 {
 
     public $sportif_id;
     public $date;
-    public $day;
+    public $week;
+    public $days;
 
     public function rules()
 {
         return [
-            [['sportif_id', 'date', 'day'], 'required'],
+            [['sportif_id', 'date', 'week'], 'required'],
             [['sportif_id'], 'integer'],
             [['date'], 'safe'],
             [['sportif_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sportif_id' => 'id']],
@@ -59,16 +60,24 @@ class DayTrainingsDuplicateForm extends Model
      * @return boolean if valid and copyed
      */
     public function save(){
+        $count = 0;
+        $date =  new \app\extentions\helpers\EuroDateTime($this->date);
         if ($this->validate()) {
-            foreach ($this->day->trainings as $training) {
-                 /* @var $training Training */
-                $t = $training->colon();
-                $t->date = $this->date;
-                $t->sportif_id = $this->sportif_id;
-
-                if (!$t->save()) {
-                    return false;
+            foreach ($this->week->trainingsByDate as $key => $rows) {
+                if($count>0){
+                    $date->modify('+1day');
                 }
+                foreach ($rows as $training) {
+
+                    /* @var $training Training */
+                    $t = $training->colon();
+                    $t->date = $date->format('Y-m-d');
+                    $t->sportif_id = $this->sportif_id;
+                    if (!$t->save()) {
+                        return false;
+                    }
+                }
+                $count++;
             }
             return true;
         }

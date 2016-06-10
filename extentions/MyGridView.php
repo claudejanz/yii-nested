@@ -19,8 +19,9 @@
 
 namespace app\extentions;
 
+use app\extentions\helpers\EuroDateTime;
+use app\models\search\SportifSearch;
 use kartik\grid\GridView;
-use kartik\helpers\Html as Html2;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -80,9 +81,12 @@ class MyGridView extends GridView
 }
 
     public function renderHeaderAdd() {
+        /* @var $sportifSearch SportifSearch */
+        $sportifSearch = $this->filterModel;
+        $date = new EuroDateTime($sportifSearch->date);
         return Html::tag('tr', Html::tag('th', '', ['colspan' => 2])
                         . Html::tag('th', Yii::t('app', 'Contract'), ['colspan' => 2])
-                        . Html::tag('th', Yii::t('app', 'Week'), ['colspan' => 31])
+                        . Html::tag('th', Yii::t('app', '{m} - Weeks:',['m'=>  ucfirst(Yii::$app->formatter->asDate($date,'MMMM'))]), ['colspan' => 31])
         );
     }
 

@@ -56,21 +56,21 @@ if ($isCoach && (!$week || $week->published <= app\extentions\behaviors\WeekPubl
 }
 
 //if (!$isCoach) {
-    $label = ($week && $week->published < app\extentions\behaviors\WeekPublishBehavior::PUBLISHED_CITY_EDIT) ? Yii::t('app', 'Re-validate citys') : Yii::t('app', 'Validate citys');
-    echo AjaxButton::widget([
-        'label'       => StyleIcon::showStyled('thumbs-up') . ' ' . $label,
-        'encodeLabel' => false,
-        'url'         => [
-            'week-ready',
-            'id'         => $model->id,
-            'date_begin' => $weekId,
-        ],
-        'success'     => '#week' . $weekId,
-        'options'     => [
-            'title' => $label,
-            'class' => 'red',
-        ],
-    ]);
+$label = ($week && $week->published < app\extentions\behaviors\WeekPublishBehavior::PUBLISHED_CITY_EDIT) ? Yii::t('app', 'Re-validate citys') : Yii::t('app', 'Validate citys');
+echo AjaxButton::widget([
+    'label'       => StyleIcon::showStyled('thumbs-up') . ' ' . $label,
+    'encodeLabel' => false,
+    'url'         => [
+        'week-ready',
+        'id'         => $model->id,
+        'date_begin' => $weekId,
+    ],
+    'success'     => '#week' . $weekId,
+    'options'     => [
+        'title' => $label,
+        'class' => 'red',
+    ],
+]);
 //}
 if ($week) {
     if ($isCoach) {
@@ -92,6 +92,7 @@ if ($week) {
                 'class' => 'red',
             ],
         ]);
+
         $label = Yii::t('app', 'Mail report');
         echo ' ' . AjaxModalButton::widget([
             'label'       => StyleIcon::showStyled('send') . ' ' . $label,
@@ -108,6 +109,22 @@ if ($week) {
                 'class' => 'red',
             ],
         ]);
+
+        if ($week->trainings) {
+            $label = Yii::t('app', 'Duplicate week trainings');
+            echo AjaxModalButton::widget([
+                'label'       => StyleIcon::showStyled('clone') . ' ' . $label,
+                'encodeLabel' => false,
+                'url'         => [
+                    'week-trainings-duplicate',
+                    'id'      => $model->id,
+                    'week_id' => $week->id,
+                ],
+//                        'success'     => '#day' . $dayId,
+                'title'       => Yii::t('app', 'Duplicate trainings'),
+                'options'     => ['class' => 'red mulaffBtn']
+            ]);
+        }
     }
     if ($isCoach || $week->published >= app\extentions\behaviors\WeekPublishBehavior::PUBLISHED_PLANING_DONE) {
         echo ' ' . Html::a(StyleIcon::showStyled('file-pdf-o') . ' ' . Yii::t('app', 'Week PDF'), Url::to(['planning-pdf', 'id' => $model->id, 'date' => $weekId, 'ViewStyleForm[viewStyle]' => 'pdf']), ['class' => 'red', 'target' => '_blank', 'data-pjax' => 0]);

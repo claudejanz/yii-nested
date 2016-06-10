@@ -38,7 +38,6 @@ class CompetitionController extends MyController
                 'rules' => [
                     [
                         'actions' => [
-                            'index',
                         ],
                         'allow'   => true,
                         'roles'   => ['coaching'],
@@ -52,6 +51,7 @@ class CompetitionController extends MyController
 //                    ],
                     [
                         'actions' => [
+                            'index',
                             'create',
                             'update'
                         ],

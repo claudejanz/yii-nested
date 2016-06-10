@@ -12,6 +12,9 @@ use yii\db\Expression;
 /**
  * 
  * @property string $duration
+ * @property int $minutes
+ * @property int $load
+ * @property string doneColor css class
  */
 class Reporting extends ReportingBase
 {
@@ -38,21 +41,6 @@ class Reporting extends ReportingBase
                 ], parent::rules());
    }
 
-    public function getMinutes()
-    {
-        $value = ($this->time) ? $this->time : $this->training->time;
-        $parsed = date_parse($value);
-        return $parsed['hour'] * 60 + $parsed['minute'];
-    }
-
-    public function getLoad(){
-        return ($this->done) ? $this->minutes * $this->feeled_rpe : null;
-    }
-
-    public function getDoneColor(){
-        return ($this->done) ? 'green' : 'red';
-    }
-
     public function validateLoad($attribute){
         if ($this->$attribute) {
             if (!$this->time) {
@@ -64,17 +52,39 @@ class Reporting extends ReportingBase
         }
     }
 
-    public function getDuration()
+    /*
+     * GETTERS
+     */
+
+    public function getMinutes()
     {
-        $split = preg_split('@:@', $this->time, -1, PREG_SPLIT_NO_EMPTY);
-        if (count($split) < 2) {
-            $split['0'] = 0;
-            $split['1'] = 0;
+        if(!$this->done){
+            return 0;
         }
-        return sprintf('%1$01dh%2$02d', $split['0'], $split['1']);
+        $parse = array();
+        if (!preg_match('#^(?<hours>[\d]{2}):(?<mins>[\d]{2}):(?<secs>[\d]{2})$#', $this->time, $parse)) {
+            // Throw error, exception, etc
+            return 0;
+        }
+        return (int) $parse['hours'] * 60 + (int) $parse['mins'];
     }
 
-    
+    public function getLoad(){
+        return ($this->done) ? $this->minutes * $this->feeled_rpe : null;
+    }
+
+    public function getDoneColor(){
+        return ($this->done) ? 'green' : 'red';
+    }
+
+    public function getDuration()
+    {
+        return Yii::$app->formatter->asDuration($this->minutes);
+    }
+
+    /*
+     * Relations Def
+     */
 
     /**
      * @return \yii\db\ActiveQuery

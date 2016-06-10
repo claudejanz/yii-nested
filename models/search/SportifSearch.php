@@ -20,10 +20,6 @@ class SportifSearch extends User
 {
 
     public $date = 'first day of this month';
-    
-    
-    
-
    
 
     public function rules()

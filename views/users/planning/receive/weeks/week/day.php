@@ -123,7 +123,9 @@ $js = '
             .done(function( data ) {
                insert.append(data);
                $.pjax.reload("#day-header"+date,{timeout:false});
-               insert.parents(".collapsable.collapsed").slideToggle();
+               if(insert.parents(".collapsable.collapsed").css("display")=="none"){
+                    insert.parents(".collapsable.collapsed").slideToggle();
+               }
             })
             .fail(function( data ) {
             });
