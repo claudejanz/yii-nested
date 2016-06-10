@@ -19,9 +19,11 @@
 
 namespace app\models\forms;
 
-use app\extentions\behaviors\WeekPublishBehavior;
+use app\extentions\helpers\EuroDateTime;
+use app\models\Day;
 use app\models\Training;
 use app\models\User;
+use app\models\Week;
 use Yii;
 use yii\base\Model;
 
@@ -31,11 +33,34 @@ use yii\base\Model;
 class WeekTrainingsDuplicateForm extends Model
 {
 
+    /**
+     *
+     * @var int
+     */
     public $sportif_id;
+
+    /**
+     *
+     * @var string
+     */
     public $date;
+
+    /**
+     *
+     * @var Week 
+     */
     public $week;
+
+    /**
+     *
+     * @var Day[]
+     */
     public $days;
 
+    /**
+     * 
+     * @inherit
+     */
     public function rules()
 {
         return [
@@ -47,26 +72,36 @@ class WeekTrainingsDuplicateForm extends Model
         ];
 }
 
+    /**
+     * 
+     * @inherit
+     */
     public function attributeLabels()
-    {
+        {
         return [
             'sportif_id' => Yii::t('app', 'Sportif ID'),
             'date'       => Yii::t('app', 'Date'),
         ];
-    }
+        }
 
     /**
      * Copys all trainings from given day
      * @return boolean if valid and copyed
      */
     public function save(){
-        $count = 0;
-        $date =  new \app\extentions\helpers\EuroDateTime($this->date);
         if ($this->validate()) {
+            $count = 0;
             foreach ($this->week->trainingsByDate as $key => $rows) {
-                if($count>0){
-                    $date->modify('+1day');
+                if ($count == 0) {
+                    $orig_date = new EuroDateTime($this->week->date_begin);
+                    $desti_date = new EuroDateTime($this->date);
+                    $inter = $orig_date->diff($desti_date);
                 }
+
+                $date = new EuroDateTime($key);
+                $date->add($inter);
+
+
                 foreach ($rows as $training) {
 
                     /* @var $training Training */

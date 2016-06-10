@@ -24,12 +24,12 @@ use yii\helpers\Html;
 /* @var $training Training */
 /* @var $model User */
 echo Html::beginTag('fieldset');
-echo Html::tag('legend',  Yii::t('app', 'Feedback'));
+echo Html::tag('legend',  Yii::t('app', 'Reporting'));
 if ($training->reporting) {
     echo ReportingWidget::widget(['model' => $training, 'attribute' => 'done', 'user' => $model]);
 } else {
     echo AjaxModalButton::widget([
-        'label'       => Yii::t('app', 'Add Feedback'),
+        'label'       => Yii::t('app', 'Add Reporting'),
         'encodeLabel' => false,
         'url'         => [
             'reporting-update',

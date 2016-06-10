@@ -237,7 +237,7 @@ class Week extends WeekBase
      */
     public function getTrainings()
     {
-        return $this->hasMany(Training::className(), ['week_id' => 'id'])->inverseOf('week');
+        return $this->hasMany(Training::className(), ['day_id' => 'id'])->via('days')->inverseOf('week');
     }
 
     /**

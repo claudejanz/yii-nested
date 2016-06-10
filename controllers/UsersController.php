@@ -380,10 +380,10 @@ class UsersController extends MyController
 
                         return $reporting->save(false);
                     } else {
-                        throw new NotAcceptableHttpException($this->render('/trainings/_formCreate', ['model' => $model, 'reporting' => $reporting]) . print_r($reporting->errors, true));
+                        throw new NotAcceptableHttpException($this->render('/trainings/_formCreate', ['model' => $model, 'reporting' => $reporting]));
                     }
                 } else {
-                    throw new NotAcceptableHttpException($this->render('/trainings/_formCreate', ['model' => $model, 'reporting' => $reporting]) . print_r($reporting->errors, true));
+                    throw new NotAcceptableHttpException($this->render('/trainings/_formCreate', ['model' => $model, 'reporting' => $reporting]));
                 }
             } else {
                 if ($model->save()) {
@@ -629,7 +629,7 @@ class UsersController extends MyController
                 if ($model->validate()) {
                     return $model->save();
                 } else {
-                    throw new NotAcceptableHttpException(print_r($model->errors, true) . $this->render('/reportings/_form', ['model' => $model, 'training' => $training]));
+                    throw new NotAcceptableHttpException($this->render('/reportings/_form', ['model' => $model, 'training' => $training]));
                 }
             } else {
                 if ($model->validate()) {
@@ -810,7 +810,7 @@ class UsersController extends MyController
                     } else {
                         throw new NotAcceptableHttpException($this->render('/mails/_form', [
                             'model' => $model,
-                        ]) . print_r($model->errors, true));
+                        ]));
                     }
                 } else {
                     if ($model->save()) {
