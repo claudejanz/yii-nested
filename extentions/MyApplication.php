@@ -26,6 +26,8 @@ use yii\web\Application;
  *
  * @author Claude
  * @property MyMailer $mailer The mailer application component. This property is read-only.
+ * @property WebUser $user The user component. This property is read-only.
+ * @property MyFormatter $formatter The formatter application component. This property is read-only.
  */
 class MyApplication extends Application
 {

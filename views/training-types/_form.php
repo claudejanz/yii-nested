@@ -55,7 +55,6 @@ use yii\web\View;
     $fields['category_id'] = [
         'type'        => Form::INPUT_WIDGET,
         'widgetClass' => DepDrop::className(),
-        'items'       => ArrayHelper::map($data, 'id', 'name'),
         'options'     => [
             'type'          => Select2::className(),
             'data'          => ArrayHelper::map($data, 'id', 'name'),

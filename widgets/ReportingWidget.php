@@ -173,7 +173,7 @@ class ReportingWidget extends Widget
         $label = '';
         $options = [];
         if ($this->model->reporting) {
-            $label = $this->model->reporting->duration . ' ';
+            $label = Yii::$app->formatter->asMyDuration($this->model->reporting->minutes) . ' ';
             $return .= Html::Tag('span', $label, $options);
         }
         $return .= Html::tag('br');

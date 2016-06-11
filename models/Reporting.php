@@ -37,7 +37,7 @@ class Reporting extends ReportingBase
 
         return array_merge([
             ['done', 'validateLoad'],
-            ['done', 'default', 'value' => 0]
+            ['done', 'default', 'value' => 0],
                 ], parent::rules());
    }
 
@@ -46,7 +46,7 @@ class Reporting extends ReportingBase
             if (!$this->time) {
                 $this->addError('time', Yii::t('app', 'If training done you have to fill "{attribute}"', ['attribute' => $this->getAttributeLabel('time')]));
             }
-            if (empty($this->feeled_rpe)) {
+            if (!is_numeric($this->feeled_rpe)) {
                 $this->addError('feeled_rpe', Yii::t('app', 'If training done you have to fill "{attribute}"', ['attribute' => $this->getAttributeLabel('feeled_rpe')]));
             }
         }
@@ -79,7 +79,7 @@ class Reporting extends ReportingBase
 
     public function getDuration()
     {
-        return Yii::$app->formatter->asDuration($this->minutes);
+        return Yii::$app->formatter->asMyDuration($this->minutes);
     }
 
     /*

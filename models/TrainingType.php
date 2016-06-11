@@ -10,7 +10,11 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
-
+/**
+ * @property string $duration 1h30
+ * @property int $minutes Get training minutes
+ * @property string $shortTitle Short title
+ */
 class TrainingType extends TrainingTypeBase
 {
      public function behaviors()
@@ -55,9 +59,19 @@ class TrainingType extends TrainingTypeBase
     }
     
     public function getDuration(){
-        $split =  preg_split('@:@', $this->time, -1, PREG_SPLIT_NO_EMPTY);
-        return sprintf('%1$01dh%2$02d', $split['0'], $split['1']);;
+        return Yii::$app->formatter->asMyDuration($this->minutes);
     }
+    
+    public function getMinutes()
+    {
+        $parse = array();
+        if (!preg_match('#^(?<hours>[\d]{2}):(?<mins>[\d]{2}):(?<secs>[\d]{2})$#', $this->time, $parse)) {
+            // Throw error, exception, etc
+            return 0;
+        }
+        return (int) $parse['hours'] * 60 + (int) $parse['mins'];
+    }
+    
     public function getShortTitle(){
         return substr($this->title, 0, 25).'...';
     }

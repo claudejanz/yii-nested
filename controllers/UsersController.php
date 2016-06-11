@@ -167,8 +167,8 @@ class UsersController extends MyController
 
     public function actionTrainingOrder($id, $date)
   {
-        $items = Training::find()->select(['id', 'title', 'date'])->andWhere(['sportif_id' => $id, 'date' => $date])->asArray()->all();
-        return $this->render('/trainings/order', ['items' => $items]);
+        $trainings = Training::find()->andWhere(['sportif_id' => $id, 'date' => $date])->all();
+        return $this->render('/trainings/order', ['trainings' => $trainings]);
   }
 
     /**
@@ -196,12 +196,11 @@ class UsersController extends MyController
         $startDate = new EuroDateTime($date);
         $startDate->modify('Monday this week');
         $endDate = clone $startDate;
+        
+        $startDate->modify(Yii::$app->user->planningBeforeLength);
+        $endDate->modify(Yii::$app->user->planningAfterLength);
+        
         $isCoach = Yii::$app->user->can('coach');
-        if ($isCoach) {
-            $endDate->modify(Yii::$app->user->planningLength);
-        } else {
-            $endDate->modify('+13days');
-        }
         $searchModel = new TrainingTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
 
@@ -368,7 +367,7 @@ class UsersController extends MyController
 
         $model->sportif_id = $this->model->id;
         $model->date = $date;
-        $model->published = PublishBehavior::PUBLISHED_DRAFT;
+        $model->published = PublishBehavior::PUBLISHED_ACTIF;
         $reporting = new Reporting();
         if ($model->load(Yii::$app->request->post()) && $reporting->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
@@ -684,8 +683,8 @@ class UsersController extends MyController
         }
         return ['message' => Yii::t('app', 'Week must have something in it to be sent.'), 'error' => 1];
     }
-    
-     /**
+
+    /**
      * Duplicates all training of one week of an existing Day model.
      * If deletion is successful, the browser will be redirected to the 'planning' page.
      * @param integer $id
@@ -693,7 +692,7 @@ class UsersController extends MyController
      * @return mixed
      */
     public function actionWeekTrainingsDuplicate($id, $week_id)
-    {
+   {
         $week = Week::findOne($week_id);
         $model = new WeekTrainingsDuplicateForm();
         $model->date = $week->date_begin;
@@ -718,7 +717,7 @@ class UsersController extends MyController
         return $this->render('/site/_dayCopyForm', [
                     'model' => $model,
         ]);
-    }
+   }
 
     public function actionWeekAddComment($id, $week_id){
         $week = Week::findOne($week_id);

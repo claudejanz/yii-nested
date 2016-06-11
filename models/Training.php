@@ -80,12 +80,7 @@ class Training extends TrainingBase
 
     public function getDuration()
     {
-        $split = preg_split('@:@', $this->time, -1, PREG_SPLIT_NO_EMPTY);
-        if (count($split) < 2) {
-            $split['0'] = 0;
-            $split['1'] = 0;
-        }
-        return sprintf('%1$01dh%2$02d', $split['0'], $split['1']);
+        return Yii::$app->formatter->asMyDuration($this->minutes);
     }
 
     public function getMinutes()

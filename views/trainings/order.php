@@ -19,11 +19,12 @@ use yii\web\View;
 <div class="training-order">
 
     <?php
-    foreach ($items as $key => $row) {
-        $items[$key]['options'] = ['id' => $row['id']];
-        $items[$key]['content'] = $items[$key]['title'];
-        unset($items[$key]['id']);
-        unset($items[$key]['title']);
+    $items=[];
+    foreach ($trainings as $key => $training) {
+        /* @var $training Training */
+        $items[$key]['options'] = ['id' => $training->id];
+        $items[$key]['content'] = Html::img($training->sport->iconUrl, ['width' => '15', 'title' => $training->sport->title]).' - '.$training->sport->title.' - '.$training->shortTitle.' - '.$training->duration;
+        
     }
     $url = Url::to(['training-sort']);
     $ajaxOptions = Json::encode([
@@ -34,7 +35,7 @@ use yii\web\View;
     echo Sortable::widget([
         'id' => 'sortable_bloum',
         'options' => ['class' => 'nav nav-pills nav-stacked'],
-        'itemOptions' => ['class' => 'btn btn-info'],
+        'itemOptions' => ['class' => 'btn btn-default'],
         'items' => $items,
 //        'clientOptions'=>['placeholder'=> "ui-sortable-handle ui-sortable-highlight"],
         'clientOptions'=>['placeholder'=> ""],

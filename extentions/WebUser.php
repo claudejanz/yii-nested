@@ -26,8 +26,9 @@ use yii\web\User;
  * Description of WebUser
  *
  * @author Claude
- * @property string $viewStyle Getter and Setter for setting view style
- * @property string $planningLength Getter to get length for selecting elements
+ * @property string $viewStyle Getter and Setter for setting view style. This property is read write.
+ * @property string $planningAfterModify Getter to get length for selecting elements. This property is read-only.
+ * @property string $planningBeforeModify Getter to get length for selecting elements. This property is read-only.
  */
 class WebUser extends User
 {
@@ -41,19 +42,35 @@ class WebUser extends User
     const VIEWSTYLE_COACH = 'coach';
     const VIEWSTYLE_PDF = 'pdf';
 
-    public function getPlanningLength()
+    public function getPlanningAfterLength()
     {
         switch ($this->viewStyle) {
             case self::VIEWSTYLE_NORMAL:
                 return '+13days';
             case self::VIEWSTYLE_COACH:
-                return '+20days';
+                return '+13days';
                 break;
             case self::VIEWSTYLE_PDF:
                 return '+6days';
                 break;
             default:
                 return '+13days';
+                break;
+        }
+    }
+    public function getPlanningBeforeLength()
+    {
+        switch ($this->viewStyle) {
+            case self::VIEWSTYLE_NORMAL:
+                return '+0day';
+            case self::VIEWSTYLE_COACH:
+                return '-7days';
+                break;
+            case self::VIEWSTYLE_PDF:
+                return '+0day';
+                break;
+            default:
+                return '+0day';
                 break;
         }
     }

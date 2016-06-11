@@ -39,7 +39,7 @@ echo Html::beginTag('div', ['class' => 'ribbon-block']);
 //    ]);
 //}
 // word of the week
-if (isset($week) && isset($week->words_of_the_week)) {
+if (isset($week) && !empty($week->words_of_the_week)) {
     $options = ['class' => 'words-of-the-week'];
     if (!Yii::$app->request->isAjax) {
         Html::addCssClass($options, 'animated flipInX');
@@ -65,16 +65,7 @@ echo Yii::t('app', '{startDate} to {endDate}', [
 echo Html::endTag('div');
 
 
-//commentaires
-if (isset($week)) {
-    echo $this->render('week/commentaires', [
-        'weekId'  => $weekId,
-        'isCoach' => $isCoach,
-        'isLight' => $isLight,
-        'model'   => $model,
-        'week'   => $week,
-    ]);
-}
+
 
 
 // trainins
@@ -96,6 +87,18 @@ echo $this->render('week/reportingResume', ['week' => $week, 'startDate' => $sta
 
 // week actions
 echo $this->render('week/actions', ['week' => $week, 'isCoach' => $isCoach, 'model' => $model, 'startDate' => $startDate]);
+
+//commentaires
+if (isset($week)) {
+    echo $this->render('week/commentaires', [
+        'weekId'  => $weekId,
+        'isCoach' => $isCoach,
+        'isLight' => $isLight,
+        'model'   => $model,
+        'week'   => $week,
+    ]);
+}
+
 
 echo Html::endTag('div'); //ribbon-block
 echo Html::endTag('div'); //week
