@@ -68,7 +68,7 @@ if (!$isLight) {
                     'title'       => Yii::t('app', 'Add training'),
                     'options'     => ['class' => 'red mulaffBtn']
         ]);
-        if ($day->trainings) {
+        if ($day->trainings && $isCoach) {
             $buttons[] = AjaxModalButton::widget([
                         'label'       => StyleIcon::showStyled('clone'),
                         'encodeLabel' => false,

@@ -34,11 +34,8 @@ use yii\web\User;
 echo Html::beginTag('div', ['class' => 'row trainingDesc']);
 
 //
-if ($isCoach && !$isLight) {
-
+if (!$isLight) {
     echo Html::beginTag('div', ['class' => 'col-xs-3']);
-
-
     echo Html::beginTag('div', ['class' => 'timeDuration']);
     echo $training->duration;
     echo Html::endTag('div'); //timeDuration
@@ -55,11 +52,10 @@ if ($isCoach && !$isLight) {
     }
     echo Html::img($training->sport->iconUrl, $img_options);
     echo Html::endTag('div'); //sports
-
     echo Html::endTag('div'); //end col-xs-3
 }
 
-echo Html::beginTag('div', ['class' => ($isCoach && !$isLight) ? 'col-xs-6' : 'col-xs-12']); //start title and time col
+echo Html::beginTag('div', ['class' => (!$isLight) ? 'col-xs-6' : 'col-xs-12']); //start title and time col
 echo Html::beginTag('div', ['class' => 'title']);
 echo ' ' . $training->sport->title;
 echo ' - ';
@@ -69,8 +65,8 @@ echo Html::endTag('div'); //end col-xs-6 col-xs-12
 // actions
 
 
-if ($isCoach && !$isLight) {
-    echo Html::beginTag('div', ['class' => 'col-sm-3']);
+if (!$isLight) {
+    echo Html::beginTag('div', ['class' => 'col-xs-3']);
     echo Html::beginTag('p', ['class' => 'text-right']);
 
 // coach can edit training
@@ -89,43 +85,42 @@ if ($isCoach && !$isLight) {
         ],
     ]);
 
-    echo ' ';
-    echo AjaxModalButton::widget([
-        'label'       => StyleIcon::showStyled('clone'),
-        'encodeLabel' => false,
-        'url'         => [
-            'training-duplicate',
-            'id'          => $model->id,
-            'training_id' => $training->id
-        ],
-        'title'       => Yii::t('app', 'Duplicate training: {title}', ['title' => $training->title]),
+    if ($isCoach) {
+        echo ' ';
+        echo AjaxModalButton::widget([
+            'label'       => StyleIcon::showStyled('clone'),
+            'encodeLabel' => false,
+            'url'         => [
+                'training-duplicate',
+                'id'          => $model->id,
+                'training_id' => $training->id
+            ],
+            'title'       => Yii::t('app', 'Duplicate training: {title}', ['title' => $training->title]),
 //        'success'     => '#training' . $training->id,
-        'options'     => [
-            'class' => 'red',
-        ],
-    ]);
-
-    echo ' ';
-
-
-    echo AjaxButton::widget([
-        'label'       => StyleIcon::showStyled('remove'),
-        'encodeLabel' => false,
-        'url'         => [
-            'training-delete',
-            'id'          => $model->id,
-            'training_id' => $training->id
-        ],
-        'success'     => '#day' . $dayId,
-            'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-        'ajaxOptions' => [
-            'type'=>'post'
-        ],
-        'options'     => [
-            'title'        => Yii::t('yii', 'Delete'),
-            'class'        => 'red',
-        ],
-    ]);
+            'options'     => [
+                'class' => 'red',
+            ],
+        ]);
+        echo ' ';
+        echo AjaxButton::widget([
+            'label'       => StyleIcon::showStyled('remove'),
+            'encodeLabel' => false,
+            'url'         => [
+                'training-delete',
+                'id'          => $model->id,
+                'training_id' => $training->id
+            ],
+            'success'     => '#day' . $dayId,
+            'confirm'     => Yii::t('yii', 'Are you sure you want to delete this item?'),
+            'ajaxOptions' => [
+                'type' => 'post'
+            ],
+            'options'     => [
+                'title' => Yii::t('yii', 'Delete'),
+                'class' => 'red',
+            ],
+        ]);
+    }
 
 
     echo Html::endTag('p');

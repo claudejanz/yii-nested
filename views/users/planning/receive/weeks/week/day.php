@@ -72,7 +72,7 @@ echo Html::beginTag('div', $options);
 echo Html::beginTag('div', ['class' => 'col-lg-12']);
 // block pjax
 MyPjax::begin(['id' => 'trainings' . $dayId]);
-echo Html::beginTag('div', ['class' => ($isCoach) ? 'droppable' : '']);
+echo Html::beginTag('div', ['class' => ($isCoach) ? 'all-trainings droppable' : 'all-trainings']);
 if ($day && isset($day->trainingsWithSport)) {
     $trainings = $day->trainingsWithSport;
 
@@ -96,11 +96,11 @@ echo Html::endTag('div'); //droppable or empty
 MyPjax::end();
 echo Html::endTag('div'); //coll-sm-10
 echo Html::endTag('div'); //row
-if ($isCoach) {
+//if ($isCoach) {
     echo TypeDisplay::widget([
         'day' => $day,
     ]);
-}
+//}
 echo Html::endTag('div'); //day
 
 
