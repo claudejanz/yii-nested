@@ -61,6 +61,7 @@ class UsersController extends MyController
                     'update',
                     'view',
                     'week-add-comment',
+                    'week-update-comment',
                     'week-fill',
                     'week-publish',
                     'week-trainings-duplicate',
@@ -107,6 +108,7 @@ class UsersController extends MyController
                             'training-create',
                             'update',
                             'week-add-comment',
+                            'week-update-comment',
                             'week-ready',
                             'week-fill',
                         ],
@@ -139,6 +141,7 @@ class UsersController extends MyController
                     'training-duplicate',
                     'reporting-update',
                     'week-add-comment',
+                    'week-update-comment',
                     'week-fill',
                     'week-publish',
                     'week-trainings-duplicate',
@@ -196,10 +199,10 @@ class UsersController extends MyController
         $startDate = new EuroDateTime($date);
         $startDate->modify('Monday this week');
         $endDate = clone $startDate;
-        
+
         $startDate->modify(Yii::$app->user->planningBeforeLength);
         $endDate->modify(Yii::$app->user->planningAfterLength);
-        
+
         $isCoach = Yii::$app->user->can('coach');
         $searchModel = new TrainingTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
@@ -376,8 +379,9 @@ class UsersController extends MyController
                     if ($reporting->validate()) {
                         $model->save(false);
                         $reporting->training_id = $model->id;
-
-                        return $reporting->save(false);
+                        $reporting->save(false);
+                        $model->day->publish(WeekPublishBehavior::PUBLISHED_PLANING_DONE);
+                        return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
                     } else {
                         throw new NotAcceptableHttpException($this->render('/trainings/_formCreate', ['model' => $model, 'reporting' => $reporting]));
                     }
@@ -386,7 +390,7 @@ class UsersController extends MyController
                 }
             } else {
                 if ($model->save()) {
-                    return $this->redirect(Url::previous());
+                    return $this->redirect(['users/planning', 'id' => $model->sportif_id, 'date' => $model->date]);
                 }
             }
         }
@@ -744,6 +748,30 @@ class UsersController extends MyController
 
         return $this->render('/week-comments/_form', ['model' => $model]);
 }
+
+    public function actionWeekUpdateComment($id, $comment_id){
+        $model = WeekComment::findOne($comment_id);
+        /* @var $$user User */
+        $user = $this->model;
+        if ($model->load(Yii::$app->request->post())) {
+            if (Yii::$app->request->isAjax) {
+                if ($model->validate()) {
+                    return $model->save();
+                } else {
+                    throw new NotAcceptableHttpException($this->render('/week-comments/_form', ['model' => $model]));
+                }
+            } else {
+                if ($model->validate()) {
+                    $model->save();
+                    return $this->redirect(Url::previous());
+                } else {
+                    var_dump($model->errors, $training_id);
+                }
+            }
+        }
+
+        return $this->render('/week-comments/_form', ['model' => $model]);
+    }
 
     /**
      * Coach sends an email to ask sportif to fill his week

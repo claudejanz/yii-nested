@@ -64,7 +64,7 @@ if (!$isLight) {
                     'label'       => StyleIcon::showStyled('plus'),
                     'encodeLabel' => false,
                     'url'         => ['training-create', 'id' => $model->id, 'date' => $dayId],
-                    'success'     => '#day' . $dayId,
+//                    'success'     => '#day' . $dayId,
                     'title'       => Yii::t('app', 'Add training'),
                     'options'     => ['class' => 'red mulaffBtn']
         ]);

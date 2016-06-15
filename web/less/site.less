@@ -3,21 +3,14 @@
 @import "variables.less";
 @import "mixins.less";
 
-
-
-
-
 /*ADD PANEL STYLE*/
-
-
 
 .panel-black {
     .panel-variant(@btn-black-border; @btn-black-color; @btn-black-bg; @btn-black-border);
 }
 
-
-
 /* style sheet */
+
 html {
     height: 100%;
 }
@@ -28,7 +21,6 @@ body {
     background-color: @myBgGray;
 }
 
-
 .wrap {
     min-height: 100%;
     height: auto;
@@ -36,10 +28,10 @@ body {
     padding: 0 0 60px;
 }
 
-
 .wrap > .content {
     padding: 70px 15px 20px;
 }
+
 .wrap > .contentmarginless {
     padding: 50px 0px 0px;
 }
@@ -65,8 +57,6 @@ body {
     color: #c55;
     font-style: italic;
 }
-
-
 
 .btn-sm{
     border-radius: 15px;
@@ -104,10 +94,6 @@ body {
 .btn{
     .make-buttons-colors();
 }
-
-
-
-
 
 /*RIBBON*/
 .ribbon-block{
@@ -258,6 +244,7 @@ body {
         }
     }
 }
+
 /*DROP ZONE*/
 .dropzone:empty{
     &::after{

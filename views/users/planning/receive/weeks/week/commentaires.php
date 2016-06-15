@@ -17,7 +17,11 @@ if ($week) {
         echo Html::beginTag('fieldset');
         echo Html::tag('label', Yii::t('app', 'Comments'));
         foreach ($week->weekComments as $weekComment) {
-            echo $this->render('/week-comments/view', ['model' => $weekComment]);
+            echo $this->render('/week-comments/view', [
+                'model' => $weekComment,
+                'week' => $week,
+                'user' => $model,
+                    ]);
         }
         echo Html::endTag('fieldset');
     }
