@@ -1,7 +1,6 @@
 <?php
 
 use app\extentions\helpers\MyPjax;
-use app\extentions\WebUser;
 use app\models\Training;
 use yii\models\User;
 

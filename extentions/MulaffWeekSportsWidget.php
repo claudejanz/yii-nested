@@ -69,10 +69,7 @@ class MulaffWeekSportsWidget extends Widget
             }
             $all[$reporting->training->sport->id]['km']+=$reporting->km;
         }
-        if ($week) {
-            
-            
-        }
+        
         if (!empty($all)) {
             echo Html::beginTag('div', ['class' => 'row']);
             foreach ($all as $row) {
@@ -88,51 +85,53 @@ class MulaffWeekSportsWidget extends Widget
                 echo Html::endTag('div');
             }
             echo Html::endTag('div'); //row
-            
+
             echo Html::tag('br');
-            
-            
-            echo Html::beginTag('div', ['class' => 'row']);
-            
-            echo Html::beginTag('div', ['class' => 'col-sm-6']);
-            $label = Yii::t('app', 'Trainings');
-            echo Html::tag('h4',$label);
-            echo Html::endTag('div');
-            
-            echo Html::beginTag('div', ['class' => 'col-sm-6']);
-            $label = Yii::t('app', 'Reportings');
-            echo Html::tag('h4',$label);
-            echo Html::endTag('div');
-            
-            echo Html::endTag('div'); //row
-            
-            
-            echo Html::beginTag('div', ['class' => 'row']);
-            
-            echo Html::beginTag('div', ['class' => 'col-sm-6']);
-            $time = Yii::$app->formatter->asMyDuration($week->trainingsMinutes);
-            echo Yii::t('app', 'Total time planned: {time}', ['time' => $time]);
-            echo Html::endTag('div');
-            
-            echo Html::beginTag('div', ['class' => 'col-sm-6']);
-            $time = Yii::$app->formatter->asMyDuration($week->reportingsMinutes);
-            echo Yii::t('app', 'Total time made: {time}', ['time' => $time]);
-            echo Html::endTag('div');
-            
-            echo Html::endTag('div'); //row
-            
-            echo Html::beginTag('div', ['class' => 'row']);
-            
-            echo Html::beginTag('div', ['class' => 'col-sm-6']);
-            echo '';
-            echo Html::endTag('div');
-            
-            echo Html::beginTag('div', ['class' => 'col-sm-6']);
-            echo Yii::t('app', 'Total distance made: {km}km', ['km' => $week->reportingsKm]);
-            echo Html::endTag('div');
-            
-            echo Html::endTag('div'); //row
+        }else{
+            echo Yii::t('app', 'No sports done this week.');
         }
+
+        echo Html::beginTag('div', ['class' => 'row']);
+
+        echo Html::beginTag('div', ['class' => 'col-sm-6']);
+        $label = Yii::t('app', 'Trainings');
+        echo Html::tag('h4', $label);
+        echo Html::endTag('div');
+
+        echo Html::beginTag('div', ['class' => 'col-sm-6']);
+        $label = Yii::t('app', 'Reportings');
+        echo Html::tag('h4', $label);
+        echo Html::endTag('div');
+
+        echo Html::endTag('div'); //row
+
+
+        echo Html::beginTag('div', ['class' => 'row']);
+
+        echo Html::beginTag('div', ['class' => 'col-sm-6']);
+        $time = Yii::$app->formatter->asMyDuration($week->trainingsMinutes);
+        echo Yii::t('app', 'Total time planned: {time}', ['time' => $time]);
+        echo Html::endTag('div');
+
+        echo Html::beginTag('div', ['class' => 'col-sm-6']);
+        $time = Yii::$app->formatter->asMyDuration($week->reportingsMinutes);
+        echo Yii::t('app', 'Total time made: {time}', ['time' => $time]);
+        echo Html::endTag('div');
+
+        echo Html::endTag('div'); //row
+
+        echo Html::beginTag('div', ['class' => 'row']);
+
+        echo Html::beginTag('div', ['class' => 'col-sm-6']);
+        echo '';
+        echo Html::endTag('div');
+
+        echo Html::beginTag('div', ['class' => 'col-sm-6']);
+        echo Yii::t('app', 'Total distance made: {km}km', ['km' => $week->reportingsKm]);
+        echo Html::endTag('div');
+
+        echo Html::endTag('div'); //row
+
     }
 
 }

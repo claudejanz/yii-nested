@@ -96,11 +96,11 @@ echo Html::endTag('div'); //droppable or empty
 MyPjax::end();
 echo Html::endTag('div'); //coll-sm-10
 echo Html::endTag('div'); //row
-//if ($isCoach) {
+if (!$isCoach) {
     echo TypeDisplay::widget([
         'day' => $day,
     ]);
-//}
+}
 echo Html::endTag('div'); //day
 
 
@@ -122,10 +122,11 @@ $js = '
             })
             .done(function( data ) {
                insert.append(data);
-               $.pjax.reload("#day-header"+date,{timeout:false});
                if(insert.parents(".collapsable.collapsed").css("display")=="none"){
                     insert.parents(".collapsable.collapsed").slideToggle();
                }
+               $.pjax.reload("#day-header"+date,{timeout:false,async:false});
+               $.pjax.reload("#week_graph"+week,{timeout:false,async:false});
             })
             .fail(function( data ) {
             });

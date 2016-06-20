@@ -29,6 +29,7 @@ use yii\web\User;
  * @property string $viewStyle Getter and Setter for setting view style. This property is read write.
  * @property string $planningAfterModify Getter to get length for selecting elements. This property is read-only.
  * @property string $planningBeforeModify Getter to get length for selecting elements. This property is read-only.
+ * @property boolean $isCoach Getter to if user is a coach.
  */
 class WebUser extends User
 {
@@ -42,7 +43,7 @@ class WebUser extends User
     const VIEWSTYLE_COACH = 'coach';
     const VIEWSTYLE_PDF = 'pdf';
 
-    public function getPlanningAfterLength()
+    public function getPlanningAfterModifiy()
     {
         switch ($this->viewStyle) {
             case self::VIEWSTYLE_NORMAL:
@@ -58,7 +59,8 @@ class WebUser extends User
                 break;
         }
     }
-    public function getPlanningBeforeLength()
+
+    public function getPlanningBeforeModifiy()
     {
         switch ($this->viewStyle) {
             case self::VIEWSTYLE_NORMAL:
@@ -107,5 +109,9 @@ class WebUser extends User
             self::VIEWSTYLE_NORMAL => Yii::t('app', 'VIEWSTYLE_NORMAL'),
         ];
     }
+
+    public function getIsCoach() {
+        return $this->can('coach');
+       }
 
 }

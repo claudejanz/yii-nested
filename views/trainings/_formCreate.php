@@ -25,9 +25,10 @@ use yii\widgets\ActiveForm as ActiveForm2;
 
     <?php
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
-    
+
     $fields = [
-        'sport_id' => [
+        'title'       => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Titre...', 'maxlength' => 1024]],
+        'sport_id'    => [
             'type'        => Form::INPUT_WIDGET,
             'widgetClass' => Select2::className(),
             'options'     => [
@@ -37,37 +38,17 @@ use yii\widgets\ActiveForm as ActiveForm2;
                 ]
             ]
         ],
+        'explanation' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Explanation...', 'rows' => 6]],
     ];
 
 
-    echo Form::widget([
-        'model'      => $model,
-        'form'       => $form,
-        'columns'    => 3,
-        'attributes' => $fields,
-    ]);
+
     echo Form::widget([
 
         'model'      => $model,
         'form'       => $form,
         'columns'    => 1,
-        'attributes' => [
-
-            'title'       => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Titre...', 'maxlength' => 1024]],
-//            'published'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Publication...']],
-//            'category_id'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Category ID...']],
-//            'sub_category_id'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Sub Category ID...']],
-//            'graph_type'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Graph Type...']],
-//            'created_by'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Created By...']],
-////            'updated_by'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Updated By...']],
-//            'time'          => ['type'        => Form::INPUT_WIDGET, 'widgetClass' => DateControl::classname(), 'options'     => ['type'    => DateControl::FORMAT_TIME, 'options' => [
-//                        'pluginOptions' => [
-//                            'defaultTime' => false,
-//                            'minuteStep'  => 1,
-//                        ]
-//                    ]]],
-            'explanation' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Explanation...', 'rows' => 6]],
-        ]
+        'attributes' => $fields,
     ]);
     echo Form::widget([
 

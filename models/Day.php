@@ -201,9 +201,9 @@ class Day extends DayBase
 
         $publishedOptions = self::getPublishedColors();
         if ($this->published > 2) {
-            if ($this->getHasSportId(47)) {
-                return 'danger';
-            }
+//            if ($this->getHasSportId(47)) {
+//                return 'danger';
+//            }
             if ($this->reportingsDone) {
                 return 'green';
             }

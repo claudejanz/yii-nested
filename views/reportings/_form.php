@@ -20,11 +20,7 @@ use yii\web\View;
 
     <?php
     $form = ActiveForm::begin(['type' => ActiveForm::TYPE_VERTICAL]);
-    echo Form::widget([
-        'model'      => $model,
-        'form'       => $form,
-        'columns'    => 4,
-        'attributes' => [
+    $fields =  [
             'done'       => [
                 'type'        => Form::INPUT_WIDGET,
                 'widgetClass' => BooleanWidget::className(),
@@ -73,7 +69,12 @@ use yii\web\View;
 //                  'colspan'=>2  
 //                ]
             ],
-        ]
+        ];
+    echo Form::widget([
+        'model'      => $model,
+        'form'       => $form,
+        'columns'    => 4,
+        'attributes' =>$fields
     ]);
     echo Form::widget([
         'model'      => $model,

@@ -17,6 +17,8 @@ use yii\db\Expression;
  *
  * @property Reporting $reporting
  * @property string $duration
+ * @property int $minutes
+ * @property string $shortTitle
  */
 class Training extends TrainingBase
 {

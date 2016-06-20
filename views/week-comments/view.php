@@ -24,7 +24,7 @@ MyPjax::begin(['id' => 'comment' . $model->id]);
     echo Html::tag('p', Yii::t('app', 'by: {name}', ['name' => $creator->firstname]), ['class' => 'pull-right']);
     echo Html::tag('p', Yii::t('app', 'date: {date}', ['date' => Yii::$app->formatter->asDatetime($model->created_at)]));
     echo Html::tag('h4', $model->title);
-    echo Html::tag('p', $model->content);
+    echo Html::tag('p', Yii::$app->formatter->asNtext($model->content));
     echo $this->render('view/actions', [
         'model'   => $model,
         'user'    => $user,

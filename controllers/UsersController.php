@@ -200,10 +200,10 @@ class UsersController extends MyController
         $startDate->modify('Monday this week');
         $endDate = clone $startDate;
 
-        $startDate->modify(Yii::$app->user->planningBeforeLength);
-        $endDate->modify(Yii::$app->user->planningAfterLength);
+        $startDate->modify(Yii::$app->user->planningBeforeModifiy);
+        $endDate->modify(Yii::$app->user->planningAfterModifiy);
 
-        $isCoach = Yii::$app->user->can('coach');
+        $isCoach = Yii::$app->user->isCoach;
         $searchModel = new TrainingTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
 
@@ -227,8 +227,8 @@ class UsersController extends MyController
         $startDate = new EuroDateTime($date);
         $startDate->modify('Monday this week');
         $endDate = clone $startDate;
-        $isCoach = Yii::$app->user->can('coach');
-        $endDate->modify(Yii::$app->user->planningLength);
+        $isCoach = Yii::$app->user->isCoach;
+        $endDate->modify(Yii::$app->user->planningAfterModifiy);
         $searchModel = new TrainingTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
 
@@ -256,7 +256,7 @@ class UsersController extends MyController
             // portrait orientation
             'orientation' => Pdf::ORIENT_LANDSCAPE,
             // stream to browser inline
-            'destination' => Pdf::DEST_BROWSER,
+            'destination' => Pdf::DEST_DOWNLOAD,
             // your html content input
             'content'     => $content,
             // format content from your own css file if needed or use the
@@ -272,6 +272,7 @@ class UsersController extends MyController
                 'SetFooter' => ['{PAGENO}'],
             ]
         ]);
+        
 
         // return the pdf output as per the destination setting
         return $pdf->render();
