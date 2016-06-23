@@ -15,6 +15,7 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * TrainingTypeController implements the CRUD actions for TrainingType model.
@@ -63,6 +64,18 @@ class TrainingTypesController extends MyController
                 'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+             'negociator' => [
+                'class'   => 'yii\filters\ContentNegotiator',
+                'only'    => [
+                    'update',
+                ], // in a controller
+                // if in a module, use the following IDs for user actions
+                // 'only' => ['user/view', 'user/index']
+                'formats' => [
+                    'application/json' => Response::FORMAT_JSON,
+                    'text/html'        => Response::FORMAT_HTML,
                 ],
             ],
         ];
@@ -127,8 +140,21 @@ class TrainingTypesController extends MyController
     {
         $model = $this->model;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            if (Yii::$app->request->isAjax) {
+                if ($model->validate()) {
+                    $model->save();
+                    return true;
+                } else {
+                    throw new NotAcceptableHttpException($this->render('update', [
+                        'model' => $model,
+                    ]));
+                }
+            } else {
+                if ($model->save()) {
+                    return $this->redirect(['index']);
+                }
+            }
         } else {
             return $this->render('update', [
                         'model' => $model,
@@ -151,7 +177,7 @@ class TrainingTypesController extends MyController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->render('duplicate', [
                         'model' => $model,
             ]);
         }

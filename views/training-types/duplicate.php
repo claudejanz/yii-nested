@@ -8,7 +8,7 @@ use yii\web\View;
  * @var TrainingType $model
  */
 
-Yii::$app->controller->page->title = Yii::t('app', 'Update {modelClass}: ', [
+Yii::$app->controller->page->title = Yii::t('app', 'Duplicate {modelClass}: ', [
     'modelClass' => 'Training Type',
 ]) . ' ' . $model->title;
 

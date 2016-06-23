@@ -205,7 +205,7 @@ class UsersController extends MyController
 
         $isCoach = Yii::$app->user->isCoach;
         $searchModel = new TrainingTypeSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->post(), $this->model, 10);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->model, 10);
 
         Url::remember();
         return $this->render('planning', [

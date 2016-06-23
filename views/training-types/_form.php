@@ -5,6 +5,7 @@ use app\models\Category;
 use app\models\Sport;
 use app\models\SubCategory;
 use app\models\TrainingType;
+use claudejanz\toolbox\widgets\ajax\AjaxSubmit;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\ActiveForm;
@@ -18,7 +19,7 @@ use yii\web\View;
 /**
  * @var View $this
  * @var TrainingType $model
- * @var ActiveForm2 $form
+ * @var ActiveForm $form
  */
 ?>
 
@@ -72,10 +73,10 @@ use yii\web\View;
     $fields['sub_category_id'] = [
         'type'        => Form::INPUT_WIDGET,
         'widgetClass' => DepDrop::className(),
+//            'multiple'      => FALSE,
         'options'     => [
             'type'          => Select2::className(),
             'data'          => ArrayHelper::map($data, 'id', 'name'),
-            'multiple'      => FALSE,
             'pluginOptions' => [
                 'url'     => Url::to(['sub-categories']),
                 'depends' => ['trainingtype-category_id'],
@@ -149,8 +150,14 @@ use yii\web\View;
                 'options' => ['prompt' => 'Enter Graph Type...']],
         ]
     ]);
-
-    echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+    if (Yii::$app->request->isAjax) {
+        echo AjaxSubmit::widget(['label'   => $model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
+            'options' => [
+                'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'
+        ]]);
+    } else {
+        echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+    }
     ActiveForm::end();
     ?>
 

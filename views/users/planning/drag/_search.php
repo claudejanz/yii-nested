@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     <?php
     $form = ActiveForm::begin([
 //                'action' => ['drag'],
-                'method' => 'post',
+                'method' => 'get',
                 'options' => [
                     'data-pjax' => '',
                     'class' => 'kneubuhler'

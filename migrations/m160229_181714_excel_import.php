@@ -17,25 +17,25 @@ class m160229_181714_excel_import extends Migration
     private $actualSportId;
     private $actualCatId;
     private $actualSubCatId;
-    private $count=0;
+    private $count = 0;
 
     public function up()
     {
-        $data = Excel::import(Yii::getAlias('@app/migrations/excel/mulaff.xls'), [
+        $data = Excel::import(Yii::getAlias('@app/migrations/excel/mulaff_new.xls'), [
                     'getOnlySheet'         => 'MULAFF ENDURANCE COACHING APP',
                     'setFirstRecordAsKeys' => true,
                     'setIndexSheetByName'  => true,
         ]);
-        $data2 = Excel::import(Yii::getAlias('@app/migrations/excel/mulaff.xls'), [
+        $data2 = Excel::import(Yii::getAlias('@app/migrations/excel/mulaff_new.xls'), [
                     'getOnlySheet'         => 'USERS',
                     'setFirstRecordAsKeys' => true,
                     'setIndexSheetByName'  => true,
         ]);
-        $total =count($data)+count($data2);
+        $total = count($data) + count($data2);
         Console::startProgress(0, $total, 'Doing Updates: ', false);
-        
+
         foreach ($data as $line) {
-             Console::updateProgress($this->count++, $total);
+            Console::updateProgress($this->count++, $total);
             $this->setSportId($line);
             $this->setCatId($line);
             $this->setSubCatId($line);
@@ -58,9 +58,9 @@ class m160229_181714_excel_import extends Migration
                     var_dump(get_class($tt), $tt->errors);
             }
         }
-        
+
         foreach ($data2 as $line) {
-                Console::updateProgress($this->count++, $total);
+            Console::updateProgress($this->count++, $total);
             if ($line['firstname']) {
                 $user = new User();
                 $user->scenario = 'create';
@@ -96,7 +96,7 @@ class m160229_181714_excel_import extends Migration
 
     public function setSportId($line)
     {
-        $name = ucfirst(strtolower($line['SPORTS']));
+        $name = $this->mb_ucfirst(mb_strtolower($line['SPORTS'],'utf8'),'utf8');
         $sport = Sport::findOne(['title' => $name]);
 
         if (!$sport && $line['SPORTS'] != null) {
@@ -120,7 +120,7 @@ class m160229_181714_excel_import extends Migration
 
     public function setCatId($line)
     {
-        $name = ucfirst(strtolower($line['CATEGORIE']));
+        $name = $this->mb_ucfirst(mb_strtolower($line['CATEGORIE'],'utf8'),'utf8');
         $cat = Category::findOne([
                     'title'    => $name,
                     'sport_id' => $this->actualSportId,
@@ -143,7 +143,8 @@ class m160229_181714_excel_import extends Migration
 
     public function setSubCatId($line)
     {
-        $name = ucfirst(strtolower($line['SOUS-CATEGORIE']));
+        $name = $this->mb_ucfirst(mb_strtolower($line['SOUS-CATEGORIE'],'utf8'),'utf8');
+//        $name = $line['SOUS-CATEGORIE'];
         $subcat = SubCategory::findOne([
                     'title'       => $name,
                     'category_id' => $this->actualCatId,
@@ -222,6 +223,14 @@ class m160229_181714_excel_import extends Migration
                 return 'cup';
         }
     }
+
+    public function mb_ucfirst($string, $encoding)
+{
+        $strlen = mb_strlen($string, $encoding);
+        $firstChar = mb_substr($string, 0, 1, $encoding);
+        $then = mb_substr($string, 1, $strlen - 1, $encoding);
+        return mb_strtoupper($firstChar, $encoding) . $then;
+}
 
     /*
       // Use safeUp/safeDown to run migration code within a transaction
