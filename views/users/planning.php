@@ -56,3 +56,13 @@ $this->registerJs("
    $(window).resize(resize); 
    resize();
         ");
+
+// script to collapse days
+$js = '
+    
+     $(document).on("click",".day, .training-type",function(event){
+        
+        $(this).find(".collapsable").slideToggle();
+    });
+    ';
+$this->registerJs($js);
