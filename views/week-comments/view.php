@@ -14,6 +14,7 @@ use yii\web\View;
  * @var WeekComment $model
  * @var Week $week
  * @var User $user
+ * @var Boolean $forDashBoard
  */
 MyPjax::begin(['id' => 'comment' . $model->id]);
 ?>
@@ -28,7 +29,8 @@ MyPjax::begin(['id' => 'comment' . $model->id]);
     echo $this->render('view/actions', [
         'model'   => $model,
         'user'    => $user,
-        'creator' => $creator
+        'creator' => $creator,
+        'forDashBoard' => $forDashBoard
     ]);
     ?>
 </div>

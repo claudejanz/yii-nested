@@ -54,17 +54,27 @@ if (!Yii::$app->request->isAjax) {
     Html::addCssClass($options, 'animated flipInX');
 }
 echo Html::beginTag('div', $options);
-echo Yii::t('app', 'Week: {week}',['week'=>Yii::$app->formatter->asDate($startDate, 'w')]);
-echo ' - ';
 echo Yii::t('app', '{startDate} to {endDate}', [
     'startDate' => Yii::$app->formatter->asDate($startDate, 'd MMM'),
     'endDate'   => Yii::$app->formatter->asDate($endDate->modify('-1 day'), 'd MMM \'\'yy'),
 ]);
+echo ' - (';
+echo Yii::t('app', 'Week: {week}',['week'=>Yii::$app->formatter->asDate($startDate, 'w')]);
+echo ')';
 
 
 echo Html::endTag('div');
 
-
+//commentaires
+if (isset($week)) {
+    echo $this->render('week/commentaires', [
+        'weekId'  => $weekId,
+        'isCoach' => $isCoach,
+        'isLight' => $isLight,
+        'model'   => $model,
+        'week'   => $week,
+    ]);
+}
 
 
 
@@ -88,16 +98,7 @@ echo $this->render('week/reportingResume', ['week' => $week, 'startDate' => $sta
 // week actions
 echo $this->render('week/actions', ['week' => $week, 'isCoach' => $isCoach, 'model' => $model, 'startDate' => $startDate]);
 
-//commentaires
-if (isset($week)) {
-    echo $this->render('week/commentaires', [
-        'weekId'  => $weekId,
-        'isCoach' => $isCoach,
-        'isLight' => $isLight,
-        'model'   => $model,
-        'week'   => $week,
-    ]);
-}
+
 
 
 echo Html::endTag('div'); //ribbon-block

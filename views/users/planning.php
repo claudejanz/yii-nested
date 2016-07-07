@@ -60,7 +60,7 @@ $this->registerJs("
 // script to collapse days
 $js = '
     
-     $(document).on("click",".day, .training-type",function(event){
+     $(document).on("click",".day, .training-type, .comments",function(event){
         
         $(this).find(".collapsable").slideToggle();
     });

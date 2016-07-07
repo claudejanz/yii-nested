@@ -80,9 +80,31 @@ class SiteController extends MyController
 
             $searchModel = new SportifSearch;
             $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+            $query = \app\models\WeekComment::find()
+                    ->where(['read'=>0])
+                    ->andWhere(['!=','week_comment.created_by',Yii::$app->user->id]);
+                    
+            if (!Yii::$app->user->can('admin')) {
+                $query->joinWith(['week'=>function($query){
+                        return $query->joinWith(['sportif'=>function($query){
+                            return $query->where(['trainer_id'=>Yii::$app->user->id]);
+                        }]);
+                    }]);
+            }else{
+                if($searchModel->trainer_id){
+                    $query->joinWith(['week'=>function($query) use ($searchModel){
+                        return $query->joinWith(['sportif'=>function($query) use ($searchModel){
+                            return $query->where(['trainer_id'=>$searchModel->trainer_id]);
+                        }]);
+                    }]);
+                }
+            }
+            $comments = $query->all();
+            
             return $this->render('index', [
                         'dataProvider' => $dataProvider,
                         'searchModel' => $searchModel,
+                        'comments'=>$comments
             ]);
         } else {
             $this->redirect(['users/planning','id'=>Yii::$app->user->id]);

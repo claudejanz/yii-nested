@@ -13,20 +13,25 @@ use kartik\helpers\Html;
 /* @var $week Week */
 
 if ($week) {
+    echo Html::beginTag('fieldset', ['class' => 'comments']);
+    echo Html::tag('label', Yii::t('app', 'Comments'));
+    $options = [];
+    Html::addCssClass($options, 'collapsable collapsed');
+    Html::addCssStyle($options, 'display: none;');
+    echo Html::beginTag('div', $options);
+
     if ($week->weekComments) {
-        echo Html::beginTag('fieldset');
-        echo Html::tag('label', Yii::t('app', 'Comments'));
         foreach ($week->weekComments as $weekComment) {
             echo $this->render('/week-comments/view', [
                 'model' => $weekComment,
-                'week' => $week,
-                'user' => $model,
-                    ]);
+                'week'  => $week,
+                'user'  => $model,
+                'forDashBoard'=>false
+            ]);
         }
-        echo Html::endTag('fieldset');
     }
-}
-if ($week) {
+    echo Html::endTag('div');
+
     $label = Yii::t('app', 'Add comment');
     echo ' ' . AjaxModalButton::widget([
         'label'       => StyleIcon::showStyled('commenting') . ' ' . $label,
@@ -43,4 +48,5 @@ if ($week) {
             'class' => 'red',
         ],
     ]);
+    echo Html::endTag('fieldset');
 }

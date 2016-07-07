@@ -4,6 +4,7 @@ use app\extentions\WebUser;
 use app\models\forms\ViewStyleForm;
 use kartik\builder\Form;
 use kartik\form\ActiveForm;
+use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -39,6 +40,8 @@ if (!Yii::$app->request->isAjax) {
 
 echo Html::beginTag('div', ['class' => 'row viewStyleNav']);
 echo Html::beginTag('div', $optionsTop);
+if(Yii::$app->user->can('admin')){
+    
  $form = ActiveForm::begin([
                 'action'  => ['planning','id'=>$model->id,'date'=>$startDate->format('Y-m-d')],
                 'method'  => 'get',
@@ -67,6 +70,8 @@ echo Html::beginTag('div', $optionsTop);
 
 
     ActiveForm::end();
+}
+    
 echo Html::endTag('div');//col
 
 echo Html::endTag('div');//row
@@ -74,14 +79,14 @@ echo Html::endTag('div');//row
 echo Html::beginTag('div', ['class' => 'row weekNav']);
 
 echo Html::beginTag('div', $optionsLeft);
-echo Html::a(Yii::t('app', 'Previous Week'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
+echo Html::a(Icon::show('arrow-circle-left'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['title'=>Yii::t('app', 'Previous Week'),'class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
 echo Html::endTag('div');
 
 $linkDate = clone $startDate;
 $linkDate->modify('+7 days');
 
 echo Html::beginTag('div', $optionsRight);
-echo Html::a(Yii::t('app', 'Next Week'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
+echo Html::a(Icon::show('arrow-circle-right'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['title'=>Yii::t('app', 'Next Week'),'class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
 echo Html::endTag('div');
 
 echo Html::endTag('div');

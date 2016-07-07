@@ -62,6 +62,7 @@ class UsersController extends MyController
                     'view',
                     'week-add-comment',
                     'week-update-comment',
+                    'week-read-comment',
                     'week-fill',
                     'week-publish',
                     'week-trainings-duplicate',
@@ -109,6 +110,7 @@ class UsersController extends MyController
                             'update',
                             'week-add-comment',
                             'week-update-comment',
+                            'week-read-comment',
                             'week-ready',
                             'week-fill',
                         ],
@@ -142,6 +144,7 @@ class UsersController extends MyController
                     'reporting-update',
                     'week-add-comment',
                     'week-update-comment',
+                    'week-read-comment',
                     'week-fill',
                     'week-publish',
                     'week-trainings-duplicate',
@@ -730,6 +733,7 @@ class UsersController extends MyController
         $user = $this->model;
         $model = new WeekComment();
         $model->week_id = $week_id;
+        $model->read = Yii::$app->user->can('admin')?1:0;
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
                 if ($model->validate()) {
@@ -752,7 +756,7 @@ class UsersController extends MyController
 
     public function actionWeekUpdateComment($id, $comment_id){
         $model = WeekComment::findOne($comment_id);
-        /* @var $$user User */
+        /* @var $user User */
         $user = $this->model;
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
@@ -772,6 +776,20 @@ class UsersController extends MyController
         }
 
         return $this->render('/week-comments/_form', ['model' => $model]);
+    }
+    /**
+     * Mark comment as read
+     * @param type $id
+     * @param type $comment_id
+     * @return type
+     * @throws NotAcceptableHttpException
+     */
+    public function actionWeekReadComment($id, $comment_id){
+        if(WeekComment::updateAll(['read'=>1],['id'=>$comment_id])){
+            return true;
+        }
+        return false;
+       
     }
 
     /**

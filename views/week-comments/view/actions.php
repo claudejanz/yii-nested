@@ -3,7 +3,9 @@
 use app\extentions\StyleIcon;
 use app\models\User;
 use app\models\WeekComment;
+use claudejanz\toolbox\widgets\ajax\AjaxButton;
 use claudejanz\toolbox\widgets\ajax\AjaxModalButton;
+use yii\helpers\Html;
 use yii\web\View;
 
 /*
@@ -21,8 +23,10 @@ use yii\web\View;
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @var Boolean $forDashBoard
  */
 
+/* @var $forDashBoard boolean */
 /* @var $this View */
 /* @var $model WeekComment */
 /* @var $user User */
@@ -35,13 +39,40 @@ if (Yii::$app->user->id == $creator->id) {
                 'label'       => StyleIcon::showStyled('edit').' '.$label,
                 'encodeLabel' => false,
                 'url'         => [
-                    'week-update-comment',
+                    'users/week-update-comment',
                     'id'      => $user->id,
                     'comment_id' => $model->id,
                 ],
                 'success'     => '#comment' . $model->id,
                 'title'       => $label,
                 'options'     => ['class' => 'red mulaffBtn']
+    ]);
+}
+if(Yii::$app->user->can('admin')&&!$model->read){
+    $label = Yii::t('app', 'Mark as Viewed');
+    
+    $buttons[] = AjaxButton::widget([
+                'label'       => StyleIcon::showStyled('check').' '.$label,
+                'encodeLabel' => false,
+                'url'         => [
+                    'users/week-read-comment',
+                    'id'      => $user->id,
+                    'comment_id' => $model->id,
+                ],
+                'success'     => ($forDashBoard)?'#comments':'#comment' . $model->id,
+//                'title'       => $label,
+                'options'     => ['class' => 'red mulaffBtn']
+    ]);
+}
+if($forDashBoard){
+    $label = Yii::t('app', 'View message in context');
+    $buttons[] = Html::a(StyleIcon::showStyled('eye').' '.$label,[
+        'users/planning',
+        'id'=>$model->created_by,
+        'date'=>$model->week->date_begin,
+    ],[
+       'class' => 'red mulaffBtn', 
+       'data-pjax' => '0' 
     ]);
 }
 

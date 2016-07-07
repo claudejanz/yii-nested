@@ -12,6 +12,7 @@ use app\models\Week;
     * @property string $title
     * @property integer $week_id
     * @property string $content
+    * @property integer $read
     * @property integer $created_by
     * @property string $created_at
     * @property integer $updated_by
@@ -36,7 +37,7 @@ public function rules()
 {
         return [
             [['title', 'week_id'], 'required'],
-            [['week_id', 'created_by', 'updated_by'], 'integer'],
+            [['week_id', 'read', 'created_by', 'updated_by'], 'integer'],
             [['content'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 1024],
@@ -54,6 +55,7 @@ return [
     'title' => Yii::t('app', 'Title'),
     'week_id' => Yii::t('app', 'Week ID'),
     'content' => Yii::t('app', 'Content'),
+    'read' => Yii::t('app', 'Read'),
     'created_by' => Yii::t('app', 'Created By'),
     'created_at' => Yii::t('app', 'Created At'),
     'updated_by' => Yii::t('app', 'Updated By'),

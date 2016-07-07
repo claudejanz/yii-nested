@@ -16,7 +16,7 @@ $this->beginContent('@app/views/layouts/main.php');
 <div class="content">
     <div class="container-fluid">
         <?php
-        if(!Yii::$app->user->isGuest){
+        if(Yii::$app->user->can('coach')){
         echo Breadcrumbs::widget([
             'links' => Yii::$app->controller->page->breadcrumbs,
             'homeLink'=>false,

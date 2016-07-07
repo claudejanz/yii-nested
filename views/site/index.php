@@ -11,10 +11,10 @@ use yii\helpers\Html;
  * and open the template in the editor.
  */
 /* @var $searchModel SportifSearch */
-
-echo Html::tag('h2', Yii::t('app', 'My sportifs'));
 MyPjax::begin();
 echo $this->render('index/_sportifSearch', ['model' => $searchModel]);
+echo $this->render('index/_comments', ['models' => $comments]);
+echo Html::tag('h2', Yii::t('app', 'My sportifs'));
 echo $this->render('index/_navigation', ['model' => $searchModel]);
 ?>
 
@@ -32,7 +32,7 @@ echo MyGridView::widget([
     'addHeader'    => true,
     'panel'        => [
 
-        'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info', 'data-pjax' => 0]).Html::tag('p',$legend,['class'=>'pull-right']),
+        'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info', 'data-pjax' => 0]) . Html::tag('p', $legend, ['class' => 'pull-right']),
     ]
 ]);
 MyPjax::end();

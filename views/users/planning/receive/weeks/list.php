@@ -32,7 +32,7 @@ switch (Yii::$app->user->planningStyle) {
         
         foreach ($period as $key => $dateTime) {
             if ($key < 2) {
-                echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
+                echo Html::beginTag('div', ['class' => 'col-lg-6']);
             }
             echo $this->render('week', [
                 'date'    => $dateTime,
@@ -50,7 +50,7 @@ switch (Yii::$app->user->planningStyle) {
     case WebUser::VIEWSTYLE_NORMAL:
     default :
         foreach ($period as $dateTime) {
-            echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-lg-6' : 'col-lg-12']);
+            echo Html::beginTag('div', ['class' =>  'col-lg-6' ]);
             echo $this->render('week', [
                 'date'    => $dateTime,
                 'weekId'  => $dateTime->format('Y-m-d'),
