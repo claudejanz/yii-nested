@@ -14,14 +14,14 @@ use yii\web\AssetBundle;
 class NestedSortableAsset extends AssetBundle
 {
 
-	public $sourcePath = 'assets/';
+	public $sourcePath = '@vendor/claudejanz/yii2-nested/assets/nested';
 
 	public $css = [
-		'nested/jquery.nestable.css',
+		'jquery.nestable.css',
 	];
 
 	public $js = [
-		'nested/functions.js',
+		'functions.js',
 		'jquery.nestable.js',
 	];
 

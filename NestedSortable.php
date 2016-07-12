@@ -98,8 +98,8 @@ class NestedSortable extends Widget
 	 */
 	public $expandMenu = '
 		<menu id="nestable-menu">
-			<button type="button" data-action="expand-all">Expand All</button>
-			<button type="button" data-action="collapse-all">Collapse All</button>
+			<button type="button" data-action="expand-all" class="btn btn-default">Expand All</button>
+			<button type="button" data-action="collapse-all" class="btn btn-default">Collapse All</button>
 		</menu>';
 
 

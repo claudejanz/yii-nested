@@ -24,6 +24,7 @@ class TouchEventAsset extends AssetBundle
 	];
 
 	public $depends = [
+            'yii\web\YiiAsset',
 	];
 
 }
