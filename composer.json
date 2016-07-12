@@ -1,0 +1,21 @@
+{
+    "name": "claudejanz/yii2-nested",
+    "description": "nested for jquery with action",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "BSD-4-Clause",
+    "authors": [
+        {
+            "name": "claudejanz",
+            "email": "claudejanz@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "claudejanz\\yii2nested\\": ""
+        }
+    }
+}
