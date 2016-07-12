@@ -10,6 +10,12 @@
             "email": "claudejanz@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/gjedeer/celery-php"
+        }
+    ],
     "require": {
         "yiisoft/yii2": "*",
         "bower-asset/jquery-touch-events": "*"
