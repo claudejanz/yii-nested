@@ -1,5 +1,9 @@
 Nested
 ======
+
+[![Latest Stable Version](https://poser.pugx.org/claudejanz/yii2-nested/v/stable.svg)](https://packagist.org/packages/claudejanz/yii2-nested) [![Total Downloads](https://poser.pugx.org/claudejanz/yii2-nested/downloads.svg)](https://packagist.org/packages/claudejanz/yii2-nested) [![Latest Unstable Version](https://poser.pugx.org/claudejanz/yii2-nested/v/unstable.svg)](https://packagist.org/packages/claudejanz/yii2-nested) [![License](https://poser.pugx.org/claudejanz/yii2-nested/license.svg)](https://packagist.org/packages/claudejanz/yii2-nested)
+
+
 nested for jquery with action
 
 Installation
