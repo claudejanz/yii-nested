@@ -16,10 +16,19 @@ html {
 }
 body {
     height: 100%;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Varela Round', sans-serif;
     font-size:16px;
-    background-color: @myBgGray;
+    background-color: @mulaffBG;
 }
+
+/*********TYPO***********/
+
+h1 {
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+/*********END TYPO***********/
 
 .wrap {
     min-height: 100%;
@@ -316,6 +325,7 @@ form.kneubuhler {
 a.kneubuhler{
     background-color:@blackTransparent;
     color:white;
+    padding: 5px 0;
     text-align:center;
     font-weight: 200;
     margin-bottom:@smallGap;
@@ -411,10 +421,9 @@ span.blue-border{
 
 
     .words-of-the-week{
-        background-color:black;
-        color:white;
+        color: @brand-green;
         text-align:center;
-        font-weight: 200;
+        font-weight: 700;
         font-size: 1.4em;
         margin-bottom:@smallGap;
     }
@@ -467,6 +476,11 @@ span.blue-border{
         }
 
 
+    }
+}
+.sportifs {
+    h1 {
+        text-align: center;
     }
 }
 .block-vert{
@@ -582,8 +596,8 @@ span.sports{
     color: rgba(0,0,0,0.8);
 }
 .week .dates {
-    background-color:black;
-    color:white;
+    background-color: transparent;
+    color: @black;
     text-align:center;
     font-weight: 200;
     text-transform: uppercase;
@@ -882,7 +896,12 @@ span.sports{
 
 body.login {
     background-color: @mulaffBG;
-    color: @white;
+    /*background-image: url(../images/montains.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    */
+    color: @black;
     .wrap {
         padding: 0 50px;
     }
@@ -893,11 +912,11 @@ body.login {
         margin-bottom: 2px;
     }
     label {
-        color: @white;
+        color: @black;
         font-weight: 200;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 14px;
+        letter-spacing: 0px;
+        font-size: 12px;
     }
     input {
         border-radius: 0;
@@ -907,11 +926,11 @@ body.login {
     }
     .loginForget {
         font-size: 11px;
-        color: @white;
+        color: @black;
         font-weight: 200;
     }
     a {
-        color: @mulaff;
+        color: @mulaffSecondary;
     }
     .footer {
 

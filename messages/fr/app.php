@@ -310,7 +310,7 @@ return [
     'Update Feedback' => 'Mettre à jour le feedback',
     'Update Sport {name}' => 'Mettre à jour le sport {name}',
     'Update Sub-Category {name}' => 'Mettre à jour la sous catégorie {name}',
-    'Update User {name}' => 'Mettre à jour l\'utilisteur {name}',
+    'Update User {name}' => 'Mettre à jour l\'utilisateur {name}',
     'Update feedback: {title}' => 'Mettre à jour le feedback: {title}',
     'Update training city' => 'Mettre à jour le lieu d\'entraînement',
     'Update {modelClass}: ' => 'Mettre à jour {modelClass}:',

@@ -126,7 +126,7 @@ AssetBundle::register($this);
         <?= Html::csrfMetaTags() ?>
         <?= Html::tag('meta', '', ['name' => 'description', 'content' => Yii::$app->controller->page->meta_description]); ?>
         <?= Html::tag('meta', '', ['name' => 'keywords', 'content' => Yii::$app->controller->page->meta_keywords]); ?>
-        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,700,300,900' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700|Varela+Round" rel="stylesheet">
         <?php $this->head() ?>
     </head>
     <?php

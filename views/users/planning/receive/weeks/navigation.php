@@ -79,14 +79,14 @@ echo Html::endTag('div');//row
 echo Html::beginTag('div', ['class' => 'row weekNav']);
 
 echo Html::beginTag('div', $optionsLeft);
-echo Html::a(Icon::show('arrow-circle-left'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['title'=>Yii::t('app', 'Previous Week'),'class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
+echo Html::a(Icon::show('arrow-left'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['title'=>Yii::t('app', 'Previous Week'),'class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
 echo Html::endTag('div');
 
 $linkDate = clone $startDate;
 $linkDate->modify('+7 days');
 
 echo Html::beginTag('div', $optionsRight);
-echo Html::a(Icon::show('arrow-circle-right'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['title'=>Yii::t('app', 'Next Week'),'class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
+echo Html::a(Icon::show('arrow-right'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['title'=>Yii::t('app', 'Next Week'),'class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
 echo Html::endTag('div');
 
 echo Html::endTag('div');
