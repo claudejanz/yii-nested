@@ -25,7 +25,33 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+NestedSortableAction
+-------------------
 
 ```php
-<?= \claudejanz\yii2nested\AutoloadExample::widget(); ?>```
+public function actions()
+{
+    return [
+        'save-sortable' => [
+            'class' => 'claudejanz\yii2nested\NestedSortableAction',
+            //'scenario'=>'editable',  //optional
+            'modelclass' => Page::className(),
+        ],
+
+    ];
+}
+```
+
+NestedSortable
+-------------------
+
+```php
+echo NestedSortable::widget([
+    'model' => Page::className(),
+    'url' => '/pages/save-sortable',
+    'expand' => true,
+    'pluginOptions' => [
+        'maxDepth' => 2
+    ]
+]);
+```
