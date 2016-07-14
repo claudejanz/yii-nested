@@ -1,82 +1,28 @@
 {
-    "name": "yiisoft/yii2-app-basic",
-    "description": "Yii 2 Basic Application Template",
-    "keywords": ["yii2", "framework", "basic", "application template"],
-    "homepage": "http://www.yiiframework.com/",
-    "type": "project",
-    "license": "BSD-3-Clause",
-    "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
-    },
-    "minimum-stability": "dev",
+    "name": "claudejanz/yii2-nested",
+    "description": "nested for jquery with action",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "BSD-4-Clause",
+    "authors": [
+        {
+            "name": "claudejanz",
+            "email": "claudejanz@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/gjedeer/celery-php"
+        }
+    ],
     "require": {
-        "php": ">=5.4.0",
         "yiisoft/yii2": "*",
-        "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-swiftmailer": "*",
-        "2amigos/yii2-file-input-widget": "*",
-        "2amigos/yii2-google-maps-library" : "*",
-        "2amigos/yii2-gallery-widget": "~1.0",
-        "2amigos/yii2-file-upload-widget": "~1.0",
-        "2amigos/yii2-tinymce-widget" : "~1.1",
-        "yiisoft/yii2-jui": "*",
-        "arogachev/yii2-many-to-many": "0.2.*",
-        "bower-asset/jqueryui-touch-punch": "*",
-        "claudejanz/yii2-scrollmagic": "dev-master",
-        "claudejanz/yii2-mygii": "dev-master",
-        "claudejanz/yii2-context-access-filter": "dev-master",
-        "claudejanz/yii2-toolbox": "dev-master",
-        "elisdn/yii2-gii-fixture-generator": "*",
-        "demogorgorn/yii2-ajax-submit-button": "*",
-        "kartik-v/yii2-slider": "*",
-        "kartik-v/yii2-social": "dev-master",
-        "kartik-v/yii2-field-range": "*",
-        "kartik-v/yii2-editable": "*",
-        "kartik-v/yii2-mpdf": "@dev",
-        "kartik-v/yii2-detail-view": "*",
-        "kartik-v/yii2-widget-datepicker": "@dev",
-        "kartik-v/yii2-widget-depdrop": "@dev",
-        "moonlandsoft/yii2-phpexcel": "*",
-        "warrence/yii2-kartikgii": "dev-master",
-        "yiidoc/yii2-redactor": "*",
-        "yurkinx/yii2-image": "dev-master"
-        
+        "bower-asset/jquery-touch-events": "*"
     },
-    "require-dev": {
-        "yiisoft/yii2-codeception": "*",
-        "yiisoft/yii2-debug": "*",
-        "yiisoft/yii2-gii": "*",
-        "yiisoft/yii2-faker": "*"
-    },
-    "config": {
-        "process-timeout": 1800
-    },
-    "scripts": {
-        "post-create-project-cmd": [
-            "yii\\composer\\Installer::postCreateProject"
-        ]
-    },
-    "extra": {
-        "yii\\composer\\Installer::postCreateProject": {
-            "setPermission": [
-                {
-                    "runtime": "0777",
-                    "web/assets": "0777",
-                    "yii": "0755"
-                }
-            ],
-            "generateCookieValidationKey": [
-                "config/web.php"
-            ]
-        },
-        "asset-installer-paths": {
-            "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower"
+    "autoload": {
+        "psr-4": {
+            "claudejanz\\yii2nested\\": ""
         }
     }
-
 }
