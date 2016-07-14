@@ -11,6 +11,7 @@ use yii\web\View;
 /* @var $this View */
 /* @var $model User */
 /* @var $startDate DateTime */
+/* @var $selectedDate DateTime */
 /* @var $endDate DateTime */
 /* @var $models Training[] */
 /* @var $dataProvider ActiveDataProvider */
@@ -29,6 +30,7 @@ echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => ($isCoach) ? 'col-sm-8' : 'col-sm-12']);
 echo $this->render('planning/receive/weeks', [
     'startDate' => $startDate,
+    'selectedDate' => $selectedDate,
     'endDate'   => $endDate,
     'model'     => $model,
     'isCoach'   => $isCoach,

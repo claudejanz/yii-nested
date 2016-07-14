@@ -199,7 +199,9 @@ class UsersController extends MyController
      */
     public function actionPlanning($id, $date = 'now')
     {
-        $startDate = new EuroDateTime($date);
+        $selectedDate = new EuroDateTime($date);
+        
+        $startDate = clone $selectedDate;
         $startDate->modify('Monday this week');
         $endDate = clone $startDate;
 
@@ -214,6 +216,7 @@ class UsersController extends MyController
         return $this->render('planning', [
                     'model'        => $this->model,
                     'startDate'    => $startDate,
+                    'selectedDate'    => $selectedDate,
                     'endDate'      => $endDate,
                     'dataProvider' => $dataProvider,
                     'searchModel'  => $searchModel,

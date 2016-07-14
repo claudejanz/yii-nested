@@ -26,8 +26,8 @@ use yii\helpers\Url;
  */
 /* @var $model User */
 /* @var $startDate DateTime */
-$linkDate = clone $startDate;
-$linkDate->modify('-7 days');
+/* @var $selectedDate DateTime */
+
 $optionsLeft=['class' => 'col-xs-6'];
 $optionsRight=['class' => 'col-xs-6'];
 $optionsTop=['class' => 'col-xs-12'];
@@ -43,7 +43,7 @@ echo Html::beginTag('div', $optionsTop);
 if(Yii::$app->user->can('admin')){
     
  $form = ActiveForm::begin([
-                'action'  => ['planning','id'=>$model->id,'date'=>$startDate->format('Y-m-d')],
+                'action'  => ['planning','id'=>$model->id,'date'=>$selectedDate->format('Y-m-d')],
                 'method'  => 'get',
                 'options' => [
                     'data-pjax' => '',
@@ -78,11 +78,14 @@ echo Html::endTag('div');//row
 
 echo Html::beginTag('div', ['class' => 'row weekNav']);
 
+$linkDate = clone $selectedDate;
+$linkDate->modify('-7 days');
+
 echo Html::beginTag('div', $optionsLeft);
 echo Html::a(Icon::show('arrow-left'), Url::current(['date' => $linkDate->format('Y-m-d')]), ['title'=>Yii::t('app', 'Previous Week'),'class' => 'kneubuhler', 'data' => ['pjax' => '0']]);
 echo Html::endTag('div');
 
-$linkDate = clone $startDate;
+$linkDate = clone $selectedDate;
 $linkDate->modify('+7 days');
 
 echo Html::beginTag('div', $optionsRight);
