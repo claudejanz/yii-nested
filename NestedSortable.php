@@ -197,7 +197,7 @@ class NestedSortable extends Widget
 			$nested .= "<ol class='dd-list'>";
 			foreach($model->all() as $row){
 				$nested .= "<li class='dd-item' data-id='{$row->id}'>";
-				$nested .= "<div class='dd-handle'>{$row->id}: {$row->title}</div>";
+				$nested .= "<div class='dd-handle'>{$row->title}</div>";
 				$this->showNested($row->id);
 				$nested .= "</li>";
 			}
@@ -232,7 +232,7 @@ class NestedSortable extends Widget
 
 		foreach($model->all() as $row){
 			$nested .= "<li class='dd-item' data-id='{$row->id}'>";
-			$nested .= "<div class='dd-handle'>{$row->id}: {$row->title}</div>";
+			$nested .= "<div class='dd-handle'>{$row->title}</div>";
 			$nested .=$this->showNested($row->id);
 			$nested .= "</li>";
 		}
