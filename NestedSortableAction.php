@@ -4,6 +4,7 @@ namespace claudejanz\yii2nested;
 
 use Yii;
 use yii\base\Action;
+use yii\helpers\Html;
 
 class NestedSortableAction extends Action {
 
@@ -60,7 +61,7 @@ class NestedSortableAction extends Action {
         }
 
         // Echo status message for the update
-        echo Yii::t('app', "The list was updated ") . date("y-m-d H:i:s") . "!";
+         echo Html::tag('div',Yii::t('claudejanz', "Order Updated on {date}",['date'=>Yii::$app->formatter->asDatetime(time())]),['class'=>'alert alert-success']);
     }
 
     public function parseJsonArray($jsonArray, $parentID = null) {

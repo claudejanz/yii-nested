@@ -219,7 +219,7 @@ class NestedSortable extends Widget
 
 		// Feedback div for update hierarchy to DB
 		// IMPORTANT: This needs to be here! But you can remove the style
-		$nested .= "<div id='sortDBfeedback' style='border:1px solid #eaeaea; padding:10px; margin:15px;'></div>";
+		$nested .= "<div id='sortDBfeedback' style=''></div>";
 
 		if($this->expand==true)
 		{
